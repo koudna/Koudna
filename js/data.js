@@ -3246,6 +3246,520 @@ add_correct(10)
         }
     }
 }
+,
+
+/* ---------- الدرس 28 ---------- */
+{
+    title: { ar: "قراءة الملفات وكتابتها", en: "Reading and writing files" },
+    body: {
+        ar: `
+<p>كل برنامج تعلّمته حتى الآن يفقد بياناته بمجرد إغلاقه — قائمة المهام، دفتر جهات الاتصال، كل شيء يختفي عند إعادة التشغيل. البرامج الحقيقية تحتاج تخزين بيانات <strong>دائم</strong> يبقى بعد إغلاق البرنامج، على القرص الصلب مباشرة. هذا الدرس يعلّمك كيف يقرأ برنامجك من ملف حقيقي ويكتب إليه.</p>
+
+<h3>فتح ملف بـ open()</h3>
+
+<p>الدالة <code>open(filename, mode)</code> تفتح ملفاً وتُرجع كائن ملف يمكن القراءة منه أو الكتابة إليه. أهم الأوضاع (modes): <code>"r"</code> للقراءة (الافتراضي)، <code>"w"</code> للكتابة (يمحو المحتوى الموجود بالكامل إن كان الملف موجوداً!)، و<code>"a"</code> للإضافة في نهاية الملف دون محو ما سبق.</p>
+
+<h3>القراءة: read وreadline وreadlines</h3>
+
+<p><code>file.read()</code> تقرأ محتوى الملف كاملاً كنصّ واحد. <code>file.readlines()</code> تقرأ الملف كقائمة من الأسطر، كل عنصر سطر منفصل. للملفات الكبيرة، الأفضل التكرار مباشرة على الملف بحلقة <code>for line in file:</code> — تقرأ سطراً واحداً في كل دورة دون تحميل الملف كاملاً في الذاكرة دفعة واحدة.</p>
+
+<h3>الصيغة الآمنة: with</h3>
+
+<p>الطريقة الاحترافية الوحيدة تقريباً لفتح ملف هي <code>with open(filename) as file:</code>. لماذا؟ لأن الملف <strong>يجب</strong> أن يُغلق بعد الانتهاء منه (لتحرير الموارد، وضمان حفظ ما كُتب فعلياً على القرص). صيغة <code>with</code> تُغلق الملف تلقائياً حتى لو حدث خطأ أثناء العمل معه — بخلاف <code>open()</code> بمفردها التي تتطلّب تذكّر <code>file.close()</code> يدوياً، وهو ما ينساه الجميع عاجلاً أم آجلاً.</p>
+
+<h3>الكتابة إلى ملف</h3>
+
+<p><code>file.write(text)</code> تكتب نصاً إلى الملف — لا تضيف سطراً جديداً تلقائياً كما يفعل <code>print()</code>، فيجب إضافة <code>\\n</code> يدوياً إن أردت أسطراً منفصلة.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>فتح ملف غير موجود بوضع <code>"r"</code> يرمي <code>FileNotFoundError</code> فوراً. وفتح ملف موجود بوضع <code>"w"</code> بالخطأ يمحو محتواه بالكامل بصمت دون أي تحذير — تحقّق دائماً من الوضع الصحيح قبل الكتابة.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>open(filename, mode)</code>: <code>"r"</code> قراءة، <code>"w"</code> كتابة (يمحو الموجود)، <code>"a"</code> إضافة</li>
+    <li>استخدم <code>with open(...) as file:</code> دائماً — تُغلق الملف تلقائياً وبأمان</li>
+    <li><code>for line in file:</code> أفضل طريقة لقراءة ملف كبير سطراً بسطر</li>
+    <li><code>file.write(text)</code> لا تضيف سطراً جديداً — أضف <code>\\n</code> يدوياً</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب برنامجاً يُنشئ ملف <code>notes.txt</code> ويكتب فيه ثلاثة أسطر بـ <code>with</code> ووضع <code>"w"</code>. ثم افتحه مجدداً بوضع القراءة واطبع كل سطر بحلقة <code>for</code>.</p>
+`,
+        en: `<p>Use open(filename, mode) to work with files: "r" reads, "w" writes (erasing existing content), "a" appends. Always use with open(...) as file: so the file closes automatically and safely, even if an error occurs. write() does not add a newline automatically.</p>`
+    },
+    code: `<span class="cm"># الكتابة إلى ملف — with يغلقه تلقائياً</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"w"</span>) <span class="kw">as</span> file:
+    file.write(<span class="st">"First note\\n"</span>)
+    file.write(<span class="st">"Second note\\n"</span>)
+    file.write(<span class="st">"Third note\\n"</span>)
+
+
+<span class="cm"># القراءة الكاملة كنصّ واحد</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">content</span> = file.read()
+    <span class="fn">print</span>(content)
+
+
+<span class="cm"># الأفضل للملفات الكبيرة: قراءة سطراً بسطر</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">for</span> line <span class="kw">in</span> file:
+        <span class="fn">print</span>(line.strip())   <span class="cm"># strip يزيل \\n الزائد</span>
+
+
+<span class="cm"># الإضافة دون محو المحتوى السابق</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"a"</span>) <span class="kw">as</span> file:
+    file.write(<span class="st">"Fourth note (appended)\\n"</span>)
+
+
+<span class="cm"># خطأ شائع: ملف غير موجود</span>
+<span class="cm"># with open("missing.txt", "r") as f:   ← FileNotFoundError</span>`,
+    quiz: {
+        q: {
+            ar: "ما الفائدة الأساسية من استخدام with open(...) as file بدل open() مباشرة؟",
+            en: "What is the main benefit of with open(...) as file over calling open() directly?"
+        },
+        options: {
+            ar: [
+                "يجعل القراءة أسرع بكثير",
+                "يُغلق الملف تلقائياً وبأمان حتى لو حدث خطأ أثناء العمل معه",
+                "يسمح بفتح أكثر من ملف في نفس الوقت فقط",
+                "يمنع الملف من الكتابة عليه بالخطأ"
+            ],
+            en: [
+                "It makes reading much faster",
+                "It automatically and safely closes the file, even if an error occurs while working with it",
+                "It only allows opening more than one file at once",
+                "It prevents the file from being accidentally overwritten"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "with يضمن استدعاء file.close() تلقائياً بمجرد الخروج من الكتلة، سواء انتهى الكود بنجاح أو حدث خطأ في المنتصف — بخلاف open() المباشرة التي تتطلّب تذكّر الإغلاق يدوياً في كل مرة.",
+            en: "with guarantees file.close() is called automatically once the block exits, whether the code finished successfully or an error occurred midway — unlike calling open() directly, which requires remembering to close manually every time."
+        }
+    }
+},
+
+/* ---------- الدرس 29 ---------- */
+{
+    title: { ar: "العمل مع CSV وJSON", en: "Working with CSV and JSON" },
+    body: {
+        ar: `
+<p>ملفات النصّ العادي (txt) رائعة للملاحظات البسيطة، لكن البيانات الحقيقية غالباً <strong>مُهيكَلة</strong>: جداول بأعمدة (كملف Excel)، أو بيانات متداخلة (كإعدادات تطبيق). هنا يأتي دور صيغتين معياريتين شائعتين جداً: <strong>CSV</strong> للجداول، و<strong>JSON</strong> للبيانات المتداخلة — وكلاهما مدعوم مباشرة بمكتبات جاهزة في بايثون.</p>
+
+<h3>CSV: القيم المفصولة بفواصل</h3>
+
+<p>ملف CSV (Comma-Separated Values) هو نصّ عادي، كل سطر فيه صفّ، والقيم مفصولة بفواصل. مكتبة <code>csv</code> المدمجة تُبسّط قراءته وكتابته: <code>csv.reader(file)</code> تُرجع كل صفّ كقائمة، و<code>csv.writer(file)</code> تكتب صفوفاً جديدة بـ <code>writerow(list)</code> دون القلق يدوياً بشأن الفواصل أو علامات التنصيص داخل البيانات.</p>
+
+<h3>JSON: تبادل البيانات المتداخلة</h3>
+
+<p>JSON (JavaScript Object Notation) صار المعيار العالمي لتبادل البيانات بين البرامج والخدمات على الويب. بنيته تُشبه تماماً قواميس وقوائم بايثون المتداخلة. مكتبة <code>json</code> المدمجة توفّر دالتين أساسيتين: <code>json.dump(data, file)</code> تكتب بيانات بايثون (قاموس أو قائمة) كملف JSON، و<code>json.load(file)</code> تقرأ ملف JSON وتحوّله مباشرة لقاموس أو قائمة بايثون حقيقية جاهزة للاستخدام.</p>
+
+<h3>لماذا JSON مهم بهذا الشكل؟</h3>
+
+<p>التحويل التلقائي بين هياكل بايثون وJSON يعني أنك تستطيع حفظ قاموس معقّد (كإعدادات تطبيق كاملة، أو بيانات مستخدم) بسطر واحد <code>json.dump()</code>، واسترجاعه لاحقاً بسطر واحد <code>json.load()</code>، دون كتابة أي منطق تحويل يدوي بنفسك.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>الخلط بين <code>json.dump()</code> (تكتب لملف مفتوح) وبين <code>json.dumps()</code> (بحرف s إضافي — تُرجع نصّاً JSON كسلسلة نصية عادية، بلا كتابة لملف). نفس الفرق بين <code>json.load()</code> و<code>json.loads()</code>. وفتح ملف CSV بدون <code>newline=""</code> على ويندوز قد ينتج أسطراً فارغة زائدة بين الصفوف.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>CSV صيغة جدولية بسيطة، تتعامل معها مكتبة <code>csv</code> المدمجة</li>
+    <li>JSON صيغة متداخلة تُطابق قواميس وقوائم بايثون تماماً</li>
+    <li><code>json.dump(data, file)</code> يكتب، و<code>json.load(file)</code> يقرأ ويحوّل تلقائياً</li>
+    <li>انتبه للفرق بين <code>dump/load</code> (ملف) و<code>dumps/loads</code> (نصّ)</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أنشئ قاموساً بمعلومات كتاب (عنوان، مؤلف، سنة). احفظه في ملف <code>book.json</code> بـ <code>json.dump()</code>، ثم افتح الملف واقرأه مجدداً بـ <code>json.load()</code> واطبع كل قيمة.</p>
+`,
+        en: `<p>The csv module reads/writes tabular data with csv.reader() and csv.writer(). The json module converts Python dicts/lists to and from JSON files directly: json.dump(data, file) writes, json.load(file) reads and reconstructs the original structure automatically.</p>`
+    },
+    code: `<span class="cm"># CSV: الكتابة</span>
+<span class="kw">import</span> csv
+
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"students.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>) <span class="kw">as</span> file:
+    <span class="kw">writer</span> = csv.writer(file)
+    writer.writerow([<span class="st">"name"</span>, <span class="st">"grade"</span>])
+    writer.writerow([<span class="st">"Sarah"</span>, 95])
+    writer.writerow([<span class="st">"Ahmed"</span>, 88])
+
+
+<span class="cm"># CSV: القراءة — كل صفّ يعود كقائمة</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"students.csv"</span>, <span class="st">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">reader</span> = csv.reader(file)
+    <span class="kw">for</span> row <span class="kw">in</span> reader:
+        <span class="fn">print</span>(row)
+
+
+<span class="cm"># JSON: الكتابة من قاموس بايثون مباشرة</span>
+<span class="kw">import</span> json
+
+<span class="kw">book</span> = {<span class="st">"title"</span>: <span class="st">"Python Basics"</span>, <span class="st">"year"</span>: 2026, <span class="st">"tags"</span>: [<span class="st">"beginner"</span>, <span class="st">"programming"</span>]}
+
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"book.json"</span>, <span class="st">"w"</span>) <span class="kw">as</span> file:
+    json.dump(book, file)
+
+
+<span class="cm"># JSON: القراءة — تعود كقاموس بايثون جاهز</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"book.json"</span>, <span class="st">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">loaded_book</span> = json.load(file)
+
+<span class="fn">print</span>(loaded_book[<span class="st">"title"</span>])   <span class="cm"># Python Basics</span>
+<span class="fn">print</span>(<span class="fn">type</span>(loaded_book))       <span class="cm"># &lt;class 'dict'&gt;</span>`,
+    quiz: {
+        q: {
+            ar: "ما الفرق بين json.dump() وjson.dumps()؟",
+            en: "What is the difference between json.dump() and json.dumps()?"
+        },
+        options: {
+            ar: [
+                "لا فرق، الاسمان يؤديان نفس الشيء",
+                "dump تكتب مباشرة لملف مفتوح، وdumps تُرجع نصّ JSON كسلسلة نصية",
+                "dumps فقط تعمل مع القوائم",
+                "dump أبطأ من dumps بكثير"
+            ],
+            en: [
+                "No difference, both do the same thing",
+                "dump writes directly to an open file, dumps returns a JSON string",
+                "dumps only works with lists",
+                "dump is much slower than dumps"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "dump() تحتاج كائن ملف مفتوح وتكتب إليه مباشرة، بينما dumps() (بحرف s للدلالة على 'string') لا تحتاج ملفاً أصلاً وتُرجع النتيجة كسلسلة نصية عادية يمكن استخدامها في أي مكان، مثل إرسالها عبر الشبكة.",
+            en: "dump() needs an open file object and writes to it directly, while dumps() (the 's' stands for 'string') needs no file at all and returns the result as a plain string usable anywhere, like sending it over a network."
+        }
+    }
+},
+
+/* ---------- الدرس 30 ---------- */
+{
+    title: { ar: "التعامل مع الأخطاء: try/except", en: "Handling errors: try/except" },
+    body: {
+        ar: `
+<p>في دروس سابقة، رأيت أخطاء كثيرة: <code>ValueError</code> عند تحويل نصّ غير رقمي، <code>FileNotFoundError</code> عند فتح ملف غير موجود، <code>ZeroDivisionError</code> عند القسمة على صفر. حتى الآن، أي من هذه الأخطاء كانت <strong>توقف البرنامج بالكامل فوراً</strong>. لكن البرامج الاحترافية لا تتوقّف بهذه السهولة — تتوقّع الأخطاء وتتعامل معها بأناقة. هذا هو دور <code>try/except</code>.</p>
+
+<h3>البنية الأساسية</h3>
+
+<p>ضع الكود الذي قد يفشل داخل كتلة <code>try:</code>. إن حدث خطأ بالفعل، يتوقّف تنفيذ <code>try</code> فوراً وينتقل البرنامج إلى كتلة <code>except:</code> المطابقة بدل التوقّف الكامل. إن لم يحدث أي خطأ، تُتجاهل كتلة <code>except</code> بالكامل ويكمل البرنامج طبيعياً بعدها.</p>
+
+<h3>التقاط نوع خطأ محدد</h3>
+
+<p>الأفضل دائماً تحديد نوع الخطأ المتوقّع صراحة: <code>except ValueError:</code> بدل <code>except:</code> عامة بلا تحديد. لماذا؟ لأن <code>except:</code> العامة تُخفي <strong>كل</strong> الأخطاء، حتى تلك غير المتوقّعة التي قد تكشف عن خطأ حقيقي في برنامجك يجب أن تراه وتصلحه، لا أن تُخفيه بصمت.</p>
+
+<h3>عدة كتل except لأخطاء مختلفة</h3>
+
+<p>يمكن وضع أكثر من كتلة <code>except</code> لأنواع أخطاء مختلفة، كل واحدة تتعامل مع حالتها الخاصة: <code>except ValueError:</code> لخطأ تحويل، ثم <code>except ZeroDivisionError:</code> لخطأ قسمة، بترتيب من الأكثر تحديداً للأعمّ.</p>
+
+<h3>finally: كود يُنفَّذ دائماً</h3>
+
+<p>كتلة <code>finally:</code> اختيارية تُنفَّذ <strong>دائماً</strong> بعد <code>try/except</code>، سواء نجح الكود أو فشل — مفيدة لعمليات تنظيف يجب أن تحدث دوماً، مثل إغلاق اتصال أو ملف (رغم أن <code>with</code> يغني عن هذا غالباً في حالة الملفات تحديداً).</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>استخدام <code>except:</code> عامة جداً تُخفي أخطاء حقيقية في الكود بدل الأخطاء المتوقّعة فقط. وكذلك وضع منطق كثير جداً داخل <code>try</code> بحيث تصعب معرفة أي سطر بالضبط سبّب الخطأ — اجعل كتلة <code>try</code> مركّزة على السطر أو السطرين المتوقّع فشلهما فقط.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>try/except</code> يمنع توقّف البرنامج المفاجئ عند حدوث خطأ متوقّع</li>
+    <li>حدّد نوع الخطأ صراحة: <code>except ValueError:</code> بدل <code>except:</code> عامة</li>
+    <li>يمكن وضع عدة كتل <code>except</code> لأنواع أخطاء مختلفة</li>
+    <li><code>finally:</code> يُنفَّذ دائماً، نجح الكود أو فشل</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب برنامجاً يطلب من المستخدم رقمين ويقسم الأول على الثاني، محاطاً بـ <code>try/except</code> يلتقط كلاً من <code>ValueError</code> (إدخال غير رقمي) و<code>ZeroDivisionError</code> (القسمة على صفر) برسالة واضحة لكل حالة.</p>
+`,
+        en: `<p>try/except prevents a program from crashing on expected errors: put risky code in try:, and handle specific failures in except ErrorType: blocks. Prefer specific exception types over a bare except: so real bugs aren't silently hidden. finally: always runs, whether an error occurred or not.</p>`
+    },
+    code: `<span class="cm"># بدون try/except — يتوقف البرنامج فوراً</span>
+<span class="cm"># age = int(input("Age: "))   ← لو كتب المستخدم نصاً، ValueError يوقف كل شيء</span>
+
+
+<span class="cm"># مع try/except — يتعافى بأناقة</span>
+<span class="kw">try</span>:
+    <span class="kw">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Age: "</span>))
+    <span class="fn">print</span>(<span class="st">f"You are {age} years old"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"That's not a valid number"</span>)
+
+
+<span class="cm"># عدة كتل except لأخطاء مختلفة</span>
+<span class="kw">try</span>:
+    <span class="kw">num1</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"First number: "</span>))
+    <span class="kw">num2</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Second number: "</span>))
+    <span class="kw">result</span> = num1 / num2
+    <span class="fn">print</span>(<span class="st">f"Result: {result}"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"Please enter valid numbers"</span>)
+<span class="kw">except</span> <span class="fn">ZeroDivisionError</span>:
+    <span class="fn">print</span>(<span class="st">"Cannot divide by zero"</span>)
+
+
+<span class="cm"># finally: يُنفَّذ دائماً</span>
+<span class="kw">try</span>:
+    <span class="kw">value</span> = <span class="fn">int</span>(<span class="st">"not a number"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"Conversion failed"</span>)
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="st">"This always runs"</span>)`,
+    quiz: {
+        q: {
+            ar: "لماذا يُفضَّل except ValueError: على except: عامة بلا تحديد؟",
+            en: "Why is except ValueError: preferred over a bare except:?"
+        },
+        options: {
+            ar: [
+                "except: العامة أبطأ بكثير في التنفيذ",
+                "except: العامة تُخفي كل أنواع الأخطاء، حتى الأخطاء الحقيقية غير المتوقّعة في الكود",
+                "except ValueError: هي الصيغة الوحيدة الصحيحة في بايثون",
+                "لا فرق فعلي بينهما"
+            ],
+            en: [
+                "A bare except: is much slower to run",
+                "A bare except: hides every kind of error, even real unexpected bugs in the code",
+                "except ValueError: is the only valid syntax in Python",
+                "There's no real difference between them"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "تحديد نوع الخطأ صراحة يعني أنك تلتقط فقط الحالة التي توقّعتها وتعرف كيف تتعامل معها. except: العامة تلتقط كل شيء، بما فيها أخطاء برمجية حقيقية (كخطأ إملائي في اسم متغيّر) يجب أن تراها وتصلحها، لا أن تختفي بصمت.",
+            en: "Naming the exception type explicitly means you only catch the case you anticipated and know how to handle. A bare except: catches everything, including real bugs (like a typo in a variable name) that you should see and fix, not have silently swallowed."
+        }
+    }
+},
+
+/* ---------- الدرس 31 ---------- */
+{
+    title: { ar: "raise والتحقّق المسبق من الأخطاء", en: "raise and validating input proactively" },
+    body: {
+        ar: `
+<p>حتى الآن، تعاملت مع أخطاء يرميها بايثون تلقائياً. لكن أحياناً تريد أنت نفسك أن تُوقف تنفيذ دالة وتُبلغ بخطأ واضح عندما يكون الإدخال غير منطقي حسب قواعد برنامجك الخاصة — حتى لو لم يكن هذا خطأ بايثون نفسه. هنا تستخدم <code>raise</code> لرمي خطأ يدوياً بنفسك.</p>
+
+<h3>رمي خطأ بـ raise</h3>
+
+<p>الصيغة: <code>raise ErrorType("رسالة توضيحية")</code>. مثال: دالة تحسب عمراً من سنة الميلاد يجب أن ترمي خطأ إن كانت السنة مستقبلية أو سالبة — حتى لو كانت السنة نفسها رقماً صالحاً تقنياً. <code>raise ValueError("Year cannot be negative")</code> يوقف الدالة فوراً برسالة واضحة تشرح <strong>لماذا</strong> فشلت العملية.</p>
+
+<h3>لماذا نتحقّق يدوياً بدل انتظار الخطأ؟</h3>
+
+<p>بايثون لا يعرف قواعد عملك الخاصة. عمر سالب رقم صالح تقنياً في بايثون (لن يرمي خطأ تلقائياً)، لكنه غير منطقي في سياق برنامجك. التحقّق اليدوي بـ <code>raise</code> يحوّل أخطاء منطقية صامتة (نتائج غريبة بلا تفسير) إلى أخطاء واضحة تُكتشف فوراً بدل أن تنتشر بصمت في بقية البرنامج.</p>
+
+<h3>التقاط الأخطاء المُرمية يدوياً</h3>
+
+<p>الخطأ المرمي بـ <code>raise</code> يُلتقط تماماً بنفس <code>try/except</code> الذي تعلمته: <code>except ValueError as e:</code> يلتقط الخطأ ويخزّن رسالته في <code>e</code>، يمكن طباعتها بـ <code>print(e)</code> لعرض رسالتك الخاصة للمستخدم مباشرة.</p>
+
+<h3>مبدأ "افشل بسرعة ووضوح"</h3>
+
+<p>هذه فلسفة برمجية مهمة: من الأفضل أن يتوقّف برنامجك برسالة خطأ واضحة فوراً عند إدخال غير منطقي، بدل أن يستمرّ بصمت وينتج نتائج خاطئة يصعب تتبّع مصدرها لاحقاً. التحقّق المبكر بـ <code>raise</code> يطبّق هذا المبدأ مباشرة.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>رمي خطأ بلا رسالة توضيحية: <code>raise ValueError()</code> بلا نصّ يترك المستخدم (وأنت لاحقاً) بلا فكرة عن سبب المشكلة الفعلي. اكتب دائماً رسالة واضحة تشرح ماذا كان خاطئاً بالضبط.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>raise ErrorType("رسالة")</code> يرمي خطأً يدوياً حسب قواعد برنامجك الخاصة</li>
+    <li>يُستخدم للتحقّق من إدخال صالح تقنياً في بايثون لكنه غير منطقي في سياقك</li>
+    <li>يُلتقط بنفس <code>try/except</code>، مع <code>as e</code> للوصول لرسالة الخطأ</li>
+    <li>اكتب دائماً رسالة توضيحية واضحة تشرح سبب الفشل بالضبط</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب دالة <code>set_age(age)</code> ترمي <code>ValueError</code> برسالة واضحة إن كان العمر سالباً أو أكبر من 120، وإلا تطبع "Age set successfully". اختبرها بقيم صالحة وغير صالحة داخل <code>try/except</code>.</p>
+`,
+        en: `<p>Use raise ErrorType("message") to manually stop execution when input is technically valid in Python but doesn't make sense for your program's rules — like a negative age. It's caught with the same try/except, using except ErrorType as e: to access the message via print(e).</p>`
+    },
+    code: `<span class="cm"># رمي خطأ يدوياً عند إدخال غير منطقي</span>
+<span class="kw">def</span> set_age(age):
+    <span class="kw">if</span> age < 0 <span class="kw">or</span> age > 120:
+        <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Age must be between 0 and 120"</span>)
+    <span class="fn">print</span>(<span class="st">f"Age set to {age}"</span>)
+
+
+<span class="cm"># التقاط الخطأ المرمي يدوياً — نفس try/except المعتاد</span>
+<span class="kw">try</span>:
+    set_age(-5)
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)   <span class="cm"># يطبع رسالتك الخاصة</span>
+
+
+<span class="cm"># مثال آخر: التحقّق قبل قسمة منطقية</span>
+<span class="kw">def</span> calculate_average(scores):
+    <span class="kw">if</span> <span class="fn">len</span>(scores) == 0:
+        <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Cannot calculate average of an empty list"</span>)
+    <span class="kw">return</span> <span class="fn">sum</span>(scores) / <span class="fn">len</span>(scores)
+
+<span class="kw">try</span>:
+    <span class="fn">print</span>(calculate_average([]))
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)
+
+
+<span class="cm"># حالة ناجحة — لا خطأ يُرمى إطلاقاً</span>
+<span class="kw">try</span>:
+    set_age(25)
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)`,
+    quiz: {
+        q: {
+            ar: "متى تستخدم raise بدل انتظار خطأ بايثون التلقائي؟",
+            en: "When would you use raise instead of waiting for an automatic Python error?"
+        },
+        options: {
+            ar: [
+                "raise أسرع دائماً من الأخطاء التلقائية",
+                "عندما تكون القيمة صالحة تقنياً في بايثون لكنها غير منطقية حسب قواعد برنامجك الخاصة",
+                "raise تعمل فقط داخل الدوال",
+                "لا داعٍ لاستخدام raise أبداً، بايثون يكتشف كل الأخطاء تلقائياً"
+            ],
+            en: [
+                "raise is always faster than automatic errors",
+                "When a value is technically valid in Python but doesn't make sense per your program's own rules",
+                "raise only works inside functions",
+                "There's never a need to use raise, Python catches every error automatically"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "بايثون يرمي أخطاء فقط على مستوى اللغة نفسها (كتحويل نصّ غير رقمي). عمر سالب أو قائمة فارغة عند حساب متوسّط قيم صالحة تقنياً في بايثون، لكنها غير منطقية في سياق برنامجك — وهنا raise يفرض قواعدك الخاصة صراحة.",
+            en: "Python only raises errors at the language level itself (like converting a non-numeric string). A negative age or an empty list when averaging are technically valid Python values, but don't make sense in your program's context — that's exactly where raise enforces your own rules explicitly."
+        }
+    }
+},
+
+/* ---------- الدرس 32 — مشروع ---------- */
+{
+    title: { ar: "مشروع 5: مدير مهام", en: "Project 5: Task manager" },
+    body: {
+        ar: `
+<p>مشروع هذا المستوى يجمع كل ما تعلمته: قراءة وكتابة الملفات، JSON، وtry/except. ستبني مدير مهام يحفظ بياناته في ملف JSON حقيقي، فتبقى المهام محفوظة حتى بعد إغلاق البرنامج وإعادة تشغيله — أول مشروع في هذا المسار ببيانات <strong>دائمة</strong> فعلاً.</p>
+
+<h3>التحميل عند البدء، الحفظ عند التعديل</h3>
+
+<p>الفكرة الأساسية: عند بدء البرنامج، حاول تحميل المهام من <code>tasks.json</code> إن كان موجوداً (بـ <code>try/except FileNotFoundError</code> — أول تشغيل لن يجد الملف أصلاً، وهذا متوقّع وليس خطأً حقيقياً). بعد أي تعديل (إضافة، إنجاز مهمة)، احفظ القائمة كاملة مجدداً إلى الملف بـ <code>json.dump()</code> فوراً.</p>
+
+<h3>لماذا try/except هنا تحديداً منطقي جداً؟</h3>
+
+<p>عدم وجود ملف <code>tasks.json</code> عند أول تشغيل ليس خللاً في البرنامج — إنه الحالة الطبيعية المتوقّعة تماماً. بدل أن يتوقّف البرنامج بخطأ مرعب لأول مستخدم يجرّبه، يلتقط <code>except FileNotFoundError</code> هذه الحالة بأناقة ويبدأ بقائمة فارغة كأنه أمر طبيعي — لأنه فعلاً كذلك.</p>
+
+<h3>هيكل بيانات كل مهمة</h3>
+
+<p>كل مهمة قاموس: <code>{"title": "...", "done": False}</code>. هذا يسمح لاحقاً بتوسيع كل مهمة بحقول إضافية (تاريخ استحقاق، أولوية) دون تغيير بنية الملف بالكامل — نفس نمط قائمة القواميس من مشروع دفتر جهات الاتصال.</p>
+
+<h3>تحديات للتوسيع</h3>
+
+<ul>
+    <li>أضف خيار حذف مهمة، مع حفظ الملف فوراً بعد الحذف</li>
+    <li>أضف تاريخ إنشاء لكل مهمة باستخدام مكتبة <code>datetime</code></li>
+    <li>اعرض عدد المهام المنجزة مقابل الكلي عند بدء البرنامج</li>
+    <li>تعامل أيضاً مع خطأ <code>json.JSONDecodeError</code> إن كان الملف موجوداً لكن تالفاً</li>
+</ul>
+
+<h3>ماذا أنجزت في هذا المستوى؟</h3>
+
+<ul>
+    <li>قرأت من الملفات وكتبت إليها بأمان باستخدام <code>with</code></li>
+    <li>خزّنت بيانات مُهيكَلة حقيقية بصيغتي CSV وJSON، وحوّلتها تلقائياً من وإلى بنى بايثون</li>
+    <li>تعاملت مع الأخطاء المتوقّعة بأناقة بـ <code>try/except</code> بدل توقّف البرنامج المفاجئ</li>
+    <li>رميت أخطاءك الخاصة بـ <code>raise</code> عند إدخال غير منطقي حسب قواعدك</li>
+    <li>وبنيت أول برنامج ببيانات <strong>دائمة</strong> فعلاً تبقى بعد إغلاق البرنامج</li>
+</ul>
+
+<p>في المستوى السادس سنتعلّم البرمجة الكائنية (OOP) — طريقة تنظيم أكبر بكثير لتمثيل أشياء حقيقية في الكود، بدل قواميس وقوائم منفصلة عن بعضها.</p>
+`,
+        en: `<p>This project combines file I/O, JSON, and try/except into a persistent task manager: tasks load from tasks.json on start (missing file on first run is caught gracefully, not treated as a crash) and save back after every change — the first project in this path with real persistent data.</p>`
+    },
+    code: `<span class="cm"># ============================================</span>
+<span class="cm"># مدير مهام مع حفظ دائم</span>
+<span class="cm"># ============================================</span>
+<span class="kw">import</span> json
+
+<span class="kw">FILENAME</span> = <span class="st">"tasks.json"</span>
+
+
+<span class="kw">def</span> load_tasks():
+    <span class="kw">try</span>:
+        <span class="kw">with</span> <span class="fn">open</span>(FILENAME, <span class="st">"r"</span>) <span class="kw">as</span> file:
+            <span class="kw">return</span> json.load(file)
+    <span class="kw">except</span> <span class="fn">FileNotFoundError</span>:
+        <span class="kw">return</span> []   <span class="cm"># أول تشغيل — لا يوجد ملف بعد، وهذا طبيعي</span>
+
+
+<span class="kw">def</span> save_tasks(tasks):
+    <span class="kw">with</span> <span class="fn">open</span>(FILENAME, <span class="st">"w"</span>) <span class="kw">as</span> file:
+        json.dump(tasks, file)
+
+
+<span class="kw">tasks</span> = load_tasks()
+<span class="fn">print</span>(<span class="st">f"Loaded {len(tasks)} task(s)"</span>)
+
+<span class="kw">while</span> <span class="kw">True</span>:
+    <span class="fn">print</span>(<span class="st">"\\n1) Add  2) Complete  3) List  4) Exit"</span>)
+    <span class="kw">choice</span> = <span class="fn">input</span>(<span class="st">"Choose an option: "</span>).strip()
+
+    <span class="kw">if</span> choice == <span class="st">"1"</span>:
+        <span class="kw">title</span> = <span class="fn">input</span>(<span class="st">"Task title: "</span>)
+        tasks.append({<span class="st">"title"</span>: title, <span class="st">"done"</span>: <span class="kw">False</span>})
+        save_tasks(tasks)
+
+    <span class="kw">elif</span> choice == <span class="st">"2"</span>:
+        <span class="kw">for</span> i, task <span class="kw">in</span> <span class="fn">enumerate</span>(tasks):
+            <span class="fn">print</span>(<span class="st">f"{i}. {task['title']}"</span>)
+        <span class="kw">try</span>:
+            <span class="kw">index</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Task number: "</span>))
+            tasks[index][<span class="st">"done"</span>] = <span class="kw">True</span>
+            save_tasks(tasks)
+        <span class="kw">except</span> (<span class="fn">ValueError</span>, <span class="fn">IndexError</span>):
+            <span class="fn">print</span>(<span class="st">"Invalid task number"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"3"</span>:
+        <span class="kw">for</span> task <span class="kw">in</span> tasks:
+            <span class="kw">status</span> = <span class="st">"[x]"</span> <span class="kw">if</span> task[<span class="st">"done"</span>] <span class="kw">else</span> <span class="st">"[ ]"</span>
+            <span class="fn">print</span>(<span class="st">f"{status} {task['title']}"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"4"</span>:
+        <span class="fn">print</span>(<span class="st">"Goodbye!"</span>)
+        <span class="kw">break</span>`,
+    quiz: {
+        q: {
+            ar: "لماذا لا يُعتبر FileNotFoundError عند تحميل tasks.json خطأً حقيقياً في هذا المشروع؟",
+            en: "Why isn't FileNotFoundError when loading tasks.json treated as a real error in this project?"
+        },
+        options: {
+            ar: [
+                "لأن بايثون لا يرمي هذا الخطأ أصلاً في هذه الحالة",
+                "لأنها حالة متوقّعة تماماً عند أول تشغيل قبل إنشاء أي مهمة، ويجب معالجتها ببداية بقائمة فارغة",
+                "لأن json.load() لا تحتاج ملفاً موجوداً أصلاً",
+                "لأن try/except يمنع حدوث الخطأ من الأساس"
+            ],
+            en: [
+                "Because Python doesn't actually raise this error in this case",
+                "Because it's a fully expected case on first run before any task exists, handled by starting with an empty list",
+                "Because json.load() doesn't actually need an existing file",
+                "Because try/except prevents the error from happening at all"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "عند أول تشغيل، لم يُنشَأ tasks.json بعد — هذا متوقّع تماماً وليس خللاً في البرنامج. except FileNotFoundError يلتقط هذه الحالة الطبيعية تحديداً ويبدأ بقائمة فارغة بدل توقّف البرنامج بخطأ مرعب لأول مستخدم.",
+            en: "On first run, tasks.json hasn't been created yet — this is entirely expected, not a program bug. except FileNotFoundError catches exactly this normal case and starts with an empty list instead of crashing with a scary error for the very first user."
+        }
+    }
+}
+
 
 
 ]
