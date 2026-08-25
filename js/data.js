@@ -4383,6 +4383,748 @@ library.books[0].borrow()
         }
     }
 }
+,
+
+/* ---------- الدرس 39 ---------- */
+{
+    title: { ar: "الوحدات (Modules) والاستيراد", en: "Modules and import" },
+    body: {
+        ar: `
+<p>كل مشروع كتبته حتى الآن كان في ملف واحد. لكن مشروعاً حقيقياً بآلاف الأسطر لا يمكن أن يعيش في ملف واحد بشكل معقول — يصبح فوضوياً، وصعب التنقّل فيه، وصعب إعادة استخدام أي جزء منه في مشروع آخر. <strong>الوحدة (Module)</strong> هي ببساطة ملف بايثون آخر يحتوي دوالاً أو أصنافاً يمكن <strong>استيرادها</strong> واستخدامها من ملفك الحالي.</p>
+
+<h3>استخدمت الوحدات بالفعل</h3>
+
+<p>تذكّر <code>import random</code> و<code>import json</code> و<code>import csv</code> من دروس سابقة — هذه وحدات مدمجة في بايثون (Standard Library) توفّر دوالاً جاهزة لم تكن مضطراً لكتابتها بنفسك. نفس المبدأ ينطبق على وحداتك الخاصة.</p>
+
+<h3>إنشاء واستيراد وحدة خاصة</h3>
+
+<p>أي ملف <code>.py</code> هو وحدة بحدّ ذاته. لو كتبت دوالاً في ملف <code>math_tools.py</code>، تستطيع استيرادها من ملف آخر في نفس المجلد بـ <code>import math_tools</code> ثم استدعاء <code>math_tools.square(5)</code>، أو باستيراد اسم محدّد مباشرة: <code>from math_tools import square</code> ثم استدعائها مباشرة بلا بادئة: <code>square(5)</code>.</p>
+
+<h3>__name__ == "__main__"</h3>
+
+<p>نمط شائع جداً تراه في كل مشروع بايثون احترافي: <code>if __name__ == "__main__":</code> في نهاية الملف. هذا الشرط يكون صحيحاً فقط عند تشغيل الملف <strong>مباشرة</strong>، لكنه خاطئ عند استيراده كوحدة من ملف آخر. يسمح هذا بوضع كود اختباري أو تجريبي في الملف نفسه، يعمل عند تشغيله وحده، لكن لا يتداخل مع الاستيراد من ملفات أخرى.</p>
+
+<h3>لماذا نقسّم لوحدات متعددة؟</h3>
+
+<p>ثلاثة أسباب: <strong>التنظيم</strong> (كل ملف مسؤول عن جزء واضح من المنطق)، <strong>إعادة الاستخدام</strong> (نفس الوحدة تُستورَد في عدة مشاريع دون نسخ ولصق)، و<strong>سهولة الصيانة</strong> (تعديل جزء واحد لا يتطلّب فتح ملف ضخم بآلاف الأسطر للبحث فيه).</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>محاولة استيراد وحدة من مجلد مختلف بدون فهم مسارات بايثون (نادراً ما تحتاج هذا كمبتدئ). وتسمية ملفك بنفس اسم وحدة مدمجة (مثل <code>random.py</code>) — هذا يُربك بايثون ويجعله يستورد ملفك بدل الوحدة الأصلية بالخطأ.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>الوحدة ملف <code>.py</code> يحتوي دوالاً/أصنافاً قابلة للاستيراد من ملفات أخرى</li>
+    <li><code>import module_name</code> يستورد الوحدة كاملة؛ <code>from module import name</code> يستورد شيئاً محدداً</li>
+    <li><code>if __name__ == "__main__":</code> يُنفَّذ فقط عند تشغيل الملف مباشرة، لا عند استيراده</li>
+    <li>تقسيم الكود لوحدات يحسّن التنظيم وإعادة الاستخدام وسهولة الصيانة</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أنشئ ملفاً باسم <code>string_utils.py</code> فيه دالة <code>reverse_words(sentence)</code> تعكس ترتيب الكلمات في جملة. استوردها من ملف آخر واستخدمها، مع إضافة <code>if __name__ == "__main__":</code> يحتوي كود اختبار سريع في الملف الأصلي نفسه.</p>
+`,
+        en: `<p>A module is just a .py file containing functions/classes that other files can import: import module_name imports the whole module; from module import name imports something specific. if __name__ == "__main__": runs only when the file is executed directly, not when imported elsewhere.</p>`
+    },
+    code: `<span class="cm"># وحدات مدمجة استخدمتها من قبل</span>
+<span class="kw">import</span> random
+<span class="kw">import</span> json
+
+
+<span class="cm"># --- في ملف منفصل باسم string_utils.py ---</span>
+<span class="cm"># def reverse_words(sentence):</span>
+<span class="cm">#     words = sentence.split()</span>
+<span class="cm">#     return " ".join(reversed(words))</span>
+<span class="cm">#</span>
+<span class="cm"># if __name__ == "__main__":</span>
+<span class="cm">#     # هذا يُنفَّذ فقط عند تشغيل الملف مباشرة، لا عند استيراده</span>
+<span class="cm">#     print(reverse_words("Hello World"))</span>
+
+
+<span class="cm"># --- في ملف آخر يستورد الوحدة أعلاه ---</span>
+<span class="cm"># import string_utils</span>
+<span class="cm"># print(string_utils.reverse_words("Python is fun"))</span>
+
+<span class="cm"># أو استيراد اسم محدّد مباشرة</span>
+<span class="cm"># from string_utils import reverse_words</span>
+<span class="cm"># print(reverse_words("Python is fun"))   ← بلا بادئة الوحدة</span>
+
+
+<span class="cm"># مثال فعلي بوحدة مدمجة</span>
+<span class="kw">secret_number</span> = random.randint(1, 100)
+<span class="fn">print</span>(<span class="st">f"Random number: {secret_number}"</span>)`,
+    quiz: {
+        q: {
+            ar: "متى يكون شرط if __name__ == \"__main__\": صحيحاً؟",
+            en: "When is the condition if __name__ == \"__main__\": true?"
+        },
+        options: {
+            ar: [
+                "دائماً صحيح، بغض النظر عن طريقة تشغيل الملف",
+                "فقط عندما يُشغَّل الملف مباشرة، وليس عند استيراده كوحدة من ملف آخر",
+                "فقط عند استيراد الملف من ملف آخر",
+                "لا علاقة له بطريقة التشغيل إطلاقاً"
+            ],
+            en: [
+                "Always true, regardless of how the file is run",
+                "Only when the file is run directly, not when it's imported as a module from another file",
+                "Only when the file is imported from another file",
+                "It has nothing to do with how the file is run"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "بايثون تعيّن __name__ إلى '__main__' فقط عند تشغيل الملف مباشرة (python file.py). عند استيراده من ملف آخر، تكون __name__ مساوية لاسم الوحدة نفسها، فيصبح الشرط خاطئاً ولا يُنفَّذ الكود بداخله.",
+            en: "Python sets __name__ to '__main__' only when the file is run directly (python file.py). When imported from another file, __name__ equals the module's own name instead, so the condition is false and the code inside doesn't run."
+        }
+    }
+},
+
+/* ---------- الدرس 40 ---------- */
+{
+    title: { ar: "pip: تثبيت المكتبات الخارجية", en: "pip: installing external packages" },
+    body: {
+        ar: `
+<p>الوحدات المدمجة (كـ <code>random</code> و<code>json</code>) رائعة، لكنها محدودة بما يأتي مع بايثون افتراضياً. المجتمع العالمي لمبرمجي بايثون نشر <strong>مئات آلاف المكتبات الجاهزة</strong> لكل غرض تقريباً: تحليل بيانات (<code>pandas</code>)، بناء مواقع (<code>Django</code>, <code>Flask</code>)، ذكاء اصطناعي (<code>tensorflow</code>)، وغيرها. <strong>pip</strong> هو الأداة التي تُثبّت هذه المكتبات على جهازك من الطرفية مباشرة.</p>
+
+<h3>تثبيت مكتبة بـ pip</h3>
+
+<p>من الطرفية (وليس داخل كود بايثون): <code>pip install requests</code> يُثبّت مكتبة <code>requests</code> الشهيرة للتعامل مع الويب. بعد التثبيت، تستوردها في كودك بنفس طريقة أي وحدة أخرى: <code>import requests</code>.</p>
+
+<h3>requirements.txt: توثيق المكتبات المطلوبة</h3>
+
+<p>عند مشاركة مشروع مع آخرين، لا تُرسل المكتبات المُثبَّتة نفسها — بل ملف نصّي باسم <code>requirements.txt</code> يسرد أسماءها: <code>requests\\npandas\\nflask</code>. أي شخص يستلم مشروعك يشغّل أمراً واحداً: <code>pip install -r requirements.txt</code> فيُثبَّت كل شيء دفعة واحدة تلقائياً.</p>
+
+<h3>البيئات الافتراضية (Virtual Environments)</h3>
+
+<p>مشاريع مختلفة قد تحتاج نسخاً مختلفة من نفس المكتبة. <strong>البيئة الافتراضية</strong> (venv) تعزل مكتبات كل مشروع عن الآخر، فلا يتعارض تثبيت مكتبة لمشروع مع مشروع آخر على نفس الجهاز. تُنشأ بأمر <code>python -m venv myenv</code>، وتُفعَّل قبل تثبيت أي مكتبة داخل مشروع محدّد — ممارسة احترافية أساسية رغم أنها ليست ضرورية لتجاربك التعليمية الأولى.</p>
+
+<h3>لماذا هذا مهم؟</h3>
+
+<p>القدرة على استخدام عمل آلاف المبرمجين الآخرين جاهزاً توفّر أسابيع أو أشهراً من العمل. بدل إعادة اختراع كل شيء من الصفر، تُثبّت المكتبة المناسبة وتبني فوق عملها مباشرة — هذا بالضبط ما يجعل بايثون قوية جداً في العالم الحقيقي.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>كتابة <code>pip install</code> داخل كود بايثون نفسه بدل الطرفية — <code>pip</code> أمر طرفية، لا دالة بايثون. ونسيان تحديث <code>requirements.txt</code> بعد تثبيت مكتبة جديدة، فيفشل تثبيت المشروع لاحقاً عند شخص آخر بسبب مكتبة ناقصة من القائمة.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>pip install package_name</code> يُثبّت مكتبة خارجية من الطرفية</li>
+    <li><code>requirements.txt</code> يوثّق كل المكتبات المطلوبة لمشروعك بمكان واحد</li>
+    <li><code>pip install -r requirements.txt</code> يُثبّت كل شيء دفعة واحدة</li>
+    <li>البيئات الافتراضية تعزل مكتبات كل مشروع عن مشاريع أخرى على نفس الجهاز</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>افتح الطرفية وثبّت مكتبة <code>requests</code> بـ <code>pip install requests</code>. أنشئ ملف <code>requirements.txt</code> يحتوي اسمها، ثم اكتب برنامجاً صغيراً يستوردها ويطبع <code>requests.__version__</code> للتأكد من التثبيت.</p>
+`,
+        en: `<p>pip install package_name (run in the terminal, not inside Python code) installs external libraries beyond Python's built-ins. requirements.txt lists a project's dependencies so pip install -r requirements.txt can install them all at once. Virtual environments isolate each project's packages from others on the same machine.</p>`
+    },
+    code: `<span class="cm"># هذه الأوامر تُكتب في الطرفية، وليست كود بايثون!</span>
+
+<span class="cm"># 1) تثبيت مكتبة خارجية</span>
+pip install requests
+
+<span class="cm"># 2) إنشاء بيئة افتراضية معزولة (اختياري لكن مُوصى به)</span>
+python -m venv myenv
+
+<span class="cm"># 3) تفعيل البيئة الافتراضية</span>
+<span class="cm"># على ويندوز:</span>
+myenv\\Scripts\\activate
+<span class="cm"># على macOS/Linux:</span>
+<span class="cm"># source myenv/bin/activate</span>
+
+<span class="cm"># 4) تثبيت كل مكتبات المشروع من ملف واحد</span>
+pip install -r requirements.txt
+
+
+<span class="cm"># ============================================</span>
+<span class="cm"># الكود التالي هو بايثون فعلي، بعد التثبيت</span>
+<span class="cm"># ============================================</span>
+<span class="kw">import</span> requests
+
+<span class="fn">print</span>(<span class="st">f"requests version: {requests.__version__}"</span>)
+
+<span class="cm"># محتوى requirements.txt نموذجي:</span>
+<span class="cm"># requests</span>
+<span class="cm"># pandas</span>
+<span class="cm"># flask</span>`,
+    quiz: {
+        q: {
+            ar: "ما وظيفة ملف requirements.txt في مشروع بايثون؟",
+            en: "What is the purpose of a requirements.txt file in a Python project?"
+        },
+        options: {
+            ar: [
+                "يحتوي كود بايثون قابلاً للتنفيذ مباشرة",
+                "يسرد أسماء المكتبات الخارجية المطلوبة، ليثبّتها أي شخص آخر بأمر واحد",
+                "يُشغَّل تلقائياً عند فتح المشروع",
+                "يحتوي كلمات مرور المشروع فقط"
+            ],
+            en: [
+                "It contains directly executable Python code",
+                "It lists the external libraries a project needs, so anyone else can install them with a single command",
+                "It runs automatically whenever the project is opened",
+                "It only contains the project's passwords"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "requirements.txt ملف نصّي بسيط يسرد أسماء المكتبات (وأحياناً إصداراتها)، فيستطيع أي شخص يستلم المشروع تثبيت كل شيء دفعة واحدة بأمر pip install -r requirements.txt بدل البحث يدوياً عن كل مكتبة مطلوبة.",
+            en: "requirements.txt is a simple text file listing library names (and sometimes versions), so anyone who receives the project can install everything at once with pip install -r requirements.txt instead of manually hunting down each required library."
+        }
+    }
+},
+
+/* ---------- الدرس 41 ---------- */
+{
+    title: { ar: "args وkwargs: معاملات مرنة", en: "*args and **kwargs: flexible parameters" },
+    body: {
+        ar: `
+<p>كل دالة كتبتها حتى الآن كان لها عدد معاملات ثابت ومحدّد سلفاً. لكن ماذا لو أردت دالة <code>total(*)</code> تجمع أي عدد من الأرقام، اثنين أو عشرة؟ كتابة معامل منفصل لكل حالة مستحيلة عملياً. بايثون توفّر أداتين لهذا بالضبط: <code>*args</code> و<code>**kwargs</code>، تسمحان لدالة باستقبال عدد <strong>غير محدّد</strong> من الوسائط.</p>
+
+<h3>*args: عدد غير محدّد من الوسائط الموضعية</h3>
+
+<p>وضع نجمة قبل اسم معامل، مثل <code>def total(*numbers):</code>، تجمع كل الوسائط الموضعية الممرَّرة في Tuple واحد باسم <code>numbers</code>. يمكنك استدعاء <code>total(1, 2)</code> أو <code>total(1, 2, 3, 4, 5)</code> بنفس الدالة، دون تعريف عدد ثابت من المعاملات مسبقاً.</p>
+
+<h3>**kwargs: عدد غير محدّد من الوسائط المسمّاة</h3>
+
+<p>نجمتان قبل اسم معامل، مثل <code>def describe(**info):</code>، تجمع كل الوسائط المسمّاة الممرَّرة في قاموس واحد باسم <code>info</code>. استدعاء <code>describe(name="Sarah", age=22)</code> يجعل <code>info</code> يساوي <code>{"name": "Sarah", "age": 22}</code> — مفيدة جداً عندما لا تعرف مسبقاً أي معلومات إضافية قد يريد المستخدم تمريرها.</p>
+
+<h3>الترتيب الصحيح عند الجمع بينها</h3>
+
+<p>يمكن الجمع بين معاملات عادية، <code>*args</code>، و<code>**kwargs</code> في نفس الدالة، لكن بترتيب إلزامي: المعاملات العادية أولاً، ثم <code>*args</code>، ثم <code>**kwargs</code> أخيراً دائماً: <code>def f(a, b, *args, **kwargs):</code>.</p>
+
+<h3>لماذا هذا مهم للدرس القادم؟</h3>
+
+<p>هذا الدرس أساسي لفهم <strong>Decorators</strong> في الدرس التالي — أي decorator عام يحتاج تمرير أي دالة بأي عدد ونوع معاملات، وهذا مستحيل بدون <code>*args</code> و<code>**kwargs</code> لاستقبال "كل شيء ممكن" دون معرفته مسبقاً.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>الخلط بين ترتيب <code>*args</code> و<code>**kwargs</code> عند التعريف — <code>**kwargs</code> يجب أن يكون دائماً الأخير. ونسيان أن <code>args</code> داخل الدالة هو Tuple عادي، فتحتاج التكرار عليه أو استخدام دوال Tuple المعتادة، وليس فهرسة كأنه معامل واحد.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>*args</code> يجمع الوسائط الموضعية غير المحدودة في Tuple</li>
+    <li><code>**kwargs</code> يجمع الوسائط المسمّاة غير المحدودة في قاموس</li>
+    <li>الترتيب الإلزامي: معاملات عادية، ثم <code>*args</code>، ثم <code>**kwargs</code></li>
+    <li>أساس فهم Decorators، التي تحتاج تمرير أي دالة بأي معاملات</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب دالة <code>total(*numbers)</code> تُرجع مجموع أي عدد من الأرقام الممرَّرة، ودالة <code>print_profile(**info)</code> تطبع كل زوج مفتاح وقيمة ممرَّر إليها. اختبر الاثنتين بعدد مختلف من الوسائط في كل مرة.</p>
+`,
+        en: `<p>*args collects any number of positional arguments into a tuple; **kwargs collects any number of keyword arguments into a dict. Combine them as def f(a, b, *args, **kwargs) — regular parameters first, then *args, then **kwargs. This is essential for writing generic decorators next.</p>`
+    },
+    code: `<span class="cm"># *args: عدد غير محدّد من الوسائط الموضعية</span>
+<span class="kw">def</span> total(*numbers):
+    <span class="fn">print</span>(<span class="fn">type</span>(numbers))   <span class="cm"># &lt;class 'tuple'&gt;</span>
+    <span class="kw">return</span> <span class="fn">sum</span>(numbers)
+
+<span class="fn">print</span>(total(1, 2))            <span class="cm"># 3</span>
+<span class="fn">print</span>(total(1, 2, 3, 4, 5))   <span class="cm"># 15 — نفس الدالة، عدد مختلف</span>
+
+
+<span class="cm"># **kwargs: عدد غير محدّد من الوسائط المسمّاة</span>
+<span class="kw">def</span> print_profile(**info):
+    <span class="fn">print</span>(<span class="fn">type</span>(info))     <span class="cm"># &lt;class 'dict'&gt;</span>
+    <span class="kw">for</span> key, value <span class="kw">in</span> info.items():
+        <span class="fn">print</span>(<span class="st">f"{key}: {value}"</span>)
+
+print_profile(name=<span class="st">"Sarah"</span>, age=22)
+print_profile(name=<span class="st">"Ahmed"</span>, age=25, city=<span class="st">"Casablanca"</span>)   <span class="cm"># مرن تماماً</span>
+
+
+<span class="cm"># الجمع بين معاملات عادية، *args، و**kwargs</span>
+<span class="kw">def</span> describe_order(customer, *items, **details):
+    <span class="fn">print</span>(<span class="st">f"Customer: {customer}"</span>)
+    <span class="fn">print</span>(<span class="st">f"Items: {items}"</span>)
+    <span class="fn">print</span>(<span class="st">f"Details: {details}"</span>)
+
+describe_order(<span class="st">"Sarah"</span>, <span class="st">"book"</span>, <span class="st">"pen"</span>, priority=<span class="st">"high"</span>, gift_wrap=<span class="kw">True</span>)`,
+    quiz: {
+        q: {
+            ar: "def f(a, **kwargs, b):\nما مشكلة تعريف هذه الدالة؟",
+            en: "def f(a, **kwargs, b):\nWhat is wrong with this function definition?"
+        },
+        options: {
+            ar: [
+                "لا مشكلة، التعريف صحيح تماماً",
+                "**kwargs يجب أن يكون آخر معامل دائماً، لا يمكن وضع معامل عادي بعده",
+                "a يجب أن يكون بعد kwargs",
+                "لا يمكن استخدام **kwargs مع معاملات عادية إطلاقاً"
+            ],
+            en: [
+                "No issue, this definition is completely valid",
+                "**kwargs must always be the last parameter — a regular parameter can't come after it",
+                "a must come after kwargs",
+                "**kwargs can never be used with regular parameters at all"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "الترتيب الإلزامي في بايثون: المعاملات العادية أولاً، ثم *args إن وُجد، ثم **kwargs في النهاية دائماً — لأنه يجب أن يجمع كل ما تبقّى من وسائط مسمّاة. وضع معامل عادي بعد **kwargs يرمي SyntaxError.",
+            en: "Python's mandatory order is: regular parameters first, then *args if present, then **kwargs always last — because it must collect whatever keyword arguments remain. Placing a regular parameter after **kwargs raises a SyntaxError."
+        }
+    }
+},
+
+/* ---------- الدرس 42 ---------- */
+{
+    title: { ar: "Decorators: تزيين الدوال بسلوك إضافي", en: "Decorators: adding behavior to functions" },
+    body: {
+        ar: `
+<p>تخيّل أن عندك عشرين دالة، وتريد قياس زمن تنفيذ كل واحدة منها لأغراض التصحيح. هل تضيف كود قياس الوقت يدوياً داخل كل دالة؟ هذا تكرار مؤلم. <strong>Decorator</strong> يحلّ هذا: دالة تُغلّف دالة أخرى، تضيف سلوكاً إضافياً حولها (قبل، بعد، أو بدلاً من تنفيذها) دون تعديل كود الدالة الأصلية نفسها إطلاقاً.</p>
+
+<h3>الفكرة: دالة تُرجع دالة</h3>
+
+<p>بما أن الدوال في بايثون قيم (تعلمت هذا في درس lambda)، يمكن لدالة أن تأخذ دالة أخرى كمعامل، وتُرجع دالة جديدة تُغلّفها. هذا بالضبط ما يفعله Decorator: <code>def my_decorator(func):</code> يستقبل الدالة الأصلية، ويُعرِّف دالة داخلية <code>wrapper(*args, **kwargs)</code> تستدعي <code>func</code> الأصلية مع إضافة سلوك قبلها أو بعدها، ثم يُرجع <code>wrapper</code> بدل <code>func</code>.</p>
+
+<h3>تطبيق Decorator بـ @</h3>
+
+<p>بدل استدعاء الآلية يدوياً، بايثون توفّر صيغة مختصرة أنيقة: ضع <code>@my_decorator</code> فوق تعريف أي دالة تريد "تزيينها" مباشرة: <code>@my_decorator\\ndef greet(): ...</code>. هذا يكافئ فعلياً <code>greet = my_decorator(greet)</code>، لكن بصيغة أوضح وأشيع بكثير في الكود الاحترافي.</p>
+
+<h3>لماذا *args و**kwargs ضروريان هنا؟</h3>
+
+<p>الدالة <code>wrapper</code> الداخلية يجب أن تقبل <strong>أي</strong> معاملات قد تحتاجها الدالة الأصلية المُزيَّنة، بغض النظر عن عددها أو أنواعها — لهذا بالضبط استخدمت <code>*args, **kwargs</code> في الدرس السابق، لتمرير كل الوسائط الممكنة لـ <code>func</code> الأصلية دون معرفة توقيعها مسبقاً.</p>
+
+<h3>استخدامات عملية شائعة</h3>
+
+<p>قياس زمن التنفيذ، تسجيل استدعاءات دالة (logging) لأغراض التصحيح، التحقّق من صلاحيات المستخدم قبل تنفيذ دالة حسّاسة، أو تخزين نتائج مؤقتة (caching) لتجنّب إعادة حساب نفس الشيء — كلها أمثلة حقيقية على Decorators في مشاريع بايثون احترافية.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>نسيان إرجاع <code>wrapper</code> من الـ decorator نفسه — بدون <code>return wrapper</code>، تصبح الدالة المُزيَّنة <code>None</code> فعلياً. ونسيان استدعاء <code>func(*args, **kwargs)</code> فعلياً داخل <code>wrapper</code> — بدونها، تُضاف السلوكيات الإضافية لكن الدالة الأصلية لا تُنفَّذ أبداً.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>Decorator دالة تُغلّف دالة أخرى بسلوك إضافي دون تعديل كودها الأصلي</li>
+    <li>الصيغة <code>@decorator_name</code> فوق تعريف الدالة تطبّقه مباشرة</li>
+    <li>تحتاج <code>*args, **kwargs</code> داخل wrapper لدعم أي توقيع دالة أصلية</li>
+    <li>استخدامات شائعة: قياس الوقت، التسجيل، التحقّق من الصلاحيات، التخزين المؤقت</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب decorator باسم <code>log_call</code> يطبع "Calling greet..." قبل تنفيذ أي دالة مُزيَّنة به، وطبّقه على دالة <code>greet(name)</code> باستخدام <code>@log_call</code>. تأكد أن الدالة الأصلية لا تزال تُنفَّذ وتعمل بشكل صحيح.</p>
+`,
+        en: `<p>A decorator is a function that wraps another function to add behavior around it, without changing its original code. def decorator(func): defines an inner wrapper(*args, **kwargs) that calls func and adds extra behavior, then returns wrapper. Apply it with @decorator_name above a function definition.</p>`
+    },
+    code: `<span class="cm"># decorator بسيط: يطبع رسالة قبل وبعد تنفيذ الدالة</span>
+<span class="kw">def</span> log_call(func):
+    <span class="kw">def</span> wrapper(*args, **kwargs):
+        <span class="fn">print</span>(<span class="st">f"Calling {func.__name__}..."</span>)
+        <span class="kw">result</span> = func(*args, **kwargs)   <span class="cm"># استدعاء الدالة الأصلية فعلياً</span>
+        <span class="fn">print</span>(<span class="st">f"{func.__name__} finished"</span>)
+        <span class="kw">return</span> result
+    <span class="kw">return</span> wrapper
+
+
+<span class="cm"># تطبيق الـ decorator بصيغة @</span>
+<span class="fn">@log_call</span>
+<span class="kw">def</span> greet(name):
+    <span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
+    <span class="kw">return</span> <span class="st">f"Greeted {name}"</span>
+
+<span class="kw">result</span> = greet(<span class="st">"Sarah"</span>)
+<span class="fn">print</span>(<span class="st">f"Returned: {result}"</span>)
+
+
+<span class="cm"># decorator عملي: قياس زمن التنفيذ</span>
+<span class="kw">import</span> time
+
+<span class="kw">def</span> measure_time(func):
+    <span class="kw">def</span> wrapper(*args, **kwargs):
+        <span class="kw">start</span> = time.time()
+        <span class="kw">result</span> = func(*args, **kwargs)
+        <span class="kw">elapsed</span> = time.time() - start
+        <span class="fn">print</span>(<span class="st">f"{func.__name__} took {elapsed:.4f}s"</span>)
+        <span class="kw">return</span> result
+    <span class="kw">return</span> wrapper
+
+<span class="fn">@measure_time</span>
+<span class="kw">def</span> slow_sum(n):
+    <span class="kw">return</span> <span class="fn">sum</span>(<span class="fn">range</span>(n))
+
+slow_sum(1000000)`,
+    quiz: {
+        q: {
+            ar: "لماذا تستقبل الدالة wrapper داخل الـ decorator المعاملات *args, **kwargs بدل معاملات محدّدة؟",
+            en: "Why does the wrapper function inside a decorator accept *args, **kwargs instead of specific parameters?"
+        },
+        options: {
+            ar: [
+                "لأن *args, **kwargs أسرع في التنفيذ",
+                "ليتمكّن الـ decorator من العمل مع أي دالة، مهما كان عدد أو نوع معاملاتها",
+                "هذا إلزامي في بايثون لكل دالة داخلية",
+                "لا سبب حقيقي، مجرّد اصطلاح شائع بلا فائدة عملية"
+            ],
+            en: [
+                "Because *args, **kwargs execute faster",
+                "So the decorator can work with any function, regardless of how many or what kind of parameters it has",
+                "This is mandatory in Python for every inner function",
+                "No real reason, just a common convention with no practical benefit"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "decorator عام يجب أن يعمل مع دوال مختلفة تماماً في توقيعها: بعضها بلا معاملات، بعضها بعشرة. *args, **kwargs يجمعان أي وسائط مُمرَّرة مهما كان عددها ونوعها، ويمرّرانها كاملة لـ func الأصلية دون الحاجة لمعرفة توقيعها الدقيق مسبقاً.",
+            en: "A general-purpose decorator must work with functions that have completely different signatures — some with no parameters, some with ten. *args, **kwargs collect whatever arguments are passed, regardless of count or type, and forward them all to the original func without needing to know its exact signature in advance."
+        }
+    }
+},
+
+/* ---------- الدرس 43 ---------- */
+{
+    title: { ar: "Generators: القيم عند الطلب", en: "Generators: values on demand" },
+    body: {
+        ar: `
+<p>تخيّل أنك تريد معالجة مليار رقم. لو بنيت قائمة كاملة بها بـ <code>[x for x in range(1000000000)]</code>، ستستهلك ذاكرة هائلة قبل حتى أن تبدأ المعالجة الفعلية. <strong>Generator</strong> يحلّ هذا: بدل حساب كل القيم دفعة واحدة وتخزينها في الذاكرة، يُنتج قيمة واحدة <strong>عند الطلب فقط</strong>، كلما احتجتها، دون تخزين البقية إطلاقاً.</p>
+
+<h3>الكلمة المفتاحية yield</h3>
+
+<p>دالة عادية تستخدم <code>return</code> لإرجاع قيمة واحدة ثم تنتهي كلياً. دالة Generator تستخدم <code>yield</code> بدلاً منها: كل مرة تصل الدالة لـ <code>yield value</code>، "تُجمَّد" الدالة في مكانها وتُرجع تلك القيمة، لكنها <strong>تتذكّر</strong> مكانها بالضبط، جاهزة لمتابعة التنفيذ من نفس النقطة عند الطلب التالي.</p>
+
+<h3>استهلاك Generator</h3>
+
+<p>استدعاء دالة تحتوي <code>yield</code> لا يُنفّذها فوراً — يُنشئ كائن generator فقط. القيم تُستخرَج فعلياً بالتكرار عليه بحلقة <code>for</code>، أو باستدعاء <code>next()</code> يدوياً مرة تلو الأخرى، كل استدعاء يُكمل التنفيذ حتى <code>yield</code> التالية.</p>
+
+<h3>لماذا Generators موفّرة للذاكرة؟</h3>
+
+<p>القائمة العادية تحسب <strong>كل</strong> القيم وتخزّنها في الذاكرة قبل أن تستخدم أياً منها. Generator يحسب قيمة واحدة فقط، يُنتجها، وينتظر — لا يخزّن شيئاً آخر أبداً. لملف ضخم أو تسلسل لا نهائي منطقياً، هذا الفرق حاسم: قائمة كاملة قد تُسقط برنامجك بنفاد الذاكرة، بينما generator يعمل بسلاسة مهما طال التسلسل.</p>
+
+<h3>Generator Expression: نسخة مختصرة</h3>
+
+<p>مثل تحويل List Comprehension بسيط لـ generator، فقط استبدل الأقواس المربّعة بأقواس هلالية: <code>(x**2 for x in range(1000000))</code> يُنشئ generator بدل قائمة كاملة فوراً — نفس منطق الكسل (lazy evaluation) بصيغة مختصرة جداً.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>محاولة استخدام generator أكثر من مرة — بمجرد استهلاك كل قيمه (بحلقة for كاملة مثلاً)، ينضب تماماً ولا يُعيد أي قيمة عند محاولة التكرار عليه مجدداً؛ يجب إنشاء generator جديد لإعادة الاستخدام.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>Generator يُنتج قيماً عند الطلب فقط، بدل حساب كل شيء دفعة واحدة في الذاكرة</li>
+    <li><code>yield</code> "يُجمِّد" الدالة ويُرجع قيمة، متذكّراً مكانه لمتابعة التنفيذ لاحقاً</li>
+    <li>يُستهلَك بحلقة <code>for</code> أو <code>next()</code>، وينضب بمجرد استخدامه بالكامل مرة واحدة</li>
+    <li>Generator Expression: <code>(expr for item in iterable)</code> — نسخة مختصرة كسولة</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب دالة generator باسم <code>even_numbers(limit)</code> تُنتج الأعداد الزوجية من 0 حتى limit واحداً تلو الآخر باستخدام <code>yield</code>. استهلكها بحلقة <code>for</code> واطبع كل قيمة.</p>
+`,
+        en: `<p>A generator produces values one at a time, on demand, instead of computing everything upfront in memory. yield freezes the function at that point and returns a value, resuming from there on the next request. Consume it with a for loop or next(); once fully consumed, it's exhausted.</p>`
+    },
+    code: `<span class="cm"># دالة عادية: تحسب كل القيم دفعة واحدة</span>
+<span class="kw">def</span> square_list(n):
+    <span class="kw">result</span> = []
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        result.append(i**2)
+    <span class="kw">return</span> result   <span class="cm"># كل القيم مخزَّنة في الذاكرة دفعة واحدة</span>
+
+
+<span class="cm"># دالة generator: تُنتج قيمة واحدة في كل مرة</span>
+<span class="kw">def</span> square_generator(n):
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        <span class="kw">yield</span> i**2   <span class="cm"># تُجمَّد هنا، تنتظر الطلب التالي</span>
+
+
+<span class="cm"># الاستدعاء وحده لا ينفّذ شيئاً — يُنشئ كائن generator فقط</span>
+<span class="kw">gen</span> = square_generator(5)
+<span class="fn">print</span>(<span class="fn">type</span>(gen))   <span class="cm"># &lt;class 'generator'&gt;</span>
+
+<span class="cm"># الاستهلاك بحلقة for</span>
+<span class="kw">for</span> value <span class="kw">in</span> gen:
+    <span class="fn">print</span>(value)
+
+
+<span class="cm"># الاستهلاك اليدوي بـ next()</span>
+<span class="kw">gen2</span> = square_generator(3)
+<span class="fn">print</span>(<span class="fn">next</span>(gen2))   <span class="cm"># 0</span>
+<span class="fn">print</span>(<span class="fn">next</span>(gen2))   <span class="cm"># 1</span>
+<span class="fn">print</span>(<span class="fn">next</span>(gen2))   <span class="cm"># 4</span>
+
+
+<span class="cm"># Generator Expression — نسخة مختصرة من list comprehension</span>
+<span class="kw">squares_gen</span> = (x**2 <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(5))
+<span class="fn">print</span>(<span class="fn">list</span>(squares_gen))   <span class="cm"># [0, 1, 4, 9, 16]</span>`,
+    quiz: {
+        q: {
+            ar: "ما الفائدة الأساسية من استخدام generator بدل قائمة عادية لبيانات ضخمة جداً؟",
+            en: "What is the main benefit of using a generator instead of a regular list for very large data?"
+        },
+        options: {
+            ar: [
+                "generator يُنتج قيماً بترتيب عشوائي دائماً",
+                "generator يُنتج قيمة واحدة عند الطلب فقط، دون تخزين كل القيم في الذاكرة دفعة واحدة",
+                "generator أسرع من القائمة في كل الحالات بلا استثناء",
+                "لا فرق فعلي في الاستخدام العملي"
+            ],
+            en: [
+                "A generator always produces values in random order",
+                "A generator produces one value at a time on demand, without storing all values in memory at once",
+                "A generator is always faster than a list in every case with no exceptions",
+                "There's no real practical difference"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "القائمة العادية تحسب وتخزّن كل القيم في الذاكرة فوراً، حتى لو استخدمت واحدة منها فقط. generator يحسب قيمة واحدة عند الحاجة الفعلية إليها، مما يجعله موفّراً جداً للذاكرة مع بيانات ضخمة أو تسلسلات طويلة جداً.",
+            en: "A regular list computes and stores every value in memory immediately, even if you only end up using one. A generator computes a single value only when actually needed, making it far more memory-efficient for huge data or very long sequences."
+        }
+    }
+},
+
+/* ---------- الدرس 44 ---------- */
+{
+    title: { ar: "PEP 8: كتابة كود بايثون نظيف", en: "PEP 8: writing clean Python code" },
+    body: {
+        ar: `
+<p>الكود الذي يعمل ليس كافياً وحده — الكود الاحترافي يجب أن يكون <strong>مقروءاً</strong> أيضاً، لك ولأي شخص آخر يقرأه لاحقاً. <strong>PEP 8</strong> هو دليل الأسلوب الرسمي لكتابة بايثون، يحدّد معايير موحّدة للتنسيق والتسمية يتّبعها المجتمع العالمي بأكمله تقريباً — مما يجعل أي كود بايثون احترافي يبدو مألوفاً لأي مبرمج آخر، بغض النظر عمّن كتبه.</p>
+
+<h3>تسمية المتغيرات والدوال</h3>
+
+<p>الاصطلاح المعياري: <code>snake_case</code> للمتغيّرات والدوال (كلمات صغيرة مفصولة بشرطة سفلية: <code>user_name</code>, <code>calculate_total</code>)، و<code>PascalCase</code> لأسماء الأصناف (كل كلمة تبدأ بحرف كبير، بلا فواصل: <code>BankAccount</code>). أسماء واضحة ووصفية دائماً — <code>user_age</code> أفضل بكثير من <code>ua</code> أو <code>x</code>.</p>
+
+<h3>المسافات والتنسيق</h3>
+
+<p>مسافة واحدة بعد الفاصلة: <code>func(a, b, c)</code> لا <code>func(a,b,c)</code>. مسافة حول عوامل التعيين والمقارنة: <code>x = 5</code> لا <code>x=5</code>. أربع مسافات للمسافة البادئة (indentation) دائماً، لا Tab وMerge بينهما في نفس الملف. أقصى طول سطر مُوصى به 79 حرفاً تقريباً، لسهولة القراءة على شاشات مختلفة.</p>
+
+<h3>الأسطر الفارغة للتنظيم البصري</h3>
+
+<p>سطران فارغان بين تعريفات الدوال والأصناف على مستوى الملف، وسطر فارغ واحد بين methods داخل صنف — هذا يفصل بصرياً بين الأجزاء المنطقية المختلفة، تماماً كالفقرات في نصّ مكتوب.</p>
+
+<h3>لماذا PEP 8 مهم عملياً؟</h3>
+
+<p>في أي فريق برمجي حقيقي، عشرات المبرمجين يقرؤون كود بعضهم يومياً. اتباع معيار موحّد يعني أن أي شخص يفتح ملفاً جديداً يفهمه فوراً دون التكيّف مع أسلوب كل مبرمج على حدة. أدوات مثل <code>black</code> أو <code>flake8</code> تُنسّق أو تتحقّق من التزام كودك بـ PEP 8 تلقائياً في المشاريع الاحترافية.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>تسمية متغيّرات بحروف مفردة غامضة (<code>x</code>, <code>y</code>, <code>tmp</code>) في كود ليس لغرض رياضي واضح. وخلط أساليب تسمية مختلفة في نفس المشروع (بعض الدوال <code>camelCase</code> وبعضها <code>snake_case</code>) — التزم بأسلوب واحد ثابت طوال المشروع.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>PEP 8 دليل الأسلوب الرسمي لبايثون، متّبع عالمياً في الكود الاحترافي</li>
+    <li><code>snake_case</code> للمتغيّرات والدوال، <code>PascalCase</code> لأسماء الأصناف</li>
+    <li>مسافة بعد الفواصل، حول عوامل التعيين، وأربع مسافات للمسافة البادئة</li>
+    <li>أسطر فارغة تفصل الدوال والأصناف بصرياً، وأسماء واضحة ووصفية دائماً</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>خذ هذا الكود غير المنسَّق: <code>def calc(a,b):\\n  x=a+b\\n  return x</code> وأعد كتابته وفق PEP 8: اسم دالة أوضح، مسافات صحيحة، ومسافة بادئة موحّدة بأربع مسافات.</p>
+`,
+        en: `<p>PEP 8 is Python's official style guide: snake_case for variables/functions, PascalCase for classes, a space after commas and around operators, four-space indentation, and blank lines separating functions/classes visually — the shared standard that makes any professional Python code feel familiar to any other Python programmer.</p>`
+    },
+    code: `<span class="cm"># قبل PEP 8 — يعمل، لكنه صعب القراءة</span>
+<span class="cm"># def calc(a,b):</span>
+<span class="cm">#   x=a+b</span>
+<span class="cm">#   return x</span>
+
+
+<span class="cm"># بعد PEP 8 — نفس المنطق، أوضح بكثير</span>
+<span class="kw">def</span> calculate_total(first_number, second_number):
+    <span class="kw">total</span> = first_number + second_number
+    <span class="kw">return</span> total
+
+
+<span class="cm"># snake_case للمتغيرات والدوال</span>
+<span class="kw">user_name</span> = <span class="st">"Sarah"</span>
+<span class="kw">total_score</span> = 95
+
+<span class="kw">def</span> get_full_name(first_name, last_name):
+    <span class="kw">return</span> <span class="st">f"{first_name} {last_name}"</span>
+
+
+<span class="cm"># PascalCase لأسماء الأصناف</span>
+<span class="kw">class</span> BankAccount:
+    <span class="kw">def</span> __init__(self, owner):
+        self.owner = owner
+
+
+<span class="cm"># مسافات صحيحة حول العوامل والفواصل</span>
+<span class="kw">numbers</span> = [1, 2, 3, 4, 5]
+<span class="kw">average</span> = <span class="fn">sum</span>(numbers) / <span class="fn">len</span>(numbers)
+
+
+<span class="cm"># سطران فارغان يفصلان تعريفات مستقلة — كما في هذا الملف نفسه</span>
+<span class="kw">def</span> first_function():
+    <span class="fn">print</span>(<span class="st">"First"</span>)
+
+
+<span class="kw">def</span> second_function():
+    <span class="fn">print</span>(<span class="st">"Second"</span>)`,
+    quiz: {
+        q: {
+            ar: "أي اسم متغيّر يتبع اصطلاح snake_case الموصى به في PEP 8؟",
+            en: "Which variable name follows the snake_case convention recommended by PEP 8?"
+        },
+        options: {
+            ar: ["userAge", "UserAge", "user_age", "USERAGE"],
+            en: ["userAge", "UserAge", "user_age", "USERAGE"]
+        },
+        correct: 2,
+        explanation: {
+            ar: "snake_case يعني حروفاً صغيرة بالكامل مع فصل الكلمات بشرطة سفلية: user_age. userAge بصيغة camelCase (شائعة في JavaScript)، وUserAge بصيغة PascalCase (تُستخدم لأسماء الأصناف فقط في بايثون)، وUSERAGE أحرف كبيرة بلا فصل، غير مقروء.",
+            en: "snake_case means fully lowercase with words separated by underscores: user_age. userAge is camelCase (common in JavaScript), UserAge is PascalCase (reserved for class names in Python), and USERAGE is all-caps with no separation, which is hard to read."
+        }
+    }
+},
+
+/* ---------- الدرس 45 — مشروع ---------- */
+{
+    title: { ar: "المشروع النهائي: متتبّع المصاريف الشخصية", en: "Final project: personal expense tracker" },
+    body: {
+        ar: `
+<p>وصلت للمشروع الأخير في مسار بايثون، والذي يجمع <strong>كل شيء</strong> تعلّمته من الدرس الأول حتى الآن: المتغيّرات والحلقات والدوال، القوائم والقواميس، الأصناف والوراثة، الملفات وJSON، معالجة الأخطاء، Decorators، Generators، وكتابة كود نظيف وفق PEP 8. ستبني متتبّع مصاريف شخصية كامل، بجودة مقاربة لمشروع حقيقي.</p>
+
+<h3>البنية العامة: أصناف متعاونة ببيانات دائمة</h3>
+
+<p>صنف <code>Expense</code> يمثّل مصروفاً واحداً (المبلغ، الفئة، الوصف)، وصنف <code>ExpenseTracker</code> يدير قائمة المصاريف كاملة، يحفظها ويحمّلها من JSON — تماماً كنمط مشروع مدير المهام، لكن بأصناف حقيقية بدل قواميس مباشرة.</p>
+
+<h3>Decorator للتسجيل التلقائي</h3>
+
+<p>طُبِّق <code>@log_action</code> (من درس Decorators) على method إضافة المصروف، فيُسجَّل تلقائياً كل عملية إضافة في الطرفية دون تكرار كود الطباعة داخل كل method على حدة — استخدام عملي مباشر لما تعلمته.</p>
+
+<h3>Generator لتصفية كسولة</h3>
+
+<p>method باسم <code>expenses_by_category(category)</code> تستخدم <code>yield</code> لإنتاج المصاريف المطابقة لفئة معيّنة واحداً تلو الآخر، بدل بناء قائمة كاملة فوراً — مفيد جداً لو كان عدد المصاريف ضخماً في تطبيق حقيقي.</p>
+
+<h3>معالجة الأخطاء والتحقّق</h3>
+
+<p>إضافة مصروف بمبلغ سالب ترمي <code>ValueError</code> عبر <code>raise</code> (من درس التحقّق المسبق)، وتحميل ملف JSON غير موجود عند أول تشغيل يُعالَج بأناقة بـ <code>try/except FileNotFoundError</code> — بالضبط كما تعلّمت في المستوى الخامس.</p>
+
+<h3>ماذا يعني إكمالك لهذا المشروع؟</h3>
+
+<p>لقد بنيت الآن برنامجاً متكاملاً بمعايير احترافية حقيقية: بيانات دائمة، تصميم كائني منظّم، معالجة أخطاء متوقّعة، وكود نظيف قابل للقراءة. هذه بالضبط المهارات التي تفصل بين "أعرف بايثون" و"أستطيع بناء برامج حقيقية بها".</p>
+
+<h3>تحديات للتوسيع (اختيارية، لمن يريد الاستمرار)</h3>
+
+<ul>
+    <li>أضف تقريراً شهرياً يجمع المصاريف حسب الفئة باستخدام Dictionary Comprehension</li>
+    <li>صدّر التقرير كملف CSV بدل JSON فقط</li>
+    <li>أضف صنف <code>Budget</code> يرث سلوكاً من <code>ExpenseTracker</code> ويضيف حدّاً أقصى شهرياً لكل فئة</li>
+</ul>
+
+<h3>ماذا أنجزت في مسار بايثون كاملاً؟</h3>
+
+<ul>
+    <li>أتقنت أساسيات اللغة: المتغيّرات، الأنواع، الشروط، والحلقات</li>
+    <li>نظّمت البيانات بهياكل مناسبة: قوائم، Tuples، Sets، وقواميس</li>
+    <li>هيكلت الكود بدوال قابلة لإعادة الاستخدام، بمعاملات مرنة وقيم مُرجَعة واضحة</li>
+    <li>تعاملت مع الملفات والبيانات الدائمة بأمان، وعالجت الأخطاء بأناقة بدل الانهيار</li>
+    <li>صمّمت أصنافاً حقيقية بالوراثة وEncapsulation وMagic Methods</li>
+    <li>استخدمت أدوات احترافية: الوحدات، pip، Decorators، وGenerators</li>
+    <li>وكتبت كوداً نظيفاً واضحاً وفق معايير PEP 8 العالمية</li>
+</ul>
+
+<p><strong>مبروك!</strong> أكملت مسار بايثون بالكامل من الصفر حتى الاحتراف — 45 درساً و6 مشاريع حقيقية. الخطوة التالية في رحلتك: اختر مساراً جديداً في كودنا (تطوير الويب، تحليل البيانات، أو غيره)، أو ابدأ ببناء مشروعك الخاص بأفكارك أنت.</p>
+`,
+        en: `<p>The capstone project combines everything from this path: Expense and ExpenseTracker classes, JSON persistence, a @log_action decorator, a generator for lazy filtering by category, raise for validation, and try/except for graceful first-run handling — a complete, professionally-structured program built entirely from what you learned.</p>`
+    },
+    code: `<span class="cm"># ============================================</span>
+<span class="cm"># متتبّع المصاريف الشخصية</span>
+<span class="cm"># ============================================</span>
+<span class="kw">import</span> json
+
+
+<span class="kw">def</span> log_action(func):
+    <span class="kw">def</span> wrapper(*args, **kwargs):
+        <span class="kw">result</span> = func(*args, **kwargs)
+        <span class="fn">print</span>(<span class="st">f"[LOG] {func.__name__} executed"</span>)
+        <span class="kw">return</span> result
+    <span class="kw">return</span> wrapper
+
+
+<span class="kw">class</span> Expense:
+    <span class="kw">def</span> __init__(self, amount, category, description):
+        <span class="kw">if</span> amount <= 0:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Amount must be positive"</span>)
+        self.amount = amount
+        self.category = category
+        self.description = description
+
+    <span class="kw">def</span> __str__(self):
+        <span class="kw">return</span> <span class="st">f"{self.category}: \${self.amount:.2f} — {self.description}"</span>
+
+    <span class="kw">def</span> to_dict(self):
+        <span class="kw">return</span> {<span class="st">"amount"</span>: self.amount, <span class="st">"category"</span>: self.category, <span class="st">"description"</span>: self.description}
+
+
+<span class="kw">class</span> ExpenseTracker:
+    <span class="kw">def</span> __init__(self, filename=<span class="st">"expenses.json"</span>):
+        self.filename = filename
+        self.expenses = self._load()
+
+    <span class="kw">def</span> _load(self):
+        <span class="kw">try</span>:
+            <span class="kw">with</span> <span class="fn">open</span>(self.filename, <span class="st">"r"</span>) <span class="kw">as</span> file:
+                <span class="kw">data</span> = json.load(file)
+                <span class="kw">return</span> [Expense(**item) <span class="kw">for</span> item <span class="kw">in</span> data]
+        <span class="kw">except</span> <span class="fn">FileNotFoundError</span>:
+            <span class="kw">return</span> []   <span class="cm"># أول تشغيل — طبيعي تماماً</span>
+
+    <span class="kw">def</span> _save(self):
+        <span class="kw">with</span> <span class="fn">open</span>(self.filename, <span class="st">"w"</span>) <span class="kw">as</span> file:
+            json.dump([e.to_dict() <span class="kw">for</span> e <span class="kw">in</span> self.expenses], file)
+
+    <span class="fn">@log_action</span>
+    <span class="kw">def</span> add(self, amount, category, description):
+        self.expenses.append(Expense(amount, category, description))
+        self._save()
+
+    <span class="cm"># generator: تصفية كسولة حسب الفئة</span>
+    <span class="kw">def</span> expenses_by_category(self, category):
+        <span class="kw">for</span> expense <span class="kw">in</span> self.expenses:
+            <span class="kw">if</span> expense.category == category:
+                <span class="kw">yield</span> expense
+
+    <span class="kw">def</span> __len__(self):
+        <span class="kw">return</span> <span class="fn">len</span>(self.expenses)
+
+
+<span class="kw">tracker</span> = ExpenseTracker()
+tracker.add(50, <span class="st">"food"</span>, <span class="st">"Groceries"</span>)
+tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticket"</span>)
+
+<span class="fn">print</span>(<span class="st">f"Total expenses: {len(tracker)}"</span>)
+<span class="kw">for</span> expense <span class="kw">in</span> tracker.expenses_by_category(<span class="st">"food"</span>):
+    <span class="fn">print</span>(expense)`,
+    quiz: {
+        q: {
+            ar: "لماذا استُخدمت raise ValueError داخل __init__ في صنف Expense؟",
+            en: "Why is raise ValueError used inside __init__ in the Expense class?"
+        },
+        options: {
+            ar: [
+                "خطأ في التصميم، __init__ لا يجب أن يرمي أخطاء",
+                "لمنع إنشاء كائن Expense بمبلغ غير منطقي (سالب أو صفر) منذ اللحظة الأولى",
+                "raise إلزامية في كل __init__ بلا استثناء",
+                "لتسريع تنفيذ الدالة"
+            ],
+            en: [
+                "A design mistake — __init__ should never raise errors",
+                "To prevent creating an Expense object with an illogical amount (negative or zero) from the very first moment",
+                "raise is mandatory in every __init__ with no exception",
+                "To make the function execute faster"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "التحقّق داخل __init__ يضمن أنه لا يمكن أبداً إنشاء كائن Expense في حالة غير منطقية (مبلغ سالب أو صفري) — يفشل الإنشاء فوراً برسالة واضحة بدل السماح ببيانات فاسدة تنتشر بصمت في بقية البرنامج، وهذا امتداد مباشر لمبدأ raise من مستوى سابق.",
+            en: "Validating inside __init__ guarantees an Expense object can never exist in an illogical state (a negative or zero amount) — creation fails immediately with a clear message instead of letting corrupt data silently spread through the rest of the program, a direct extension of the raise principle from an earlier level."
+        }
+    }
+}
+
 
 
 
