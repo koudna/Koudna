@@ -336,7 +336,7 @@
         en: `<p>Programming is giving a computer a precise series of steps to accomplish a task. Python is the most beginner-friendly language: it reads almost like English, handles technical details for you, has libraries for everything, and is in high demand.</p>`
     },
     code: `<span class="cm"># هذا هو أول برنامج ستكتبه — سطر واحد فقط</span>
-<span class="fn">print</span>(<span class="st">"مرحباً بالعالم"</span>)
+<span class="fn">print</span>(<span class="st">"Hello, World"</span>)
 
 <span class="cm"># قارن: نفس البرنامج بلغة Java يحتاج خمسة أسطر</span>
 <span class="cm"># public class Main {</span>
@@ -440,7 +440,7 @@ python3 --version
 
 
 <span class="cm"># 3) تشغيل ملف: أنشئ hello.py وبداخله</span>
-<span class="fn">print</span>(<span class="st">"أول برنامج لي"</span>)
+<span class="fn">print</span>(<span class="st">"My first program"</span>)
 
 <span class="cm"># ثم في الطرفية داخل نفس المجلد:</span>
 <span class="cm"># python hello.py</span>`,
@@ -545,7 +545,7 @@ python3 --version
         en: `<p><code>print()</code> displays values on screen. Text goes inside quotes; anything outside is evaluated. Comments start with <code>#</code> and are ignored by Python — use them to explain <em>why</em>, not <em>what</em>.</p>`
     },
     code: `<span class="cm"># برنامجي الأول — يطبع تحية</span>
-<span class="fn">print</span>(<span class="st">"مرحباً بالعالم"</span>)
+<span class="fn">print</span>(<span class="st">"Hello, World"</span>)
 
 
 <span class="cm"># الفرق بين النص والعملية الحسابية</span>
@@ -554,17 +554,17 @@ python3 --version
 
 
 <span class="cm"># طباعة عدة قيم — بايثون يضع مسافة بينها تلقائياً</span>
-<span class="fn">print</span>(<span class="st">"اسمي"</span>, <span class="st">"أحمد"</span>, <span class="st">"وعمري"</span>, 25)
-<span class="cm"># الناتج: اسمي أحمد وعمري 25</span>
+<span class="fn">print</span>(<span class="st">"My name is"</span>, <span class="st">"Ahmed"</span>, <span class="st">"and I am"</span>, 25)
+<span class="cm"># الناتج: My name is Ahmed and I am 25</span>
 
 
 <span class="cm"># استخدام النوعين من التنصيص معاً</span>
-<span class="fn">print</span>(<span class="st">'قال المعلم: "البرمجة ممارسة"'</span>)
+<span class="fn">print</span>(<span class="st">'The teacher said: "Practice makes perfect"'</span>)
 
 
 <span class="cm"># سطر فارغ للفصل بين الأقسام</span>
 <span class="fn">print</span>()
-<span class="fn">print</span>(<span class="st">"انتهى البرنامج"</span>)`,
+<span class="fn">print</span>(<span class="st">"Program finished"</span>)`,
     quiz: {
         q: {
             ar: "ما الفرق بين print(\"5 + 5\") و print(5 + 5)؟",
@@ -662,7 +662,7 @@ python3 --version
         en: `<p>Variables store values using <code>=</code>, which is assignment, not equality. The four core types are <code>int</code>, <code>float</code>, <code>str</code> and <code>bool</code>. Python infers types automatically; use <code>type()</code> to check. Use f-strings to combine text and numbers.</p>`
     },
     code: `<span class="cm"># إنشاء متغيرات بأنواع مختلفة</span>
-<span class="kw">name</span> = <span class="st">"سارة"</span>          <span class="cm"># str  — نصّ</span>
+<span class="kw">name</span> = <span class="st">"Sarah"</span>          <span class="cm"># str  — نصّ</span>
 <span class="kw">age</span> = 22                <span class="cm"># int  — عدد صحيح</span>
 <span class="kw">height</span> = 1.68           <span class="cm"># float — عدد عشري</span>
 <span class="kw">is_student</span> = <span class="kw">True</span>      <span class="cm"># bool — منطقي</span>
@@ -674,14 +674,14 @@ python3 --version
 
 
 <span class="cm"># خطأ شائع: دمج نصّ مع رقم مباشرة</span>
-<span class="cm"># print("العمر: " + age)   ← TypeError</span>
+<span class="cm"># print("Age: " + age)   ← TypeError</span>
 
 <span class="cm"># الحل 1: التحويل بـ str()</span>
-<span class="fn">print</span>(<span class="st">"العمر: "</span> + <span class="fn">str</span>(age))
+<span class="fn">print</span>(<span class="st">"Age: "</span> + <span class="fn">str</span>(age))
 
 <span class="cm"># الحل 2 (الأفضل): f-string</span>
-<span class="fn">print</span>(<span class="st">f"اسمي {name} وعمري {age} سنة"</span>)
-<span class="fn">print</span>(<span class="st">f"طولي {height}م وطالب: {is_student}"</span>)
+<span class="fn">print</span>(<span class="st">f"My name is {name} and I am {age} years old"</span>)
+<span class="fn">print</span>(<span class="st">f"My height is {height}m, student: {is_student}"</span>)
 
 
 <span class="cm"># إعادة الإسناد — القيمة القديمة تُستبدل</span>
@@ -780,15 +780,15 @@ python3 --version
 `,
         en: `<p>Strings are indexed from zero, and negative indices count from the end. Slicing <code>[start:end]</code> excludes <code>end</code>. Strings are immutable — methods return a new string instead of modifying the original, so always store the result.</p>`
     },
-    code: `<span class="kw">text</span> = <span class="st">"بايثون"</span>
+    code: `<span class="kw">text</span> = <span class="st">"Python"</span>
 
 <span class="cm"># الفهرسة تبدأ من صفر</span>
-<span class="fn">print</span>(text[0])      <span class="cm"># ب  — الحرف الأول</span>
-<span class="fn">print</span>(text[-1])     <span class="cm"># ن  — آخر حرف دائماً</span>
+<span class="fn">print</span>(text[0])      <span class="cm"># P  — الحرف الأول</span>
+<span class="fn">print</span>(text[-1])     <span class="cm"># n  — آخر حرف دائماً</span>
 
 <span class="cm"># التقطيع: من 0 حتى 3 دون أن يشمل 3</span>
-<span class="fn">print</span>(text[0:3])    <span class="cm"># باي</span>
-<span class="fn">print</span>(text[3:])     <span class="cm"># ثون</span>
+<span class="fn">print</span>(text[0:3])    <span class="cm"># Pyt</span>
+<span class="fn">print</span>(text[3:])     <span class="cm"># hon</span>
 
 
 <span class="cm"># الدمج والتكرار</span>
@@ -814,7 +814,7 @@ messy.strip()                <span class="cm"># لا يغيّر شيئاً!</spa
 
 <span class="cm"># f-string مع تنسيق رقمي</span>
 <span class="kw">price</span> = 49.6789
-<span class="fn">print</span>(<span class="st">f"السعر: {price:.2f} درهم"</span>)   <span class="cm"># 49.68</span>`,
+<span class="fn">print</span>(<span class="st">f"Price: \${price:.2f}"</span>)   <span class="cm"># 49.68</span>`,
     quiz: {
         q: {
             ar: "ما ناتج هذا الكود؟\nname = \"python\"\nname.upper()\nprint(name)",
@@ -926,7 +926,7 @@ messy.strip()                <span class="cm"># لا يغيّر شيئاً!</spa
 <span class="kw">hours</span> = total // 3600           <span class="cm"># 1</span>
 <span class="kw">minutes</span> = (total % 3600) // 60  <span class="cm"># 2</span>
 <span class="kw">seconds</span> = total % 60           <span class="cm"># 5</span>
-<span class="fn">print</span>(<span class="st">f"{hours}س {minutes}د {seconds}ث"</span>)
+<span class="fn">print</span>(<span class="st">f"{hours}h {minutes}m {seconds}s"</span>)
 
 
 <span class="cm"># الاختصارات</span>
@@ -1034,30 +1034,30 @@ score *= 2      <span class="cm"># 30</span>
         en: `<p><code>input()</code> always returns a string, even when the user types digits. Convert with <code>int()</code> or <code>float()</code> before doing arithmetic. Multiplying a string by a number repeats it instead of computing — a dangerous silent bug.</p>`
     },
     code: `<span class="cm"># استقبال نصّ — لا يحتاج تحويلاً</span>
-<span class="kw">name</span> = <span class="fn">input</span>(<span class="st">"ما اسمك؟ "</span>)
-<span class="fn">print</span>(<span class="st">f"أهلاً {name}"</span>)
+<span class="kw">name</span> = <span class="fn">input</span>(<span class="st">"What is your name? "</span>)
+<span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
 
 
 <span class="cm"># الخطأ الصامت: الضرب يكرّر النصّ!</span>
-<span class="kw">num_text</span> = <span class="fn">input</span>(<span class="st">"اكتب رقم 5: "</span>)
+<span class="kw">num_text</span> = <span class="fn">input</span>(<span class="st">"Type the number 5: "</span>)
 <span class="fn">print</span>(num_text * 3)      <span class="cm"># 555 وليس 15 !</span>
 
 
 <span class="cm"># الصحيح: التحويل قبل الحساب</span>
-<span class="kw">num</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"اكتب رقماً: "</span>))
+<span class="kw">num</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Type a number: "</span>))
 <span class="fn">print</span>(num * 3)          <span class="cm"># 15 ✓</span>
 
 
 <span class="cm"># مثال متكامل: حساب العمر</span>
-<span class="kw">birth_year</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"سنة ميلادك: "</span>))
+<span class="kw">birth_year</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Your birth year: "</span>))
 <span class="kw">age</span> = 2026 - birth_year
-<span class="fn">print</span>(<span class="st">f"عمرك تقريباً {age} سنة"</span>)
+<span class="fn">print</span>(<span class="st">f"You are about {age} years old"</span>)
 
 
 <span class="cm"># أعداد عشرية</span>
-<span class="kw">price</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"السعر: "</span>))
+<span class="kw">price</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Price: "</span>))
 <span class="kw">total</span> = price * 1.2       <span class="cm"># مع ضريبة 20%</span>
-<span class="fn">print</span>(<span class="st">f"الإجمالي: {total:.2f}"</span>)
+<span class="fn">print</span>(<span class="st">f"Total: {total:.2f}"</span>)
 
 
 <span class="cm"># فخّ bool مع النصوص</span>
@@ -1146,13 +1146,13 @@ score *= 2      <span class="cm"># 30</span>
 <span class="cm"># ============================================</span>
 
 <span class="fn">print</span>(<span class="st">"-"</span> * 35)
-<span class="fn">print</span>(<span class="st">"     آلة حاسبة كودنا"</span>)
+<span class="fn">print</span>(<span class="st">"     Koudna Calculator"</span>)
 <span class="fn">print</span>(<span class="st">"-"</span> * 35)
 
 <span class="cm"># 1) استقبال المدخلات مع التحويل</span>
-<span class="kw">num1</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"الرقم الأول: "</span>))
-<span class="kw">operation</span> = <span class="fn">input</span>(<span class="st">"العملية (+ - * /): "</span>).strip()
-<span class="kw">num2</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"الرقم الثاني: "</span>))
+<span class="kw">num1</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"First number: "</span>))
+<span class="kw">operation</span> = <span class="fn">input</span>(<span class="st">"Operation (+ - * /): "</span>).strip()
+<span class="kw">num2</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Second number: "</span>))
 
 <span class="fn">print</span>(<span class="st">"-"</span> * 35)
 
@@ -1172,16 +1172,16 @@ score *= 2      <span class="cm"># 30</span>
 <span class="kw">elif</span> operation == <span class="st">"/"</span>:
     <span class="cm"># الحالة الخاصة: القسمة على صفر</span>
     <span class="kw">if</span> num2 == 0:
-        <span class="fn">print</span>(<span class="st">"خطأ: لا يمكن القسمة على صفر"</span>)
+        <span class="fn">print</span>(<span class="st">"Error: cannot divide by zero"</span>)
     <span class="kw">else</span>:
         <span class="kw">result</span> = num1 / num2
         <span class="fn">print</span>(<span class="st">f"{num1} ÷ {num2} = {result:.2f}"</span>)
 
 <span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="st">f"عملية غير معروفة: {operation}"</span>)
+    <span class="fn">print</span>(<span class="st">f"Unknown operation: {operation}"</span>)
 
 <span class="fn">print</span>(<span class="st">"-"</span> * 35)
-<span class="fn">print</span>(<span class="st">"شكراً لاستخدامك آلة كودنا"</span>)`,
+<span class="fn">print</span>(<span class="st">"Thanks for using Koudna Calculator"</span>)`,
     quiz: {
         q: {
             ar: "لماذا استخدمنا float() بدل int() لاستقبال الأرقام في الآلة الحاسبة؟",
@@ -1322,10 +1322,10 @@ score *= 2      <span class="cm"># 30</span>
 
 
 <span class="cm"># الخطأ الشائع الأخطر</span>
-<span class="kw">day</span> = <span class="st">"الاثنين"</span>
-<span class="fn">print</span>(day == <span class="st">"السبت"</span> <span class="kw">or</span> <span class="st">"الأحد"</span>)      <span class="cm"># True — خطأ!</span>
-<span class="fn">print</span>(day == <span class="st">"السبت"</span> <span class="kw">or</span> day == <span class="st">"الأحد"</span>) <span class="cm"># False ✓</span>
-<span class="fn">print</span>(day <span class="kw">in</span> [<span class="st">"السبت"</span>, <span class="st">"الأحد"</span>])        <span class="cm"># False ✓ الأنظف</span>
+<span class="kw">day</span> = <span class="st">"Monday"</span>
+<span class="fn">print</span>(day == <span class="st">"Saturday"</span> <span class="kw">or</span> <span class="st">"Sunday"</span>)      <span class="cm"># True — خطأ!</span>
+<span class="fn">print</span>(day == <span class="st">"Saturday"</span> <span class="kw">or</span> day == <span class="st">"Sunday"</span>) <span class="cm"># False ✓</span>
+<span class="fn">print</span>(day <span class="kw">in</span> [<span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>])        <span class="cm"># False ✓ الأنظف</span>
 
 
 <span class="cm"># سلسلة المقارنات — ميزة أنيقة في بايثون</span>
@@ -1415,36 +1415,36 @@ score *= 2      <span class="cm"># 30</span>
     code: `<span class="cm"># أبسط شرط</span>
 <span class="kw">temperature</span> = 35
 <span class="kw">if</span> temperature > 30:
-    <span class="fn">print</span>(<span class="st">"الجو حار، اشرب ماءً كثيراً"</span>)
+    <span class="fn">print</span>(<span class="st">"It's hot, drink plenty of water"</span>)
 
 
 <span class="cm"># شرط مع else</span>
 <span class="kw">password</span> = <span class="st">"1234"</span>
 <span class="kw">if</span> password == <span class="st">"secret"</span>:
-    <span class="fn">print</span>(<span class="st">"تم تسجيل الدخول"</span>)
+    <span class="fn">print</span>(<span class="st">"Login successful"</span>)
 <span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="st">"كلمة المرور خاطئة"</span>)
+    <span class="fn">print</span>(<span class="st">"Wrong password"</span>)
 
 
 <span class="cm"># حالات متعددة — الترتيب من الأضيق للأوسع</span>
 <span class="kw">grade</span> = 87
 <span class="kw">if</span> grade >= 90:
-    <span class="fn">print</span>(<span class="st">"ممتاز"</span>)
+    <span class="fn">print</span>(<span class="st">"Excellent"</span>)
 <span class="kw">elif</span> grade >= 80:
-    <span class="fn">print</span>(<span class="st">"جيد جداً"</span>)
+    <span class="fn">print</span>(<span class="st">"Very good"</span>)
 <span class="kw">elif</span> grade >= 70:
-    <span class="fn">print</span>(<span class="st">"جيد"</span>)
+    <span class="fn">print</span>(<span class="st">"Good"</span>)
 <span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="st">"يحتاج إلى مراجعة"</span>)
-<span class="cm"># الناتج: جيد جداً</span>
+    <span class="fn">print</span>(<span class="st">"Needs review"</span>)
+<span class="cm"># الناتج: Very good</span>
 
 
 <span class="cm"># الترتيب الخاطئ — نتيجة غير متوقعة</span>
 <span class="kw">score</span> = 95
 <span class="kw">if</span> score >= 50:
-    <span class="fn">print</span>(<span class="st">"ناجح"</span>)      <span class="cm"># يُطبع هذا!</span>
+    <span class="fn">print</span>(<span class="st">"Pass"</span>)      <span class="cm"># يُطبع هذا!</span>
 <span class="kw">elif</span> score >= 90:
-    <span class="fn">print</span>(<span class="st">"ممتاز"</span>)     <span class="cm"># لن يصل هنا أبداً</span>
+    <span class="fn">print</span>(<span class="st">"Excellent"</span>)     <span class="cm"># لن يصل هنا أبداً</span>
 
 
 <span class="cm"># شروط متداخلة</span>
@@ -1452,15 +1452,15 @@ score *= 2      <span class="cm"># 30</span>
 <span class="kw">has_ticket</span> = <span class="kw">True</span>
 <span class="kw">if</span> age >= 18:
     <span class="kw">if</span> has_ticket:
-        <span class="fn">print</span>(<span class="st">"تفضل بالدخول"</span>)
+        <span class="fn">print</span>(<span class="st">"Welcome in"</span>)
     <span class="kw">else</span>:
-        <span class="fn">print</span>(<span class="st">"اشترِ تذكرة أولاً"</span>)
+        <span class="fn">print</span>(<span class="st">"Buy a ticket first"</span>)
 <span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="st">"الدخول للبالغين فقط"</span>)
+    <span class="fn">print</span>(<span class="st">"Adults only"</span>)
 
 
 <span class="cm"># الصيغة المختصرة</span>
-<span class="kw">status</span> = <span class="st">"بالغ"</span> <span class="kw">if</span> age >= 18 <span class="kw">else</span> <span class="st">"قاصر"</span>
+<span class="kw">status</span> = <span class="st">"adult"</span> <span class="kw">if</span> age >= 18 <span class="kw">else</span> <span class="st">"minor"</span>
 <span class="fn">print</span>(status)`,
     quiz: {
         q: {
@@ -1545,12 +1545,12 @@ score *= 2      <span class="cm"># 30</span>
         en: `<p><code>for</code> iterates over items one by one. <code>range(n)</code> starts at zero and excludes the last number. Define accumulators outside the loop. <code>enumerate</code> gives index and value together.</p>`
     },
     code: `<span class="cm"># المرور على عناصر قائمة</span>
-<span class="kw">for</span> fruit <span class="kw">in</span> [<span class="st">"تفاح"</span>, <span class="st">"موز"</span>, <span class="st">"عنب"</span>]:
-    <span class="fn">print</span>(<span class="st">f"أحب {fruit}"</span>)
+<span class="kw">for</span> fruit <span class="kw">in</span> [<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"grape"</span>]:
+    <span class="fn">print</span>(<span class="st">f"I like {fruit}"</span>)
 
 
 <span class="cm"># المرور على حروف نصّ</span>
-<span class="kw">for</span> ch <span class="kw">in</span> <span class="st">"بايثون"</span>:
+<span class="kw">for</span> ch <span class="kw">in</span> <span class="st">"Python"</span>:
     <span class="fn">print</span>(ch)
 
 
@@ -1569,11 +1569,11 @@ score *= 2      <span class="cm"># 30</span>
 <span class="kw">total</span> = 0
 <span class="kw">for</span> n <span class="kw">in</span> <span class="fn">range</span>(1, 101):
     total += n
-<span class="fn">print</span>(<span class="st">f"مجموع 1 إلى 100 = {total}"</span>)   <span class="cm"># 5050</span>
+<span class="fn">print</span>(<span class="st">f"Sum from 1 to 100 = {total}"</span>)   <span class="cm"># 5050</span>
 
 
 <span class="cm"># enumerate: الفهرس والعنصر معاً</span>
-<span class="kw">students</span> = [<span class="st">"سارة"</span>, <span class="st">"أحمد"</span>, <span class="st">"ليلى"</span>]
+<span class="kw">students</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>]
 <span class="kw">for</span> i, name <span class="kw">in</span> <span class="fn">enumerate</span>(students, 1):
     <span class="fn">print</span>(<span class="st">f"{i}. {name}"</span>)
 
@@ -1587,7 +1587,7 @@ score *= 2      <span class="cm"># 30</span>
 
 <span class="cm"># تكرار بلا حاجة للعدّاد</span>
 <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(3):
-    <span class="fn">print</span>(<span class="st">"مرحبا"</span>)`,
+    <span class="fn">print</span>(<span class="st">"Hello"</span>)`,
     quiz: {
         q: {
             ar: "كم رقماً تطبع الحلقة:  for i in range(1, 6):  ؟",
@@ -1683,11 +1683,11 @@ score *= 2      <span class="cm"># 30</span>
 
 
 <span class="cm"># نمط التحقق من المدخلات</span>
-<span class="kw">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"عمرك: "</span>))
+<span class="kw">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Your age: "</span>))
 <span class="kw">while</span> age <= 0 <span class="kw">or</span> age > 120:
-    <span class="fn">print</span>(<span class="st">"عمر غير منطقي، حاول مجدداً"</span>)
-    <span class="kw">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"عمرك: "</span>))
-<span class="fn">print</span>(<span class="st">f"شكراً، عمرك {age}"</span>)
+    <span class="fn">print</span>(<span class="st">"Not a realistic age, try again"</span>)
+    <span class="kw">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Your age: "</span>))
+<span class="fn">print</span>(<span class="st">f"Thanks, you are {age}"</span>)
 
 
 <span class="cm"># عدّاد محاولات محدود</span>
@@ -1695,24 +1695,24 @@ score *= 2      <span class="cm"># 30</span>
 <span class="kw">logged_in</span> = <span class="kw">False</span>
 
 <span class="kw">while</span> attempts > 0 <span class="kw">and</span> <span class="kw">not</span> logged_in:
-    <span class="kw">pw</span> = <span class="fn">input</span>(<span class="st">"كلمة المرور: "</span>)
+    <span class="kw">pw</span> = <span class="fn">input</span>(<span class="st">"Password: "</span>)
     <span class="kw">if</span> pw == <span class="st">"1234"</span>:
         <span class="kw">logged_in</span> = <span class="kw">True</span>
-        <span class="fn">print</span>(<span class="st">"أهلاً بك"</span>)
+        <span class="fn">print</span>(<span class="st">"Welcome"</span>)
     <span class="kw">else</span>:
         attempts -= 1
-        <span class="fn">print</span>(<span class="st">f"خطأ. بقي لك {attempts} محاولة"</span>)
+        <span class="fn">print</span>(<span class="st">f"Wrong. {attempts} attempt(s) left"</span>)
 
 <span class="kw">if</span> <span class="kw">not</span> logged_in:
-    <span class="fn">print</span>(<span class="st">"تم قفل الحساب"</span>)
+    <span class="fn">print</span>(<span class="st">"Account locked"</span>)
 
 
 <span class="cm"># while True مع break</span>
 <span class="kw">while</span> <span class="kw">True</span>:
-    <span class="kw">cmd</span> = <span class="fn">input</span>(<span class="st">"اكتب أمراً (خروج للإنهاء): "</span>)
-    <span class="kw">if</span> cmd == <span class="st">"خروج"</span>:
+    <span class="kw">cmd</span> = <span class="fn">input</span>(<span class="st">"Type a command (exit to quit): "</span>)
+    <span class="kw">if</span> cmd == <span class="st">"exit"</span>:
         <span class="kw">break</span>
-    <span class="fn">print</span>(<span class="st">f"نفّذت: {cmd}"</span>)`,
+    <span class="fn">print</span>(<span class="st">f"Ran: {cmd}"</span>)`,
     quiz: {
         q: {
             ar: "ما المشكلة في هذا الكود؟\nn = 1\nwhile n <= 3:\n    print(n)",
@@ -1802,13 +1802,13 @@ score *= 2      <span class="cm"># 30</span>
         en: `<p><code>break</code> exits the whole loop immediately; <code>continue</code> skips only the current iteration. In nested loops they affect the innermost loop only. A loop <code>else</code> runs only if the loop finished without a break.</p>`
     },
     code: `<span class="cm"># break: التوقف عند أول نتيجة</span>
-<span class="kw">names</span> = [<span class="st">"سارة"</span>, <span class="st">"أحمد"</span>, <span class="st">"ليلى"</span>, <span class="st">"خالد"</span>]
+<span class="kw">names</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>, <span class="st">"Khalid"</span>]
 
 <span class="kw">for</span> name <span class="kw">in</span> names:
-    <span class="kw">if</span> name == <span class="st">"ليلى"</span>:
-        <span class="fn">print</span>(<span class="st">"وجدتها!"</span>)
-        <span class="kw">break</span>            <span class="cm"># لن يفحص "خالد" إطلاقاً</span>
-    <span class="fn">print</span>(<span class="st">f"أفحص {name}..."</span>)
+    <span class="kw">if</span> name == <span class="st">"Layla"</span>:
+        <span class="fn">print</span>(<span class="st">"Found her!"</span>)
+        <span class="kw">break</span>            <span class="cm"># لن يفحص "Khalid" إطلاقاً</span>
+    <span class="fn">print</span>(<span class="st">f"Checking {name}..."</span>)
 
 
 <span class="cm"># continue: تخطّي حالات معيّنة</span>
@@ -1823,10 +1823,10 @@ score *= 2      <span class="cm"># 30</span>
 
 <span class="kw">for</span> n <span class="kw">in</span> numbers:
     <span class="kw">if</span> n % 7 == 0:
-        <span class="fn">print</span>(<span class="st">f"أول رقم يقبل القسمة على 7: {n}"</span>)
+        <span class="fn">print</span>(<span class="st">f"First number divisible by 7: {n}"</span>)
         <span class="kw">break</span>
 <span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="st">"لا يوجد رقم يقبل القسمة على 7"</span>)
+    <span class="fn">print</span>(<span class="st">"No number divisible by 7"</span>)
 
 
 <span class="cm"># في الحلقات المتداخلة: break تخرج من الداخلية فقط</span>
@@ -1944,29 +1944,29 @@ score *= 2      <span class="cm"># 30</span>
 <span class="kw">attempts</span> = 7
 
 <span class="fn">print</span>(<span class="st">"="</span> * 40)
-<span class="fn">print</span>(<span class="st">"   خمّن الرقم بين 1 و 100"</span>)
-<span class="fn">print</span>(<span class="st">f"   لديك {attempts} محاولات"</span>)
+<span class="fn">print</span>(<span class="st">"   Guess the number between 1 and 100"</span>)
+<span class="fn">print</span>(<span class="st">f"   You have {attempts} attempts"</span>)
 <span class="fn">print</span>(<span class="st">"="</span> * 40)
 
 <span class="kw">while</span> attempts > 0:
-    <span class="kw">raw</span> = <span class="fn">input</span>(<span class="st">f"\\nتخمينك ({attempts} متبقية): "</span>).strip()
+    <span class="kw">raw</span> = <span class="fn">input</span>(<span class="st">f"\\nYour guess ({attempts} left): "</span>).strip()
 
     <span class="cm"># التحقق من صلاحية المدخل</span>
     <span class="kw">if</span> <span class="kw">not</span> raw.isdigit():
-        <span class="fn">print</span>(<span class="st">"أدخل رقماً صحيحاً من فضلك"</span>)
+        <span class="fn">print</span>(<span class="st">"Please enter a valid number"</span>)
         <span class="kw">continue</span>          <span class="cm"># لا تُحتسب محاولة</span>
 
     <span class="kw">guess</span> = <span class="fn">int</span>(raw)
 
     <span class="kw">if</span> guess < 1 <span class="kw">or</span> guess > 100:
-        <span class="fn">print</span>(<span class="st">"الرقم يجب أن يكون بين 1 و 100"</span>)
+        <span class="fn">print</span>(<span class="st">"The number must be between 1 and 100"</span>)
         <span class="kw">continue</span>
 
     <span class="cm"># المقارنة وإعطاء التلميح</span>
     <span class="kw">if</span> guess == secret:
         <span class="kw">used</span> = 8 - attempts
-        <span class="fn">print</span>(<span class="st">f"\\n🎉 أحسنت! الرقم هو {secret}"</span>)
-        <span class="fn">print</span>(<span class="st">f"أصبته في {used} محاولة"</span>)
+        <span class="fn">print</span>(<span class="st">f"\\n🎉 Well done! The number was {secret}"</span>)
+        <span class="fn">print</span>(<span class="st">f"You got it in {used} attempt(s)"</span>)
         <span class="kw">break</span>
 
     attempts -= 1
@@ -1977,18 +1977,18 @@ score *= 2      <span class="cm"># 30</span>
     <span class="cm"># تلميح أذكى للأرقام القريبة</span>
     <span class="kw">diff</span> = <span class="fn">abs</span>(guess - secret)
     <span class="kw">if</span> diff <= 5:
-        <span class="fn">print</span>(<span class="st">"🔥 قريب جداً!"</span>)
+        <span class="fn">print</span>(<span class="st">"🔥 So close!"</span>)
 
     <span class="kw">if</span> guess < secret:
-        <span class="fn">print</span>(<span class="st">"⬆️ الرقم السري أكبر"</span>)
+        <span class="fn">print</span>(<span class="st">"⬆️ The secret number is bigger"</span>)
     <span class="kw">else</span>:
-        <span class="fn">print</span>(<span class="st">"⬇️ الرقم السري أصغر"</span>)
+        <span class="fn">print</span>(<span class="st">"⬇️ The secret number is smaller"</span>)
 
 <span class="kw">else</span>:
     <span class="cm"># تعمل فقط إذا لم يحدث break — أي خسر اللاعب</span>
-    <span class="fn">print</span>(<span class="st">f"\\n😔 نفدت المحاولات. الرقم كان {secret}"</span>)
+    <span class="fn">print</span>(<span class="st">f"\\n😔 Out of attempts. The number was {secret}"</span>)
 
-<span class="fn">print</span>(<span class="st">"\\nشكراً للعب!"</span>)`,
+<span class="fn">print</span>(<span class="st">"\\nThanks for playing!"</span>)`,
     quiz: {
         q: {
             ar: "في اللعبة استخدمنا continue عند إدخال غير صالح بدل أن ننقص المحاولات. لماذا؟",
