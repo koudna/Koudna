@@ -3759,6 +3759,631 @@ add_correct(10)
         }
     }
 }
+,
+
+/* ---------- الدرس 33 ---------- */
+{
+    title: { ar: "الأصناف والكائنات: أول خطوة في OOP", en: "Classes and objects: your first step into OOP" },
+    body: {
+        ar: `
+<p>تذكّر مشروع دفتر جهات الاتصال: كل جهة اتصال كانت قاموساً <code>{"name": "...", "phone": "..."}</code>. هذا يعمل، لكن لا شيء يربط البيانات بسلوكها. ماذا لو أردت أن "تعرف" كل جهة اتصال كيف تعرّف عن نفسها؟ <strong>البرمجة الكائنية (OOP)</strong> تحلّ هذا: تجمع البيانات (attributes) والسلوك (methods) المرتبطين بها معاً في قالب واحد يُسمّى <strong>الصنف (class)</strong>.</p>
+
+<h3>الصنف قالب، والكائن نسخة منه</h3>
+
+<p>فكّر في الصنف كقالب معجّنات: يحدّد الشكل، لكنه ليس معجّنة فعلية. <strong>الكائن (object/instance)</strong> هو المعجّنة الفعلية المصنوعة من ذلك القالب. يمكنك صنع عشرات الكائنات من نفس الصنف، لكل منها بياناته الخاصة، بنفس السلوك المُعرَّف مرة واحدة في الصنف.</p>
+
+<h3>تعريف صنف بسيط</h3>
+
+<p>يُعرَّف الصنف بالكلمة <code>class</code> واسم يبدأ بحرف كبير عرفاً (اصطلاح مهم في بايثون): <code>class Contact:</code>. الدالة الخاصة <code>__init__</code> (تُنطق "دَندَر إينِت") هي <strong>المُنشئ (constructor)</strong> — تُنفَّذ تلقائياً عند إنشاء كائن جديد، وتُستخدم لتهيئة بياناته الأولية.</p>
+
+<h3>self: الإشارة للكائن نفسه</h3>
+
+<p>لاحظ أن كل دالة داخل الصنف تأخذ <code>self</code> كأول معامل دائماً. <code>self</code> هو مرجع للكائن الفعلي الذي يستدعي الدالة — يسمح لك بتخزين بيانات خاصة بهذا الكائن تحديداً: <code>self.name = name</code> يخزّن الاسم كخاصية (attribute) على هذا الكائن بالذات، منفصلة تماماً عن أي كائن آخر من نفس الصنف.</p>
+
+<h3>إنشاء كائنات والوصول لخصائصها</h3>
+
+<p>لإنشاء كائن: <code>contact1 = Contact("Sarah", "0612345678")</code> — هذا يستدعي <code>__init__</code> تلقائياً بهذه القيم. للوصول لخاصية: <code>contact1.name</code> — بنفس منطق الوصول لمفتاح قاموس، لكن بنقطة بدل قوسين مربّعين.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>نسيان <code>self</code> كأول معامل في <code>__init__</code> أو أي دالة داخل الصنف يرمي خطأً. والخلط بين خاصية الصنف نفسها وخاصية الكائن — <code>self.name</code> خاصة بكل كائن على حدة، بينما متغيّر مُعرَّف مباشرة داخل الصنف (خارج أي دالة) مشترك بين كل الكائنات.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>الصنف قالب يجمع البيانات والسلوك معاً؛ الكائن نسخة فعلية منه</li>
+    <li><code>__init__</code> مُنشئ يُنفَّذ تلقائياً عند إنشاء كائن جديد</li>
+    <li><code>self</code> يشير للكائن نفسه، ويُستخدم لتخزين خصائصه الخاصة</li>
+    <li>الوصول لخاصية كائن: <code>object.attribute</code></li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>عرّف صنف <code>Book</code> بخصائص title وauthor وyear في <code>__init__</code>. أنشئ كائنين مختلفين منه، واطبع بيانات كل كائن على حدة للتأكد من أن كل كائن يحتفظ ببياناته الخاصة منفصلة عن الآخر.</p>
+`,
+        en: `<p>A class is a template bundling data (attributes) and behavior (methods) together; an object is an actual instance created from it. __init__ runs automatically when a new object is created, and self refers to that specific object, letting you store per-object data with self.attribute = value.</p>`
+    },
+    code: `<span class="cm"># تعريف صنف بسيط</span>
+<span class="kw">class</span> Contact:
+    <span class="kw">def</span> __init__(self, name, phone):
+        self.name = name     <span class="cm"># خاصية خاصة بكل كائن</span>
+        self.phone = phone
+
+
+<span class="cm"># إنشاء كائنين مختلفين من نفس الصنف</span>
+<span class="kw">contact1</span> = Contact(<span class="st">"Sarah"</span>, <span class="st">"0612345678"</span>)
+<span class="kw">contact2</span> = Contact(<span class="st">"Ahmed"</span>, <span class="st">"0698765432"</span>)
+
+
+<span class="cm"># الوصول للخصائص — كل كائن يحتفظ ببياناته الخاصة</span>
+<span class="fn">print</span>(contact1.name)    <span class="cm"># Sarah</span>
+<span class="fn">print</span>(contact2.name)    <span class="cm"># Ahmed — منفصل تماماً</span>
+<span class="fn">print</span>(<span class="st">f"{contact1.name}: {contact1.phone}"</span>)
+
+
+<span class="cm"># نوع الكائن</span>
+<span class="fn">print</span>(<span class="fn">type</span>(contact1))   <span class="cm"># &lt;class '__main__.Contact'&gt;</span>
+
+
+<span class="cm"># خطأ شائع: نسيان self</span>
+<span class="cm"># def __init__(name, phone):   ← سيُعامَل name كـ self بالخطأ!</span>`,
+    quiz: {
+        q: {
+            ar: "ما وظيفة self داخل دوال الصنف؟",
+            en: "What is the role of self inside a class's functions?"
+        },
+        options: {
+            ar: [
+                "اسم متغيّر عشوائي بلا معنى خاص",
+                "يشير إلى الكائن الفعلي الذي يستدعي الدالة، ويُستخدم لتخزين خصائصه الخاصة",
+                "يشير إلى الصنف نفسه، وليس الكائن",
+                "مطلوب فقط في __init__، وليس بقية الدوال"
+            ],
+            en: [
+                "A random variable name with no special meaning",
+                "It refers to the actual object calling the function, used to store that object's own data",
+                "It refers to the class itself, not the object",
+                "It's only required in __init__, not other functions"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "self هو مرجع للكائن الفعلي الذي استُدعيت الدالة من خلاله. self.name = name يخزّن الاسم على هذا الكائن بالذات، فلا يتداخل مع بيانات أي كائن آخر من نفس الصنف. يجب أن يكون أول معامل في كل دالة داخل الصنف.",
+            en: "self is a reference to the actual object the function was called through. self.name = name stores the name on that specific object, so it never interferes with any other object's data from the same class. It must be the first parameter in every function inside the class."
+        }
+    }
+},
+
+/* ---------- الدرس 34 ---------- */
+{
+    title: { ar: "الدوال داخل الأصناف (Methods)", en: "Methods: functions inside classes" },
+    body: {
+        ar: `
+<p>الدرس السابق علّمك تخزين بيانات في كائن. لكن OOP الحقيقية تربط <strong>السلوك</strong> بالبيانات أيضاً — لا يكفي أن يخزّن الكائن اسمه وهاتفه، بل يجب أن "يعرف" كيف يطبع نفسه، أو كيف يقارن نفسه بكائن آخر. الدوال المُعرَّفة داخل صنف تُسمّى <strong>methods</strong>، وتعمل مباشرة على بيانات الكائن عبر <code>self</code>.</p>
+
+<h3>تعريف method واستدعاؤها</h3>
+
+<p>تُعرَّف method مثل أي دالة عادية، لكن داخل الصنف، وبـ <code>self</code> كأول معامل دائماً: <code>def introduce(self): return f"I'm {self.name}"</code>. تُستدعى على كائن محدّد بنقطة: <code>contact1.introduce()</code> — لاحظ أنك لا تمرّر <code>self</code> يدوياً عند الاستدعاء؛ بايثون تمرّره تلقائياً وتعني به الكائن الذي استدعيت الدالة عليه.</p>
+
+<h3>Method تقرأ وتُعدّل خصائص الكائن</h3>
+
+<p>داخل أي method، تستطيع قراءة خصائص الكائن (<code>self.name</code>) واستخدامها في حسابات أو نصوص، وأيضاً <strong>تعديلها</strong> مباشرة: <code>self.phone = new_phone</code> يغيّر رقم الهاتف لهذا الكائن تحديداً، دون التأثير على أي كائن آخر.</p>
+
+<h3>Method تستدعي method أخرى</h3>
+
+<p>يمكن لمethod أن تستدعي method أخرى من نفس الصنف عبر <code>self</code>: <code>self.other_method()</code>. هذا يسمح ببناء سلوك مركّب من قطع أصغر قابلة لإعادة الاستخدام داخل الصنف نفسه.</p>
+
+<h3>الفرق بين method عادية ودالة عادية</h3>
+
+<p>الفرق الجوهري: method مرتبطة بكائن محدّد عبر <code>self</code>، وتصل تلقائياً لبيانات ذلك الكائن دون الحاجة لتمريرها كمعاملات صريحة. دالة عادية خارج أي صنف لا تملك هذا الارتباط التلقائي بأي بيانات.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>نسيان <code>self.</code> قبل خاصية داخل method — كتابة <code>name</code> بدل <code>self.name</code> تعني متغيّراً محلياً منفصلاً تماماً، غير مرتبط بالكائن، وغالباً يرمي <code>NameError</code> إن لم يكن مُعرَّفاً محلياً.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>Method دالة داخل صنف، بـ <code>self</code> كأول معامل دائماً</li>
+    <li>تُستدعى على كائن محدّد: <code>object.method()</code>، بلا تمرير self يدوياً</li>
+    <li>تصل لبيانات الكائن عبر <code>self.attribute</code>، قراءة أو تعديلاً</li>
+    <li>يمكن لmethod استدعاء method أخرى من نفس الصنف عبر <code>self</code></li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أضف للصنف <code>Book</code> من الدرس السابق method باسم <code>summary()</code> تُرجع جملة تصف الكتاب كاملة، وmethod أخرى <code>update_year(new_year)</code> تعدّل سنة النشر. اختبر الاثنتين على كائن حقيقي.</p>
+`,
+        en: `<p>Methods are functions defined inside a class, always taking self as the first parameter, and called on a specific object with object.method() — you never pass self manually. Inside a method, self.attribute reads or modifies that specific object's data.</p>`
+    },
+    code: `<span class="kw">class</span> Contact:
+    <span class="kw">def</span> __init__(self, name, phone):
+        self.name = name
+        self.phone = phone
+
+    <span class="cm"># method تقرأ بيانات الكائن</span>
+    <span class="kw">def</span> introduce(self):
+        <span class="kw">return</span> <span class="st">f"I'm {self.name}, call me at {self.phone}"</span>
+
+    <span class="cm"># method تُعدّل بيانات الكائن</span>
+    <span class="kw">def</span> update_phone(self, new_phone):
+        self.phone = new_phone
+        <span class="fn">print</span>(<span class="st">f"Phone updated for {self.name}"</span>)
+
+    <span class="cm"># method تستدعي method أخرى عبر self</span>
+    <span class="kw">def</span> full_details(self):
+        <span class="kw">return</span> <span class="st">f"Contact card: {self.introduce()}"</span>
+
+
+<span class="kw">contact1</span> = Contact(<span class="st">"Sarah"</span>, <span class="st">"0612345678"</span>)
+
+<span class="fn">print</span>(contact1.introduce())
+contact1.update_phone(<span class="st">"0699999999"</span>)
+<span class="fn">print</span>(contact1.phone)          <span class="cm"># تغيّر فعلاً</span>
+<span class="fn">print</span>(contact1.full_details())
+
+
+<span class="cm"># خطأ شائع: نسيان self داخل الدالة</span>
+<span class="cm"># def introduce(self):</span>
+<span class="cm">#     return f"I'm {name}"   ← NameError: name غير معروف!</span>`,
+    quiz: {
+        q: {
+            ar: "لماذا نستدعي contact1.introduce() بلا تمرير self صراحة رغم أن introduce تأخذ self كمعامل؟",
+            en: "Why do we call contact1.introduce() without explicitly passing self, even though introduce takes self as a parameter?"
+        },
+        options: {
+            ar: [
+                "لأن introduce لا تحتاج self فعلياً هنا",
+                "لأن بايثون تمرّر الكائن (contact1) تلقائياً كـ self عند الاستدعاء بصيغة النقطة",
+                "لأن self معامل اختياري دائماً",
+                "هذا خطأ فعلاً، والكود يجب أن يفشل"
+            ],
+            en: [
+                "Because introduce doesn't actually need self here",
+                "Because Python automatically passes the object (contact1) as self when called with dot syntax",
+                "Because self is always an optional parameter",
+                "This is actually an error, and the code should fail"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "عند استدعاء object.method()، بايثون تمرّر الكائن نفسه تلقائياً كأول معامل (self) خلف الكواليس. لهذا contact1.introduce() يكافئ فعلياً Contact.introduce(contact1)، لكن الصيغة الأولى أوضح وأشيع بكثير.",
+            en: "When calling object.method(), Python automatically passes the object itself as the first argument (self) behind the scenes. So contact1.introduce() is effectively equivalent to Contact.introduce(contact1), but the first form is far clearer and far more common."
+        }
+    }
+},
+
+/* ---------- الدرس 35 ---------- */
+{
+    title: { ar: "الوراثة: بناء أصناف من أصناف أخرى", en: "Inheritance: building classes from other classes" },
+    body: {
+        ar: `
+<p>تخيّل أنك تبني نظاماً لمكتبة: عندك كتب عادية، وكتب صوتية. كلاهما له عنوان ومؤلف، لكن الكتاب الصوتي له أيضاً مدّة تشغيل بالدقائق. هل تكتب صنفين منفصلين تماماً بتكرار كامل للعنوان والمؤلف؟ <strong>الوراثة (Inheritance)</strong> تحلّ هذا: يمكن لصنف جديد أن <strong>يرث</strong> كل خصائص وmethods صنف موجود، ثم يضيف أو يُعدّل ما يخصّه فقط.</p>
+
+<h3>صنف أب وصنف ابن</h3>
+
+<p>الصنف الأصلي يُسمّى <strong>الأب (parent/base class)</strong>، والصنف الوارث يُسمّى <strong>الابن (child/derived class)</strong>. صيغة الوراثة: <code>class AudioBook(Book):</code> — الابن بين قوسين بعد اسم الصنف الابن. تلقائياً، يمتلك <code>AudioBook</code> كل ما يملكه <code>Book</code> من خصائص وmethods، دون إعادة كتابتها.</p>
+
+<h3>super(): استدعاء الأب من الابن</h3>
+
+<p>داخل <code>__init__</code> الصنف الابن، تستدعي <code>super().__init__(...)</code> لتشغيل مُنشئ الأب أولاً (يهيّئ الخصائص المشتركة كالعنوان والمؤلف)، ثم تضيف خصائص الابن الخاصة بعدها مباشرة: <code>self.duration_minutes = duration_minutes</code>. هذا يتجنّب تكرار نفس منطق التهيئة في كل صنف ابن.</p>
+
+<h3>Override: إعادة تعريف method في الابن</h3>
+
+<p>يمكن للصنف الابن <strong>إعادة تعريف</strong> method موروثة من الأب بسلوك مختلف — يُسمّى هذا Override. مثلاً: <code>Book</code> لديه <code>summary()</code> تصف كتاباً عادياً، بينما <code>AudioBook</code> يعيد تعريف نفس الاسم <code>summary()</code> ليضيف مدّة التشغيل أيضاً. عند استدعاء <code>summary()</code> على كائن AudioBook، تُنفَّذ نسخة الابن، لا نسخة الأب.</p>
+
+<h3>لماذا الوراثة مفيدة عملياً؟</h3>
+
+<p>تمنع تكرار الكود بين أصناف مرتبطة منطقياً، وتُبسّط الصيانة: تعديل واحد في الصنف الأب ينعكس تلقائياً على كل الأصناف الوارثة منه. لكن احذر الإفراط فيها — وراثة عميقة جداً (أصناف ترث من أصناف ترث من أصناف) تُصعّب فهم الكود، لا تُسهّله.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>نسيان استدعاء <code>super().__init__()</code> في الابن يعني أن خصائص الأب (كالعنوان والمؤلف) لن تُهيَّأ أصلاً. والخلط بين "الابن يرث من الأب" و"الأب يعرف عن الابن" — العلاقة اتجاه واحد فقط: الابن يعرف الأب، لكن الأب لا يعرف شيئاً عن أصنافه الوارثة.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>الوراثة: <code>class Child(Parent):</code> تمنح الابن كل ما يملكه الأب تلقائياً</li>
+    <li><code>super().__init__(...)</code> يشغّل مُنشئ الأب أولاً من داخل الابن</li>
+    <li>Override: إعادة تعريف method موروثة بسلوك مختلف في الصنف الابن</li>
+    <li>الوراثة تمنع التكرار بين أصناف مرتبطة منطقياً</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>عرّف صنف <code>Book</code> بـ title وauthor وmethod <code>summary()</code>. عرّف صنف <code>EBook</code> يرث منه ويضيف خاصية <code>file_size_mb</code>، ويُعيد تعريف <code>summary()</code> لتضمين حجم الملف أيضاً.</p>
+`,
+        en: `<p>Inheritance lets a child class (class Child(Parent):) automatically gain everything from a parent class. Call super().__init__(...) inside the child to run the parent's constructor first, then add child-specific attributes. Overriding lets the child redefine a method with different behavior.</p>`
+    },
+    code: `<span class="cm"># الصنف الأب</span>
+<span class="kw">class</span> Book:
+    <span class="kw">def</span> __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    <span class="kw">def</span> summary(self):
+        <span class="kw">return</span> <span class="st">f"{self.title} by {self.author}"</span>
+
+
+<span class="cm"># صنف ابن — يرث من Book</span>
+<span class="kw">class</span> AudioBook(Book):
+    <span class="kw">def</span> __init__(self, title, author, duration_minutes):
+        <span class="fn">super</span>().__init__(title, author)   <span class="cm"># يهيّئ خصائص الأب أولاً</span>
+        self.duration_minutes = duration_minutes    <span class="cm"># خاصية خاصة بالابن</span>
+
+    <span class="cm"># Override: إعادة تعريف summary بسلوك مختلف</span>
+    <span class="kw">def</span> summary(self):
+        <span class="kw">base</span> = <span class="fn">super</span>().summary()
+        <span class="kw">return</span> <span class="st">f"{base} ({self.duration_minutes} min audio)"</span>
+
+
+<span class="kw">book</span> = Book(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>)
+<span class="kw">audio</span> = AudioBook(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>, 240)
+
+<span class="fn">print</span>(book.summary())    <span class="cm"># Python Basics by Sarah Ahmed</span>
+<span class="fn">print</span>(audio.summary())   <span class="cm"># نفس النص + المدّة — النسخة المُعاد تعريفها</span>
+
+
+<span class="cm"># الابن يملك خصائص الأب أيضاً تلقائياً</span>
+<span class="fn">print</span>(audio.title)    <span class="cm"># Python Basics — موروث من Book</span>
+<span class="fn">print</span>(<span class="fn">isinstance</span>(audio, Book))   <span class="cm"># True — AudioBook هو Book أيضاً</span>`,
+    quiz: {
+        q: {
+            ar: "لماذا نستدعي super().__init__(...) داخل مُنشئ الصنف الابن؟",
+            en: "Why do we call super().__init__(...) inside the child class's constructor?"
+        },
+        options: {
+            ar: [
+                "لحذف مُنشئ الأب نهائياً",
+                "لتشغيل مُنشئ الصنف الأب وتهيئة خصائصه المشتركة، قبل إضافة خصائص الابن الخاصة",
+                "هو معامل اختياري بلا تأثير حقيقي",
+                "لجعل الصنف الأب يرث من الابن"
+            ],
+            en: [
+                "To delete the parent's constructor entirely",
+                "To run the parent class's constructor and initialize its shared attributes, before adding the child's own attributes",
+                "It's an optional call with no real effect",
+                "To make the parent class inherit from the child"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "super().__init__(...) يستدعي مُنشئ الأب صراحة، فتُهيَّأ الخصائص المشتركة (كالعنوان والمؤلف) بنفس منطق الأب دون تكرار كتابته في كل صنف ابن. بدونه، تلك الخصائص لن تُهيَّأ أصلاً في كائنات الابن.",
+            en: "super().__init__(...) explicitly calls the parent's constructor, so shared attributes (like title and author) get initialized using the parent's own logic without rewriting it in every child class. Without it, those attributes would never get initialized on child objects at all."
+        }
+    }
+},
+
+/* ---------- الدرس 36 ---------- */
+{
+    title: { ar: "Encapsulation: حماية بيانات الكائن", en: "Encapsulation: protecting object data" },
+    body: {
+        ar: `
+<p>حتى الآن، أي كود خارج الصنف يستطيع تعديل خصائص الكائن مباشرة: <code>contact1.phone = "invalid"</code> يعمل دون أي تحقّق، حتى لو كانت القيمة غير منطقية. <strong>Encapsulation</strong> مبدأ يحمي بيانات الكائن الداخلية من التعديل المباشر غير المُتحكَّم به، ويفرض المرور عبر methods مُصمَّمة للتحقّق أولاً.</p>
+
+<h3>الاصطلاح: الشرطة السفلية الواحدة والمزدوجة</h3>
+
+<p>بايثون لا تملك حماية صارمة حقيقية مثل بعض اللغات، لكنها تستخدم اصطلاحات (conventions) واضحة: خاصية تبدأ بشرطة سفلية واحدة <code>_balance</code> تعني "داخلية، لا تصل إليها من خارج الصنف رغم إمكانية ذلك تقنياً" — تحذير احترام لا حماية إجبارية. الشرطتان السفليتان <code>__balance</code> تُفعّلان تشويهاً حقيقياً لاسم الخاصية (name mangling) يجعل الوصول المباشر من خارج الصنف أصعب فعلياً.</p>
+
+<h3>Property: التحقّق عند القراءة والكتابة</h3>
+
+<p>الأداة الأنيقة لـ Encapsulation في بايثون هي <code>@property</code>: تسمح بتعريف method تتصرّف وكأنها خاصية عادية عند القراءة (<code>account.balance</code> بلا أقواس)، بينما هي فعلياً دالة تتحكّم في القيمة المُرجَعة. يمكن إقرانها بـ <code>@balance.setter</code> لتعريف دالة تتحقّق من القيمة قبل قبول أي تعديل عليها.</p>
+
+<h3>لماذا هذا مهم عملياً؟</h3>
+
+<p>تخيّل صنف حساب بنكي: بلا Encapsulation، أي كود يستطيع كتابة <code>account.balance = -1000000</code> مباشرة، منتجاً رصيداً سالباً مستحيلاً منطقياً. مع <code>@property</code> وsetter يتحقّق من القيمة، أي محاولة تعيين رصيد سالب تُرفَض فوراً برسالة واضحة (باستخدام <code>raise</code> من درس سابق)، بدل السماح ببيانات فاسدة تنتشر بصمت.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>الاعتماد الكامل على الشرطة السفلية الواحدة كأنها حماية حقيقية — إنها اصطلاح فقط، ولا شيء يمنع الوصول المباشر تقنياً. للحماية الفعلية عند التحقّق ضروري، استخدم <code>@property</code> مع setter يتحقّق فعلياً.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>Encapsulation يحمي بيانات الكائن من تعديل مباشر غير مُتحكَّم به</li>
+    <li>شرطة سفلية واحدة <code>_name</code>: اصطلاح "داخلي" غير مُلزَم تقنياً</li>
+    <li>شرطتان سفليتان <code>__name</code>: تشويه حقيقي لاسم الخاصية</li>
+    <li><code>@property</code> و<code>@x.setter</code> يسمحان بالتحقّق الفعلي عند القراءة والكتابة</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>عرّف صنف <code>BankAccount</code> بخاصية داخلية <code>_balance</code>، وproperty باسم <code>balance</code> للقراءة، وsetter يرفض أي قيمة سالبة بـ <code>raise ValueError</code>. اختبر تعيين قيمة صالحة وأخرى سالبة.</p>
+`,
+        en: `<p>Encapsulation protects an object's internal data from uncontrolled direct edits. A single underscore _name is a "internal use" convention, not real protection. @property and @x.setter give real control: the setter can validate a value with raise before accepting it, rejecting invalid states like a negative balance.</p>`
+    },
+    code: `<span class="kw">class</span> BankAccount:
+    <span class="kw">def</span> __init__(self, owner, balance):
+        self.owner = owner
+        self._balance = balance   <span class="cm"># شرطة واحدة: اصطلاح "داخلي"</span>
+
+    <span class="cm"># property: تُقرأ كخاصية عادية بلا أقواس</span>
+    <span class="fn">@property</span>
+    <span class="kw">def</span> balance(self):
+        <span class="kw">return</span> self._balance
+
+    <span class="cm"># setter: يتحقّق قبل قبول أي تعديل</span>
+    <span class="fn">@balance.setter</span>
+    <span class="kw">def</span> balance(self, new_value):
+        <span class="kw">if</span> new_value < 0:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Balance cannot be negative"</span>)
+        self._balance = new_value
+
+
+<span class="kw">account</span> = BankAccount(<span class="st">"Sarah"</span>, 1000)
+
+<span class="fn">print</span>(account.balance)     <span class="cm"># 1000 — تُقرأ كخاصية عادية</span>
+
+account.balance = 1500          <span class="cm"># تعديل صالح — يمرّ عبر setter بأمان</span>
+<span class="fn">print</span>(account.balance)     <span class="cm"># 1500</span>
+
+<span class="kw">try</span>:
+    account.balance = -500      <span class="cm"># محاولة غير منطقية</span>
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Rejected: {e}"</span>)
+
+<span class="fn">print</span>(account.balance)     <span class="cm"># لا يزال 1500 — لم يتغيّر</span>`,
+    quiz: {
+        q: {
+            ar: "لماذا لا تُعتبر self._balance (شرطة واحدة) حماية حقيقية لبيانات الكائن؟",
+            en: "Why isn't self._balance (single underscore) real protection for object data?"
+        },
+        options: {
+            ar: [
+                "لأنها اصطلاح فقط يُفهم بين المبرمجين، ولا يمنع الوصول المباشر تقنياً من خارج الصنف",
+                "لأنها تعمل فقط داخل __init__",
+                "لأن بايثون تمنعها من الأساس",
+                "لا فرق بينها وبين @property إطلاقاً"
+            ],
+            en: [
+                "It's just a convention understood between programmers, and doesn't technically prevent direct access from outside the class",
+                "It only works inside __init__",
+                "Python forbids it outright",
+                "There's no difference at all from @property"
+            ]
+        },
+        correct: 0,
+        explanation: {
+            ar: "الشرطة السفلية الواحدة رسالة اصطلاحية بين المبرمجين تقول 'لا تصل لهذا مباشرة'، لكن بايثون لا تفرضها تقنياً — account._balance = -500 سيعمل فعلياً بلا أي منع. الحماية الفعلية تحتاج @property مع setter يتحقّق صراحة.",
+            en: "A single underscore is a conventional message between programmers saying 'don't access this directly', but Python doesn't technically enforce it — account._balance = -500 would actually work with no prevention at all. Real protection needs @property with a setter that explicitly validates."
+        }
+    }
+},
+
+/* ---------- الدرس 37 ---------- */
+{
+    title: { ar: "Magic Methods: تخصيص سلوك الكائنات", en: "Magic methods: customizing object behavior" },
+    body: {
+        ar: `
+<p>جرّب طباعة كائن من أصناف الدروس السابقة مباشرة: <code>print(book)</code> — ستحصل على شيء غير مفيد مثل <code>&lt;__main__.Book object at 0x...&gt;</code>. لماذا لا يطبع بيانات الكتاب الفعلية؟ لأن بايثون لا "تعرف" كيف تريد تمثيل كائنك كنصّ، إلا إن أخبرتها بنفسك عبر <strong>Magic Methods</strong> — دوال خاصة تبدأ وتنتهي بشرطتين سفليتين، تُستدعى تلقائياً في مواقف محدّدة.</p>
+
+<h3>__str__: التمثيل النصّي المقروء</h3>
+
+<p>تعريف <code>__str__(self)</code> داخل الصنف يُخبر بايثون كيف تُحوّل الكائن لنصّ عند <code>print()</code> أو <code>str()</code>: <code>def __str__(self): return f"{self.title} by {self.author}"</code>. الآن <code>print(book)</code> يطبع هذا النصّ الواضح بدل العنوان التقني الافتراضي.</p>
+
+<h3>__len__: تخصيص len()</h3>
+
+<p>إن كان صنفك يمثّل مجموعة من شيء ما (كصنف مكتبة يحتوي كتباً)، تعريف <code>__len__(self)</code> يجعل <code>len(library)</code> يعمل مباشرة على كائنك، مُرجعاً عدد الكتب مثلاً — بدل الحاجة لدالة منفصلة كـ <code>library.count_books()</code>.</p>
+
+<h3>__eq__: تخصيص المقارنة بـ ==</h3>
+
+<p>افتراضياً، <code>==</code> بين كائنين من نفس الصنف يقارن هوية الذاكرة (هل هما نفس الكائن بالضبط؟)، وليس تساوي محتواهما. تعريف <code>__eq__(self, other)</code> يسمح بتخصيص معنى المساواة: مثلاً، كتابان متساويان إن تطابق عنوانهما ومؤلفهما، حتى لو كانا كائنين مختلفين تماماً في الذاكرة.</p>
+
+<h3>لماذا Magic Methods قوية؟</h3>
+
+<p>تسمح لكائناتك بالتصرّف بشكل طبيعي مع دوال بايثون المدمجة (<code>print</code>, <code>len</code>, <code>==</code>, وغيرها الكثير) بدل اختراع methods مخصّصة بأسماء مختلفة في كل صنف. هذا يجعل كودك أكثر اتساقاً وقابلية للتنبؤ لأي شخص يقرأه.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>نسيان أن <code>__str__</code> يجب أن تُرجع نصّاً (<code>str</code>) دائماً — إرجاع نوع آخر يرمي <code>TypeError</code>. والخلط بين <code>__str__</code> (للعرض البشري المقروء) و<code>__repr__</code> (تمثيل تقني أدق يُستخدم غالباً في التصحيح Debugging) — إن عرَّفت واحدة فقط ابدأ بـ <code>__str__</code>.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>Magic Methods تبدأ وتنتهي بشرطتين سفليتين، وتُستدعى تلقائياً في مواقف محدّدة</li>
+    <li><code>__str__</code> يخصّص تمثيل الكائن كنصّ عند <code>print()</code></li>
+    <li><code>__len__</code> يخصّص سلوك <code>len()</code> على كائنك</li>
+    <li><code>__eq__</code> يخصّص معنى المقارنة بـ <code>==</code> بين كائنين</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أضف للصنف <code>Book</code> دالة <code>__str__</code> تُرجع تمثيلاً واضحاً، ودالة <code>__eq__</code> تعتبر كتابين متساويين إن تطابق العنوان فقط. اختبر <code>print()</code> و<code>==</code> على كائنات حقيقية.</p>
+`,
+        en: `<p>Magic methods (starting/ending with double underscores) let your class integrate with Python's built-in functions. __str__ customizes print(object), __len__ customizes len(object), and __eq__ customizes what == means between two objects of your class — comparing content instead of memory identity.</p>`
+    },
+    code: `<span class="kw">class</span> Book:
+    <span class="kw">def</span> __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    <span class="cm"># __str__: كيف يُطبع الكائن</span>
+    <span class="kw">def</span> __str__(self):
+        <span class="kw">return</span> <span class="st">f"{self.title} by {self.author}"</span>
+
+    <span class="cm"># __eq__: كيف يُقارَن كائنان بـ ==</span>
+    <span class="kw">def</span> __eq__(self, other):
+        <span class="kw">return</span> self.title == other.title <span class="kw">and</span> self.author == other.author
+
+
+<span class="kw">class</span> Library:
+    <span class="kw">def</span> __init__(self):
+        self.books = []
+
+    <span class="kw">def</span> add(self, book):
+        self.books.append(book)
+
+    <span class="cm"># __len__: كيف يعمل len() على الكائن</span>
+    <span class="kw">def</span> __len__(self):
+        <span class="kw">return</span> <span class="fn">len</span>(self.books)
+
+
+<span class="kw">book1</span> = Book(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>)
+<span class="kw">book2</span> = Book(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>)
+
+<span class="fn">print</span>(book1)              <span class="cm"># Python Basics by Sarah Ahmed — بفضل __str__</span>
+<span class="fn">print</span>(book1 == book2)    <span class="cm"># True — نفس المحتوى، بفضل __eq__</span>
+
+<span class="kw">library</span> = Library()
+library.add(book1)
+library.add(book2)
+<span class="fn">print</span>(<span class="fn">len</span>(library))     <span class="cm"># 2 — بفضل __len__</span>`,
+    quiz: {
+        q: {
+            ar: "بدون تعريف __str__، ماذا يحدث عند طباعة كائن بـ print(book)؟",
+            en: "Without defining __str__, what happens when you print an object with print(book)?"
+        },
+        options: {
+            ar: [
+                "يرمي بايثون خطأً فورياً",
+                "يطبع تمثيلاً تقنياً غير مفيد مثل عنوان الكائن في الذاكرة، بدل بياناته الفعلية",
+                "يطبع كل خصائص الكائن تلقائياً بصيغة قاموس",
+                "لا يمكن طباعة كائن بايثون إطلاقاً بدون __str__"
+            ],
+            en: [
+                "Python raises an immediate error",
+                "It prints an unhelpful technical representation, like the object's memory address, instead of its actual data",
+                "It automatically prints all the object's attributes as a dict",
+                "A Python object can never be printed at all without __str__"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "بلا __str__ مخصّصة، بايثون تستخدم التمثيل الافتراضي مثل <__main__.Book object at 0x...> — تقني وغير مفيد. تعريف __str__ يُخبر بايثون كيف تحوّل الكائن لنصّ واضح مفهوم بشرياً عند الطباعة.",
+            en: "Without a custom __str__, Python uses the default representation like <__main__.Book object at 0x...> — technical and unhelpful. Defining __str__ tells Python how to convert the object into a clear, human-readable string when printed."
+        }
+    }
+},
+
+/* ---------- الدرس 38 — مشروع ---------- */
+{
+    title: { ar: "مشروع 6: نظام مكتبة", en: "Project 6: Library system" },
+    body: {
+        ar: `
+<p>مشروع هذا المستوى يجمع كل ما تعلمته في OOP: الأصناف والكائنات، methods، الوراثة، Encapsulation، وMagic Methods. ستبني نظام مكتبة بسيط بأصناف حقيقية مترابطة، بدل قواميس وقوائم منفصلة عن بعضها كما فعلت في مشاريع سابقة.</p>
+
+<h3>التصميم: أصناف متعاونة</h3>
+
+<p>ثلاثة أصناف رئيسية: <code>Book</code> (كتاب فردي بعنوان ومؤلف وحالة استعارة)، <code>Library</code> (تحتوي قائمة كتب، وmethods للإضافة والاستعارة والإرجاع)، واستفدنا من الوراثة لإنشاء <code>EBook</code> يرث من <code>Book</code> ويضيف حجم الملف. هذا التصميم — أصناف صغيرة، كل منها مسؤول عن شيء واحد واضح — أساس التصميم الجيد في OOP.</p>
+
+<h3>Encapsulation في الاستعارة</h3>
+
+<p>حالة الاستعارة (<code>is_borrowed</code>) محمية داخل الصنف: لا يُعدِّلها كود خارجي مباشرة، بل عبر methods <code>borrow()</code> و<code>return_book()</code> التي تتحقّق من الحالة الحالية أولاً — لا يمكن استعارة كتاب مُستعار بالفعل، ولا إرجاع كتاب غير مُستعار أصلاً. هذا بالضبط جوهر Encapsulation: منع حالات غير منطقية عبر فرض المرور بمنطق تحقّق موحّد.</p>
+
+<h3>Magic Methods لتجربة أنظف</h3>
+
+<p><code>__str__</code> على <code>Book</code> يجعل طباعة أي كتاب تعرض بياناته مباشرة بدل عنوان تقني، و<code>__len__</code> على <code>Library</code> يجعل <code>len(library)</code> يعمل طبيعياً لمعرفة عدد الكتب — تكامل أنيق مع دوال بايثون المدمجة بدل اختراع methods بأسماء مختلفة.</p>
+
+<h3>تحديات للتوسيع</h3>
+
+<ul>
+    <li>أضف صنف <code>Member</code> يمثّل مستعير الكتاب، واربطه بـ <code>borrow()</code></li>
+    <li>أضف method <code>available_books()</code> تُرجع فقط الكتب غير المُستعارة حالياً</li>
+    <li>احفظ حالة المكتبة في ملف JSON عند الإغلاق (بما تعلمته في المستوى الخامس)</li>
+    <li>أضف <code>__eq__</code> على <code>Book</code> يعتبر كتابين متطابقين إن تطابق عنوانهما</li>
+</ul>
+
+<h3>ماذا أنجزت في هذا المستوى؟</h3>
+
+<ul>
+    <li>جمعت البيانات والسلوك معاً في أصناف بدل قواميس منفصلة عن منطقها</li>
+    <li>عرّفت methods تعمل على بيانات كل كائن عبر self</li>
+    <li>بنيت تسلسلاً هرمياً بالوراثة، مع Override لتخصيص سلوك الابن</li>
+    <li>حميت بيانات الكائنات من تعديل مباشر غير منطقي بـ Encapsulation</li>
+    <li>خصّصت سلوك كائناتك مع دوال بايثون المدمجة عبر Magic Methods</li>
+    <li>وبنيت نظاماً حقيقياً بأصناف متعاونة تمثّل مشكلة واقعية بوضوح</li>
+</ul>
+
+<p>في المستوى السابع والأخير سنتعلّم أدوات الاحتراف: تنظيم الكود بوحدات (modules)، تثبيت مكتبات خارجية بـ pip، Decorators، Generators، ومعايير كتابة كود بايثون نظيف (PEP 8) — لتصبح جاهزاً فعلياً للمشاريع الحقيقية.</p>
+`,
+        en: `<p>This capstone combines classes, methods, inheritance, encapsulation, and magic methods into a library system: Book and Library classes collaborate, EBook inherits from Book, borrow()/return_book() enforce valid state transitions, and __str__/__len__ integrate cleanly with Python's built-ins.</p>`
+    },
+    code: `<span class="cm"># ============================================</span>
+<span class="cm"># نظام مكتبة</span>
+<span class="cm"># ============================================</span>
+
+<span class="kw">class</span> Book:
+    <span class="kw">def</span> __init__(self, title, author):
+        self.title = title
+        self.author = author
+        self._is_borrowed = <span class="kw">False</span>
+
+    <span class="kw">def</span> borrow(self):
+        <span class="kw">if</span> self._is_borrowed:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">f"{self.title} is already borrowed"</span>)
+        self._is_borrowed = <span class="kw">True</span>
+
+    <span class="kw">def</span> return_book(self):
+        <span class="kw">if</span> <span class="kw">not</span> self._is_borrowed:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">f"{self.title} was not borrowed"</span>)
+        self._is_borrowed = <span class="kw">False</span>
+
+    <span class="kw">def</span> __str__(self):
+        <span class="kw">status</span> = <span class="st">"borrowed"</span> <span class="kw">if</span> self._is_borrowed <span class="kw">else</span> <span class="st">"available"</span>
+        <span class="kw">return</span> <span class="st">f"{self.title} by {self.author} ({status})"</span>
+
+
+<span class="cm"># EBook يرث من Book ويضيف خاصية خاصة به</span>
+<span class="kw">class</span> EBook(Book):
+    <span class="kw">def</span> __init__(self, title, author, file_size_mb):
+        <span class="fn">super</span>().__init__(title, author)
+        self.file_size_mb = file_size_mb
+
+
+<span class="kw">class</span> Library:
+    <span class="kw">def</span> __init__(self):
+        self.books = []
+
+    <span class="kw">def</span> add(self, book):
+        self.books.append(book)
+
+    <span class="kw">def</span> __len__(self):
+        <span class="kw">return</span> <span class="fn">len</span>(self.books)
+
+
+<span class="kw">library</span> = Library()
+library.add(Book(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>))
+library.add(EBook(<span class="st">"Data Science"</span>, <span class="st">"Ahmed Ali"</span>, 12))
+
+<span class="fn">print</span>(<span class="st">f"Library has {len(library)} books"</span>)
+
+<span class="kw">for</span> book <span class="kw">in</span> library.books:
+    <span class="fn">print</span>(book)
+
+library.books[0].borrow()
+<span class="fn">print</span>(library.books[0])
+
+<span class="kw">try</span>:
+    library.books[0].borrow()   <span class="cm"># محاولة استعارة كتاب مُستعار بالفعل</span>
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)`,
+    quiz: {
+        q: {
+            ar: "لماذا ترمي borrow() خطأً بدل السماح باستعارة كتاب مُستعار بالفعل؟",
+            en: "Why does borrow() raise an error instead of allowing a book that's already borrowed to be borrowed again?"
+        },
+        options: {
+            ar: [
+                "خطأ في التصميم، يجب أن تسمح دائماً بالاستعارة",
+                "لأن هذا Encapsulation فعلي: منع حالة غير منطقية (كتاب مُستعار مرتين) عبر فرض التحقّق داخل الصنف نفسه",
+                "لأن بايثون تمنع استدعاء method مرتين تلقائياً",
+                "لا علاقة لهذا بـ Encapsulation إطلاقاً"
+            ],
+            en: [
+                "A design mistake — it should always allow borrowing",
+                "Because this is real encapsulation: preventing an illogical state (a book borrowed twice) by enforcing the check inside the class itself",
+                "Because Python automatically prevents calling a method twice",
+                "This has nothing to do with encapsulation at all"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "بدون هذا التحقّق، أي كود خارجي يستطيع تعيين _is_borrowed كما يشاء دون منطق، فينتج حالات مستحيلة منطقياً. فرض المرور عبر borrow() التي تتحقّق أولاً هو بالضبط جوهر Encapsulation: حماية اتساق بيانات الكائن الداخلية.",
+            en: "Without this check, any external code could set _is_borrowed however it wants with no logic, producing logically impossible states. Forcing access through borrow(), which checks first, is exactly the point of encapsulation: protecting the object's internal data consistency."
+        }
+    }
+}
+
 
 
 
