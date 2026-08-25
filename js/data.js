@@ -2689,6 +2689,564 @@ student[<span class="st">"age"</span>] = 23                        <span class="
         }
     }
 }
+,
+
+/* ---------- الدرس 22 ---------- */
+{
+    title: { ar: "الدوال: التعريف والاستدعاء", en: "Functions: defining and calling" },
+    body: {
+        ar: `
+<p>لاحظ في مشروع دفتر جهات الاتصال أنك كتبت <code>print(f"{contact['name']}: {contact['phone']}")</code> في أكثر من مكان. ماذا لو أردت تغيير صيغة العرض لاحقاً؟ ستُضطر لتعديلها في كل موضع، وستنسى مكاناً حتماً. <strong>الدالة (function)</strong> تحلّ هذه المشكلة: تكتب منطقاً معيّناً <strong>مرة واحدة</strong> باسم، ثم تستدعيه بذلك الاسم من أي مكان في برنامجك.</p>
+
+<h3>تعريف دالة واستدعاؤها</h3>
+
+<p>تُعرَّف الدالة بالكلمة المفتاحية <code>def</code> متبوعة باسم واصف، ثم قوسين، ثم نقطتين، ثم جسم الدالة بمسافة بادئة: <code>def greet(): print("Hello")</code>. تعريف الدالة وحده <strong>لا ينفّذ شيئاً</strong> — يجب <strong>استدعاؤها</strong> باسمها متبوعاً بقوسين: <code>greet()</code>. هذا فرق مهم يُخطئ فيه المبتدئون كثيراً: نسيان القوسين عند الاستدعاء لا يستدعي الدالة، بل يشير إليها فقط ككائن.</p>
+
+<h3>لماذا نكتب دوال؟</h3>
+
+<p>ثلاثة أسباب: <strong>تجنّب التكرار</strong> (اكتب مرة، استخدم مرات لا نهائية)، <strong>التنظيم</strong> (كل دالة تفعل شيئاً واحداً واضحاً، فيصبح البرنامج الكبير مجموعة أجزاء مفهومة)، و<strong>إعادة الاستخدام</strong> (يمكن استدعاء نفس الدالة من مشاريع مختلفة).</p>
+
+<h3>التوثيق بـ Docstring</h3>
+
+<p>من الممارسات الجيدة إضافة سطر توثيقي داخل الدالة مباشرة بعد تعريفها، بين ثلاث علامات تنصيص: <code>"""يشرح ما تفعله الدالة"""</code>. هذا يساعد أي شخص (بما فيك أنت بعد شهر) على فهم الغرض دون قراءة الكود كاملاً.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p><strong>نسيان القوسين عند الاستدعاء:</strong> <code>greet</code> بدون أقواس لا يُنفّذ الدالة، بل يطبع مرجعاً إليها مثل <code>&lt;function greet at 0x...&gt;</code>. <strong>استدعاء دالة قبل تعريفها:</strong> بايثون تقرأ الملف من الأعلى للأسفل، فيجب أن يظهر تعريف <code>def</code> قبل أي استدعاء لها في الكود.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>الدالة كتلة كود معاد استخدامها، تُعرَّف بـ <code>def name():</code></li>
+    <li>تعريف الدالة لا ينفّذها — يجب استدعاؤها بالاسم والقوسين: <code>name()</code></li>
+    <li>الدوال تمنع التكرار وتنظّم البرنامج إلى أجزاء واضحة</li>
+    <li>Docstring يوثّق غرض الدالة داخل جسمها مباشرة</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب دالة <code>print_separator()</code> تطبع 30 شرطة، وأخرى <code>print_welcome()</code> تطبع رسالة ترحيب. استدعِ الاثنتين بترتيب يُنتج: فاصلاً، ثم الترحيب، ثم فاصلاً مرة أخرى.</p>
+`,
+        en: `<p>A function packages reusable logic under a name using def name():. Defining a function does not run it — you must call it with name(). Functions avoid repetition, organize code into clear pieces, and can be reused anywhere in the program.</p>`
+    },
+    code: `<span class="cm"># تعريف دالة بسيطة بلا معاملات</span>
+<span class="kw">def</span> greet():
+    <span class="st">"""Prints a simple welcome message"""</span>
+    <span class="fn">print</span>(<span class="st">"Hello!"</span>)
+
+<span class="cm"># تعريف الدالة وحده لا ينفّذ شيئاً — يجب استدعاؤها</span>
+greet()
+greet()      <span class="cm"># يمكن استدعاؤها عدة مرات</span>
+
+
+<span class="cm"># خطأ شائع: نسيان الأقواس عند الاستدعاء</span>
+<span class="fn">print</span>(greet)     <span class="cm"># &lt;function greet at 0x...&gt; — لم يُنفَّذ!</span>
+<span class="fn">print</span>(greet())   <span class="cm"># ينفّذها ثم يطبع الناتج (None هنا)</span>
+
+
+<span class="cm"># مثال عملي: دالتان تتعاونان</span>
+<span class="kw">def</span> print_separator():
+    <span class="fn">print</span>(<span class="st">"-"</span> * 30)
+
+<span class="kw">def</span> print_welcome():
+    <span class="fn">print</span>(<span class="st">"Welcome to Koudna!"</span>)
+
+print_separator()
+print_welcome()
+print_separator()`,
+    quiz: {
+        q: {
+            ar: "ماذا يحدث عند كتابة greet بدون أقواس بعد تعريفها؟",
+            en: "What happens when you write greet without parentheses after defining it?"
+        },
+        options: {
+            ar: [
+                "تُنفَّذ الدالة فوراً كأي استدعاء عادي",
+                "لا شيء يُنفَّذ — تشير فقط إلى الدالة كقيمة، دون استدعائها",
+                "يرمي بايثون خطأً فورياً",
+                "تُنفَّذ الدالة لكن دون طباعة أي شيء"
+            ],
+            en: [
+                "The function executes immediately, like a normal call",
+                "Nothing executes — it just references the function as a value, without calling it",
+                "Python raises an immediate error",
+                "The function executes but prints nothing"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "الأقواس () هي ما يُنفّذ الدالة فعلياً. بدونها، الاسم greet يشير فقط إلى الدالة نفسها ككائن، دون تشغيل أي كود بداخلها — وهذا فخّ شائع جداً للمبتدئين.",
+            en: "The parentheses () are what actually execute the function. Without them, the name greet just refers to the function object itself, without running any code inside it — a very common beginner trap."
+        }
+    }
+},
+
+/* ---------- الدرس 23 ---------- */
+{
+    title: { ar: "المعاملات: تمرير القيم للدوال", en: "Parameters: passing values to functions" },
+    body: {
+        ar: `
+<p>الدالة <code>greet()</code> من الدرس السابق تطبع نفس الرسالة دائماً — محدودة الفائدة. ماذا لو أردت تحية اسم مختلف كل مرة؟ هنا تحتاج <strong>المعاملات (parameters)</strong>: قيم تُمرَّر للدالة عند استدعائها، فتتصرّف الدالة بناءً عليها بدل أن تكون ثابتة الفعل دائماً.</p>
+
+<h3>معامل واحد ومعاملات متعددة</h3>
+
+<p>يُكتب المعامل داخل قوسي تعريف الدالة: <code>def greet(name): print(f"Hello, {name}")</code>. عند الاستدعاء، تمرّر <strong>وسيطاً (argument)</strong> فعلياً: <code>greet("Sarah")</code>. يمكن لدالة أن تأخذ عدة معاملات مفصولة بفواصل: <code>def add(a, b): return a + b</code>.</p>
+
+<h3>القيم الافتراضية (Default Values)</h3>
+
+<p>يمكن إعطاء معامل قيمة افتراضية تُستخدم إن لم يُمرَّر وسيط له: <code>def greet(name="friend"):</code>. استدعاء <code>greet()</code> بلا وسيط يستخدم "friend"، بينما <code>greet("Sarah")</code> يتجاوز الافتراضي بالقيمة الممرَّرة. القاعدة الصارمة: المعاملات ذات القيم الافتراضية يجب أن تأتي <strong>بعد</strong> المعاملات العادية في التعريف.</p>
+
+<h3>الوسائط الموضعية والمسمّاة</h3>
+
+<p>الاستدعاء الموضعي (positional) يعتمد على الترتيب: <code>add(3, 5)</code> يُسند 3 لـ a و5 لـ b تلقائياً. الاستدعاء المسمّى (keyword) يحدّد الاسم صراحة: <code>add(b=5, a=3)</code> — يعمل بغض النظر عن الترتيب، ويجعل الكود أوضح خصوصاً مع دوال كثيرة المعاملات.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>نسيان تمرير معامل مطلوب يرمي <code>TypeError: missing required positional argument</code>. وكذلك الخلط في الترتيب عند الاستدعاء الموضعي — <code>greet_full("أحمد", "محمد")</code> قد تعكس الاسم واللقب إن لم تتذكّر ترتيب التعريف الدقيق؛ استخدم الوسائط المسمّاة عندما يكون الترتيب غير واضح.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>المعاملات تجعل الدالة تتصرّف بحسب القيم المُمرَّرة إليها</li>
+    <li>القيم الافتراضية <code>def f(x=default):</code> تُستخدم عند عدم تمرير وسيط</li>
+    <li>الاستدعاء الموضعي يعتمد الترتيب، والمسمّى يحدّد الاسم صراحة</li>
+    <li>معاملات القيم الافتراضية تأتي دائماً بعد المعاملات العادية في التعريف</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب دالة <code>describe_pet(name, animal="dog")</code> تطبع جملة تصف الحيوان الأليف. استدعِها ثلاث مرات: بمعاملين، بمعامل واحد فقط (استخدام الافتراضي)، وبوسائط مسمّاة بترتيب معكوس.</p>
+`,
+        en: `<p>Parameters let a function behave differently based on values passed in: def f(param). Default values (def f(x=default)) apply when no argument is given. Positional calls rely on order; keyword calls (f(x=1)) name the parameter explicitly, which is clearer with many parameters.</p>`
+    },
+    code: `<span class="cm"># معامل واحد</span>
+<span class="kw">def</span> greet(name):
+    <span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
+
+greet(<span class="st">"Sarah"</span>)
+greet(<span class="st">"Ahmed"</span>)
+
+
+<span class="cm"># معاملات متعددة</span>
+<span class="kw">def</span> add(a, b):
+    <span class="fn">print</span>(<span class="st">f"{a} + {b} = {a + b}"</span>)
+
+add(3, 5)
+
+
+<span class="cm"># قيمة افتراضية</span>
+<span class="kw">def</span> greet_default(name=<span class="st">"friend"</span>):
+    <span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
+
+greet_default()          <span class="cm"># Hello, friend</span>
+greet_default(<span class="st">"Layla"</span>)  <span class="cm"># Hello, Layla — يتجاوز الافتراضي</span>
+
+
+<span class="cm"># استدعاء موضعي مقابل مسمّى</span>
+<span class="kw">def</span> describe_pet(name, animal=<span class="st">"dog"</span>):
+    <span class="fn">print</span>(<span class="st">f"{name} is a {animal}"</span>)
+
+describe_pet(<span class="st">"Rex"</span>, <span class="st">"cat"</span>)             <span class="cm"># موضعي</span>
+describe_pet(animal=<span class="st">"parrot"</span>, name=<span class="st">"Coco"</span>)  <span class="cm"># مسمّى — الترتيب لا يهم</span>
+
+
+<span class="cm"># خطأ شائع: نسيان معامل مطلوب</span>
+<span class="cm"># greet()   ← TypeError: missing 1 required positional argument</span>`,
+    quiz: {
+        q: {
+            ar: "def greet(name=\"friend\"): print(name)\nما ناتج استدعاء greet(\"Sarah\")؟",
+            en: "def greet(name=\"friend\"): print(name)\nWhat does greet(\"Sarah\") print?"
+        },
+        options: { ar: ["friend", "Sarah", "خطأ لأن الدالة تأخذ معاملاً واحداً فقط", "لا شيء"], en: ["friend", "Sarah", "An error because the function only takes one parameter", "Nothing"] },
+        correct: 1,
+        explanation: {
+            ar: "تمرير 'Sarah' كوسيط موضعي يتجاوز القيمة الافتراضية 'friend' تماماً، فتصبح name تساوي 'Sarah' داخل الدالة. القيمة الافتراضية تُستخدم فقط عند عدم تمرير أي وسيط.",
+            en: "Passing 'Sarah' as a positional argument overrides the default value 'friend' entirely, so name becomes 'Sarah' inside the function. The default is only used when no argument is passed at all."
+        }
+    }
+},
+
+/* ---------- الدرس 24 ---------- */
+{
+    title: { ar: "return: إرجاع قيمة من الدالة", en: "return: getting a value back from a function" },
+    body: {
+        ar: `
+<p>الدوال في الدروس السابقة كانت <strong>تطبع</strong> نتائجها مباشرة بـ <code>print()</code>. لكن ماذا لو أردت استخدام نتيجة الدالة لاحقاً في حساب آخر، أو تخزينها في متغيّر؟ الطباعة لا تكفي — تحتاج الدالة أن <strong>تُرجع</strong> قيمة فعلية يمكن التقاطها واستخدامها. هنا يأتي دور <code>return</code>.</p>
+
+<h3>الفرق الجوهري بين print وreturn</h3>
+
+<p><code>print()</code> تعرض نصاً على الشاشة للمستخدم فقط — لا يمكن للبرنامج "استخدام" ما طُبع برمجياً. <code>return</code> تُخرج قيمة فعلية من الدالة يمكن تخزينها في متغيّر، تمريرها لدالة أخرى، أو استخدامها في عملية حسابية: <code>result = add(3, 5)</code> يخزّن الناتج الفعلي في <code>result</code>، بينما دالة تكتفي بـ <code>print</code> تجعل <code>result</code> يساوي <code>None</code>.</p>
+
+<h3>return تُنهي الدالة فوراً</h3>
+
+<p>بمجرّد تنفيذ <code>return</code>، تتوقّف الدالة فوراً — أي كود بعدها في نفس المسار لن يُنفَّذ أبداً. هذا يُستخدم أحياناً عمداً للخروج المبكّر من دالة عند تحقّق شرط معيّن، تماماً مثل <code>break</code> في الحلقات.</p>
+
+<h3>إرجاع عدة قيم دفعة واحدة</h3>
+
+<p>بايثون تسمح بإرجاع أكثر من قيمة مفصولة بفواصل: <code>return name, age</code> — وهذا فعلياً يُرجع Tuple واحداً يمكن تفكيكه مباشرة عند الاستدعاء: <code>n, a = get_info()</code>، بنفس منطق تفكيك Tuple الذي تعلمته سابقاً.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p><strong>نسيان return والاعتماد على print فقط:</strong> إن احتجت النتيجة لاستخدامها لاحقاً وليس فقط لعرضها، فـ<code>print</code> وحده غير كافٍ. <strong>الخلط بين الاثنين:</strong> استخدام <code>print()</code> ثم توقّع أن الدالة "تُرجع" شيئاً — دالة بلا <code>return</code> صريح تُرجع <code>None</code> تلقائياً دائماً.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>return</code> يُخرج قيمة فعلية يمكن استخدامها برمجياً، بخلاف <code>print</code> الذي يعرض فقط</li>
+    <li>الدالة بلا <code>return</code> صريح تُرجع <code>None</code> تلقائياً</li>
+    <li><code>return</code> يُنهي تنفيذ الدالة فوراً — أي كود بعده لا يُنفَّذ</li>
+    <li>يمكن إرجاع عدة قيم كـ Tuple: <code>return a, b</code></li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>اكتب دالة <code>calculate_rectangle(width, height)</code> تُرجع المساحة والمحيط معاً (قيمتين). استدعِها وخزّن الناتجين في متغيّرين منفصلين، ثم اطبعهما بجملة واضحة.</p>
+`,
+        en: `<p>print() only displays text; return actually hands a value back to the caller so it can be stored or reused: result = add(3, 5). return also ends the function immediately. A function with no explicit return always returns None, and multiple values can be returned as a tuple: return a, b.</p>`
+    },
+    code: `<span class="cm"># print فقط يعرض، لا يُرجع شيئاً قابلاً للاستخدام</span>
+<span class="kw">def</span> add_print(a, b):
+    <span class="fn">print</span>(a + b)
+
+<span class="kw">result1</span> = add_print(3, 5)   <span class="cm"># يطبع 8</span>
+<span class="fn">print</span>(result1)                <span class="cm"># None — لا قيمة فعلية!</span>
+
+
+<span class="cm"># return يُخرج قيمة فعلية قابلة للاستخدام</span>
+<span class="kw">def</span> add_return(a, b):
+    <span class="kw">return</span> a + b
+
+<span class="kw">result2</span> = add_return(3, 5)
+<span class="fn">print</span>(result2)                <span class="cm"># 8 — قيمة حقيقية</span>
+<span class="fn">print</span>(result2 * 2)            <span class="cm"># 16 — يمكن استخدامها في عملية أخرى</span>
+
+
+<span class="cm"># return تُنهي الدالة فوراً</span>
+<span class="kw">def</span> check_age(age):
+    <span class="kw">if</span> age < 0:
+        <span class="kw">return</span> <span class="st">"Invalid age"</span>   <span class="cm"># يخرج هنا فوراً</span>
+    <span class="kw">return</span> <span class="st">f"Age is {age}"</span>       <span class="cm"># لن يصل هنا إلا إن كان العمر صالحاً</span>
+
+<span class="fn">print</span>(check_age(-5))
+<span class="fn">print</span>(check_age(25))
+
+
+<span class="cm"># إرجاع عدة قيم دفعة واحدة</span>
+<span class="kw">def</span> calculate_rectangle(width, height):
+    <span class="kw">area</span> = width * height
+    <span class="kw">perimeter</span> = 2 * (width + height)
+    <span class="kw">return</span> area, perimeter
+
+<span class="kw">a</span>, <span class="kw">p</span> = calculate_rectangle(4, 6)
+<span class="fn">print</span>(<span class="st">f"Area: {a}, Perimeter: {p}"</span>)`,
+    quiz: {
+        q: {
+            ar: "def get_value():\n    print(\"hi\")\nx = get_value()\nما قيمة x؟",
+            en: "def get_value():\n    print(\"hi\")\nx = get_value()\nWhat is the value of x?"
+        },
+        options: { ar: ["\"hi\"", "None", "0", "خطأ في التنفيذ"], en: ["\"hi\"", "None", "0", "A runtime error"] },
+        correct: 1,
+        explanation: {
+            ar: "الدالة تطبع 'hi' لكنها لا تحتوي أي جملة return صريحة. أي دالة بلا return صريح تُرجع None تلقائياً في بايثون، بغض النظر عمّا طبعته على الشاشة.",
+            en: "The function prints 'hi' but has no explicit return statement. Any function without an explicit return automatically returns None in Python, regardless of what it printed to the screen."
+        }
+    }
+},
+
+/* ---------- الدرس 25 ---------- */
+{
+    title: { ar: "نطاق المتغيّرات (Scope)", en: "Variable scope" },
+    body: {
+        ar: `
+<p>جرّب هذا: عرّف متغيّراً داخل دالة، ثم حاول استخدامه خارجها بعد استدعائها — ستحصل على <code>NameError</code>! هذا ليس خطأً، بل قاعدة أساسية في بايثون تُسمّى <strong>النطاق (Scope)</strong>: أين يمكن "رؤية" متغيّر معيّن واستخدامه في البرنامج.</p>
+
+<h3>النطاق المحلي مقابل العام</h3>
+
+<p>أي متغيّر يُعرَّف <strong>داخل</strong> دالة هو <strong>محلي (local)</strong> — يوجد فقط أثناء تنفيذ تلك الدالة، ويُمحى تماماً بعد انتهائها. المتغيّرات المعرَّفة <strong>خارج</strong> كل الدوال، على مستوى الملف الرئيسي، تُسمّى <strong>عامّة (global)</strong> — يمكن قراءتها من داخل أي دالة.</p>
+
+<h3>القراءة من الخارج مسموحة، الكتابة ممنوعة افتراضياً</h3>
+
+<p>يمكن لأي دالة أن <strong>تقرأ</strong> متغيّراً عامّاً دون مشكلة. لكن محاولة <strong>تعديل</strong> متغيّر عامّ من داخل دالة بإسناد قيمة جديدة له، ستُنشئ متغيّراً محلياً جديداً بنفس الاسم بدلاً من تعديل الأصلي — فخّ خفي جداً للمبتدئين، لأن الكود لا يرمي خطأً، بل يتصرّف بشكل غير متوقّع بصمت.</p>
+
+<h3>الكلمة المفتاحية global</h3>
+
+<p>إن احتجت فعلاً تعديل متغيّر عامّ من داخل دالة (نادراً ما يكون هذا التصميم الأفضل)، يجب التصريح صراحة بـ <code>global variable_name</code> في أول سطر داخل الدالة قبل التعديل. لكن الممارسة الأفضل غالباً: مرّر القيمة كمعامل، واستخدم <code>return</code> لإخراج النتيجة، بدل الاعتماد على متغيّرات عامّة معدَّلة من كل مكان.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>افتراض أن متغيّراً محلياً داخل دالة سيبقى متاحاً بعد انتهائها — لن يبقى. ومحاولة تعديل متغيّر عامّ داخل دالة دون <code>global</code>، فتحصل على سلوك مربك: القيمة العامة لا تتغيّر، بل يُنشأ متغيّر محلي منفصل تماماً بنفس الاسم.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>المتغيّر داخل دالة هو <strong>محلي</strong>: يوجد فقط أثناء تنفيذها، ثم يُمحى</li>
+    <li>المتغيّر خارج كل الدوال هو <strong>عامّ</strong>: يمكن قراءته من أي دالة</li>
+    <li>تعديل متغيّر عامّ من داخل دالة يحتاج تصريح <code>global</code> صريح</li>
+    <li>الأفضل تصميمياً: مرّر القيم كمعاملات، وأرجع النتائج بـ <code>return</code></li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>عرّف متغيّراً عامّاً <code>total_score = 0</code>. اكتب دالة <code>add_points(points)</code> تحاول تعديله مباشرة بدون <code>global</code> ولاحظ أن القيمة العامة لا تتغيّر، ثم أعد كتابتها باستخدام <code>global</code> صراحة وشاهد الفرق.</p>
+`,
+        en: `<p>Variables defined inside a function are local — they exist only during that call and disappear afterward. Variables defined outside any function are global and readable everywhere, but modifying a global from inside a function needs an explicit global keyword, otherwise Python silently creates a separate local variable instead.</p>`
+    },
+    code: `<span class="cm"># متغيّر محلي — يوجد فقط داخل الدالة</span>
+<span class="kw">def</span> greet():
+    <span class="kw">message</span> = <span class="st">"Hello!"</span>   <span class="cm"># محلي</span>
+    <span class="fn">print</span>(message)
+
+greet()
+<span class="cm"># print(message)   ← NameError: message غير معروف هنا!</span>
+
+
+<span class="cm"># متغيّر عامّ — يمكن قراءته من أي دالة</span>
+<span class="kw">site_name</span> = <span class="st">"Koudna"</span>
+
+<span class="kw">def</span> show_name():
+    <span class="fn">print</span>(site_name)   <span class="cm"># قراءة فقط — تعمل بلا مشاكل</span>
+
+show_name()
+
+
+<span class="cm"># فخّ شائع: التعديل بدون global لا يؤثر على المتغيّر العام</span>
+<span class="kw">total</span> = 0
+
+<span class="kw">def</span> add_wrong(points):
+    <span class="kw">total</span> = total + points   <span class="cm"># هذا يُنشئ متغيّراً محلياً منفصلاً!</span>
+
+add_wrong(10)
+<span class="fn">print</span>(total)   <span class="cm"># لا يزال 0 — لم يتغيّر</span>
+
+
+<span class="cm"># الحل الصحيح: التصريح بـ global</span>
+<span class="kw">def</span> add_correct(points):
+    <span class="kw">global</span> total
+    total = total + points
+
+add_correct(10)
+<span class="fn">print</span>(total)   <span class="cm"># 10 — تغيّر فعلاً</span>`,
+    quiz: {
+        q: {
+            ar: "score = 0\ndef change():\n    score = 100\nchange()\nprint(score)\nما الناتج؟",
+            en: "score = 0\ndef change():\n    score = 100\nchange()\nprint(score)\nWhat is printed?"
+        },
+        options: { ar: ["100", "0", "خطأ NameError", "None"], en: ["100", "0", "A NameError", "None"] },
+        correct: 1,
+        explanation: {
+            ar: "بدون التصريح بـ global داخل change()، السطر score = 100 يُنشئ متغيّراً محلياً منفصلاً تماماً عن المتغيّر العام score. المتغيّر العام يبقى 0 دون أي تغيير.",
+            en: "Without declaring global inside change(), the line score = 100 creates a completely separate local variable from the global score. The global variable stays 0, unchanged."
+        }
+    }
+},
+
+/* ---------- الدرس 26 ---------- */
+{
+    title: { ar: "lambda والدوال كقيم", en: "lambda and functions as values" },
+    body: {
+        ar: `
+<p>حتى الآن، تعاملت مع الدوال ككتل كود بأسماء تستدعيها. لكن في بايثون، الدالة هي أيضاً <strong>قيمة</strong> ككل شيء آخر — يمكن تخزينها في متغيّر، تمريرها لدالة أخرى كمعامل، أو حتى إرجاعها من دالة. هذه المرونة تفتح الباب لأداة صغيرة لكنها شائعة جداً: <strong>lambda</strong>، دالة مختصرة بلا اسم تُكتب بسطر واحد.</p>
+
+<h3>صيغة lambda</h3>
+
+<p>الصيغة: <code>lambda parameters: expression</code>. مثال: <code>square = lambda x: x**2</code> يُنشئ دالة تحسب المربّع، تُستدعى بنفس طريقة أي دالة عادية: <code>square(5)</code> يعطي 25. لاحظ الفرق عن <code>def</code>: لا حاجة لـ <code>return</code> صراحة — القيمة الناتجة عن التعبير تُرجع تلقائياً، لكن لا يمكن أن يحتوي جسمها أكثر من تعبير واحد.</p>
+
+<h3>لماذا نستخدم lambda عملياً؟</h3>
+
+<p>الاستخدام الأشيع: كمعامل مؤقت لدالة أخرى تحتاج دالة صغيرة، دون داعٍ لتعريف دالة كاملة بـ <code>def</code> باسم منفصل. المثال الكلاسيكي: <code>sorted(students, key=lambda s: s["grade"])</code> يرتّب قائمة قواميس حسب مفتاح "grade" — بدون lambda، ستحتاج تعريف دالة منفصلة فقط لهذا الترتيب الواحد.</p>
+
+<h3>الدوال كمعاملات (Higher-Order Functions)</h3>
+
+<p>القدرة على تمرير دالة (بما فيها lambda) كمعامل لدالة أخرى تُسمّى Higher-Order Function. <code>sorted()</code> مثال مباشر: معامل <code>key</code> يقبل أي دالة تُحدّد "بماذا نرتّب". هذا نمط قوي جداً ستراه كثيراً في بايثون الاحترافية.</p>
+
+<h3>متى نتجنّب lambda؟</h3>
+
+<p>إن كان المنطق أكثر تعقيداً من تعبير واحد بسيط، استخدم <code>def</code> عادية بدلاً من lambda — القراءة أهم من الاختصار. القاعدة العملية: lambda مثالية لعمليات بسيطة سطر واحد (مفتاح ترتيب، شرط تصفية بسيط)، وليست بديلاً عاماً عن الدوال العادية.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>lambda دالة مختصرة بلا اسم بسطر واحد: <code>lambda params: expr</code></li>
+    <li>القيمة الناتجة عن التعبير تُرجع تلقائياً — بلا <code>return</code> صريح</li>
+    <li>تُستخدم غالباً كمعامل مؤقت لدوال أخرى، مثل <code>key</code> في <code>sorted()</code></li>
+    <li>استخدم <code>def</code> عادية للمنطق الأكثر تعقيداً من تعبير واحد</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>لديك قائمة قواميس لطلاب فيها "name" و"grade". استخدم <code>sorted()</code> مع <code>key=lambda</code> لترتيبهم حسب الدرجة تنازلياً، ثم اطبع أسماءهم بالترتيب الجديد.</p>
+`,
+        en: `<p>lambda creates a small unnamed function in one line: lambda params: expression, with the expression's value returned automatically. It's most useful as a temporary function argument, like sorted(data, key=lambda x: x["field"]) — a pattern called a higher-order function.</p>`
+    },
+    code: `<span class="cm"># دالة عادية مقابل lambda مكافئة</span>
+<span class="kw">def</span> square_def(x):
+    <span class="kw">return</span> x**2
+
+<span class="kw">square_lambda</span> = <span class="kw">lambda</span> x: x**2
+
+<span class="fn">print</span>(square_def(5))       <span class="cm"># 25</span>
+<span class="fn">print</span>(square_lambda(5))    <span class="cm"># 25 — نفس النتيجة</span>
+
+
+<span class="cm"># lambda بعدة معاملات</span>
+<span class="kw">add</span> = <span class="kw">lambda</span> a, b: a + b
+<span class="fn">print</span>(add(3, 5))          <span class="cm"># 8</span>
+
+
+<span class="cm"># الاستخدام الأشيع: كمعامل key في sorted()</span>
+<span class="kw">students</span> = [
+    {<span class="st">"name"</span>: <span class="st">"Sarah"</span>, <span class="st">"grade"</span>: 85},
+    {<span class="st">"name"</span>: <span class="st">"Ahmed"</span>, <span class="st">"grade"</span>: 95},
+    {<span class="st">"name"</span>: <span class="st">"Layla"</span>, <span class="st">"grade"</span>: 78}
+]
+
+<span class="kw">by_grade</span> = <span class="fn">sorted</span>(students, key=<span class="kw">lambda</span> s: s[<span class="st">"grade"</span>], reverse=<span class="kw">True</span>)
+<span class="kw">for</span> student <span class="kw">in</span> by_grade:
+    <span class="fn">print</span>(<span class="st">f"{student['name']}: {student['grade']}"</span>)
+
+
+<span class="cm"># مثال آخر: فلترة بـ filter و lambda</span>
+<span class="kw">numbers</span> = [1, 2, 3, 4, 5, 6, 7, 8]
+<span class="kw">evens</span> = <span class="fn">list</span>(<span class="fn">filter</span>(<span class="kw">lambda</span> n: n % 2 == 0, numbers))
+<span class="fn">print</span>(evens)   <span class="cm"># [2, 4, 6, 8]</span>`,
+    quiz: {
+        q: {
+            ar: "أي كود يرتّب قائمة أسماء products حسب سعرها (مفتاح price) تصاعدياً؟",
+            en: "Which code sorts a list of products by their price key, ascending?"
+        },
+        options: {
+            ar: [
+                "sorted(products, key=lambda p: p[\"price\"])",
+                "sorted(products, lambda p: p[\"price\"])",
+                "products.sort(\"price\")",
+                "sorted(products, price)"
+            ],
+            en: [
+                "sorted(products, key=lambda p: p[\"price\"])",
+                "sorted(products, lambda p: p[\"price\"])",
+                "products.sort(\"price\")",
+                "sorted(products, price)"
+            ]
+        },
+        correct: 0,
+        explanation: {
+            ar: "المعامل key يجب تحديده صراحة باسمه، ويُعطى دالة (هنا lambda) تُحدّد أي جزء من كل عنصر يُستخدم للمقارنة أثناء الترتيب. الترتيب التصاعدي هو الافتراضي بلا حاجة لأي معامل إضافي.",
+            en: "The key parameter must be named explicitly and given a function (here a lambda) that determines what part of each item to compare during sorting. Ascending order is the default, needing no extra parameter."
+        }
+    }
+},
+
+/* ---------- الدرس 27 — مشروع ---------- */
+{
+    title: { ar: "مشروع 4: أدوات نصية", en: "Project 4: Text tools" },
+    body: {
+        ar: `
+<p>مشروع هذا المستوى يجمع كل ما تعلمته عن الدوال: التعريف والاستدعاء، المعاملات والقيم الافتراضية، <code>return</code>، النطاق، وlambda. ستبني مجموعة أدوات نصية (Text Tools) — كل أداة دالة منفصلة، يستدعيها البرنامج الرئيسي حسب اختيار المستخدم.</p>
+
+<h3>لماذا نقسّم المشروع إلى دوال؟</h3>
+
+<p>بدل كتابة كل منطق البرنامج في حلقة <code>while</code> واحدة ضخمة (كما فعلت في مشروع دفتر جهات الاتصال)، هذه المرة كل عملية نصية (عدّ الكلمات، عكس النص، تحويل الأحرف) هي دالة منفصلة بمعامل واحد ونتيجة مُرجَعة. هذا يجعل كل جزء قابلاً للاختبار بمفرده، وقابلاً لإعادة الاستخدام في مشاريع أخرى لاحقاً.</p>
+
+<h3>تصميم كل أداة كدالة نقية</h3>
+
+<p>لاحظ أن كل دالة في هذا المشروع <strong>تستقبل نصاً وتُرجع نتيجة</strong>، دون طباعة داخلها مباشرة (Pure Function). الطباعة تحدث فقط في الحلقة الرئيسية بعد استدعاء الدالة. هذا الفصل بين "الحساب" و"العرض" ممارسة احترافية مهمة: تسهّل اختبار الدوال منفصلة عن واجهة المستخدم.</p>
+
+<h3>استخدام lambda للاختصار</h3>
+
+<p>بعض الأدوات البسيطة جداً (مثل تحويل لأحرف كبيرة) يمكن كتابتها بـ lambda مباشرة بدل <code>def</code> كاملة، بينما الأدوات الأعقد (عدّ الكلمات، عكس الجمل) تحتاج <code>def</code> عادية بجسم متعدد الأسطر.</p>
+
+<h3>تحديات للتوسيع</h3>
+
+<ul>
+    <li>أضف أداة لعدّ الأحرف بدون المسافات</li>
+    <li>أضف أداة تتحقّق إن كان النصّ متناظراً (palindrome) — يُقرأ نفسه من الجهتين</li>
+    <li>اجعل القائمة الرئيسية تُبنى ديناميكياً من قاموس يربط الاختيار بالدالة المناسبة، بدل سلسلة طويلة من <code>if/elif</code></li>
+</ul>
+
+<h3>ماذا أنجزت في هذا المستوى؟</h3>
+
+<ul>
+    <li>نظّمت الكود بدوال بدل تكرار نفس المنطق في أماكن متعددة</li>
+    <li>تحكّمت بسلوك الدوال عبر المعاملات والقيم الافتراضية</li>
+    <li>ميّزت بوضوح بين <code>print</code> (عرض) وbين <code>return</code> (إرجاع قيمة فعلية للاستخدام)</li>
+    <li>فهمت نطاق المتغيّرات المحلي والعام وتجنّبت فخّ التعديل الصامت</li>
+    <li>استخدمت lambda للدوال الصغيرة السريعة، خصوصاً كمعامل <code>key</code></li>
+    <li>وبنيت مجموعة أدوات نصية حقيقية مبنية على دوال نقية قابلة لإعادة الاستخدام</li>
+</ul>
+
+<p>في المستوى الخامس سنتعلّم كيف يتعامل برنامجك مع الملفات الحقيقية على القرص، وكيف يتعافى بأناقة من الأخطاء غير المتوقّعة بدل التوقّف المفاجئ.</p>
+`,
+        en: `<p>This project builds a text-tools menu where each operation (word count, reverse, case conversion) is its own pure function — takes text, returns a result, with printing kept only in the main loop. It combines def, parameters, return, scope, and lambda from this level into one program.</p>`
+    },
+    code: `<span class="cm"># ============================================</span>
+<span class="cm"># أدوات نصية</span>
+<span class="cm"># ============================================</span>
+
+<span class="kw">def</span> count_words(text):
+    <span class="kw">return</span> <span class="fn">len</span>(text.split())
+
+<span class="kw">def</span> reverse_text(text):
+    <span class="kw">return</span> text[::-1]
+
+<span class="kw">def</span> count_vowels(text):
+    <span class="kw">vowels</span> = <span class="st">"aeiouAEIOU"</span>
+    <span class="kw">count</span> = 0
+    <span class="kw">for</span> ch <span class="kw">in</span> text:
+        <span class="kw">if</span> ch <span class="kw">in</span> vowels:
+            count += 1
+    <span class="kw">return</span> count
+
+<span class="cm"># أداة بسيطة بـ lambda</span>
+<span class="kw">to_upper</span> = <span class="kw">lambda</span> text: text.upper()
+
+
+<span class="kw">while</span> <span class="kw">True</span>:
+    <span class="fn">print</span>(<span class="st">"\\n1) Count words  2) Reverse  3) Count vowels  4) Uppercase  5) Exit"</span>)
+    <span class="kw">choice</span> = <span class="fn">input</span>(<span class="st">"Choose an option: "</span>).strip()
+
+    <span class="kw">if</span> choice == <span class="st">"5"</span>:
+        <span class="fn">print</span>(<span class="st">"Goodbye!"</span>)
+        <span class="kw">break</span>
+
+    <span class="kw">text</span> = <span class="fn">input</span>(<span class="st">"Enter text: "</span>)
+
+    <span class="kw">if</span> choice == <span class="st">"1"</span>:
+        <span class="fn">print</span>(<span class="st">f"Word count: {count_words(text)}"</span>)
+    <span class="kw">elif</span> choice == <span class="st">"2"</span>:
+        <span class="fn">print</span>(<span class="st">f"Reversed: {reverse_text(text)}"</span>)
+    <span class="kw">elif</span> choice == <span class="st">"3"</span>:
+        <span class="fn">print</span>(<span class="st">f"Vowels: {count_vowels(text)}"</span>)
+    <span class="kw">elif</span> choice == <span class="st">"4"</span>:
+        <span class="fn">print</span>(<span class="st">f"Uppercase: {to_upper(text)}"</span>)
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="st">"Invalid option"</span>)`,
+    quiz: {
+        q: {
+            ar: "لماذا صُمِّمت دوال count_words وreverse_text لتُرجع النتيجة بدل طباعتها مباشرة؟",
+            en: "Why were count_words and reverse_text designed to return their result instead of printing it directly?"
+        },
+        options: {
+            ar: [
+                "لأن print() لا يعمل داخل الدوال",
+                "لفصل الحساب عن العرض، فتصبح الدوال قابلة للاختبار وإعادة الاستخدام في سياقات أخرى",
+                "لأن return أسرع من print دائماً",
+                "لا سبب حقيقي، الاختيار عشوائي"
+            ],
+            en: [
+                "Because print() doesn't work inside functions",
+                "To separate computation from display, making functions testable and reusable elsewhere",
+                "Because return is always faster than print",
+                "No real reason, it was an arbitrary choice"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "دالة تُرجع نتيجة (pure function) يمكن استدعاؤها من أي سياق واستخدام ناتجها كما يشاء المستدعي — طباعة، تخزين، أو تمرير لدالة أخرى. دالة تطبع مباشرة مقيّدة بحالة استخدام واحدة فقط.",
+            en: "A function that returns a result (a pure function) can be called from any context and its output used however the caller wants — printed, stored, or passed to another function. A function that prints directly is locked into a single use case."
+        }
+    }
+}
+
 
 ]
         },
