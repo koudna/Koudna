@@ -2015,6 +2015,681 @@ score *= 2      <span class="cm"># 30</span>
         }
     }
 }
+,
+
+/* ---------- الدرس 15 ---------- */
+{
+    title: { ar: "القوائم: التخزين والفهرسة والتقطيع", en: "Lists: storage, indexing and slicing" },
+    body: {
+        ar: `
+<p>تخيّل أنك تكتب برنامجاً لإدارة قائمة تسوّق. حتى الآن، كل متغيّر كان يخزّن قيمة واحدة: <code>item = "تفاح"</code>. لكن ماذا لو كان عندك 20 عنصراً؟ لن تُنشئ 20 متغيّراً منفصلاً — هذا غير عملي ولا قابل للتوسّع. هنا تحتاج <strong>القائمة (list)</strong>: حاوية واحدة تخزّن عدة قيم مرتّبة تحت اسم واحد.</p>
+
+<h3>إنشاء قائمة والوصول لعناصرها</h3>
+
+<p>تُكتب القائمة بين قوسين مربّعين، وعناصرها مفصولة بفواصل: <code>fruits = ["apple", "banana", "grape"]</code>. يمكن أن تحتوي القائمة أنواعاً مختلطة (أرقام ونصوص معاً)، لكن الأفضل عملياً أن تكون متجانسة النوع لتسهيل التعامل معها.</p>
+
+<p>الفهرسة تعمل بنفس منطق النصوص الذي تعلمته سابقاً: تبدأ من <code>0</code>، والفهرس <code>-1</code> يشير دائماً لآخر عنصر. <code>fruits[0]</code> يعطي أول عنصر، و<code>fruits[-1]</code> يعطي الأخير — بغض النظر عن طول القائمة.</p>
+
+<h3>التقطيع (Slicing)</h3>
+
+<p>نفس صيغة تقطيع النصوص تنطبق على القوائم: <code>fruits[1:3]</code> يعطي عناصر من الفهرس 1 حتى 3 دون أن يشمله. <code>fruits[:2]</code> يعطي أول عنصرين، و<code>fruits[::-1]</code> يعكس ترتيب القائمة كاملة دون تعديل الأصل.</p>
+
+<h3>الفرق الجوهري عن النصوص: القوائم قابلة للتعديل</h3>
+
+<p>تذكر أن النصوص <strong>غير قابلة للتعديل</strong> (immutable) — لا يمكنك تغيير حرف داخلها مباشرة. القوائم عكس ذلك تماماً: <strong>قابلة للتعديل</strong> (mutable). يمكنك تغيير عنصر مباشرة بإسناد قيمة جديدة له: <code>fruits[0] = "orange"</code> يستبدل أول عنصر فوراً، دون الحاجة لإنشاء قائمة جديدة.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p><strong>الخطأ الأول:</strong> الوصول لفهرس غير موجود، مثل <code>fruits[10]</code> في قائمة من 3 عناصر — يرمي <code>IndexError</code> فوراً ويوقف البرنامج. تحقّق دائماً من طول القائمة بـ <code>len()</code> قبل الوصول لفهرس بعيد.</p>
+
+<p><strong>الخطأ الثاني:</strong> الخلط بين قائمة فارغة وقيمة None. القائمة الفارغة <code>[]</code> موجودة لكن بلا عناصر، وهذا مختلف تماماً عن عدم وجود قائمة أصلاً.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>القائمة حاوية مرتّبة لعدة قيم تحت اسم واحد: <code>[val1, val2, ...]</code></li>
+    <li>الفهرسة والتقطيع يعملان بنفس منطق النصوص تماماً</li>
+    <li>القوائم <strong>قابلة للتعديل</strong> (mutable) — يمكن تغيير عناصرها مباشرة</li>
+    <li><code>len()</code> يعطي عدد العناصر، و<code>in</code> يتحقّق من الوجود</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أنشئ قائمة بخمس مدن. اطبع أول مدينة وآخر مدينة، اطبع أول ثلاث مدن باستخدام التقطيع، ثم استبدل المدينة الثانية بمدينة أخرى واطبع القائمة كاملة بعد التعديل.</p>
+`,
+        en: `<p>Lists store multiple ordered values under one name using square brackets: <code>[val1, val2, ...]</code>. Indexing and slicing follow the same rules as strings, but unlike strings, lists are mutable — you can change an element directly by assigning to its index.</p>`
+    },
+    code: `<span class="cm"># إنشاء قائمة</span>
+<span class="kw">fruits</span> = [<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"grape"</span>, <span class="st">"mango"</span>, <span class="st">"kiwi"</span>]
+<span class="fn">print</span>(fruits)
+
+
+<span class="cm"># الفهرسة — نفس منطق النصوص</span>
+<span class="fn">print</span>(fruits[0])      <span class="cm"># apple — أول عنصر</span>
+<span class="fn">print</span>(fruits[-1])     <span class="cm"># kiwi — آخر عنصر دائماً</span>
+
+
+<span class="cm"># التقطيع</span>
+<span class="fn">print</span>(fruits[1:3])    <span class="cm"># ['banana', 'grape']</span>
+<span class="fn">print</span>(fruits[:2])     <span class="cm"># أول عنصرين</span>
+<span class="fn">print</span>(fruits[::-1])   <span class="cm"># القائمة معكوسة</span>
+
+
+<span class="cm"># القوائم قابلة للتعديل — خلافاً للنصوص!</span>
+fruits[0] = <span class="st">"orange"</span>
+<span class="fn">print</span>(fruits)
+
+
+<span class="cm"># خطأ شائع: فهرس غير موجود</span>
+<span class="cm"># print(fruits[10])   ← IndexError</span>
+
+
+<span class="cm"># الطول والاحتواء</span>
+<span class="fn">print</span>(<span class="fn">len</span>(fruits))         <span class="cm"># 5</span>
+<span class="fn">print</span>(<span class="st">"mango"</span> <span class="kw">in</span> fruits)  <span class="cm"># True</span>`,
+    quiz: {
+        q: {
+            ar: "لديك numbers = [10, 20, 30, 40]. ما ناتج numbers[1:3]؟",
+            en: "Given numbers = [10, 20, 30, 40], what is numbers[1:3]?"
+        },
+        options: {
+            ar: ["[10, 20, 30]", "[20, 30]", "[20, 30, 40]", "[10, 40]"],
+            en: ["[10, 20, 30]", "[20, 30]", "[20, 30, 40]", "[10, 40]"]
+        },
+        correct: 1,
+        explanation: {
+            ar: "التقطيع [1:3] يبدأ من الفهرس 1 (القيمة 20) حتى الفهرس 3 دون أن يشمله (يتوقف قبل القيمة 40)، فتكون النتيجة [20, 30].",
+            en: "Slicing [1:3] starts at index 1 (value 20) up to but not including index 3 (stops before 40), giving [20, 30]."
+        }
+    }
+},
+
+/* ---------- الدرس 16 ---------- */
+{
+    title: { ar: "دوال القوائم: الإضافة والحذف والترتيب", en: "List methods: adding, removing and sorting" },
+    body: {
+        ar: `
+<p>الدرس السابق علّمك كيف تقرأ من القائمة. لكن البرامج الحقيقية تحتاج أيضاً <strong>تعديل</strong> القوائم أثناء التشغيل: إضافة عنصر جديد لسلة تسوّق، حذف مهمة أُنجزت، أو ترتيب قائمة أسماء أبجدياً. لهذا تملك القوائم مجموعة من الدوال الجاهزة (methods) المرتبطة بها مباشرة.</p>
+
+<h3>الإضافة: append وinsert</h3>
+
+<p><code>append(x)</code> تضيف عنصراً واحداً في نهاية القائمة — الأكثر استخداماً بكثير. أما <code>insert(index, x)</code> فتضيف العنصر في موضع محدد، وتزيح ما بعده. لاحظ أن كلتيهما تُعدّلان القائمة <strong>في مكانها</strong> (in-place) ولا تُرجعان قائمة جديدة — لا تكتب <code>fruits = fruits.append("kiwi")</code>، فهذا يُفرغ المتغيّر لأن <code>append</code> تُرجع <code>None</code>.</p>
+
+<h3>الحذف: remove وpop</h3>
+
+<p><code>remove(value)</code> تحذف <strong>أول</strong> ظهور لقيمة معيّنة (وترمي خطأ إن لم تجدها). <code>pop(index)</code> تحذف عنصراً بفهرسه <strong>وتُرجعه</strong> لك — مفيدة عندما تريد استخدام القيمة المحذوفة، مثل تنفيذ عنصر من قائمة مهام. <code>pop()</code> بلا فهرس تحذف وتُرجع آخر عنصر.</p>
+
+<h3>الترتيب: sort وsorted</h3>
+
+<p>هنا أشهر فخّ في بايثون: <code>list.sort()</code> ترتّب القائمة <strong>في مكانها</strong> وتُرجع <code>None</code> — بينما الدالة العامة <code>sorted(list)</code> تُرجع قائمة <strong>جديدة</strong> مرتّبة وتترك الأصل كما هو. الكتابة <code>fruits = fruits.sort()</code> خطأ شائع جداً يُفرغ القائمة إلى <code>None</code>.</p>
+
+<h3>أخطاء شائعة أخرى</h3>
+
+<p>استخدام <code>remove()</code> على قيمة غير موجودة يرمي <code>ValueError</code> — تحقّق بـ <code>in</code> أولاً إن لم تكن متأكداً. وتذكّر أن <code>sort()</code> بترتيب تنازلي يحتاج <code>reverse=True</code>: <code>fruits.sort(reverse=True)</code>.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>append(x)</code> يضيف في النهاية، <code>insert(i, x)</code> يضيف في موضع محدد</li>
+    <li><code>remove(value)</code> يحذف بالقيمة، <code>pop(i)</code> يحذف بالفهرس ويُرجع العنصر</li>
+    <li><code>sort()</code> يرتّب في مكانه ويُرجع None — لا تُسنده لمتغيّر</li>
+    <li><code>sorted(list)</code> يُرجع نسخة جديدة مرتّبة ويترك الأصل سليماً</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أنشئ قائمة مهام فارغة، أضف إليها 4 مهام بـ <code>append</code>، احذف مهمة بعينها بـ <code>remove</code>، ثم رتّب القائمة أبجدياً واطبعها.</p>
+`,
+        en: `<p>Lists have built-in methods for modifying them in place: append() and insert() add elements, remove() and pop() delete them, sort() reorders in place (returns None — never assign it back). Use sorted() when you need a new sorted copy without changing the original.</p>`
+    },
+    code: `<span class="cm"># الإضافة</span>
+<span class="kw">tasks</span> = [<span class="st">"buy milk"</span>, <span class="st">"clean room"</span>]
+tasks.append(<span class="st">"read book"</span>)      <span class="cm"># تضيف في النهاية</span>
+tasks.insert(0, <span class="st">"wake up early"</span>)  <span class="cm"># تضيف في البداية</span>
+<span class="fn">print</span>(tasks)
+
+
+<span class="cm"># الحذف</span>
+tasks.remove(<span class="st">"clean room"</span>)   <span class="cm"># حذف بالقيمة</span>
+<span class="kw">last_task</span> = tasks.pop()      <span class="cm"># حذف وإرجاع آخر عنصر</span>
+<span class="fn">print</span>(<span class="st">f"Removed: {last_task}"</span>)
+<span class="fn">print</span>(tasks)
+
+
+<span class="cm"># خطأ شائع: append لا تُرجع القائمة</span>
+<span class="cm"># tasks = tasks.append("x")   ← تصبح None! خطأ</span>
+
+
+<span class="cm"># الترتيب: sort تعدّل في مكانها</span>
+<span class="kw">names</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>]
+names.sort()
+<span class="fn">print</span>(names)              <span class="cm"># ['Ahmed', 'Layla', 'Sarah']</span>
+
+names.sort(reverse=<span class="kw">True</span>)
+<span class="fn">print</span>(names)              <span class="cm"># ترتيب تنازلي</span>
+
+
+<span class="cm"># sorted: تُرجع نسخة جديدة، تترك الأصل</span>
+<span class="kw">numbers</span> = [5, 2, 8, 1]
+<span class="kw">sorted_numbers</span> = <span class="fn">sorted</span>(numbers)
+<span class="fn">print</span>(numbers)         <span class="cm"># [5, 2, 8, 1] — لم يتغيّر</span>
+<span class="fn">print</span>(sorted_numbers)  <span class="cm"># [1, 2, 5, 8]</span>`,
+    quiz: {
+        q: {
+            ar: "ما مشكلة هذا الكود؟\nfruits = [\"apple\", \"banana\"]\nfruits = fruits.append(\"kiwi\")\nprint(fruits)",
+            en: "What is wrong with this code?\nfruits = [\"apple\", \"banana\"]\nfruits = fruits.append(\"kiwi\")\nprint(fruits)"
+        },
+        options: {
+            ar: [
+                "لا مشكلة، سيطبع القائمة مع kiwi",
+                "append تُرجع None دائماً، فتصبح fruits تساوي None",
+                "append تحتاج فهرساً كأول معامل",
+                "kiwi يجب أن يكون رقماً"
+            ],
+            en: [
+                "No issue, it prints the list with kiwi",
+                "append always returns None, so fruits becomes None",
+                "append needs an index as its first argument",
+                "kiwi must be a number"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "append() تُعدّل القائمة في مكانها وتُرجع None. بإسناد الناتج إلى fruits، تستبدل القائمة الفعلية بـ None وتفقدها بالكامل.",
+            en: "append() modifies the list in place and returns None. Assigning its result back to fruits replaces the actual list with None, losing it entirely."
+        }
+    }
+},
+
+/* ---------- الدرس 17 ---------- */
+{
+    title: { ar: "Tuples: القوائم غير القابلة للتعديل", en: "Tuples: immutable sequences" },
+    body: {
+        ar: `
+<p>أحياناً تريد تجميع عدة قيم مرتبطة ببعضها بشكل <strong>ثابت لا يجب أن يتغيّر</strong> — مثل إحداثيات نقطة (x, y)، أو تاريخ ميلاد (يوم، شهر، سنة). القائمة (list) تسمح بالتعديل، وهذا أحياناً خطر: قد يُعدّل جزء من الكود إحداثيات بالخطأ. هنا يأتي دور <strong>Tuple</strong>: تسلسل مرتّب مثل القائمة تماماً، لكنه <strong>غير قابل للتعديل</strong> بعد إنشائه.</p>
+
+<h3>الإنشاء والوصول</h3>
+
+<p>يُكتب الـ Tuple بين قوسين هلاليين: <code>point = (3, 7)</code>. الفهرسة والتقطيع يعملان بنفس منطق القوائم تماماً: <code>point[0]</code> يعطي 3. الفرق الوحيد الجوهري: لا توجد دوال تعديل مثل <code>append</code> أو <code>remove</code> — لأن الـ Tuple لا يُفترض أن يتغيّر أصلاً.</p>
+
+<h3>لماذا لا نستخدم قائمة دائماً؟</h3>
+
+<p>ثلاثة أسباب عملية: <strong>الأمان</strong> (بيانات لا يجب تعديلها بالخطأ، كثوابت التهيئة)، <strong>الوضوح</strong> (Tuple يوحي بأن هذه مجموعة ثابتة من القيم المرتبطة، بخلاف قائمة قابلة للنمو)، و<strong>الأداء</strong> (أسرع قليلاً وأخفّ في الذاكرة من القائمة المكافئة).</p>
+
+<h3>تفكيك Tuple (Unpacking)</h3>
+
+<p>من أكثر ميزات Tuple فائدة: تستطيع تفكيكه مباشرة إلى متغيّرات منفصلة بسطر واحد: <code>x, y = point</code> تُسند 3 إلى x و7 إلى y دفعة واحدة. هذا يُستخدم كثيراً عند إرجاع عدة قيم من دالة — موضوع الدرس القادم.</p>
+
+<h3>أخطأ شائع</h3>
+
+<p>محاولة تعديل عنصر في Tuple: <code>point[0] = 5</code> ترمي <code>TypeError: 'tuple' object does not support item assignment</code> فوراً. إن احتجت التعديل، فالحل الصحيح هو استخدام قائمة من الأساس، لا Tuple.</p>
+
+<p>وتنبيه صغير: Tuple بعنصر واحد يحتاج فاصلة إجبارية: <code>single = (5,)</code> — بدون الفاصلة، <code>(5)</code> هو مجرد رقم 5 بين أقواس، وليس Tuple.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>Tuple تسلسل مرتّب <strong>غير قابل للتعديل</strong> بعد إنشائه: <code>(val1, val2, ...)</code></li>
+    <li>الفهرسة والتقطيع يعملان بنفس منطق القوائم</li>
+    <li>Unpacking يسمح بتفكيك Tuple إلى متغيّرات في سطر واحد</li>
+    <li>Tuple بعنصر واحد يحتاج فاصلة: <code>(5,)</code></li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أنشئ Tuple لتاريخ ميلادك (يوم, شهر, سنة)، فكّكه إلى ثلاثة متغيّرات منفصلة بسطر واحد، ثم اطبع جملة كاملة تستخدم الثلاثة. جرّب تعديل عنصر فيه وشاهد رسالة الخطأ.</p>
+`,
+        en: `<p>A tuple is an ordered sequence like a list, but immutable — created with parentheses (val1, val2, ...) and cannot be changed after creation. Use tuples for fixed groups of related values (like coordinates), and unpack them directly into variables: x, y = point.</p>`
+    },
+    code: `<span class="cm"># إنشاء Tuple</span>
+<span class="kw">point</span> = (3, 7)
+<span class="fn">print</span>(point[0])   <span class="cm"># 3</span>
+<span class="fn">print</span>(point[1])   <span class="cm"># 7</span>
+
+
+<span class="cm"># تفكيك Tuple (Unpacking)</span>
+<span class="kw">x</span>, <span class="kw">y</span> = point
+<span class="fn">print</span>(<span class="st">f"x = {x}, y = {y}"</span>)
+
+
+<span class="cm"># خطأ شائع: محاولة التعديل</span>
+<span class="cm"># point[0] = 5   ← TypeError</span>
+
+
+<span class="cm"># Tuple بعنصر واحد يحتاج فاصلة</span>
+<span class="kw">not_a_tuple</span> = (5)     <span class="cm"># هذا رقم عادي فقط</span>
+<span class="kw">single</span> = (5,)          <span class="cm"># هذا Tuple فعلاً</span>
+<span class="fn">print</span>(<span class="fn">type</span>(not_a_tuple))  <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(single))       <span class="cm"># &lt;class 'tuple'&gt;</span>
+
+
+<span class="cm"># مثال عملي: تاريخ ميلاد</span>
+<span class="kw">birthday</span> = (15, <span class="st">"March"</span>, 2006)
+<span class="kw">day</span>, <span class="kw">month</span>, <span class="kw">year</span> = birthday
+<span class="fn">print</span>(<span class="st">f"Born on {day} {month}, {year}"</span>)`,
+    quiz: {
+        q: {
+            ar: "ما الفرق الجوهري بين القائمة (list) وTuple؟",
+            en: "What is the key difference between a list and a tuple?"
+        },
+        options: {
+            ar: [
+                "Tuple لا يدعم الفهرسة",
+                "القائمة قابلة للتعديل، وTuple غير قابل للتعديل",
+                "Tuple يمكن أن يحتوي أرقاماً فقط",
+                "لا فرق حقيقياً بينهما"
+            ],
+            en: [
+                "Tuples don't support indexing",
+                "Lists are mutable, tuples are immutable",
+                "Tuples can only hold numbers",
+                "There is no real difference"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "الفرق الجوهري هو القابلية للتعديل: القائمة يمكن تغيير عناصرها بعد الإنشاء، بينما Tuple يبقى ثابتاً تماماً — أي محاولة تعديل ترمي خطأ.",
+            en: "The core difference is mutability: lists can be modified after creation, while tuples stay fixed forever — any attempt to change one raises an error."
+        }
+    }
+},
+
+/* ---------- الدرس 18 ---------- */
+{
+    title: { ar: "Sets: المجموعات الفريدة والعمليات عليها", en: "Sets: unique collections and set operations" },
+    body: {
+        ar: `
+<p>تخيّل أنك جمعت أسماء زوّار موقعك في قائمة طوال يوم، وتريد الآن معرفة <strong>عدد الزوّار الفريدين</strong> فقط، بلا تكرار. لو استخدمت قائمة، سيظهر نفس الاسم عدة مرات إن زار الشخص الموقع مرات متعددة. هنا يأتي <strong>Set</strong>: مجموعة تخزّن عناصر <strong>فريدة فقط</strong> تلقائياً، دون أي ترتيب مضمون.</p>
+
+<h3>الإنشاء والخاصية الفريدة</h3>
+
+<p>يُكتب الـ Set بأقواس معقوفة: <code>my_set = {1, 2, 3}</code>. لو أضفت عنصراً مكرراً، يتجاهله Set تلقائياً بلا خطأ: <code>{1, 2, 2, 3}</code> يصبح فوراً <code>{1, 2, 3}</code>. هذه الخاصية وحدها كافية لتحويل قائمة تحتوي تكراراً إلى عناصر فريدة: <code>set(my_list)</code>.</p>
+
+<p>تنبيه مهم: Set <strong>فارغ</strong> لا يُكتب بـ <code>{}</code> — هذا يُنشئ قاموساً فارغاً (الدرس القادم)! استخدم <code>set()</code> صراحة لإنشاء Set فارغ.</p>
+
+<h3>عمليات المجموعات الرياضية</h3>
+
+<p>أقوى ما في Set هو عمليات المجموعات الجاهزة، المستوحاة مباشرة من الرياضيات: <code>|</code> للاتحاد (union، كل العناصر من الاثنين)، <code>&</code> للتقاطع (intersection، العناصر المشتركة فقط)، و<code>-</code> للفرق (difference، ما يوجد في الأول وليس في الثاني). هذه أسرع بكثير وأوضح من كتابة حلقات يدوية لمقارنة قائمتين.</p>
+
+<h3>الفحص السريع بـ in</h3>
+
+<p>ميزة عملية أخرى: التحقق من وجود عنصر في Set أسرع بكثير من التحقق في قائمة طويلة، خصوصاً مع بيانات ضخمة — لأن Set مبني داخلياً بطريقة تجعل البحث فيه شبه فوري.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>Set <strong>لا يدعم الفهرسة</strong>: <code>my_set[0]</code> يرمي <code>TypeError</code>، لأن عناصره غير مرتّبة أصلاً ولا معنى لفهرس أول أو ثانٍ. إن احتجت ترتيباً أو فهرسة، حوّله لقائمة أولاً بـ <code>list(my_set)</code>.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>Set مجموعة تخزّن عناصر <strong>فريدة فقط</strong> تلقائياً، بلا ترتيب مضمون</li>
+    <li><code>set()</code> فارغ، وليس <code>{}</code> (فهذا قاموس فارغ)</li>
+    <li>عمليات المجموعات: <code>|</code> اتحاد، <code>&amp;</code> تقاطع، <code>-</code> فرق</li>
+    <li>Set لا يدعم الفهرسة — حوّله لقائمة إن احتجت ذلك</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>لديك قائمتان بأسماء طلاب مسجّلين في مادتين مختلفتين. حوّل كلاً منهما إلى Set، ثم اطبع: الطلاب المسجّلين في المادتين معاً (تقاطع)، وكل الطلاب دون تكرار (اتحاد)، والطلاب المسجّلين في الأولى فقط (فرق).</p>
+`,
+        en: `<p>A set stores only unique elements automatically and has no guaranteed order — created with {val1, val2} or set() for an empty one (never {} — that's an empty dict). Sets support fast membership checks and mathematical operations: | union, &amp; intersection, - difference.</p>`
+    },
+    code: `<span class="cm"># الإنشاء — التكرار يُتجاهل تلقائياً</span>
+<span class="kw">visitors</span> = {<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Sarah"</span>, <span class="st">"Layla"</span>}
+<span class="fn">print</span>(visitors)          <span class="cm"># {'Sarah', 'Ahmed', 'Layla'} — بلا تكرار</span>
+<span class="fn">print</span>(<span class="fn">len</span>(visitors))    <span class="cm"># 3 وليس 4</span>
+
+
+<span class="cm"># تحويل قائمة فيها تكرار إلى Set</span>
+<span class="kw">numbers</span> = [1, 2, 2, 3, 3, 3, 4]
+<span class="kw">unique_numbers</span> = <span class="fn">set</span>(numbers)
+<span class="fn">print</span>(unique_numbers)   <span class="cm"># {1, 2, 3, 4}</span>
+
+
+<span class="cm"># عمليات المجموعات</span>
+<span class="kw">math_students</span> = {<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Khalid"</span>}
+<span class="kw">physics_students</span> = {<span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>}
+
+<span class="fn">print</span>(math_students | physics_students)   <span class="cm"># اتحاد: الجميع</span>
+<span class="fn">print</span>(math_students & physics_students)   <span class="cm"># تقاطع: Ahmed فقط</span>
+<span class="fn">print</span>(math_students - physics_students)   <span class="cm"># فرق: في math فقط</span>
+
+
+<span class="cm"># الفحص السريع</span>
+<span class="fn">print</span>(<span class="st">"Sarah"</span> <span class="kw">in</span> math_students)   <span class="cm"># True</span>
+
+
+<span class="cm"># خطأ شائع: Set لا يدعم الفهرسة</span>
+<span class="cm"># print(math_students[0])   ← TypeError</span>
+
+
+<span class="cm"># Set فارغ — انتبه: ليس {}</span>
+<span class="kw">empty_set</span> = <span class="fn">set</span>()
+<span class="kw">empty_dict</span> = {}   <span class="cm"># هذا قاموس فارغ، ليس Set!</span>`,
+    quiz: {
+        q: {
+            ar: "ما ناتج len({1, 2, 2, 3, 3, 3})؟",
+            en: "What is the result of len({1, 2, 2, 3, 3, 3})?"
+        },
+        options: { ar: ["6", "3", "خطأ", "1"], en: ["6", "3", "An error", "1"] },
+        correct: 1,
+        explanation: {
+            ar: "Set يحتفظ بالعناصر الفريدة فقط تلقائياً، فتتحوّل المجموعة إلى {1, 2, 3} بثلاثة عناصر فقط، مهما كرّرت القيم عند الإنشاء.",
+            en: "A set automatically keeps only unique elements, so this becomes {1, 2, 3} with just 3 elements, no matter how many times values are repeated when created."
+        }
+    }
+},
+
+/* ---------- الدرس 19 ---------- */
+{
+    title: { ar: "القواميس: التخزين بمفتاح وقيمة", en: "Dictionaries: key-value storage" },
+    body: {
+        ar: `
+<p>القوائم ممتازة لتخزين عناصر مرتّبة بالترتيب. لكن ماذا لو أردت تخزين بيانات طالب: اسمه، عمره، درجته؟ يمكنك استخدام قائمة <code>["سارة", 22, 95]</code>، لكن كيف تتذكّر أن الفهرس 1 هو العمر بالضبط؟ مع كبر البرنامج، هذا يصبح مربكاً وهشّاً. <strong>القاموس (dict)</strong> يحلّ هذه المشكلة: يخزّن البيانات كأزواج <strong>مفتاح → قيمة</strong> بدل فهرس رقمي غامض.</p>
+
+<h3>الإنشاء والوصول</h3>
+
+<p>يُكتب القاموس بأقواس معقوفة: <code>student = {"name": "Sarah", "age": 22}</code>. للوصول لقيمة، استخدم مفتاحها بدل فهرس رقمي: <code>student["name"]</code> يعطي <code>"Sarah"</code> مباشرة — أوضح بكثير من تذكّر فهرس رقمي.</p>
+
+<h3>الوصول الآمن بـ get()</h3>
+
+<p>الوصول بـ <code>student["email"]</code> لمفتاح غير موجود يرمي <code>KeyError</code> ويوقف البرنامج. البديل الآمن هو <code>student.get("email")</code> الذي يُرجع <code>None</code> بدلاً من الخطأ، ويمكنك إعطاؤه قيمة افتراضية: <code>student.get("email", "غير محدّد")</code>.</p>
+
+<h3>الإضافة والتعديل والحذف</h3>
+
+<p>القواميس قابلة للتعديل مثل القوائم: <code>student["email"] = "sarah@mail.com"</code> يضيف مفتاحاً جديداً إن لم يكن موجوداً، أو يعدّل قيمته إن كان موجوداً — سطر واحد يكفي للحالتين. للحذف: <code>del student["age"]</code>.</p>
+
+<h3>التكرار على القاموس</h3>
+
+<p>ثلاث دوال أساسية للتكرار: <code>keys()</code> تعطي كل المفاتيح، <code>values()</code> تعطي كل القيم، و<code>items()</code> تعطي أزواج (مفتاح, قيمة) معاً — الأكثر استخداماً عند الحاجة للاثنين في حلقة <code>for</code>.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>الوصول بمفتاح غير موجود مباشرة (<code>[]</code>) بدل <code>get()</code> عندما لا تكون متأكداً من وجوده. وكذلك الخلط بين المفاتيح: <code>"age"</code> و<code>"Age"</code> مفتاحان مختلفان تماماً في بايثون (حساس لحالة الأحرف).</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>القاموس يخزّن بيانات كأزواج مفتاح→قيمة: <code>{"key": value}</code></li>
+    <li>الوصول بالمفتاح مباشر وواضح: <code>d["key"]</code>، لكنه يرمي خطأ إن لم يوجد</li>
+    <li><code>get(key, default)</code> وصول آمن لا يرمي خطأ أبداً</li>
+    <li><code>keys()</code>، <code>values()</code>، <code>items()</code> للتكرار على المحتوى</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أنشئ قاموساً لكتاب: العنوان، المؤلف، سنة النشر. اطبع كل قيمة بمفتاحها، أضف مفتاحاً جديداً "genre"، ثم استخدم حلقة <code>for</code> مع <code>items()</code> لطباعة كل زوج مفتاح وقيمة بصيغة "المفتاح: القيمة".</p>
+`,
+        en: `<p>A dictionary stores key-value pairs — {"key": value} — instead of numeric indices, making data self-descriptive. Access with d["key"] (raises KeyError if missing) or the safe d.get("key", default). Use keys(), values(), items() to iterate over its contents.</p>`
+    },
+    code: `<span class="cm"># إنشاء قاموس والوصول لقيمة</span>
+<span class="kw">student</span> = {<span class="st">"name"</span>: <span class="st">"Sarah"</span>, <span class="st">"age"</span>: 22, <span class="st">"grade"</span>: 95}
+<span class="fn">print</span>(student[<span class="st">"name"</span>])    <span class="cm"># Sarah</span>
+
+
+<span class="cm"># الوصول الآمن — لا يرمي خطأ أبداً</span>
+<span class="fn">print</span>(student.get(<span class="st">"email"</span>))              <span class="cm"># None</span>
+<span class="fn">print</span>(student.get(<span class="st">"email"</span>, <span class="st">"N/A"</span>))     <span class="cm"># N/A</span>
+
+
+<span class="cm"># الإضافة والتعديل — نفس السطر لكلتيهما</span>
+student[<span class="st">"email"</span>] = <span class="st">"sarah@mail.com"</span>   <span class="cm"># إضافة</span>
+student[<span class="st">"age"</span>] = 23                        <span class="cm"># تعديل</span>
+<span class="fn">print</span>(student)
+
+
+<span class="cm"># الحذف</span>
+<span class="kw">del</span> student[<span class="st">"grade"</span>]
+
+
+<span class="cm"># التكرار على القاموس</span>
+<span class="kw">for</span> key <span class="kw">in</span> student.keys():
+    <span class="fn">print</span>(key)
+
+<span class="kw">for</span> key, value <span class="kw">in</span> student.items():
+    <span class="fn">print</span>(<span class="st">f"{key}: {value}"</span>)
+
+
+<span class="cm"># خطأ شائع: مفتاح غير موجود بدون get()</span>
+<span class="cm"># print(student["phone"])   ← KeyError</span>`,
+    quiz: {
+        q: {
+            ar: "لديك book = {\"title\": \"Python\"}. ما الفرق بين book[\"author\"] وbook.get(\"author\")؟",
+            en: "Given book = {\"title\": \"Python\"}, what is the difference between book[\"author\"] and book.get(\"author\")?"
+        },
+        options: {
+            ar: [
+                "لا فرق، كلاهما يعطي نفس النتيجة",
+                "الأول يرمي KeyError، والثاني يُرجع None بأمان",
+                "الثاني أبطأ بكثير من الأول",
+                "الأول يعمل فقط مع الأرقام"
+            ],
+            en: [
+                "No difference, both give the same result",
+                "The first raises KeyError, the second safely returns None",
+                "The second is much slower than the first",
+                "The first only works with numbers"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "المفتاح 'author' غير موجود في القاموس. الوصول المباشر [] يرمي KeyError ويوقف البرنامج، بينما get() تُرجع None بأمان دون توقّف — أو قيمة افتراضية إن حدّدتها.",
+            en: "The key 'author' doesn't exist. Direct access [] raises KeyError and stops the program, while get() safely returns None instead — or a default value if you provide one."
+        }
+    }
+},
+
+/* ---------- الدرس 20 ---------- */
+{
+    title: { ar: "Comprehensions والهياكل المتداخلة", en: "Comprehensions and nested structures" },
+    body: {
+        ar: `
+<p>نمط شائع جداً في البرمجة: بناء قائمة جديدة بتطبيق عملية على كل عنصر من قائمة موجودة. الطريقة التقليدية تحتاج ثلاثة أسطر: إنشاء قائمة فارغة، حلقة <code>for</code>، ثم <code>append</code> داخلها. بايثون توفّر طريقة أقصر وأوضح تُسمّى <strong>List Comprehension</strong> تفعل نفس الشيء بسطر واحد.</p>
+
+<h3>من حلقة تقليدية إلى Comprehension</h3>
+
+<p>قارن: الطريقة التقليدية لبناء قائمة مربّعات الأرقام من 1 إلى 5 تحتاج حلقة كاملة. الصيغة المختصرة: <code>[x**2 for x in range(1, 6)]</code> — تُقرأ كالتالي: "لكل x في range، احسب x تربيع، وضعه في قائمة جديدة". النتيجة مطابقة تماماً، لكن بسطر واحد أوضح.</p>
+
+<h3>إضافة شرط للـ Comprehension</h3>
+
+<p>يمكن تصفية العناصر بإضافة <code>if</code> في النهاية: <code>[x for x in numbers if x % 2 == 0]</code> يُنشئ قائمة تحتوي فقط الأعداد الزوجية من numbers. هذا يدمج الفلترة والتحويل في سطر واحد بدل حلقة مع شرط داخلي.</p>
+
+<h3>Dict Comprehension</h3>
+
+<p>نفس الفكرة تنطبق على القواميس بصيغة مشابهة: <code>{k: v for k, v in ...}</code>. مثال عملي: تحويل قائمة أسماء إلى قاموس يخزّن طول كل اسم: <code>{name: len(name) for name in names}</code>.</p>
+
+<h3>الهياكل المتداخلة (Nested Structures)</h3>
+
+<p>في البرامج الحقيقية، تتداخل الهياكل: قائمة من القواميس (سجل طلاب مثلاً)، أو قاموس قيمه قوائم. الوصول يكون بسلسلة من الفهارس/المفاتيح: <code>students[0]["name"]</code> يعطي اسم الطالب الأول في قائمة قواميس. لا تخف من التداخل — تعامل معه خطوة بخطوة، مستوى تلو الآخر.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<p>الإفراط في استخدام Comprehension حتى تصبح غير قابلة للقراءة — إن احتجت أكثر من شرط واحد أو منطقاً معقداً، الحلقة التقليدية أوضح وأفضل. القاعدة: إن لم تفهم السطر بنظرة واحدة، ارجع للحلقة العادية.</p>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>List Comprehension: <code>[expr for item in iterable]</code> — أقصر من الحلقة التقليدية</li>
+    <li>يمكن إضافة شرط: <code>[expr for item in iterable if condition]</code></li>
+    <li>Dict Comprehension بنفس المنطق: <code>{k: v for k, v in ...}</code></li>
+    <li>الهياكل المتداخلة تُقرأ خطوة بخطوة: <code>data[0]["key"]</code></li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>لديك قائمة أرقام من 1 إلى 20. استخدم List Comprehension لبناء قائمة جديدة تحتوي فقط مكعّبات الأرقام الزوجية منها (x**3 للأعداد الزوجية فقط) في سطر واحد.</p>
+`,
+        en: `<p>List comprehensions build a new list from an existing iterable in one line: [expr for item in iterable], optionally with a filter: [expr for item in iterable if condition]. The same pattern works for dicts. Nested structures (lists of dicts, etc.) are accessed step by step: data[0]["key"].</p>`
+    },
+    code: `<span class="cm"># الطريقة التقليدية</span>
+<span class="kw">squares</span> = []
+<span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(1, 6):
+    squares.append(x**2)
+<span class="fn">print</span>(squares)
+
+
+<span class="cm"># نفس الشيء بـ List Comprehension</span>
+<span class="kw">squares2</span> = [x**2 <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(1, 6)]
+<span class="fn">print</span>(squares2)          <span class="cm"># نفس النتيجة تماماً</span>
+
+
+<span class="cm"># مع شرط: الأعداد الزوجية فقط</span>
+<span class="kw">numbers</span> = [1, 2, 3, 4, 5, 6, 7, 8]
+<span class="kw">evens</span> = [x <span class="kw">for</span> x <span class="kw">in</span> numbers <span class="kw">if</span> x % 2 == 0]
+<span class="fn">print</span>(evens)             <span class="cm"># [2, 4, 6, 8]</span>
+
+
+<span class="cm"># Dict Comprehension</span>
+<span class="kw">names</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Al"</span>]
+<span class="kw">name_lengths</span> = {name: <span class="fn">len</span>(name) <span class="kw">for</span> name <span class="kw">in</span> names}
+<span class="fn">print</span>(name_lengths)      <span class="cm"># {'Sarah': 5, 'Ahmed': 5, 'Al': 2}</span>
+
+
+<span class="cm"># هياكل متداخلة: قائمة من القواميس</span>
+<span class="kw">students</span> = [
+    {<span class="st">"name"</span>: <span class="st">"Sarah"</span>, <span class="st">"grade"</span>: 95},
+    {<span class="st">"name"</span>: <span class="st">"Ahmed"</span>, <span class="st">"grade"</span>: 88}
+]
+<span class="fn">print</span>(students[0][<span class="st">"name"</span>])     <span class="cm"># Sarah — أول طالب</span>
+<span class="fn">print</span>(students[1][<span class="st">"grade"</span>])    <span class="cm"># 88 — درجة الثاني</span>`,
+    quiz: {
+        q: {
+            ar: "أي تعبير يُنشئ قائمة بمكعّبات الأرقام الفردية فقط من numbers؟",
+            en: "Which expression creates a list of cubes of only the odd numbers from numbers?"
+        },
+        options: {
+            ar: [
+                "[x**3 for x in numbers if x % 2 != 0]",
+                "[x**3 for x in numbers]",
+                "[x for x in numbers if x**3 % 2 != 0]",
+                "{x**3 for x in numbers if x % 2 != 0}"
+            ],
+            en: [
+                "[x**3 for x in numbers if x % 2 != 0]",
+                "[x**3 for x in numbers]",
+                "[x for x in numbers if x**3 % 2 != 0]",
+                "{x**3 for x in numbers if x % 2 != 0}"
+            ]
+        },
+        correct: 0,
+        explanation: {
+            ar: "الشرط if x % 2 != 0 يُصفّي الأرقام الفردية فقط قبل حساب المكعّب، والتعبير x**3 يحسب المكعّب لكل عنصر ناجٍ من الشرط، ضمن قوسين مربّعين لإنتاج قائمة.",
+            en: "The condition if x % 2 != 0 filters only odd numbers before cubing, and x**3 computes the cube for each surviving element, inside square brackets to produce a list."
+        }
+    }
+},
+
+/* ---------- الدرس 21 — مشروع ---------- */
+{
+    title: { ar: "مشروع 3: دفتر جهات الاتصال", en: "Project 3: Contact book" },
+    body: {
+        ar: `
+<p>مشروع هذا المستوى يجمع كل ما تعلمته: القوائم، القواميس، دوالهما، والتكرار عليها. ستبني دفتر جهات اتصال بسيطاً يعمل في الطرفية، يخزّن كل جهة اتصال كقاموس داخل قائمة كبرى.</p>
+
+<h3>تصميم البيانات</h3>
+
+<p>القرار الأهم قبل الكتابة: كيف تُمثَّل البيانات؟ كل جهة اتصال هي قاموس: <code>{"name": "...", "phone": "..."}</code>. ودفتر العناوين كاملاً هو قائمة من هذه القواميس: <code>contacts = []</code>. هذا التصميم (قائمة من قواميس) هو النمط الأكثر شيوعاً في البرمجة الحقيقية لتمثيل سجلات متعددة.</p>
+
+<h3>حلقة القائمة الرئيسية</h3>
+
+<p>البرنامج يحتاج حلقة <code>while True</code> تعرض قائمة خيارات (إضافة، بحث، عرض الكل، خروج) وتستمر حتى يختار المستخدم الخروج — نفس النمط الذي استخدمته في مشروع لعبة التخمين بالمستوى الثاني.</p>
+
+<h3>البحث بحلقة for</h3>
+
+<p>للبحث عن جهة اتصال بالاسم، مرّر بحلقة <code>for</code> على القائمة، وقارن اسم كل قاموس بما يبحث عنه المستخدم. استخدم <code>.lower()</code> على الطرفين لجعل البحث غير حسّاس لحالة الأحرف — تجربة مستخدم أفضل بكثير.</p>
+
+<h3>لماذا قائمة قواميس وليس قاموساً واحداً كبيراً؟</h3>
+
+<p>قد تتساءل: لماذا لا نستخدم قاموساً واحداً <code>{"Sarah": "0612345678"}</code> مباشرة؟ المشكلة أن هذا يفترض أن الاسم فريد دائماً، ويصعب تخزين بيانات إضافية (بريد، عنوان) لكل جهة اتصال بسهولة. قائمة القواميس أكثر مرونة وقابلية للتوسّع — نمط ستراه كثيراً في مشاريع حقيقية.</p>
+
+<h3>تحديات للتوسيع</h3>
+
+<ul>
+    <li>أضف خيار حذف جهة اتصال بالاسم</li>
+    <li>أضف خيار تعديل رقم هاتف جهة موجودة</li>
+    <li>رتّب قائمة العرض أبجدياً بـ <code>sorted()</code> مع دالة key مناسبة</li>
+    <li>امنع إضافة اسم مكرّر بالتحقق أولاً قبل append</li>
+</ul>
+
+<h3>ماذا أنجزت في هذا المستوى؟</h3>
+
+<ul>
+    <li>خزّنت مجموعات من البيانات بالقوائم وعدّلتها بدوالها المختلفة</li>
+    <li>استخدمت Tuple للبيانات الثابتة وSet للعناصر الفريدة والعمليات عليها</li>
+    <li>مثّلت بيانات ذات معنى بالقواميس بدل فهارس غامضة</li>
+    <li>اختصرت حلقات التحويل والتصفية بـ Comprehensions</li>
+    <li>وبنيت تطبيقاً كاملاً يجمع هذه الهياكل معاً في هيكل بيانات متداخل واقعي</li>
+</ul>
+
+<p>في المستوى الرابع سنتعلّم كيف نُنظّم الكود نفسه بالدوال (functions) — بدل تكرار نفس الأسطر، ستكتبها مرة واحدة وتستدعيها متى شئت.</p>
+`,
+        en: `<p>This project combines lists, dicts, and their methods into a working contact book: each contact is a dict inside a master list, with add/search/list/exit options in a main loop — the same list-of-dicts pattern used throughout real-world programs.</p>`
+    },
+    code: `<span class="cm"># ============================================</span>
+<span class="cm"># دفتر جهات الاتصال</span>
+<span class="cm"># ============================================</span>
+<span class="kw">contacts</span> = []
+
+<span class="kw">while</span> <span class="kw">True</span>:
+    <span class="fn">print</span>(<span class="st">"\\n1) Add contact  2) Search  3) List all  4) Exit"</span>)
+    <span class="kw">choice</span> = <span class="fn">input</span>(<span class="st">"Choose an option: "</span>).strip()
+
+    <span class="kw">if</span> choice == <span class="st">"1"</span>:
+        <span class="kw">name</span> = <span class="fn">input</span>(<span class="st">"Name: "</span>).strip()
+        <span class="kw">phone</span> = <span class="fn">input</span>(<span class="st">"Phone: "</span>).strip()
+        contacts.append({<span class="st">"name"</span>: name, <span class="st">"phone"</span>: phone})
+        <span class="fn">print</span>(<span class="st">f"Added {name}"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"2"</span>:
+        <span class="kw">query</span> = <span class="fn">input</span>(<span class="st">"Search name: "</span>).strip().lower()
+        <span class="kw">found</span> = <span class="kw">False</span>
+        <span class="kw">for</span> contact <span class="kw">in</span> contacts:
+            <span class="kw">if</span> contact[<span class="st">"name"</span>].lower() == query:
+                <span class="fn">print</span>(<span class="st">f"{contact['name']}: {contact['phone']}"</span>)
+                <span class="kw">found</span> = <span class="kw">True</span>
+                <span class="kw">break</span>
+        <span class="kw">if</span> <span class="kw">not</span> found:
+            <span class="fn">print</span>(<span class="st">"Not found"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"3"</span>:
+        <span class="kw">if</span> <span class="kw">not</span> contacts:
+            <span class="fn">print</span>(<span class="st">"No contacts yet"</span>)
+        <span class="kw">for</span> contact <span class="kw">in</span> contacts:
+            <span class="fn">print</span>(<span class="st">f"{contact['name']}: {contact['phone']}"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"4"</span>:
+        <span class="fn">print</span>(<span class="st">"Goodbye!"</span>)
+        <span class="kw">break</span>
+
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="st">"Invalid option, try again"</span>)`,
+    quiz: {
+        q: {
+            ar: "لماذا استخدمنا قائمة من القواميس (list of dicts) بدل قاموس واحد كبير لتخزين جهات الاتصال؟",
+            en: "Why did we use a list of dicts instead of one big dict to store contacts?"
+        },
+        options: {
+            ar: [
+                "لأن القاموس الواحد أبطأ في التنفيذ",
+                "لأن قائمة القواميس أكثر مرونة ولا تفترض أن الاسم فريد",
+                "لأن القاموس لا يدعم النصوص كقيم",
+                "لا فرق فعلي، كلاهما يعمل بنفس الطريقة تماماً"
+            ],
+            en: [
+                "Because a single dict is slower to run",
+                "Because a list of dicts is more flexible and doesn't assume names are unique",
+                "Because dicts don't support strings as values",
+                "There's no real difference, both work identically"
+            ]
+        },
+        correct: 1,
+        explanation: {
+            ar: "قاموس واحد {اسم: هاتف} يفترض أن كل اسم فريد ويصعب توسيعه ببيانات إضافية لكل جهة اتصال. قائمة القواميس تسمح بأسماء متكررة وحقول إضافية بسهولة — نمط أكثر واقعية ومرونة.",
+            en: "A single {name: phone} dict assumes every name is unique and is hard to extend with extra fields per contact. A list of dicts allows duplicate names and extra fields easily — a more realistic, flexible pattern."
+        }
+    }
+}
+
 ]
         },
         web: {
