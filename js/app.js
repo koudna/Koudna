@@ -772,6 +772,12 @@
             const label = card.querySelector(".progress-percent");
             if (bar) bar.style.width = pct + "%";
             if (label) label.textContent = pct + "%";
+
+            const lessonCount = card.querySelector(".lesson-count");
+            if (lessonCount && course) {
+                const lessonLabel = currentLang === "ar" ? "درس" : "Lessons";
+                lessonCount.innerHTML = `<i class="fa-solid fa-book-open"></i> ${course.lessons.length} ${lessonLabel}`;
+            }
         });
     }
 
