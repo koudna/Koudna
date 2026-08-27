@@ -2428,7 +2428,7 @@
 
 /* ===== References: reference-design card treatment ===== */
 .references-section{margin-top:0;padding-top:58px;padding-bottom:58px}
-.references-heading{text-align:right;display:grid;grid-template-columns:auto 1fr;grid-template-areas:"kicker title" "kicker desc";column-gap:18px;align-items:center;margin-bottom:28px}
+.references-heading{text-align:start;display:grid;grid-template-columns:auto 1fr;grid-template-areas:"kicker title" "kicker desc";column-gap:18px;align-items:center;margin-bottom:28px}
 .references-kicker{grid-area:kicker;justify-self:start;flex-direction:column;min-width:92px;min-height:92px;justify-content:center;border-radius:22px;font-size:.8rem}
 .references-kicker i{font-size:1.45rem}
 .references-heading h2{grid-area:title;margin:0 0 5px}
