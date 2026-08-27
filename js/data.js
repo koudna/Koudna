@@ -1,9 +1,9 @@
 /* ==========================================================
    DICTIONARY (translations) & COURSE CATALOG DATA
-   Pure data — no logic here. Loaded before app.js.
+   Pure data — no logic here. Imported by js/app.js and its modules.
    ========================================================== */
 
-    const translations = {
+    export const translations = {
         ar: {
             pageTitle: "كودنا | تعلم البرمجة من الصفر حتى الاحتراف",
             logoText: "كودنا",
@@ -275,7 +275,7 @@
     ========================================================== */
     const CODE = (arHtml) => arHtml; // helper no-op, code kept literal below
 
-    const catalog = {
+    export const catalog = {
         python: {
             name: { ar: "لغة بايثون Python", en: "Python" },
             icon: "python", iconClass: "fa-brands fa-python",

@@ -1,3 +1,6 @@
+/js/*
+  Cache-Control: no-cache
+
 /js/data.js
   Cache-Control: no-cache
 
