@@ -13,7 +13,18 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <title>سياسة الخصوصية | كودنا</title>
+    <title data-i18n="privacyDocTitle">سياسة الخصوصية | كودنا</title>
+
+    <script>
+        (function () {
+            try {
+                var l = localStorage.getItem("kodna-lang");
+                l = (l === "en" || l === "ar") ? l : "ar";
+                document.documentElement.lang = l;
+                document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+            } catch (e) {}
+        })();
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,6 +42,7 @@
         .legal-wrap a { color: var(--primary); font-weight: 700; }
         .legal-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px; padding: 10px 16px; border-radius: 12px; background: var(--card); border: 1px solid var(--border); color: var(--text); font-weight: 700; font-size: 13px; }
         .legal-back:hover { color: var(--primary); border-color: var(--primary); }
+        [dir="ltr"] .legal-back i { transform: scaleX(-1); }
     </style>
 </head>
 <body>
@@ -40,61 +52,67 @@
         <nav>
             <a href="index.html" class="logo">
                 <span class="logo-icon"><i class="fa-solid fa-code"></i></span>
-                <span>كودنا</span>
+                <span data-i18n="logoText">كودنا</span>
             </a>
+            <div class="header-actions">
+                <button class="icon-btn" id="langToggle" aria-label="تغيير اللغة" title="EN / AR">
+                    <span style="font-weight: 800; font-size: 12px;">EN</span>
+                </button>
+            </div>
         </nav>
     </div>
 </header>
 
 <main class="legal-wrap">
-    <a href="index.html" class="legal-back"><i class="fa-solid fa-arrow-right"></i> رجوع للموقع</a>
+    <a href="index.html" class="legal-back"><i class="fa-solid fa-arrow-right"></i> <span data-i18n="backToSite">رجوع للموقع</span></a>
 
-    <h1>سياسة الخصوصية</h1>
-    <p class="legal-updated">آخر تحديث: أغسطس 2026</p>
+    <h1 data-i18n="privacyH1">سياسة الخصوصية</h1>
+    <p class="legal-updated" data-i18n="privacyUpdated">آخر تحديث: أغسطس 2026</p>
 
-    <p>كودنا (koudna.com) منصة عربية لتعلم البرمجة. توضح هذه الصفحة نوع المعلومات التي نجمعها، وسبب جمعها، وكيفية استخدامها.</p>
+    <p data-i18n="privacyIntro">كودنا (koudna.com) منصة عربية لتعلم البرمجة. توضح هذه الصفحة نوع المعلومات التي نجمعها، وسبب جمعها، وكيفية استخدامها.</p>
 
-    <h2>1. المعلومات التي نجمعها</h2>
-    <p>عند إنشاء حساب في المنصة، نقوم بجمع:</p>
+    <h2 data-i18n="privacyH2_1">1. المعلومات التي نجمعها</h2>
+    <p data-i18n="privacyP1">عند إنشاء حساب في المنصة، نقوم بجمع:</p>
     <ul>
-        <li>الاسم الكامل والبريد الإلكتروني اللذين تقدّمهما عند التسجيل</li>
-        <li>كلمة المرور (مشفّرة بالكامل، بحيث لا نستطيع نحن أنفسنا الاطلاع عليها)</li>
-        <li>تقدّمك في الدروس والمسارات التعليمية (لحفظ نقطة توقفك ومتابعتها لاحقاً)</li>
+        <li data-i18n="privacyLi1a">الاسم الكامل والبريد الإلكتروني اللذين تقدّمهما عند التسجيل</li>
+        <li data-i18n="privacyLi1b">كلمة المرور (مشفّرة بالكامل، بحيث لا نستطيع نحن أنفسنا الاطلاع عليها)</li>
+        <li data-i18n="privacyLi1c">تقدّمك في الدروس والمسارات التعليمية (لحفظ نقطة توقفك ومتابعتها لاحقاً)</li>
     </ul>
-    <p>يتم تخزين هذه البيانات بأمان عبر <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>، ولا نقوم ببيعها أو مشاركتها مع أي طرف ثالث لأغراض تجارية.</p>
+    <p data-i18n="privacyP1b">يتم تخزين هذه البيانات بأمان عبر <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>، ولا نقوم ببيعها أو مشاركتها مع أي طرف ثالث لأغراض تجارية.</p>
 
-    <h2>2. ملفات الـ Cookies</h2>
-    <p>نستخدم ملفات الـ Cookies لحفظ تفضيلاتك (اللغة، الوضع الليلي/النهاري) وتحسين تجربتك على الموقع. بعض هذه الملفات تأتي من خدمات طرف ثالث نستخدمها، مثل Google.</p>
+    <h2 data-i18n="privacyH2_2">2. ملفات الـ Cookies</h2>
+    <p data-i18n="privacyP2">نستخدم ملفات الـ Cookies لحفظ تفضيلاتك (مثل اللغة) وتحسين تجربتك على الموقع. بعض هذه الملفات تأتي من خدمات طرف ثالث نستخدمها، مثل Google.</p>
 
-    <h2>3. الإعلانات — Google AdSense</h2>
-    <p>تستخدم كودنا خدمة <strong>Google AdSense</strong> لعرض الإعلانات. تستخدم Google وشركاؤها ملفات Cookies (بما في ذلك ملف DoubleClick DART) لعرض إعلانات مبنية على زياراتك لهذا الموقع ومواقع أخرى على الإنترنت.</p>
+    <h2 data-i18n="privacyH2_3">3. الإعلانات — Google AdSense</h2>
+    <p data-i18n="privacyP3">تستخدم كودنا خدمة <strong>Google AdSense</strong> لعرض الإعلانات. تستخدم Google وشركاؤها ملفات Cookies (بما في ذلك ملف DoubleClick DART) لعرض إعلانات مبنية على زياراتك لهذا الموقع ومواقع أخرى على الإنترنت.</p>
     <ul>
-        <li>يمكنك تعطيل الإعلانات المخصصة (Personalized ads) من <a href="https://adssettings.google.com" target="_blank" rel="noopener">إعدادات إعلانات Google</a></li>
-        <li>يمكنك الاطلاع على كيفية استخدام Google لبياناتك عبر <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">سياسة Google للشركاء</a></li>
-        <li>قد يستخدم موردون آخرون للإعلانات ملفات DART لعرض إعلانات مبنية على زياراتك السابقة لهذا الموقع أو مواقع أخرى</li>
+        <li data-i18n="privacyLi3a">يمكنك تعطيل الإعلانات المخصصة (Personalized ads) من <a href="https://adssettings.google.com" target="_blank" rel="noopener">إعدادات إعلانات Google</a></li>
+        <li data-i18n="privacyLi3b">يمكنك الاطلاع على كيفية استخدام Google لبياناتك عبر <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">سياسة Google للشركاء</a></li>
+        <li data-i18n="privacyLi3c">قد يستخدم موردون آخرون للإعلانات ملفات DART لعرض إعلانات مبنية على زياراتك السابقة لهذا الموقع أو مواقع أخرى</li>
     </ul>
 
-    <h2>4. حقوقك</h2>
-    <p>يمكنك في أي وقت أن تطلب منا الاطلاع على بياناتك، أو تعديلها، أو حذفها. يكفي أن ترسل لنا رسالة بريد إلكتروني وسنتعامل مع طلبك في أقرب وقت ممكن.</p>
+    <h2 data-i18n="privacyH2_4">4. حقوقك</h2>
+    <p data-i18n="privacyP4">يمكنك في أي وقت أن تطلب منا الاطلاع على بياناتك، أو تعديلها، أو حذفها. يكفي أن ترسل لنا رسالة بريد إلكتروني وسنتعامل مع طلبك في أقرب وقت ممكن.</p>
 
-    <h2>5. أمان البيانات</h2>
-    <p>نستخدم تشفيراً كاملاً لكلمات المرور، إلى جانب الحماية على مستوى الصفوف (Row Level Security) في قاعدة البيانات، بحيث لا يستطيع أي مستخدم الاطلاع على بيانات مستخدم آخر.</p>
+    <h2 data-i18n="privacyH2_5">5. أمان البيانات</h2>
+    <p data-i18n="privacyP5">نستخدم تشفيراً كاملاً لكلمات المرور، إلى جانب الحماية على مستوى الصفوف (Row Level Security) في قاعدة البيانات، بحيث لا يستطيع أي مستخدم الاطلاع على بيانات مستخدم آخر.</p>
 
-    <h2>6. الأطفال</h2>
-    <p>منصة كودنا غير موجهة للأطفال دون سن 13 عاماً، ولا نقوم عن قصد بجمع معلومات من هذه الفئة العمرية.</p>
+    <h2 data-i18n="privacyH2_6">6. الأطفال</h2>
+    <p data-i18n="privacyP6">منصة كودنا غير موجهة للأطفال دون سن 13 عاماً، ولا نقوم عن قصد بجمع معلومات من هذه الفئة العمرية.</p>
 
-    <h2>7. تحديثات السياسة</h2>
-    <p>قد نقوم بتعديل هذه الصفحة من وقت لآخر. سيظهر أي تغيير مهم هنا مع تاريخ التحديث الجديد.</p>
+    <h2 data-i18n="privacyH2_7">7. تحديثات السياسة</h2>
+    <p data-i18n="privacyP7">قد نقوم بتعديل هذه الصفحة من وقت لآخر. سيظهر أي تغيير مهم هنا مع تاريخ التحديث الجديد.</p>
 
-    <h2>8. تواصل معنا</h2>
-    <p>لديك سؤال حول الخصوصية؟ راسلنا على <a href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>، أو قم بزيارة <a href="contact.html">صفحة تواصل معنا</a>.</p>
+    <h2 data-i18n="privacyH2_8">8. تواصل معنا</h2>
+    <p data-i18n="privacyP8">لديك سؤال حول الخصوصية؟ راسلنا على <a href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>، أو قم بزيارة <a href="contact.html">صفحة تواصل معنا</a>.</p>
 </main>
 
 <footer>
     <div class="container">
-        <div class="copyright">© 2026 كودنا — جميع الحقوق محفوظة.</div>
+        <div class="copyright" data-i18n="copyright">© 2026 كودنا — جميع الحقوق محفوظة.</div>
     </div>
 </footer>
 
+<script type="module" src="js/legal-page.js"></script>
 </body>
 </html>

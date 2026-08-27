@@ -1,5 +1,4 @@
 import { initLanguageToggle, setLanguage, currentLang } from "./modules/i18n.js";
-import { initTheme } from "./modules/theme.js";
 import { initMobileMenu } from "./modules/mobile-menu.js";
 import { initSearchFilters } from "./modules/search-filters.js";
 import { initAuthStateListener, initAuth } from "./modules/auth-state.js";
@@ -14,7 +13,6 @@ import { initScrollTop } from "./modules/scroll-top.js";
 import { initRevealAndStats } from "./modules/reveal-stats.js";
 
 initLanguageToggle();
-initTheme();
 initMobileMenu();
 initSearchFilters();
 initAuthStateListener();

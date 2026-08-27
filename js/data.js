@@ -140,6 +140,7 @@
         en: {
             pageTitle: "Kodna | Learn Programming from Scratch to Mastery",
             logoText: "Kodna",
+            navReferences: "Curriculum & Sources",
             navPaths: "Paths",
             navWhy: "Why Kodna?",
             navAbout: "About",
@@ -150,6 +151,7 @@
             heroDesc: "Start from scratch, grasp computer and coding fundamentals, then advance to Python, Web Development, Data Science, and Linux practically.",
             heroBtnStart: "Start Learning Now",
             heroBtnAbout: "Discover Kodna",
+            heroBtnReferences: "Our Curriculum & Sources",
             stat1: "Learning Paths",
             stat2: "Practical Lessons",
             stat3: "In Arabic Language",

@@ -13,7 +13,18 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <title>تواصل معنا | كودنا</title>
+    <title data-i18n="contactDocTitle">تواصل معنا | كودنا</title>
+
+    <script>
+        (function () {
+            try {
+                var l = localStorage.getItem("kodna-lang");
+                l = (l === "en" || l === "ar") ? l : "ar";
+                document.documentElement.lang = l;
+                document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+            } catch (e) {}
+        })();
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +38,7 @@
         .legal-wrap > p.lead { color: var(--text-light); font-size: 16px; margin-bottom: 40px; line-height: 1.8; }
         .legal-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px; padding: 10px 16px; border-radius: 12px; background: var(--card); border: 1px solid var(--border); color: var(--text); font-weight: 700; font-size: 13px; }
         .legal-back:hover { color: var(--primary); border-color: var(--primary); }
+        [dir="ltr"] .legal-back i { transform: scaleX(-1); }
 
         .contact-card {
             display: flex;
@@ -68,38 +80,44 @@
         <nav>
             <a href="index.html" class="logo">
                 <span class="logo-icon"><i class="fa-solid fa-code"></i></span>
-                <span>كودنا</span>
+                <span data-i18n="logoText">كودنا</span>
             </a>
+            <div class="header-actions">
+                <button class="icon-btn" id="langToggle" aria-label="تغيير اللغة" title="EN / AR">
+                    <span style="font-weight: 800; font-size: 12px;">EN</span>
+                </button>
+            </div>
         </nav>
     </div>
 </header>
 
 <main class="legal-wrap">
-    <a href="index.html" class="legal-back"><i class="fa-solid fa-arrow-right"></i> رجوع للموقع</a>
+    <a href="index.html" class="legal-back"><i class="fa-solid fa-arrow-right"></i> <span data-i18n="backToSite">رجوع للموقع</span></a>
 
-    <h1>تواصل معنا</h1>
-    <p class="lead">لديك سؤال، اقتراح، أو مشكلة تقنية؟ راسلنا وسنرد عليك في أقرب وقت ممكن.</p>
+    <h1 data-i18n="contactH1">تواصل معنا</h1>
+    <p class="lead" data-i18n="contactLead">لديك سؤال، اقتراح، أو مشكلة تقنية؟ راسلنا وسنرد عليك في أقرب وقت ممكن.</p>
 
     <div class="contact-card">
         <div class="icon"><i class="fa-solid fa-envelope"></i></div>
         <div>
-            <h3>البريد الإلكتروني</h3>
-            <p>لأي سؤال، اقتراح، أو مشكلة تقنية</p>
+            <h3 data-i18n="contactCardTitle">البريد الإلكتروني</h3>
+            <p data-i18n="contactCardDesc">لأي سؤال، اقتراح، أو مشكلة تقنية</p>
             <a class="contact-value" href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>
         </div>
     </div>
 
     <div class="contact-note">
         <i class="fa-solid fa-circle-info"></i>
-        نرد عادةً خلال 24 إلى 48 ساعة. إذا كان سؤالك متعلقاً بحسابك (تسجيل الدخول، كلمة المرور، التقدّم في الدروس)، يمكنك تجربة زر "نسيت كلمة المرور" في نافذة تسجيل الدخول أولاً.
+        <span data-i18n="contactNote">نرد عادةً خلال 24 إلى 48 ساعة. إذا كان سؤالك متعلقاً بحسابك (تسجيل الدخول، كلمة المرور، التقدّم في الدروس)، يمكنك تجربة زر "نسيت كلمة المرور" في نافذة تسجيل الدخول أولاً.</span>
     </div>
 </main>
 
 <footer>
     <div class="container">
-        <div class="copyright">© 2026 كودنا — جميع الحقوق محفوظة.</div>
+        <div class="copyright" data-i18n="copyright">© 2026 كودنا — جميع الحقوق محفوظة.</div>
     </div>
 </footer>
 
+<script type="module" src="js/legal-page.js"></script>
 </body>
 </html>
