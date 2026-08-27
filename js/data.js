@@ -19,6 +19,19 @@
             heroBtnStart: "ابدأ التعلم الآن",
             heroBtnAbout: "تعرف على كودنا",
             heroBtnReferences: "منهجنا ومرجعيتنا",
+            heroCodeStr1: '"مرحباً بك في كودنا"',
+            heroCodeStr2: '"ابدأ الآن"',
+            refsKicker: "منهجنا ومرجعيتنا",
+            refsTitle: "مراجعنا <span>ضرورية</span> لبناء محتوى موثوق",
+            refsIntro: "نبني المسارات التعليمية بالاستفادة من المراجع التعليمية والتوثيق الرسمي والمناهج العامة المعروفة في علوم الحاسوب والبرمجة، مع تبسيطها وتقديمها باللغة العربية.",
+            refName1: "جامعة ستانفورد",
+            refNote1: "مراجع أكاديمية في علوم الحاسوب",
+            refNote2: "مواد ومناهج تعليمية مفتوحة",
+            refNote3: "أساسيات ومفاهيم علوم الحاسوب",
+            refNote4: "توثيق وممارسات تطوير البرمجيات",
+            refNote5: "مراجع وتقنيات Linux وOpen Source",
+            refsBottomTitle: "تحديثات المنهج المستمرة",
+            refsBottomDesc: "نراجع المسارات ونحدّث الأمثلة والمفاهيم تدريجيًا حتى يبقى المحتوى مواكبًا للتقنيات الحديثة. وجود هذه الجهات هنا يعني أنها مراجع استرشادية للمحتوى، وليس شراكة أو اعتمادًا رسميًا منها.",
             stat1: "مسارات تعليمية",
             stat2: "درساً عملياً",
             stat3: "باللغة العربية",
@@ -152,6 +165,19 @@
             heroBtnStart: "Start Learning Now",
             heroBtnAbout: "Discover Kodna",
             heroBtnReferences: "Our Curriculum & Sources",
+            heroCodeStr1: '"Welcome to Kodna"',
+            heroCodeStr2: '"Start now"',
+            refsKicker: "Our Curriculum & Sources",
+            refsTitle: "Our sources are <span>essential</span> for building trustworthy content",
+            refsIntro: "We build the learning paths drawing on educational references, official documentation, and well-known open curricula in computer science and programming — simplified and delivered in Arabic.",
+            refName1: "Stanford University",
+            refNote1: "Academic references in computer science",
+            refNote2: "Open educational materials and curricula",
+            refNote3: "Computer science fundamentals and concepts",
+            refNote4: "Software development documentation and practices",
+            refNote5: "Linux and open-source references and technologies",
+            refsBottomTitle: "Continuous curriculum updates",
+            refsBottomDesc: "We review the paths and update examples and concepts gradually so the content keeps pace with modern technology. The presence of these organizations here means they are reference sources for the content — not a partnership or an official endorsement.",
             stat1: "Learning Paths",
             stat2: "Practical Lessons",
             stat3: "In Arabic Language",
@@ -281,6 +307,7 @@
         python: {
             name: { ar: "لغة بايثون Python", en: "Python" },
             icon: "python", iconClass: "fa-brands fa-python",
+            hours: { ar: "12 ساعة", en: "12 hours" },
             description: { ar: 'مسار بايثون الكامل من الصفر إلى الاحتراف: شرح معمّق، أخطاء شائعة، تمارين تطبيقية ومشاريع حقيقية.', en: 'Learn Python from zero to practical projects, covering core syntax, functions, OOP and projects.' },
             lessons: [
 
@@ -5137,6 +5164,7 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
             comingSoon: true,
             name: { ar: "تطوير الويب", en: "Web Development" },
             icon: "web", iconClass: "fa-brands fa-html5",
+            hours: { ar: "10 ساعات", en: "10 hours" },
             description: { ar: 'تعلم HTML وCSS وبناء صفحات متجاوبة وحديثة ثم تطوير واجهات ويب منظمة وقابلة للاستخدام.', en: 'Learn HTML and CSS and build modern responsive web pages and structured interfaces.' },
             lessons: [
                 {
@@ -5174,6 +5202,7 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
             comingSoon: true,
             name: { ar: "JavaScript", en: "JavaScript" },
             icon: "javascript", iconClass: "fa-brands fa-js",
+            hours: { ar: "13 ساعة", en: "13 hours" },
             description: { ar: 'تعلم JavaScript من الأساسيات إلى DOM والأحداث والـ APIs والبرمجة غير المتزامنة وبناء تطبيقات ويب تفاعلية.', en: 'Learn JavaScript from fundamentals to DOM, events, APIs, async programming and interactive web apps.' },
             lessons: [
                 {
@@ -5195,6 +5224,7 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
             comingSoon: true,
             name: { ar: "نظام Linux", en: "Linux" },
             icon: "linux", iconClass: "fa-brands fa-linux",
+            hours: { ar: "9 ساعات", en: "9 hours" },
             description: { ar: 'تعلم Linux وTerminal وإدارة الملفات والصلاحيات والعمليات والشبكات وأساسيات Kali Linux.', en: 'Learn Linux, the terminal, files, permissions, processes, networking and Kali Linux basics.' },
             lessons: [
                 {
@@ -5219,6 +5249,7 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
             comingSoon: true,
             name: { ar: "علم البيانات Data Science", en: "Data Science" },
             icon: "data", iconClass: "fa-solid fa-chart-column",
+            hours: { ar: "16 ساعة", en: "16 hours" },
             description: { ar: 'تعلم تحليل البيانات باستخدام Python وNumPy وPandas والتنظيف والتصور وبناء تحليلات عملية.', en: 'Learn data analysis with Python, NumPy and Pandas, from cleaning to visualization and practical analysis.' },
             lessons: [
                 {
@@ -5245,6 +5276,7 @@ data = pd.DataFrame({
             comingSoon: true,
             name: { ar: "أساسيات الحاسوب", en: "Computer Basics" },
             icon: "computer", iconClass: "fa-solid fa-desktop",
+            hours: { ar: "6 ساعات", en: "6 hours" },
             description: { ar: 'تعرف على مكونات الحاسوب وأنظمة التشغيل والشبكات والأمن والمفاهيم الأساسية التي يحتاجها كل مبرمج.', en: 'Understand computer hardware, operating systems, networking, security and core concepts every programmer needs.' },
             lessons: [
                 {

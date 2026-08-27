@@ -3,6 +3,7 @@
 ========================================================== */
 import { translations } from "../data.js";
 import { renderAccountNav } from "./account-modal.js";
+import { refreshAllCourseCards } from "./course-card-sync.js";
 import { showToast } from "./toast.js";
 
 export let currentLang = localStorage.getItem("kodna-lang") || "ar";
@@ -34,6 +35,7 @@ export function setLanguage(lang) {
 
     document.getElementById("langToggle").querySelector("span").textContent = lang === "ar" ? "EN" : "AR";
     renderAccountNav();
+    refreshAllCourseCards();
 }
 
 export function initLanguageToggle() {
