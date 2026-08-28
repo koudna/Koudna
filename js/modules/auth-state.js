@@ -48,7 +48,7 @@ export async function loadProfileIntoCache(userId, fallbackEmail) {
 /* When a course's curriculum is rewritten, old completed-lesson indexes
    point at entirely different lessons. Reset that course's progress once
    so learners don't see brand-new lessons pre-marked as finished. */
-const CURRICULUM_VERSIONS = { python: 2 };
+const CURRICULUM_VERSIONS = { python: 2, data: 1 };
 
 function migrateStaleProgress() {
     if (!currentUserCache?.enrolled) return;
