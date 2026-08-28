@@ -1581,6 +1581,1172 @@ above = daily &gt; daily.<span class="fn">mean</span>()
                 en: "A student is a row, and the mean must stay per row. <code>axis=1</code> collapses the columns (the four subjects) and keeps the row dimension, so the result has shape <code>(30,)</code> — one mean per student. <code>axis=0</code> gives the mean per subject."
             }
         }
+    },
+
+    /* ===================== المستوى 3: Pandas ===================== */
+
+    {
+        title: {
+            ar: "Series وDataFrame والفهرس",
+            en: "Series, DataFrame and the index"
+        },
+        body: {
+            ar: `
+<p>في NumPy عملنا على مصفوفات أرقام مجهولة الأعمدة. لكن جدول المبيعات الحقيقي فيه أعمدة بأسماء — المدينة، الفئة، السعر — وأنواع مختلطة (نصّ ورقم وتاريخ). <strong>Pandas</strong> تبني هذه الطبقة فوق NumPy عبر بنيتين: <strong>Series</strong> لعمود واحد، و<strong>DataFrame</strong> لجدول كامل.</p>
+
+<h3>Series: عمود واحد بفهرس</h3>
+
+<p>الـ Series مصفوفة قيم مصحوبة بـ <strong>فهرس (index)</strong> يسمّي كل قيمة — تشبه قاموساً مرتّباً. <code>pd.Series([2400, 1800, 900], index=["Casa", "Rabat", "Fes"])</code>. الوصول بالاسم <code>s["Rabat"]</code> أو بالموضع <code>s.iloc[1]</code>.</p>
+
+<h3>DataFrame: جدول = أعمدة Series تتشارك الفهرس</h3>
+
+<p><code>pd.DataFrame({"city": [...], "revenue": [...]})</code>. كل عمود Series، وكلها تتشارك فهرس الصفوف نفسه. <code>df["revenue"]</code> يُرجع Series، و<code>df[["revenue", "city"]]</code> (قوسان) يُرجع DataFrame فرعياً.</p>
+
+<h3>الفهرس ليس مجرّد ترقيم</h3>
+
+<p>افتراضياً 0، 1، 2… لكنه <em>هوية الصفّ</em>: يمكن جعله رقم الطلب أو التاريخ بـ <code>set_index("order_id")</code>. والأهم: عمليات Pandas <strong>تحاذي حسب الفهرس لا الموضع</strong>، فجمع Series بفهارس مختلفة يطابق بالاسم ويعطي <code>NaN</code> لما لا مقابل له.</p>
+
+<h3>نظرة أولى على البنية</h3>
+
+<p><code>.shape</code> (صفوف، أعمدة)، <code>.columns</code>، <code>.index</code>، <code>.dtypes</code> (نوع كل عمود)، و<code>.values</code> (مصفوفة NumPy تحت الجدول). افحص هذه قبل أي تحليل.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>توقّع أن <code>df[0]</code> يعطي أول صفّ</strong> — بل يبحث عن عمود اسمه <code>0</code>. الصفّ الأول بـ <code>df.iloc[0]</code>.</li>
+    <li><strong>الخلط بين <code>df["col"]</code> (Series) و<code>df[["col"]]</code> (DataFrame)</strong> — كثير من الدوال تتوقّع أحدهما تحديداً.</li>
+    <li><strong>ترك الفهرس متقطّعاً بعد الفلترة</strong> ثم الاندهاش من محاذاة غريبة — <code>reset_index(drop=True)</code>.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>Series = قيم + فهرس؛ DataFrame = أعمدة Series بفهرس مشترك</li>
+    <li>الفهرس هوية الصفّ، والعمليات تحاذي به لا بالموضع</li>
+    <li><code>df["c"]</code> عمود (Series)، <code>df[["a", "b"]]</code> إطار فرعي</li>
+    <li>افحص <code>.shape</code> و<code>.columns</code> و<code>.dtypes</code> أولاً</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>ابنِ DataFrame لأربع مدن بأعمدة <code>city</code> و<code>orders</code> و<code>revenue</code>. اجعل <code>city</code> الفهرس. اطبع <code>.dtypes</code>، ثم عمود <code>revenue</code> وحده، ثم صفّ مدينة واحدة عبر <code>.loc</code>.</p>
+`,
+            en: `
+<p>In NumPy we worked on arrays of numbers with no named columns. A real sales table has named columns — city, category, price — and mixed types (text, number, date). <strong>Pandas</strong> builds that layer on top of NumPy with two structures: <strong>Series</strong> for a single column, and <strong>DataFrame</strong> for a whole table.</p>
+
+<h3>Series: one column with an index</h3>
+
+<p>A Series is an array of values paired with an <strong>index</strong> that names each value — like an ordered dictionary. <code>pd.Series([2400, 1800, 900], index=["Casa", "Rabat", "Fes"])</code>. Access by name <code>s["Rabat"]</code> or by position <code>s.iloc[1]</code>.</p>
+
+<h3>DataFrame: a table = Series columns sharing an index</h3>
+
+<p><code>pd.DataFrame({"city": [...], "revenue": [...]})</code>. Each column is a Series, and they all share the same row index. <code>df["revenue"]</code> returns a Series; <code>df[["revenue", "city"]]</code> (double brackets) returns a sub-DataFrame.</p>
+
+<h3>The index is not just row numbers</h3>
+
+<p>By default 0, 1, 2… but it is the <em>identity of the row</em>: you can make it the order id or the date with <code>set_index("order_id")</code>. Crucially, Pandas operations <strong>align by index, not by position</strong>, so adding two Series with different indexes matches by name and yields <code>NaN</code> where there is no counterpart.</p>
+
+<h3>A first look at the structure</h3>
+
+<p><code>.shape</code> (rows, columns), <code>.columns</code>, <code>.index</code>, <code>.dtypes</code> (each column's type), and <code>.values</code> (the NumPy array underneath). Check these before any analysis.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Expecting <code>df[0]</code> to give the first row</strong> — it looks for a column named <code>0</code>. The first row is <code>df.iloc[0]</code>.</li>
+    <li><strong>Confusing <code>df["col"]</code> (Series) with <code>df[["col"]]</code> (DataFrame)</strong> — many functions expect one specific shape.</li>
+    <li><strong>Leaving a gappy index after filtering</strong> then being surprised by odd alignment — <code>reset_index(drop=True)</code>.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li>Series = values + index; DataFrame = Series columns with a shared index</li>
+    <li>The index is the row's identity, and operations align by it, not by position</li>
+    <li><code>df["c"]</code> is a column (Series), <code>df[["a", "b"]]</code> a sub-frame</li>
+    <li>Check <code>.shape</code>, <code>.columns</code> and <code>.dtypes</code> first</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>Build a DataFrame for four cities with columns <code>city</code>, <code>orders</code> and <code>revenue</code>. Make <code>city</code> the index. Print <code>.dtypes</code>, then the <code>revenue</code> column alone, then one city's row via <code>.loc</code>.</p>
+`
+        },
+        code: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># Series: عمود واحد بفهرس مسمّى</span>
+revenue = pd.<span class="fn">Series</span>([2400, 1800, 900], index=[<span class="st">"Casa"</span>, <span class="st">"Rabat"</span>, <span class="st">"Fes"</span>])
+<span class="fn">print</span>(revenue[<span class="st">"Rabat"</span>])     <span class="cm"># 1800  (بالاسم)</span>
+<span class="fn">print</span>(revenue.<span class="fn">iloc</span>[0])       <span class="cm"># 2400  (بالموضع)</span>
+
+<span class="cm"># DataFrame: عدّة أعمدة تتشارك الفهرس</span>
+df = pd.<span class="fn">DataFrame</span>({
+    <span class="st">"city"</span>:    [<span class="st">"Casa"</span>, <span class="st">"Rabat"</span>, <span class="st">"Fes"</span>],
+    <span class="st">"orders"</span>:  [12, 9, 5],
+    <span class="st">"revenue"</span>: [2400, 1800, 900],
+})
+<span class="fn">print</span>(df.shape)             <span class="cm"># (3, 3)</span>
+<span class="fn">print</span>(df[<span class="st">"revenue"</span>].<span class="fn">sum</span>())   <span class="cm"># 5100</span>
+
+<span class="cm"># الفهرس = هوية الصفّ لا مجرّد ترقيم</span>
+df = df.<span class="fn">set_index</span>(<span class="st">"city"</span>)
+<span class="fn">print</span>(df.<span class="fn">loc</span>[<span class="st">"Casa"</span>, <span class="st">"revenue"</span>])   <span class="cm"># 2400</span>`,
+        quiz: {
+            q: {
+                ar: "ما الفرق بين <code>df[\"revenue\"]</code> و<code>df[[\"revenue\"]]</code>؟",
+                en: "What is the difference between <code>df[\"revenue\"]</code> and <code>df[[\"revenue\"]]</code>?"
+            },
+            options: {
+                ar: [
+                    "لا فرق، كلاهما نفس الشيء",
+                    "الأول Series (عمود واحد)، والثاني DataFrame بعمود واحد",
+                    "الأول خطأ في الصياغة",
+                    "الثاني يختار صفّاً لا عموداً"
+                ],
+                en: [
+                    "No difference, both are the same",
+                    "The first is a Series (one column), the second a DataFrame with one column",
+                    "The first is a syntax error",
+                    "The second selects a row, not a column"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "القوسان المربّعان المزدوجان يمرّران قائمة أسماء أعمدة، فالنتيجة DataFrame حتى لو كان الاسم واحداً. القوس المفرد يمرّر اسماً واحداً فيُرجع Series. كثير من دوال Pandas تتوقّع أحد الشكلين تحديداً.",
+                en: "Double brackets pass a list of column names, so the result is a DataFrame even for a single name. A single bracket passes one name and returns a Series. Many Pandas functions expect one specific shape."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "القراءة والاستكشاف الأول: read_csv وinfo وdescribe",
+            en: "Reading and first exploration: read_csv, info, describe"
+        },
+        body: {
+            ar: `
+<p>بياناتك لن تكون مكتوبة يدوياً في الكود؛ ستأتي في ملف CSV مُصدَّر من نظام مبيعات أو استبيان. أول دقائق مع أي ملف جديد لها طقوس ثابتة: حمّله، انظر شكله، افحص أنواعه، لخّص أرقامه — <strong>قبل</strong> أي تحليل.</p>
+
+<h3>التحميل: read_csv</h3>
+
+<p><code>df = pd.read_csv("sales.csv")</code>. معطيات مهمة: <code>sep=";"</code> لو الفاصل منقوطة، <code>encoding="utf-8"</code> (أو <code>latin-1</code> لملفات قديمة)، و<code>parse_dates=["order_date"]</code> ليحوّل عمود التاريخ إلى نوع تاريخ حقيقي لا نصّ.</p>
+
+<h3>النظرة السريعة: head / tail / sample</h3>
+
+<p><code>df.head()</code> أول 5 صفوف، <code>df.tail(3)</code> آخر 3، <code>df.sample(5)</code> عيّنة عشوائية — أصدق أحياناً لأن أول الملف قد يكون غير ممثِّل (مرتّب زمنياً مثلاً).</p>
+
+<h3>البنية: info</h3>
+
+<p><code>df.info()</code> يعطي: عدد الصفوف، اسم كل عمود، عدد قيمه <strong>غير الفارغة</strong>، ونوعه. علامتا إنذار: عمود رقمي نوعه <code>object</code> (نصّ مخفيّ)، أو عدد غير فارغ أقلّ من عدد الصفوف (قيم مفقودة).</p>
+
+<h3>التلخيص الرقمي: describe</h3>
+
+<p><code>df.describe()</code> للأعمدة الرقمية: العدّ، المتوسط، الانحراف المعياري، الأدنى، الأرباع، الأقصى. مقارنة المتوسط بالوسيط (<code>50%</code>) تكشف الالتواء. <code>df.describe(include="object")</code> للنصوص: عدد القيم الفريدة والأكثر تكراراً.</p>
+
+<h3>توزيع الفئات: value_counts</h3>
+
+<p><code>df["city"].value_counts()</code> عدد الصفوف لكل مدينة، و<code>normalize=True</code> للنِّسَب. أسرع طريقة لفهم عمود فئوي.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>عدم تمرير <code>parse_dates</code></strong> ثم محاولة <code>.dt.month</code> على نصّ ← خطأ.</li>
+    <li><strong>الاكتفاء بـ <code>head()</code></strong> والملف مرتّب زمنياً فتظنّ كل الطلبات من سنة واحدة.</li>
+    <li><strong>تجاهل أن <code>describe()</code> يتخطّى الأعمدة النصية والمفقودة صامتاً.</strong></li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>read_csv</code> مع <code>parse_dates</code> و<code>encoding</code> و<code>sep</code> حسب الملف</li>
+    <li><code>info()</code> = أنواع + عدد غير الفارغ (يكشف المفقود والأنواع الخاطئة)</li>
+    <li><code>describe()</code> = ملخّص رقمي؛ قارن المتوسط بالوسيط</li>
+    <li><code>value_counts()</code> = توزيع عمود فئوي</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>حمّل ملف مبيعات بـ <code>parse_dates</code>. اطبع <code>shape</code> ثم <code>info()</code> ثم <code>describe()</code>. من <code>value_counts()</code> على <code>category</code>: ما الفئة الأكثر تكراراً؟ وهل هناك عمود عدد قيمه غير الفارغة أقلّ من عدد الصفوف؟</p>
+`,
+            en: `
+<p>Your data won't be typed by hand in code; it arrives as a CSV file exported from a sales system or a survey. The first minutes with any new file follow a fixed ritual: load it, look at its shape, check its types, summarize its numbers — <strong>before</strong> any analysis.</p>
+
+<h3>Loading: read_csv</h3>
+
+<p><code>df = pd.read_csv("sales.csv")</code>. Key arguments: <code>sep=";"</code> if the delimiter is a semicolon, <code>encoding="utf-8"</code> (or <code>latin-1</code> for old files), and <code>parse_dates=["order_date"]</code> so the date column becomes a real date type, not text.</p>
+
+<h3>The quick look: head / tail / sample</h3>
+
+<p><code>df.head()</code> the first 5 rows, <code>df.tail(3)</code> the last 3, <code>df.sample(5)</code> a random sample — often more honest, because the top of a file can be unrepresentative (sorted by date, say).</p>
+
+<h3>The structure: info</h3>
+
+<p><code>df.info()</code> gives: the row count, each column's name, its count of <strong>non-null</strong> values, and its type. Two red flags: a numeric column typed <code>object</code> (hidden text), or a non-null count below the row count (missing values).</p>
+
+<h3>The numeric summary: describe</h3>
+
+<p><code>df.describe()</code> for numeric columns: count, mean, standard deviation, min, quartiles, max. Comparing the mean to the median (<code>50%</code>) reveals skew. <code>df.describe(include="object")</code> for text: number of unique values and the most frequent one.</p>
+
+<h3>Category distribution: value_counts</h3>
+
+<p><code>df["city"].value_counts()</code> the row count per city, and <code>normalize=True</code> for ratios. The fastest way to understand a categorical column.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Not passing <code>parse_dates</code></strong> then trying <code>.dt.month</code> on text ← error.</li>
+    <li><strong>Stopping at <code>head()</code></strong> when the file is sorted by date, so you think every order is from one year.</li>
+    <li><strong>Ignoring that <code>describe()</code> silently skips text and missing columns.</strong></li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li><code>read_csv</code> with <code>parse_dates</code>, <code>encoding</code> and <code>sep</code> per file</li>
+    <li><code>info()</code> = types + non-null count (reveals missing data and wrong types)</li>
+    <li><code>describe()</code> = numeric summary; compare mean to median</li>
+    <li><code>value_counts()</code> = a categorical column's distribution</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>Load a sales file with <code>parse_dates</code>. Print <code>shape</code>, then <code>info()</code>, then <code>describe()</code>. From <code>value_counts()</code> on <code>category</code>: which category is most frequent? And is there a column whose non-null count is below the row count?</p>
+`
+        },
+        code: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+df = pd.<span class="fn">read_csv</span>(
+    <span class="st">"sales.csv"</span>,
+    parse_dates=[<span class="st">"order_date"</span>],   <span class="cm"># نصّ ← نوع تاريخ حقيقي</span>
+    encoding=<span class="st">"utf-8"</span>,
+)
+
+<span class="fn">print</span>(df.shape)          <span class="cm"># (5000, 6)</span>
+<span class="fn">print</span>(df.<span class="fn">head</span>(3))
+
+df.<span class="fn">info</span>()
+<span class="cm"># order_date    5000 non-null   datetime64[ns]</span>
+<span class="cm"># city          5000 non-null   object</span>
+<span class="cm"># category      4980 non-null   object      ← 20 قيمة مفقودة</span>
+<span class="cm"># unit_price    5000 non-null   float64</span>
+
+<span class="fn">print</span>(df.<span class="fn">describe</span>())                       <span class="cm"># ملخّص الأعمدة الرقمية</span>
+<span class="fn">print</span>(df[<span class="st">"city"</span>].<span class="fn">value_counts</span>(normalize=<span class="kw">True</span>))
+<span class="cm"># Casablanca    0.41</span>
+<span class="cm"># Rabat         0.23</span>`,
+        quiz: {
+            q: {
+                ar: "في مخرجات <code>df.info()</code> ظهر عمود <code>unit_price</code> بنوع <code>object</code> بدل <code>float64</code>. ماذا يعني ذلك غالباً؟",
+                en: "In <code>df.info()</code> the <code>unit_price</code> column shows type <code>object</code> instead of <code>float64</code>. What does that usually mean?"
+            },
+            options: {
+                ar: [
+                    "الملف تالف ولا يمكن قراءته",
+                    "العمود يحوي نصوصاً مختلطة بالأرقام (رمز عملة، فاصلة، شرطة للمفقود) فمنعت التحويل الرقمي",
+                    "Pandas لا تدعم الأرقام العشرية",
+                    "العمود فارغ تماماً"
+                ],
+                en: [
+                    "The file is corrupt and can't be read",
+                    "The column contains text mixed with numbers (a currency symbol, a comma, a dash for missing) which blocked numeric conversion",
+                    "Pandas doesn't support decimals",
+                    "The column is entirely empty"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "حين يعجز Pandas عن تحويل كل قيم العمود إلى رقم، يُبقيه نصّاً (<code>object</code>). السبب المعتاد قيمة مثل \"1,200\" أو \"MAD 50\" أو \"-\". العلاج: تنظيف تلك القيم بـ <code>.str.replace</code> ثم <code>pd.to_numeric</code>.",
+                en: "When Pandas can't convert every value in a column to a number, it keeps it as text (<code>object</code>). The usual cause is a value like \"1,200\" or \"MAD 50\" or \"-\". The fix: clean those with <code>.str.replace</code> then <code>pd.to_numeric</code>."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "الاختيار والفلترة: loc وiloc وquery",
+            en: "Selecting and filtering: loc, iloc and query"
+        },
+        body: {
+            ar: `
+<p>بعد تحميل الجدول تحتاج دائماً جزءاً منه: صفوفاً بعينها، أعمدة بعينها، أو صفوفاً تحقّق شرطاً. Pandas تفصل بوضوح بين الاختيار <strong>بالموضع</strong> والاختيار <strong>بالتسمية</strong> — وخلطهما أكثر أخطاء المبتدئين.</p>
+
+<h3>iloc: بالموضع الرقمي</h3>
+
+<p><code>df.iloc[0]</code> أول صفّ، <code>df.iloc[0:5]</code> أول خمسة، <code>df.iloc[0:5, 0:2]</code> أول 5 صفوف × أول عمودين. مثل NumPy تماماً، والنهاية <strong>غير شاملة</strong>.</p>
+
+<h3>loc: بالتسمية</h3>
+
+<p><code>df.loc[10]</code> الصفّ الذي <em>فهرسه</em> 10 (وقد لا يكون العاشر)، <code>df.loc[:, "city":"quantity"]</code> كل الصفوف والأعمدة من <code>city</code> إلى <code>quantity</code>. مع <code>loc</code> النهاية <strong>شاملة</strong>.</p>
+
+<h3>الفلترة المنطقية</h3>
+
+<p><code>df[df["quantity"] &gt; 10]</code> كل الصفوف التي كميتها فوق 10. ادمج الشروط بـ <code>&amp;</code> <code>|</code> <code>~</code> وكل شرط بين قوسين — مثل NumPy. <code>df["city"].isin(["Casa", "Rabat"])</code> بديل أنظف من سلسلة <code>|</code>. ومع <code>loc</code> تختار أعمدة أيضاً: <code>df.loc[df["quantity"] &gt; 10, ["city", "quantity"]]</code>.</p>
+
+<h3>query: شرط كنصّ</h3>
+
+<p><code>df.query("quantity &gt; 10 and city == 'Rabat'")</code> — يقبل <code>and/or</code> العاديّة، أقصر للقراءة، ويشير للمتغيّرات الخارجية بـ <code>@</code>: <code>df.query("unit_price &gt; @threshold")</code>.</p>
+
+<h3>SettingWithCopyWarning</h3>
+
+<p><code>df[df.city == "Casa"]["price"] = 0</code> يحذّر ولا يعمل بموثوقية: الفلترة قد تُرجع نسخة. الصحيح صياغة <code>loc</code> واحدة: <code>df.loc[df.city == "Casa", "price"] = 0</code>.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>استخدام <code>and</code> بدل <code>&amp;</code></strong> يرمي «truth value of a Series is ambiguous».</li>
+    <li><strong>الخلط في النطاق:</strong> <code>df.loc[0:5]</code> يعطي 6 صفوف (شامل)، <code>df.iloc[0:5]</code> يعطي 5.</li>
+    <li><strong>التسلسل <code>df[...][...] =</code></strong> يولّد التحذير ولا يعدّل الأصل.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>iloc</code> بالموضع (نهاية غير شاملة)، <code>loc</code> بالتسمية (نهاية شاملة)</li>
+    <li>فلترة: <code>df[condition]</code>، ادمج بـ <code>&amp;</code> <code>|</code> <code>~</code> وأقواس، أو <code>.isin()</code></li>
+    <li><code>query("...")</code> أقصر ويقبل <code>and/or</code> و<code>@var</code></li>
+    <li>للتعيين المشروط استخدم <code>df.loc[mask, col] = value</code> صياغةً واحدة</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>من جدول المبيعات: (1) أول 10 صفوف بعمودَي <code>city</code> و<code>unit_price</code> فقط، (2) الطلبات التي <code>quantity &gt;= 5</code> <strong>و</strong> <code>city</code> من {Casa, Rabat}، (3) نفس النتيجة عبر <code>query</code>.</p>
+`,
+            en: `
+<p>After loading the table you always need a part of it: certain rows, certain columns, or rows that meet a condition. Pandas cleanly separates selection <strong>by position</strong> from selection <strong>by label</strong> — and mixing them is the top beginner mistake.</p>
+
+<h3>iloc: by numeric position</h3>
+
+<p><code>df.iloc[0]</code> the first row, <code>df.iloc[0:5]</code> the first five, <code>df.iloc[0:5, 0:2]</code> the first 5 rows &times; first 2 columns. Just like NumPy, and the end is <strong>exclusive</strong>.</p>
+
+<h3>loc: by label</h3>
+
+<p><code>df.loc[10]</code> the row whose <em>index</em> is 10 (may not be the tenth), <code>df.loc[:, "city":"quantity"]</code> all rows, columns from <code>city</code> to <code>quantity</code>. With <code>loc</code> the end is <strong>inclusive</strong>.</p>
+
+<h3>Boolean filtering</h3>
+
+<p><code>df[df["quantity"] &gt; 10]</code> every row with quantity above 10. Combine conditions with <code>&amp;</code> <code>|</code> <code>~</code> and parenthesize each — like NumPy. <code>df["city"].isin(["Casa", "Rabat"])</code> is cleaner than a chain of <code>|</code>. And with <code>loc</code> you pick columns too: <code>df.loc[df["quantity"] &gt; 10, ["city", "quantity"]]</code>.</p>
+
+<h3>query: a condition as text</h3>
+
+<p><code>df.query("quantity &gt; 10 and city == 'Rabat'")</code> — accepts plain <code>and/or</code>, reads shorter, and references outside variables with <code>@</code>: <code>df.query("unit_price &gt; @threshold")</code>.</p>
+
+<h3>SettingWithCopyWarning</h3>
+
+<p><code>df[df.city == "Casa"]["price"] = 0</code> warns and doesn't work reliably: the filter may return a copy. The correct way is one <code>loc</code> statement: <code>df.loc[df.city == "Casa", "price"] = 0</code>.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Using <code>and</code> instead of <code>&amp;</code></strong> raises "truth value of a Series is ambiguous".</li>
+    <li><strong>Range confusion:</strong> <code>df.loc[0:5]</code> gives 6 rows (inclusive), <code>df.iloc[0:5]</code> gives 5.</li>
+    <li><strong>Chaining <code>df[...][...] =</code></strong> triggers the warning and doesn't modify the original.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li><code>iloc</code> by position (exclusive end), <code>loc</code> by label (inclusive end)</li>
+    <li>Filter: <code>df[condition]</code>, combine with <code>&amp;</code> <code>|</code> <code>~</code> and parentheses, or <code>.isin()</code></li>
+    <li><code>query("...")</code> is shorter and accepts <code>and/or</code> and <code>@var</code></li>
+    <li>For conditional assignment use one <code>df.loc[mask, col] = value</code> statement</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>From the sales table: (1) the first 10 rows with only <code>city</code> and <code>unit_price</code>, (2) orders where <code>quantity &gt;= 5</code> <strong>and</strong> <code>city</code> is in {Casa, Rabat}, (3) the same result via <code>query</code>.</p>
+`
+        },
+        code: `<span class="cm"># بالموضع مقابل التسمية</span>
+<span class="fn">print</span>(df.<span class="fn">iloc</span>[0:3])        <span class="cm"># أول 3 صفوف (نهاية غير شاملة)</span>
+<span class="fn">print</span>(df.<span class="fn">loc</span>[0:3])         <span class="cm"># الفهارس 0..3 = 4 صفوف (شامل)</span>
+<span class="fn">print</span>(df.<span class="fn">iloc</span>[:5, [1, 2]])  <span class="cm"># أول 5 صفوف، العمودان 1 و2</span>
+
+<span class="cm"># فلترة منطقية + اختيار أعمدة معاً</span>
+big = df.<span class="fn">loc</span>[
+    (df[<span class="st">"quantity"</span>] &gt;= 5) &amp; (df[<span class="st">"city"</span>].<span class="fn">isin</span>([<span class="st">"Casablanca"</span>, <span class="st">"Rabat"</span>])),
+    [<span class="st">"order_id"</span>, <span class="st">"city"</span>, <span class="st">"quantity"</span>],
+]
+<span class="fn">print</span>(big.<span class="fn">head</span>())
+
+<span class="cm"># نفس الشيء بـ query — أقصر</span>
+threshold = 5
+big2 = df.<span class="fn">query</span>(<span class="st">"quantity &gt;= @threshold and city in ['Casablanca', 'Rabat']"</span>)
+
+<span class="cm"># تعيين مشروط: صياغة loc واحدة (لا تسلسل)</span>
+df.<span class="fn">loc</span>[df[<span class="st">"quantity"</span>] == 0, <span class="st">"unit_price"</span>] = 0.0`,
+        quiz: {
+            q: {
+                ar: "<code>df.loc[2:5]</code> و<code>df.iloc[2:5]</code> على جدول بفهرس افتراضي (0، 1، 2…). كم صفّاً يُرجع كلٌّ منهما؟",
+                en: "<code>df.loc[2:5]</code> and <code>df.iloc[2:5]</code> on a table with the default index (0, 1, 2…). How many rows does each return?"
+            },
+            options: {
+                ar: [
+                    "كلاهما 3 صفوف",
+                    "<code>loc</code> يُرجع 4 صفوف (2، 3، 4، 5) و<code>iloc</code> يُرجع 3 (المواضع 2، 3، 4)",
+                    "كلاهما 4 صفوف",
+                    "<code>loc</code> يُرجع 3 و<code>iloc</code> يُرجع 4"
+                ],
+                en: [
+                    "Both 3 rows",
+                    "<code>loc</code> returns 4 rows (2, 3, 4, 5) and <code>iloc</code> returns 3 (positions 2, 3, 4)",
+                    "Both 4 rows",
+                    "<code>loc</code> returns 3 and <code>iloc</code> returns 4"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "<code>loc</code> يختار بالتسمية ونهايته <strong>شاملة</strong>، فـ 2:5 = الفهارس 2 و3 و4 و5. <code>iloc</code> يختار بالموضع ونهايته <strong>غير شاملة</strong> مثل شرائح بايثون، فـ 2:5 = المواضع 2 و3 و4. هذا الفرق مصدر أخطاء صامتة كثيرة.",
+                en: "<code>loc</code> selects by label with an <strong>inclusive</strong> end, so 2:5 = indexes 2, 3, 4 and 5. <code>iloc</code> selects by position with an <strong>exclusive</strong> end like Python slices, so 2:5 = positions 2, 3 and 4. This difference causes many silent bugs."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "إنشاء الأعمدة وتحويلها: العمليات المتّجهة وmap وapply",
+            en: "Creating and transforming columns: vectorized ops, map and apply"
+        },
+        body: {
+            ar: `
+<p>نادراً ما يحوي الملف الخام العمود الذي تريد تحليله مباشرة. لديك <code>quantity</code> و<code>unit_price</code> وتريد <code>revenue</code>. لديك تاريخ وتريد الشهر. لديك مدينة وتريد المنطقة. كل ذلك عمود جديد مشتقّ من الموجود.</p>
+
+<h3>الطريقة الأولى والأفضل: عملية متّجهة</h3>
+
+<p><code>df["revenue"] = df["quantity"] * df["unit_price"]</code> — Pandas تضرب عنصراً بعنصر على كل الصفوف دفعة واحدة بسرعة NumPy. تعمل مع كل العمليات الحسابية والمقارنات ودوال مثل <code>.round()</code> و<code>.clip()</code>.</p>
+
+<h3>map: تحويل قيمة‑بقيمة على Series</h3>
+
+<p>لتبديل التسميات: <code>df["region"] = df["city"].map({"Casa": "Center", "Rabat": "North"})</code>. يأخذ قاموساً أو دالة ويُطبَّق على كل قيمة. القيم غير الموجودة في القاموس تصبح <code>NaN</code>.</p>
+
+<h3>apply: دالة عامة</h3>
+
+<p>على Series: <code>df["name"].apply(len)</code>. على DataFrame بمحور: <code>df.apply(func, axis=1)</code> يمرّر كل صفّ كـ Series — مفيد حين تحتاج عدّة أعمدة معاً في منطق لا يُعبَّر عنه متّجهاً. لكنه <strong>حلقة مخفيّة</strong>: بطيء على ملايين الصفوف. جرّب الصياغة المتّجهة أولاً.</p>
+
+<h3>التصنيف: pd.cut</h3>
+
+<p>تحويل رقمي إلى فئات مرتّبة: <code>pd.cut(df["revenue"], bins=[0, 100, 500, float("inf")], labels=["small", "medium", "large"])</code>.</p>
+
+<h3>assign: سلسلة نظيفة</h3>
+
+<p><code>df.assign(revenue=lambda d: d.quantity * d.unit_price)</code> يُرجع نسخة بأعمدة مضافة — مناسب للسلاسل الطويلة دون تعديل الأصل.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>استخدام <code>apply(axis=1)</code> لعملية بسيطة كالضرب</strong> — أبطأ عشرات المرّات من <code>df.a * df.b</code>.</li>
+    <li><strong>نسيان أن <code>map</code> بقاموس ناقص يُنتج <code>NaN</code> صامتاً.</strong></li>
+    <li><strong>تعديل عمود داخل دالة <code>apply</code></strong> وتوقّع أن يؤثّر في الأصل.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>العمليات المتّجهة أولاً: <code>df["c"] = df["a"] * df["b"]</code></li>
+    <li><code>map</code> لتبديل القيم من قاموس/دالة على Series</li>
+    <li><code>apply(axis=1)</code> للمنطق متعدّد الأعمدة فقط — حلقة بطيئة</li>
+    <li><code>pd.cut</code> رقم ← فئات؛ <code>assign</code> لسلسلة أعمدة نظيفة</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أضف: (1) <code>revenue = quantity * unit_price</code> متّجهاً، (2) <code>month</code> من <code>order_date.dt.month</code>، (3) <code>size</code> عبر <code>pd.cut</code> على <code>revenue</code> بحدود 100 و500، (4) عمود <code>review</code> صحيح إذا <code>quantity &gt; 20</code> و<code>revenue &gt; 1000</code>. قِس أيّها احتاج <code>apply</code> فعلاً.</p>
+`,
+            en: `
+<p>The raw file rarely holds the exact column you want to analyze. You have <code>quantity</code> and <code>unit_price</code> and want <code>revenue</code>. You have a date and want the month. You have a city and want the region. All of that is a new column derived from existing ones.</p>
+
+<h3>The first and best way: a vectorized operation</h3>
+
+<p><code>df["revenue"] = df["quantity"] * df["unit_price"]</code> — Pandas multiplies element by element across all rows at once, at NumPy speed. It works with every arithmetic and comparison operator and with methods like <code>.round()</code> and <code>.clip()</code>.</p>
+
+<h3>map: value-by-value transform on a Series</h3>
+
+<p>To swap labels: <code>df["region"] = df["city"].map({"Casa": "Center", "Rabat": "North"})</code>. It takes a dict or a function and applies to each value. Values absent from the dict become <code>NaN</code>.</p>
+
+<h3>apply: a general function</h3>
+
+<p>On a Series: <code>df["name"].apply(len)</code>. On a DataFrame with an axis: <code>df.apply(func, axis=1)</code> passes each row as a Series — useful when you need several columns together in logic that can't be vectorized. But it is a <strong>hidden loop</strong>: slow on millions of rows. Try the vectorized form first.</p>
+
+<h3>Binning: pd.cut</h3>
+
+<p>Turn a number into ordered categories: <code>pd.cut(df["revenue"], bins=[0, 100, 500, float("inf")], labels=["small", "medium", "large"])</code>.</p>
+
+<h3>assign: a clean chain</h3>
+
+<p><code>df.assign(revenue=lambda d: d.quantity * d.unit_price)</code> returns a copy with columns added — good for long chains without mutating the original.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Using <code>apply(axis=1)</code> for a simple operation like multiplication</strong> — tens of times slower than <code>df.a * df.b</code>.</li>
+    <li><strong>Forgetting that <code>map</code> with an incomplete dict silently produces <code>NaN</code>.</strong></li>
+    <li><strong>Mutating a column inside an <code>apply</code> function</strong> and expecting it to affect the original.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li>Vectorized operations first: <code>df["c"] = df["a"] * df["b"]</code></li>
+    <li><code>map</code> to swap values from a dict/function on a Series</li>
+    <li><code>apply(axis=1)</code> only for multi-column logic — a slow loop</li>
+    <li><code>pd.cut</code> number ← categories; <code>assign</code> for a clean column chain</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>Add: (1) <code>revenue = quantity * unit_price</code> vectorized, (2) <code>month</code> from <code>order_date.dt.month</code>, (3) <code>size</code> via <code>pd.cut</code> on <code>revenue</code> at 100 and 500, (4) a <code>review</code> column true when <code>quantity &gt; 20</code> and <code>revenue &gt; 1000</code>. Measure which one actually needed <code>apply</code>.</p>
+`
+        },
+        code: `<span class="cm"># 1) عملية متّجهة — الأسرع والأوضح</span>
+df[<span class="st">"revenue"</span>] = df[<span class="st">"quantity"</span>] * df[<span class="st">"unit_price"</span>]
+
+<span class="cm"># 2) map: قاموس تبديل على عمود</span>
+df[<span class="st">"region"</span>] = df[<span class="st">"city"</span>].<span class="fn">map</span>({
+    <span class="st">"Casablanca"</span>: <span class="st">"Center"</span>, <span class="st">"Rabat"</span>: <span class="st">"North"</span>, <span class="st">"Fes"</span>: <span class="st">"Center"</span>,
+})
+
+<span class="cm"># 3) pd.cut: رقم ← فئات مرتّبة</span>
+df[<span class="st">"size"</span>] = pd.<span class="fn">cut</span>(
+    df[<span class="st">"revenue"</span>],
+    bins=[0, 100, 500, <span class="fn">float</span>(<span class="st">"inf"</span>)],
+    labels=[<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>],
+)
+
+<span class="cm"># 4) apply(axis=1): فقط حين تحتاج عدّة أعمدة في منطق واحد</span>
+<span class="kw">def</span> <span class="fn">needs_review</span>(row):
+    <span class="kw">return</span> row[<span class="st">"quantity"</span>] &gt; 20 <span class="kw">and</span> row[<span class="st">"revenue"</span>] &gt; 1000
+
+df[<span class="st">"review"</span>] = df.<span class="fn">apply</span>(needs_review, axis=1)
+
+<span class="cm"># نفس المنطق متّجهاً — أسرع بكثير، فضّله</span>
+df[<span class="st">"review"</span>] = (df[<span class="st">"quantity"</span>] &gt; 20) &amp; (df[<span class="st">"revenue"</span>] &gt; 1000)`,
+        quiz: {
+            q: {
+                ar: "تريد عمود <code>total = price * quantity</code> لمليون صفّ. أي طريقة أسرع بفارق كبير؟",
+                en: "You want a <code>total = price * quantity</code> column for a million rows. Which way is far faster?"
+            },
+            options: {
+                ar: [
+                    "<code>df.apply(lambda row: row[\"price\"] * row[\"quantity\"], axis=1)</code>",
+                    "<code>df[\"price\"] * df[\"quantity\"]</code>",
+                    "حلقة <code>for</code> على <code>df.iterrows()</code>",
+                    "الثلاث متساوية"
+                ],
+                en: [
+                    "<code>df.apply(lambda row: row[\"price\"] * row[\"quantity\"], axis=1)</code>",
+                    "<code>df[\"price\"] * df[\"quantity\"]</code>",
+                    "a <code>for</code> loop over <code>df.iterrows()</code>",
+                    "all three are equal"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "<code>df[\"price\"] * df[\"quantity\"]</code> عملية متّجهة تنفّذها Pandas في كود مُصرَّف على كامل العمود دفعة واحدة. <code>apply(axis=1)</code> و<code>iterrows()</code> كلاهما حلقة بايثون على الصفوف — أبطأ عشرات إلى مئات المرّات. القاعدة: جرّب المتّجه أولاً.",
+                en: "<code>df[\"price\"] * df[\"quantity\"]</code> is a vectorized operation Pandas runs in compiled code over the whole column at once. <code>apply(axis=1)</code> and <code>iterrows()</code> are both Python loops over rows — tens to hundreds of times slower. The rule: try vectorized first."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "الترتيب والرتب: sort_values وnlargest وrank",
+            en: "Sorting and ranking: sort_values, nlargest and rank"
+        },
+        body: {
+            ar: `
+<p>«ما أعلى 10 مدن مبيعاً؟» «رتّب الطلبات من الأغلى للأرخص.» «في أي رتبة يقع هذا الطالب؟» أسئلة ترتيب يومية، ولكلٍّ منها أداة أنسب.</p>
+
+<h3>sort_values: الترتيب الأساسي</h3>
+
+<p><code>df.sort_values("revenue")</code> تصاعدياً، <code>ascending=False</code> تنازلياً. عدّة مفاتيح: <code>df.sort_values(["city", "revenue"], ascending=[True, False])</code> — رتّب بالمدينة، ثم داخل كل مدينة بالإيراد تنازلياً. <code>na_position="first"</code> لمكان القيم المفقودة.</p>
+
+<h3>الفهرس بعد الترتيب</h3>
+
+<p><code>sort_values</code> يُبقي فهرس كل صفّ الأصلي (فيصبح مبعثراً). إذا احتجت ترقيماً جديداً 0، 1، 2 أضف <code>.reset_index(drop=True)</code>.</p>
+
+<h3>nlargest / nsmallest: القمّة مباشرة</h3>
+
+<p><code>df.nlargest(10, "revenue")</code> أعلى 10 صفوف حسب الإيراد — أوضح وأسرع من <code>sort_values(...).head(10)</code> لأنه لا يرتّب الجدول كله. يقبل عدّة أعمدة لفضّ التعادل.</p>
+
+<h3>idxmax / idxmin</h3>
+
+<p><code>df["revenue"].idxmax()</code> يعطي <em>فهرس</em> الصفّ صاحب أعلى إيراد لا القيمة نفسها. <code>df.loc[df["revenue"].idxmax()]</code> = ذلك الصفّ كاملاً.</p>
+
+<h3>rank: الرتبة لا الترتيب</h3>
+
+<p><code>df["revenue"].rank(ascending=False)</code> يعطي لكل صفّ رقمه في الترتيب دون تحريكه. <code>method="dense"</code> لرتب متتالية بلا فجوات عند التعادل (الافتراضي <code>average</code>). مفيد لأعمدة «التصنيف» و«المئين».</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>توقّع أن <code>sort_values</code> يعدّل <code>df</code></strong> — هو يُرجع نسخة؛ أعِد الإسناد أو <code>inplace=True</code>.</li>
+    <li><strong>استخدام <code>sort_values().head(n)</code></strong> على جدول ضخم حيث يكفي <code>nlargest(n, ...)</code>.</li>
+    <li><strong>الخلط بين <code>idxmax</code> (فهرس) و<code>max</code> (قيمة).</strong></li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>sort_values(by, ascending, na_position)</code> — عدّة مفاتيح بقائمة <code>ascending</code></li>
+    <li><code>nlargest/nsmallest(n, col)</code> أسرع من ترتيب كامل للقمّة</li>
+    <li><code>idxmax/idxmin</code> يعطي الفهرس؛ ادمجه مع <code>.loc</code> للصفّ كاملاً</li>
+    <li><code>rank(method="dense")</code> يعطي الرتبة دون إعادة ترتيب</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>من جدول المبيعات: (1) أغلى 5 طلبات بـ <code>nlargest</code>، (2) رتّب بالمدينة تصاعدياً ثم بالإيراد تنازلياً، (3) صفّ الطلب الأعلى إيراداً كاملاً عبر <code>idxmax</code>، (4) أضف عمود <code>revenue_rank</code> بـ <code>rank</code> تنازلياً بطريقة <code>dense</code>.</p>
+`,
+            en: `
+<p>"What are the top 10 cities by sales?" "Sort orders from most to least expensive." "Where does this student rank?" Everyday ordering questions, each with a best-fit tool.</p>
+
+<h3>sort_values: the basic sort</h3>
+
+<p><code>df.sort_values("revenue")</code> ascending, <code>ascending=False</code> descending. Multiple keys: <code>df.sort_values(["city", "revenue"], ascending=[True, False])</code> — sort by city, then within each city by revenue descending. <code>na_position="first"</code> for where missing values go.</p>
+
+<h3>The index after sorting</h3>
+
+<p><code>sort_values</code> keeps each row's original index (which becomes scrambled). If you need fresh 0, 1, 2 numbering add <code>.reset_index(drop=True)</code>.</p>
+
+<h3>nlargest / nsmallest: the top directly</h3>
+
+<p><code>df.nlargest(10, "revenue")</code> the top 10 rows by revenue — clearer and faster than <code>sort_values(...).head(10)</code> because it doesn't sort the whole table. Accepts multiple columns for tie-breaking.</p>
+
+<h3>idxmax / idxmin</h3>
+
+<p><code>df["revenue"].idxmax()</code> gives the <em>index</em> of the row with the highest revenue, not the value. <code>df.loc[df["revenue"].idxmax()]</code> = that whole row.</p>
+
+<h3>rank: rank, not order</h3>
+
+<p><code>df["revenue"].rank(ascending=False)</code> gives each row its position in the order without moving it. <code>method="dense"</code> for consecutive ranks with no gaps on ties (default is <code>average</code>). Useful for "tier" and "percentile" columns.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Expecting <code>sort_values</code> to modify <code>df</code></strong> — it returns a copy; reassign or use <code>inplace=True</code>.</li>
+    <li><strong>Using <code>sort_values().head(n)</code></strong> on a huge table where <code>nlargest(n, ...)</code> suffices.</li>
+    <li><strong>Confusing <code>idxmax</code> (an index) with <code>max</code> (a value).</strong></li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li><code>sort_values(by, ascending, na_position)</code> — multiple keys with an <code>ascending</code> list</li>
+    <li><code>nlargest/nsmallest(n, col)</code> is faster than a full sort for the top</li>
+    <li><code>idxmax/idxmin</code> gives the index; combine with <code>.loc</code> for the whole row</li>
+    <li><code>rank(method="dense")</code> gives the rank without reordering</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>From the sales table: (1) the 5 most expensive orders via <code>nlargest</code>, (2) sort by city ascending then revenue descending, (3) the whole highest-revenue order row via <code>idxmax</code>, (4) add a <code>revenue_rank</code> column with <code>rank</code> descending, method <code>dense</code>.</p>
+`
+        },
+        code: `<span class="cm"># ترتيب بمفتاحين: مدينة تصاعدياً، ثم إيراد تنازلياً داخلها</span>
+ranked = df.<span class="fn">sort_values</span>(
+    [<span class="st">"city"</span>, <span class="st">"revenue"</span>],
+    ascending=[<span class="kw">True</span>, <span class="kw">False</span>],
+).<span class="fn">reset_index</span>(drop=<span class="kw">True</span>)
+
+<span class="cm"># أعلى 5 طلبات — بلا ترتيب الجدول كله</span>
+top5 = df.<span class="fn">nlargest</span>(5, <span class="st">"revenue"</span>)
+
+<span class="cm"># الصفّ صاحب أعلى إيراد (idxmax يعطي الفهرس لا القيمة)</span>
+best = df.<span class="fn">loc</span>[df[<span class="st">"revenue"</span>].<span class="fn">idxmax</span>()]
+<span class="fn">print</span>(best[<span class="st">"city"</span>], best[<span class="st">"revenue"</span>])
+
+<span class="cm"># الرتبة دون تحريك الصفوف</span>
+df[<span class="st">"revenue_rank"</span>] = df[<span class="st">"revenue"</span>].<span class="fn">rank</span>(ascending=<span class="kw">False</span>, method=<span class="st">"dense"</span>)
+<span class="fn">print</span>(df[[<span class="st">"order_id"</span>, <span class="st">"revenue"</span>, <span class="st">"revenue_rank"</span>]].<span class="fn">head</span>())`,
+        quiz: {
+            q: {
+                ar: "تريد «أغلى 20 طلباً» من جدول فيه مليونا صفّ. أي خيار الأنسب؟",
+                en: "You want the \"20 most expensive orders\" from a table of two million rows. Which option is best?"
+            },
+            options: {
+                ar: [
+                    "<code>df.sort_values(\"revenue\", ascending=False).head(20)</code>",
+                    "<code>df.nlargest(20, \"revenue\")</code>",
+                    "<code>df[\"revenue\"].max()</code> عشرين مرة",
+                    "<code>df.rank().head(20)</code>"
+                ],
+                en: [
+                    "<code>df.sort_values(\"revenue\", ascending=False).head(20)</code>",
+                    "<code>df.nlargest(20, \"revenue\")</code>",
+                    "<code>df[\"revenue\"].max()</code> twenty times",
+                    "<code>df.rank().head(20)</code>"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "<code>nlargest(20, ...)</code> يحتاج فقط إيجاد أكبر 20 قيمة — عمل خطّي تقريباً بلا ترتيب كامل. <code>sort_values(...).head(20)</code> يرتّب المليونَي صفّ ثم يرمي كل شيء إلا 20 — عمل مهدور. النتيجة نفسها، لكن <code>nlargest</code> أوضح نيّةً وأسرع.",
+                en: "<code>nlargest(20, ...)</code> only needs to find the 20 largest values — near-linear work with no full sort. <code>sort_values(...).head(20)</code> sorts all two million rows then discards all but 20 — wasted work. Same result, but <code>nlargest</code> states intent more clearly and runs faster."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "التجميع: groupby وagg",
+            en: "Grouping: groupby and agg"
+        },
+        body: {
+            ar: `
+<p>أهم سؤال تحليلي على الإطلاق: «كم لكلّ…؟». إجمالي المبيعات <strong>لكل مدينة</strong>، متوسط الدرجة <strong>لكل صفّ</strong>، عدد الطلبات <strong>لكل شهر</strong>. النمط واحد: قسّم الصفوف إلى مجموعات، احسب رقماً لكل مجموعة، اجمع النتائج في جدول. هذا <code>groupby</code>.</p>
+
+<h3>split‑apply‑combine</h3>
+
+<p><code>df.groupby("city")["revenue"].sum()</code>: (1) قسّم الصفوف حسب <code>city</code>، (2) طبّق <code>sum</code> على <code>revenue</code> في كل مجموعة، (3) ادمج في Series فهرسه المدن. غيّر الدالة: <code>.mean()</code>، <code>.count()</code>، <code>.max()</code>، <code>.median()</code>.</p>
+
+<h3>agg: عدّة إحصاءات دفعة واحدة</h3>
+
+<p><code>df.groupby("city").agg(total=("revenue", "sum"), orders=("order_id", "count"), avg=("revenue", "mean"))</code> — كل سطر يعرّف عمود ناتج: (العمود المصدر، الدالة). النتيجة DataFrame مرتّب جاهز للتقرير.</p>
+
+<h3>as_index وreset_index</h3>
+
+<p>النتيجة فهرسها مفتاح التجميع افتراضياً. <code>groupby("city", as_index=False)</code> أو <code>.reset_index()</code> يعيد <code>city</code> عموداً عادياً — أسهل للدمج والرسم لاحقاً.</p>
+
+<h3>التجميع بعدّة مفاتيح</h3>
+
+<p><code>df.groupby(["city", "category"])["revenue"].sum()</code> يعطي فهرساً هرمياً لكل تركيبة مدينة×فئة. <code>.unstack()</code> يحوّل أحد المستويات إلى أعمدة (جدول محوري).</p>
+
+<h3>transform: نتيجة بحجم الأصل</h3>
+
+<p><code>df["city_total"] = df.groupby("city")["revenue"].transform("sum")</code> يضع إجمالي المدينة <strong>بجانب كل صفّ</strong> من صفوفها — لحساب الحصص والنِّسَب: <code>df["share"] = df["revenue"] / df["city_total"]</code>.</p>
+
+<h3>size مقابل count</h3>
+
+<p><code>size</code> يعدّ صفوف المجموعة كلها؛ <code>count</code> يعدّ القيم غير الفارغة في عمود. لو في العمود مفقودات اختلف الرقمان.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong><code>groupby("city").sum()</code> على كل الأعمدة</strong> فيجمع أعمدة لا معنى لجمعها (مثل <code>order_id</code>) — حدّد العمود.</li>
+    <li><strong>توقّع أن النتيجة DataFrame</strong> وهي Series (عمود واحد + دالة واحدة).</li>
+    <li><strong>الخلط بين <code>count</code> (يتجاهل NaN) و<code>size</code></strong> عند وجود مفقودات.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>groupby(key)[col].func()</code> = قسّم / طبّق / ادمج</li>
+    <li><code>.agg(name=(col, func), ...)</code> لعدّة إحصاءات في جدول واحد</li>
+    <li><code>as_index=False</code> أو <code>reset_index()</code> لإرجاع المفتاح عموداً</li>
+    <li><code>transform</code> يُرجع بحجم الأصل — للنِّسَب والحصص</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>من جدول المبيعات: (1) إجمالي <code>revenue</code> لكل <code>city</code> مرتّباً تنازلياً، (2) جدول <code>agg</code> لكل <code>category</code>: عدد الطلبات ومتوسط الإيراد وأقصاه، (3) عمود <code>city_share</code> = حصّة كل طلب من إجمالي مدينته عبر <code>transform</code>.</p>
+`,
+            en: `
+<p>The single most important analytical question: "how much per…?". Total sales <strong>per city</strong>, average grade <strong>per class</strong>, order count <strong>per month</strong>. The pattern is one: split rows into groups, compute a number per group, combine the results into a table. That is <code>groupby</code>.</p>
+
+<h3>split-apply-combine</h3>
+
+<p><code>df.groupby("city")["revenue"].sum()</code>: (1) split rows by <code>city</code>, (2) apply <code>sum</code> to <code>revenue</code> in each group, (3) combine into a Series indexed by city. Swap the function: <code>.mean()</code>, <code>.count()</code>, <code>.max()</code>, <code>.median()</code>.</p>
+
+<h3>agg: several statistics at once</h3>
+
+<p><code>df.groupby("city").agg(total=("revenue", "sum"), orders=("order_id", "count"), avg=("revenue", "mean"))</code> — each line defines an output column: (source column, function). The result is a tidy DataFrame ready for a report.</p>
+
+<h3>as_index and reset_index</h3>
+
+<p>By default the result is indexed by the grouping key. <code>groupby("city", as_index=False)</code> or <code>.reset_index()</code> returns <code>city</code> as a normal column — easier to merge and plot later.</p>
+
+<h3>Grouping by multiple keys</h3>
+
+<p><code>df.groupby(["city", "category"])["revenue"].sum()</code> gives a hierarchical index for each city&times;category combination. <code>.unstack()</code> turns one level into columns (a pivot table).</p>
+
+<h3>transform: a result the size of the original</h3>
+
+<p><code>df["city_total"] = df.groupby("city")["revenue"].transform("sum")</code> puts the city's total <strong>next to each of its rows</strong> — for shares and ratios: <code>df["share"] = df["revenue"] / df["city_total"]</code>.</p>
+
+<h3>size vs count</h3>
+
+<p><code>size</code> counts all rows of the group; <code>count</code> counts non-null values in a column. If the column has missing values, the two numbers differ.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong><code>groupby("city").sum()</code> over every column</strong> sums columns that shouldn't be summed (like <code>order_id</code>) — name the column.</li>
+    <li><strong>Expecting a DataFrame</strong> when the result is a Series (one column + one function).</li>
+    <li><strong>Confusing <code>count</code> (ignores NaN) with <code>size</code></strong> when missing values exist.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li><code>groupby(key)[col].func()</code> = split / apply / combine</li>
+    <li><code>.agg(name=(col, func), ...)</code> for several statistics in one table</li>
+    <li><code>as_index=False</code> or <code>reset_index()</code> to return the key as a column</li>
+    <li><code>transform</code> returns original size — for ratios and shares</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>From the sales table: (1) total <code>revenue</code> per <code>city</code> sorted descending, (2) an <code>agg</code> table per <code>category</code>: order count, mean revenue and max revenue, (3) a <code>city_share</code> column = each order's share of its city's total via <code>transform</code>.</p>
+`
+        },
+        code: `<span class="cm"># split-apply-combine الأساسي</span>
+by_city = df.<span class="fn">groupby</span>(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="fn">sum</span>().<span class="fn">sort_values</span>(ascending=<span class="kw">False</span>)
+<span class="fn">print</span>(by_city.<span class="fn">head</span>())
+
+<span class="cm"># عدّة إحصاءات في جدول واحد جاهز للتقرير</span>
+summary = df.<span class="fn">groupby</span>(<span class="st">"category"</span>, as_index=<span class="kw">False</span>).<span class="fn">agg</span>(
+    orders=(<span class="st">"order_id"</span>, <span class="st">"count"</span>),
+    total_revenue=(<span class="st">"revenue"</span>, <span class="st">"sum"</span>),
+    avg_revenue=(<span class="st">"revenue"</span>, <span class="st">"mean"</span>),
+)
+<span class="fn">print</span>(summary)
+
+<span class="cm"># تجميع بمفتاحين + تحويله لجدول محوري</span>
+pivot = df.<span class="fn">groupby</span>([<span class="st">"city"</span>, <span class="st">"category"</span>])[<span class="st">"revenue"</span>].<span class="fn">sum</span>().<span class="fn">unstack</span>(fill_value=0)
+
+<span class="cm"># transform: إجمالي المدينة بجانب كل صفّ ← حصّة الطلب</span>
+df[<span class="st">"city_total"</span>] = df.<span class="fn">groupby</span>(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="fn">transform</span>(<span class="st">"sum"</span>)
+df[<span class="st">"city_share"</span>] = df[<span class="st">"revenue"</span>] / df[<span class="st">"city_total"</span>]`,
+        quiz: {
+            q: {
+                ar: "<code>df.groupby(\"city\")[\"order_id\"].count()</code> مقابل <code>df.groupby(\"city\").size()</code> — متى يختلف الرقمان؟",
+                en: "<code>df.groupby(\"city\")[\"order_id\"].count()</code> vs <code>df.groupby(\"city\").size()</code> — when do the numbers differ?"
+            },
+            options: {
+                ar: [
+                    "لا يختلفان أبداً",
+                    "يختلفان حين يحوي <code>order_id</code> قيماً مفقودة: <code>count</code> يتخطّاها و<code>size</code> يعدّ كل صفوف المجموعة",
+                    "يختلفان دائماً بمقدار 1",
+                    "<code>size</code> لا يعمل مع <code>groupby</code>"
+                ],
+                en: [
+                    "They never differ",
+                    "They differ when <code>order_id</code> has missing values: <code>count</code> skips them and <code>size</code> counts every row of the group",
+                    "They always differ by 1",
+                    "<code>size</code> doesn't work with <code>groupby</code>"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "<code>size</code> يعدّ عدد صفوف كل مجموعة بغضّ النظر عن المحتوى. <code>count</code> يعدّ القيم <strong>غير الفارغة</strong> في العمود المحدَّد. فإذا كان <code>order_id</code> مكتملاً تساوى الرقمان؛ وإذا فيه مفقودات صار <code>count</code> أصغر. لعدّ حجم المجموعة استخدم <code>size</code>.",
+                en: "<code>size</code> counts the rows of each group regardless of content. <code>count</code> counts the <strong>non-null</strong> values in the named column. If <code>order_id</code> is complete they match; if it has gaps <code>count</code> is smaller. To count group size, use <code>size</code>."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "الدمج: merge وconcat",
+            en: "Combining tables: merge and concat"
+        },
+        body: {
+            ar: `
+<p>بياناتك الحقيقية موزّعة على جداول: جدول الطلبات فيه <code>customer_id</code> فقط، واسم العميل ومدينته في جدول العملاء. لتحليل «المبيعات حسب مدينة العميل» تحتاج ضمّ الجدولين على المفتاح المشترك. هذا <code>merge</code>.</p>
+
+<h3>merge: الضمّ على مفتاح</h3>
+
+<p><code>orders.merge(customers, on="customer_id")</code> يطابق كل صفّ طلب بصفّ العميل الذي يحمل نفس <code>customer_id</code>، وينتج جدولاً واحداً بأعمدة الاثنين. لو اختلف اسم المفتاح: <code>left_on="cust", right_on="id"</code>.</p>
+
+<h3>أنواع الوصل (how)</h3>
+
+<ul>
+    <li><code>inner</code> (الافتراضي): الصفوف التي لها مطابقة في <strong>الجانبين</strong> فقط.</li>
+    <li><code>left</code>: كل صفوف اليسار، وما لا مطابقة له تُملأ أعمدته اليمنى بـ <code>NaN</code>.</li>
+    <li><code>right</code>: العكس. <code>outer</code>: اتحاد الجانبين.</li>
+</ul>
+
+<p>اختيار النوع الخاطئ يحذف صفوفاً بصمت أو يُدخِل <code>NaN</code> غير متوقّع.</p>
+
+<h3>التحقّق: validate وindicator</h3>
+
+<p><code>validate="many_to_one"</code> يرمي خطأً إذا لم يكن المفتاح فريداً في جدول العملاء — يحميك من <strong>تضخّم الصفوف</strong>. <code>indicator=True</code> يضيف عمود <code>_merge</code> يبيّن مصدر كل صفّ (<code>both</code> / <code>left_only</code> / <code>right_only</code>) — ممتاز للتشخيص.</p>
+
+<h3>concat: التكديس لا المطابقة</h3>
+
+<p><code>pd.concat([jan, feb, mar], ignore_index=True)</code> يرصّ جداول بنفس الأعمدة فوق بعضها (دمج ملفات شهرية). <code>axis=1</code> يلصقها جنباً إلى جنب محاذياً بالفهرس. لا مفتاح ولا مطابقة — مجرّد لصق.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>مفتاح غير فريد في الجانبين</strong> ← حاصل ضرب جزئي: 3 طلبات × 2 عميل بنفس <code>id</code> = 6 صفوف.</li>
+    <li><strong><code>inner</code> صامت يحذف الطلبات بلا عميل مطابق</strong> — راقب عدد الصفوف قبل/بعد.</li>
+    <li><strong><code>concat</code> لجداول أعمدتها غير متطابقة</strong> يملأ الفجوات <code>NaN</code> بلا تحذير.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>merge(other, on, how)</code> يضمّ جدولين على مفتاح؛ <code>how</code> يحدّد مصير غير المتطابق</li>
+    <li><code>inner</code> = التقاطع، <code>left</code> = كل اليسار + <code>NaN</code>، <code>outer</code> = الاتحاد</li>
+    <li><code>validate=</code> و<code>indicator=True</code> يكشفان تضخّم الصفوف والفقد</li>
+    <li><code>concat</code> يكدّس / يلصق بلا مطابقة؛ <code>ignore_index=True</code> لترقيم جديد</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>لديك <code>orders</code> (فيه <code>product_id</code>) و<code>products</code> (فيه <code>product_id</code> و<code>cost</code>). (1) اضمم الجدولين بـ <code>left</code> وتحقّق <code>many_to_one</code>، (2) أضف عمود ربح = <code>revenue - cost * quantity</code>، (3) كدّس ملفَّي طلبات شهرين بـ <code>concat</code> وتأكّد أن عدد الصفوف = مجموع الاثنين.</p>
+`,
+            en: `
+<p>Your real data is spread across tables: the orders table has only <code>customer_id</code>, while the customer's name and city live in the customers table. To analyze "sales by customer city" you need to join the two on the shared key. That is <code>merge</code>.</p>
+
+<h3>merge: joining on a key</h3>
+
+<p><code>orders.merge(customers, on="customer_id")</code> matches each order row to the customer row with the same <code>customer_id</code>, producing one table with both sets of columns. If the key names differ: <code>left_on="cust", right_on="id"</code>.</p>
+
+<h3>Join types (how)</h3>
+
+<ul>
+    <li><code>inner</code> (default): only rows with a match on <strong>both</strong> sides.</li>
+    <li><code>left</code>: every left row; unmatched ones get <code>NaN</code> in the right columns.</li>
+    <li><code>right</code>: the reverse. <code>outer</code>: the union of both sides.</li>
+</ul>
+
+<p>Choosing the wrong type silently drops rows or introduces unexpected <code>NaN</code>.</p>
+
+<h3>Checking: validate and indicator</h3>
+
+<p><code>validate="many_to_one"</code> raises an error if the key is not unique in the customers table — it protects you from <strong>row explosion</strong>. <code>indicator=True</code> adds a <code>_merge</code> column showing each row's origin (<code>both</code> / <code>left_only</code> / <code>right_only</code>) — great for diagnosis.</p>
+
+<h3>concat: stacking, not matching</h3>
+
+<p><code>pd.concat([jan, feb, mar], ignore_index=True)</code> stacks tables with the same columns on top of one another (merging monthly files). <code>axis=1</code> glues them side by side, aligned by index. No key, no matching — just pasting.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>A non-unique key on both sides</strong> ← a partial cross product: 3 orders &times; 2 customers with the same <code>id</code> = 6 rows.</li>
+    <li><strong><code>inner</code> silently drops orders with no matching customer</strong> — watch the row count before/after.</li>
+    <li><strong><code>concat</code> of tables with mismatched columns</strong> fills the gaps with <code>NaN</code> and no warning.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li><code>merge(other, on, how)</code> joins two tables on a key; <code>how</code> decides the fate of the unmatched</li>
+    <li><code>inner</code> = intersection, <code>left</code> = all left + <code>NaN</code>, <code>outer</code> = union</li>
+    <li><code>validate=</code> and <code>indicator=True</code> reveal row explosion and losses</li>
+    <li><code>concat</code> stacks / glues with no matching; <code>ignore_index=True</code> for fresh numbering</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>You have <code>orders</code> (with <code>product_id</code>) and <code>products</code> (with <code>product_id</code> and <code>cost</code>). (1) join with <code>left</code> and validate <code>many_to_one</code>, (2) add a profit column = <code>revenue - cost * quantity</code>, (3) stack two months' order files with <code>concat</code> and confirm the row count equals the sum of the two.</p>
+`
+        },
+        code: `orders = pd.<span class="fn">DataFrame</span>({
+    <span class="st">"order_id"</span>:    [1, 2, 3, 4],
+    <span class="st">"customer_id"</span>: [10, 11, 10, 99],
+    <span class="st">"revenue"</span>:     [240, 180, 300, 90],
+})
+customers = pd.<span class="fn">DataFrame</span>({
+    <span class="st">"customer_id"</span>: [10, 11, 12],
+    <span class="st">"city"</span>:        [<span class="st">"Casablanca"</span>, <span class="st">"Rabat"</span>, <span class="st">"Fes"</span>],
+})
+
+<span class="cm"># left: نُبقي كل الطلبات؛ الطلب 4 (عميل 99) بلا مدينة ← NaN</span>
+merged = orders.<span class="fn">merge</span>(
+    customers, on=<span class="st">"customer_id"</span>, how=<span class="st">"left"</span>,
+    validate=<span class="st">"many_to_one"</span>,   <span class="cm"># خطأ لو تكرّر customer_id في customers</span>
+    indicator=<span class="kw">True</span>,
+)
+<span class="fn">print</span>(merged[[<span class="st">"order_id"</span>, <span class="st">"city"</span>, <span class="st">"_merge"</span>]])
+<span class="cm">#    order_id        city     _merge</span>
+<span class="cm"># 0         1  Casablanca       both</span>
+<span class="cm"># 3         4         NaN  left_only</span>
+
+<span class="cm"># تكديس ملفّين شهريين فوق بعضهما</span>
+all_q1 = pd.<span class="fn">concat</span>([jan_df, feb_df, mar_df], ignore_index=<span class="kw">True</span>)`,
+        quiz: {
+            q: {
+                ar: "جدول <code>orders</code> فيه 100 صفّ. بعد <code>orders.merge(customers, on=\"customer_id\", how=\"inner\")</code> صار 87 صفاً. ما التفسير الأرجح؟",
+                en: "The <code>orders</code> table has 100 rows. After <code>orders.merge(customers, on=\"customer_id\", how=\"inner\")</code> it has 87. What is the likely explanation?"
+            },
+            options: {
+                ar: [
+                    "<code>merge</code> يحذف صفوفاً عشوائياً",
+                    "13 طلباً تحمل <code>customer_id</code> لا صفّ له في <code>customers</code>، و<code>inner</code> يستبعد ما لا مطابقة له",
+                    "<code>customers</code> فيه 87 صفاً فقط",
+                    "خطأ في الكود"
+                ],
+                en: [
+                    "<code>merge</code> drops rows at random",
+                    "13 orders carry a <code>customer_id</code> with no row in <code>customers</code>, and <code>inner</code> excludes the unmatched",
+                    "<code>customers</code> has only 87 rows",
+                    "A bug in the code"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "<code>inner</code> يُبقي فقط الصفوف التي لها مفتاح مطابق في <strong>كلا</strong> الجدولين. اختفاء 13 صفّاً يعني 13 طلباً بعميل غير مسجّل (أو <code>customer_id</code> مفقود). للاحتفاظ بكل الطلبات مع ترك بيانات العميل فارغة استخدم <code>how=\"left\"</code>. راقب دائماً عدد الصفوف قبل الدمج وبعده.",
+                en: "<code>inner</code> keeps only rows with a matching key in <strong>both</strong> tables. Losing 13 rows means 13 orders with an unregistered customer (or a missing <code>customer_id</code>). To keep every order with blank customer data use <code>how=\"left\"</code>. Always check the row count before and after a merge."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "مشروع: تحليل مبيعات متجر بـ Pandas",
+            en: "Project: analyzing store sales with Pandas"
+        },
+        body: {
+            ar: `
+<p>نجمع كل أدوات المستوى: <code>read_csv</code>، إنشاء الأعمدة، <code>groupby</code>/<code>agg</code>، <code>nlargest</code>، <code>merge</code>، و<code>dt</code>. المدخل ملف <code>sales.csv</code> خام (طلب في كل صفّ)، والمخرج تقرير أرقام يجيب صاحب المتجر عن: كيف تسير المبيعات؟ أين؟ وما الأعلى ربحية؟</p>
+
+<h3>1. التحميل والفحص</h3>
+
+<p><code>pd.read_csv("sales.csv", parse_dates=["order_date"])</code> ثم <code>info()</code> و<code>describe()</code>. تأكّد: لا أعمدة رقمية بنوع <code>object</code>، وانتبه لعدد القيم غير الفارغة.</p>
+
+<h3>2. الأعمدة المشتقّة</h3>
+
+<p><code>revenue = quantity * unit_price</code> متّجهاً. <code>month = order_date.dt.to_period("M")</code> للتجميع الشهري. إن وُجدت قيم <code>quantity &lt;= 0</code> استبعدها بوعي.</p>
+
+<h3>3. الإيراد الشهري (اتجاه)</h3>
+
+<p><code>df.groupby("month")["revenue"].sum()</code> — Series مرتّب زمنياً يكشف النمو أو الهبوط. <code>.pct_change()</code> لنسبة التغيّر شهرياً.</p>
+
+<h3>4. أعلى المدن</h3>
+
+<p><code>df.groupby("city", as_index=False)["revenue"].sum().nlargest(5, "revenue")</code>.</p>
+
+<h3>5. الدمج مع الفئات</h3>
+
+<p>جدول <code>categories</code> فيه <code>category</code> و<code>margin_pct</code>. ادمج بـ <code>left</code> و<code>validate="many_to_one"</code>، ثم <code>profit = revenue * margin_pct</code> ← أي فئة تحقّق أعلى ربح إجمالي؟ (قد تختلف عن الأعلى إيراداً.)</p>
+
+<h3>6. متوسط قيمة الطلب لكل مدينة</h3>
+
+<p><code>df.groupby("city").agg(orders=("order_id", "count"), revenue=("revenue", "sum"), aov=("revenue", "mean"))</code>.</p>
+
+<h3>أخطاء ستقع فيها</h3>
+
+<ul>
+    <li>التجميع الشهري على <code>dt.month</code> وحده يخلط يناير 2023 بيناير 2024 — استخدم <code>to_period("M")</code>.</li>
+    <li><code>merge</code> يضخّم الصفوف لو <code>categories</code> فيه فئة مكرّرة — <code>validate</code> يمسكها.</li>
+    <li>الاكتفاء بالأعلى إيراداً وتجاهل الهامش: منتج كثير المبيعات قد يكون قليل الربح.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>خطّ أنابيب كامل: حمّل ← نظّف ← اشتقّ أعمدة ← جمّع ← ادمج ← قارن</li>
+    <li><code>to_period("M")</code> للتجميع الزمني الصحيح</li>
+    <li>الإيراد ≠ الربح؛ الدمج مع الهامش يغيّر الترتيب أحياناً</li>
+    <li>كل خطوة سطر أو سطران بفضل Pandas — قارن بمشروع المستوى الأول اليدوي</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>وسّع التقرير: (1) أضف «أفضل فئة في كل مدينة» عبر <code>groupby(["city", "category"])</code> ثم <code>idxmax</code> على المستوى، (2) احسب نسبة الطلبات التي <code>quantity == 1</code> لكل مدينة، (3) صدّر جدول الملخّص إلى <code>report.csv</code> بـ <code>to_csv</code>.</p>
+`,
+            en: `
+<p>We bring together every tool of the module: <code>read_csv</code>, column creation, <code>groupby</code>/<code>agg</code>, <code>nlargest</code>, <code>merge</code>, and <code>dt</code>. The input is a raw <code>sales.csv</code> (one order per row), and the output is a report of numbers answering the store owner: how are sales trending? where? and what is most profitable?</p>
+
+<h3>1. Load and inspect</h3>
+
+<p><code>pd.read_csv("sales.csv", parse_dates=["order_date"])</code> then <code>info()</code> and <code>describe()</code>. Confirm: no numeric columns typed <code>object</code>, and watch the non-null counts.</p>
+
+<h3>2. Derived columns</h3>
+
+<p><code>revenue = quantity * unit_price</code> vectorized. <code>month = order_date.dt.to_period("M")</code> for monthly grouping. If there are <code>quantity &lt;= 0</code> values, exclude them deliberately.</p>
+
+<h3>3. Monthly revenue (trend)</h3>
+
+<p><code>df.groupby("month")["revenue"].sum()</code> — a time-ordered Series that reveals growth or decline. <code>.pct_change()</code> for the month-over-month change.</p>
+
+<h3>4. Top cities</h3>
+
+<p><code>df.groupby("city", as_index=False)["revenue"].sum().nlargest(5, "revenue")</code>.</p>
+
+<h3>5. Merge with categories</h3>
+
+<p>A <code>categories</code> table has <code>category</code> and <code>margin_pct</code>. Merge with <code>left</code> and <code>validate="many_to_one"</code>, then <code>profit = revenue * margin_pct</code> ← which category makes the highest total profit? (May differ from the highest revenue.)</p>
+
+<h3>6. Average order value per city</h3>
+
+<p><code>df.groupby("city").agg(orders=("order_id", "count"), revenue=("revenue", "sum"), aov=("revenue", "mean"))</code>.</p>
+
+<h3>Mistakes you'll make</h3>
+
+<ul>
+    <li>Monthly grouping on <code>dt.month</code> alone mixes Jan 2023 with Jan 2024 — use <code>to_period("M")</code>.</li>
+    <li><code>merge</code> explodes rows if <code>categories</code> has a duplicate category — <code>validate</code> catches it.</li>
+    <li>Stopping at highest revenue and ignoring margin: a high-volume product can be low-profit.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li>A full pipeline: load ← clean ← derive columns ← aggregate ← merge ← compare</li>
+    <li><code>to_period("M")</code> for correct time grouping</li>
+    <li>Revenue &ne; profit; merging in the margin sometimes changes the ranking</li>
+    <li>Each step is a line or two thanks to Pandas — compare with the manual level-one project</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>Extend the report: (1) add "best category per city" via <code>groupby(["city", "category"])</code> then <code>idxmax</code> on the level, (2) compute the share of orders with <code>quantity == 1</code> per city, (3) export the summary table to <code>report.csv</code> with <code>to_csv</code>.</p>
+`
+        },
+        code: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># 1) تحميل + فحص</span>
+df = pd.<span class="fn">read_csv</span>(<span class="st">"sales.csv"</span>, parse_dates=[<span class="st">"order_date"</span>])
+df = df[df[<span class="st">"quantity"</span>] &gt; 0].<span class="fn">copy</span>()          <span class="cm"># استبعاد صفوف تالفة بوعي</span>
+
+<span class="cm"># 2) أعمدة مشتقّة</span>
+df[<span class="st">"revenue"</span>] = df[<span class="st">"quantity"</span>] * df[<span class="st">"unit_price"</span>]
+df[<span class="st">"month"</span>] = df[<span class="st">"order_date"</span>].dt.<span class="fn">to_period</span>(<span class="st">"M"</span>)
+
+<span class="cm"># 3) اتجاه شهري</span>
+monthly = df.<span class="fn">groupby</span>(<span class="st">"month"</span>)[<span class="st">"revenue"</span>].<span class="fn">sum</span>()
+<span class="fn">print</span>(monthly.<span class="fn">pct_change</span>().<span class="fn">round</span>(3))          <span class="cm"># نسبة التغيّر شهرياً</span>
+
+<span class="cm"># 4) أعلى 5 مدن</span>
+top_cities = (
+    df.<span class="fn">groupby</span>(<span class="st">"city"</span>, as_index=<span class="kw">False</span>)[<span class="st">"revenue"</span>].<span class="fn">sum</span>()
+      .<span class="fn">nlargest</span>(5, <span class="st">"revenue"</span>)
+)
+
+<span class="cm"># 5) دمج مع هوامش الفئات ← الربح</span>
+categories = pd.<span class="fn">DataFrame</span>({
+    <span class="st">"category"</span>:   [<span class="st">"food"</span>, <span class="st">"electronics"</span>, <span class="st">"clothing"</span>],
+    <span class="st">"margin_pct"</span>: [0.15, 0.30, 0.45],
+})
+df = df.<span class="fn">merge</span>(categories, on=<span class="st">"category"</span>, how=<span class="st">"left"</span>, validate=<span class="st">"many_to_one"</span>)
+df[<span class="st">"profit"</span>] = df[<span class="st">"revenue"</span>] * df[<span class="st">"margin_pct"</span>]
+
+by_profit = df.<span class="fn">groupby</span>(<span class="st">"category"</span>)[<span class="st">"profit"</span>].<span class="fn">sum</span>().<span class="fn">sort_values</span>(ascending=<span class="kw">False</span>)
+<span class="fn">print</span>(by_profit)          <span class="cm"># قد يختلف ترتيبها عن ترتيب الإيراد</span>
+
+<span class="cm"># 6) متوسط قيمة الطلب لكل مدينة</span>
+report = df.<span class="fn">groupby</span>(<span class="st">"city"</span>).<span class="fn">agg</span>(
+    orders=(<span class="st">"order_id"</span>, <span class="st">"count"</span>),
+    revenue=(<span class="st">"revenue"</span>, <span class="st">"sum"</span>),
+    aov=(<span class="st">"revenue"</span>, <span class="st">"mean"</span>),
+).<span class="fn">round</span>(2)
+<span class="fn">print</span>(report)`,
+        quiz: {
+            q: {
+                ar: "في المشروع، رتّبت المدن حسب <code>revenue</code> ثم حسب <code>profit</code> (بعد الدمج مع الهوامش) فاختلف الترتيب. ما التفسير؟",
+                en: "In the project, you ranked cities by <code>revenue</code> then by <code>profit</code> (after merging the margins) and the ranking changed. Why?"
+            },
+            options: {
+                ar: [
+                    "خطأ في الدمج",
+                    "الفئات تختلف في الهامش، فمدينة تبيع كثيراً من فئة منخفضة الهامش قد يكون إيرادها عالياً وربحها أقلّ من مدينة تبيع فئات عالية الهامش",
+                    "<code>profit</code> و<code>revenue</code> يجب أن يعطيا نفس الترتيب دائماً",
+                    "<code>sort_values</code> غير حتمي"
+                ],
+                en: [
+                    "A merge bug",
+                    "Categories differ in margin, so a city selling a lot of a low-margin category can have high revenue but lower profit than a city selling high-margin categories",
+                    "<code>profit</code> and <code>revenue</code> must always give the same ranking",
+                    "<code>sort_values</code> is non-deterministic"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "الإيراد مجموع المبيعات؛ الربح = الإيراد × الهامش، والهامش يختلف بين الفئات. مدينة إيرادها عالٍ من بيع الطعام (هامش 15%) قد تربح أقلّ من مدينة أصغر إيراداً تبيع إلكترونيات (30%). لهذا يدمج المحلّل دائماً بيانات التكلفة/الهامش قبل ترتيب «الأفضل».",
+                en: "Revenue is total sales; profit = revenue &times; margin, and the margin differs by category. A city with high revenue from food (15% margin) can earn less than a smaller-revenue city selling electronics (30%). That is why an analyst always merges cost/margin data before ranking the \"best\"."
+            }
+        }
     }
 
 ];
