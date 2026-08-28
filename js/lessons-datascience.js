@@ -761,6 +761,826 @@ ratings.<span class="fn">sort</span>(key=<span class="kw">lambda</span> r: order
                 en: "The <code>{...}</code> builds a set of the dates, and a set drops duplicates automatically. Using len(expenses) would divide the total by the entry count (4) instead of days (3), giving a wrong daily average."
             }
         }
+    },
+
+    /* ===================== المستوى 2: NumPy ===================== */
+
+    {
+        title: {
+            ar: "لماذا NumPy؟ المصفوفة مقابل القائمة",
+            en: "Why NumPy? Arrays vs. lists"
+        },
+        body: {
+            ar: `
+<p>في الدرس السابق حسبنا مجاميع ومتوسّطات بحلقات <code>for</code>. تعمل جيداً على عشرات القيم، لكن التحليل الحقيقي يعمل على ملايين الصفوف، وهنا تصبح الحلقة بطيئة جداً. <strong>NumPy</strong> هي الحل: مكتبة تخزّن الأرقام في بنية واحدة متراصّة في الذاكرة، وتطبّق العمليات على كل القيم دفعة واحدة بسرعة لغة C.</p>
+
+<h3>المصفوفة (ndarray): النوع الأساسي</h3>
+
+<p>المصفوفة تشبه القائمة ظاهرياً، لكن بثلاثة فروق جوهرية: كل عناصرها من <strong>نوع واحد</strong> (كلها أعداد عشرية مثلاً)، حجمها <strong>ثابت</strong> بعد الإنشاء، وتدعم عمليات <strong>متّجهة</strong>: <code>arr * 2</code> يضرب كل عنصر في 2 بلا حلقة.</p>
+
+<h3>لماذا هي أسرع؟</h3>
+
+<ul>
+    <li><strong>ذاكرة متراصّة:</strong> القائمة في بايثون مؤشّرات مبعثرة؛ المصفوفة كتلة واحدة متتالية يقرأها المعالج بكفاءة.</li>
+    <li><strong>بلا حمل بايثون:</strong> الحلقة تفسّر كل خطوة؛ NumPy ينفّذ العملية في كود مُصرَّف.</li>
+    <li>النتيجة: جمع مليون رقم أسرع بـ 10 إلى 50 مرة.</li>
+</ul>
+
+<h3>العملية المتّجهة: التفكير بلا حلقات</h3>
+
+<p>هذا تحوّل ذهني مهم. بدل «مُرّ على كل سعر واضرب في سعر الصرف»، تكتب <code>prices_mad = prices_usd * 10.2</code> والمصفوفة كلها تتحوّل. معظم كود التحليل يصبح سلسلة عمليات متّجهة، لا حلقات.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>خلط الأنواع:</strong> <code>np.array([1, 2, "3"])</code> يحوّل كل شيء إلى نصّ. تأكّد أن مدخلاتك متجانسة.</li>
+    <li><strong>توقّع أن <code>+</code> يدمج مثل القوائم:</strong> <code>arr1 + arr2</code> يجمع عنصراً بعنصر، لا يلصق.</li>
+    <li><strong>تعديل الحجم:</strong> لا <code>append</code> فعّال؛ إذا احتجت النموّ الديناميكي، اجمع في قائمة ثم حوّلها مرة واحدة.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>المصفوفة: نوع موحّد، حجم ثابت، عمليات متّجهة</li>
+    <li>أسرع من القوائم بسبب الذاكرة المتراصّة والتنفيذ المُصرَّف</li>
+    <li>العملية المتّجهة تستبدل الحلقة: <code>arr * 2</code> بدل <code>for</code></li>
+    <li>الاصطلاح: <code>import numpy as np</code></li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>لديك قائمة درجات حرارة بالفهرنهايت. حوّلها إلى مصفوفة NumPy، ثم إلى مئوية بالمعادلة <code>(f - 32) * 5 / 9</code> في سطر واحد بلا حلقة. قارن عدد الأسطر مع الحل بحلقة <code>for</code>.</p>
+`,
+            en: `
+<p>In the previous lesson we computed sums and averages with <code>for</code> loops. They work fine on dozens of values, but real analysis works on millions of rows, and there the loop becomes very slow. <strong>NumPy</strong> is the answer: a library that stores numbers in one contiguous block in memory and applies operations to all values at once at C speed.</p>
+
+<h3>The array (ndarray): the core type</h3>
+
+<p>An array looks like a list on the surface, but with three essential differences: all its elements are of <strong>one type</strong> (all floats, say), its size is <strong>fixed</strong> after creation, and it supports <strong>vectorized</strong> operations: <code>arr * 2</code> multiplies every element by 2 with no loop.</p>
+
+<h3>Why is it faster?</h3>
+
+<ul>
+    <li><strong>Contiguous memory:</strong> a Python list is scattered pointers; an array is one continuous block the CPU reads efficiently.</li>
+    <li><strong>No Python overhead:</strong> a loop interprets every step; NumPy runs the operation in compiled code.</li>
+    <li>Result: summing a million numbers is 10 to 50&times; faster.</li>
+</ul>
+
+<h3>The vectorized operation: thinking without loops</h3>
+
+<p>This is an important mental shift. Instead of "walk every price and multiply by the exchange rate", you write <code>prices_mad = prices_usd * 10.2</code> and the whole array converts. Most analysis code becomes a chain of vectorized operations, not loops.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Mixing types:</strong> <code>np.array([1, 2, "3"])</code> converts everything to string. Make sure your inputs are homogeneous.</li>
+    <li><strong>Expecting <code>+</code> to concatenate like lists:</strong> <code>arr1 + arr2</code> adds element by element, it doesn't join.</li>
+    <li><strong>Resizing:</strong> there is no efficient <code>append</code>; if you need dynamic growth, collect into a list then convert once.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li>Array: uniform type, fixed size, vectorized operations</li>
+    <li>Faster than lists due to contiguous memory and compiled execution</li>
+    <li>The vectorized operation replaces the loop: <code>arr * 2</code> instead of <code>for</code></li>
+    <li>Convention: <code>import numpy as np</code></li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>You have a list of temperatures in Fahrenheit. Convert it to a NumPy array, then to Celsius with <code>(f - 32) * 5 / 9</code> in one line with no loop. Compare the line count with the <code>for</code>-loop solution.</p>
+`
+        },
+        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># قائمة عادية مقابل مصفوفة</span>
+prices_usd = np.<span class="fn">array</span>([12.0, 8.5, 30.0, 26.0])
+
+<span class="cm"># عملية متّجهة — بلا حلقة، كل العناصر دفعة واحدة</span>
+prices_mad = prices_usd * 10.2
+<span class="fn">print</span>(prices_mad)          <span class="cm"># [122.4  86.7 306.  265.2]</span>
+
+<span class="cm"># الحساب على المصفوفة كلها</span>
+<span class="fn">print</span>(prices_mad.<span class="fn">sum</span>())    <span class="cm"># 780.3</span>
+<span class="fn">print</span>(prices_mad.<span class="fn">mean</span>())   <span class="cm"># 195.075</span>
+
+<span class="cm"># + يجمع عنصراً بعنصر، لا يلصق</span>
+a = np.<span class="fn">array</span>([1, 2, 3])
+b = np.<span class="fn">array</span>([10, 20, 30])
+<span class="fn">print</span>(a + b)              <span class="cm"># [11 22 33]</span>
+
+<span class="cm"># خلط الأنواع يحوّل كل شيء إلى نصّ — انتبه</span>
+<span class="fn">print</span>(np.<span class="fn">array</span>([1, 2, <span class="st">"3"</span>]).dtype)   <span class="cm"># <U21  (نصّ!)</span>`,
+        quiz: {
+            q: {
+                ar: "ما ناتج <code>np.array([1, 2, 3]) + np.array([10, 20, 30])</code>؟",
+                en: "What is <code>np.array([1, 2, 3]) + np.array([10, 20, 30])</code>?"
+            },
+            options: {
+                ar: [
+                    "[1, 2, 3, 10, 20, 30]",
+                    "[11, 22, 33]",
+                    "66",
+                    "خطأ لأن الأحجام مختلفة"
+                ],
+                en: [
+                    "[1, 2, 3, 10, 20, 30]",
+                    "[11, 22, 33]",
+                    "66",
+                    "An error because the sizes differ"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "على عكس القوائم، <code>+</code> في NumPy عملية متّجهة: يجمع كل عنصر مع نظيره في الموضع نفسه. لدمج مصفوفتين نستخدم <code>np.concatenate</code>.",
+                en: "Unlike lists, <code>+</code> in NumPy is vectorized: it adds each element to its counterpart at the same position. To join two arrays we use <code>np.concatenate</code>."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "إنشاء المصفوفات: shape وdtype وreshape",
+            en: "Creating arrays: shape, dtype and reshape"
+        },
+        body: {
+            ar: `
+<p>الجدول في التحليل مصفوفة ثنائية الأبعاد: صفوف وأعمدة. لتتعامل معها بثقة تحتاج أن تقرأ ثلاث خصائص فوراً: <strong>الشكل</strong> (كم صفاً وعموداً)، <strong>النوع</strong> (أعداد صحيحة أم عشرية)، و<strong>عدد الأبعاد</strong>.</p>
+
+<h3>طرق الإنشاء الشائعة</h3>
+
+<ul>
+    <li><code>np.array([[1, 2], [3, 4]])</code> — من قائمة قوائم (كل قائمة صفّ).</li>
+    <li><code>np.zeros((3, 4))</code> و<code>np.ones((2, 5))</code> — مصفوفة مملوءة بصفر أو واحد بالشكل المطلوب.</li>
+    <li><code>np.arange(0, 10, 2)</code> — مثل <code>range</code>: <code>[0 2 4 6 8]</code>.</li>
+    <li><code>np.linspace(0, 1, 5)</code> — خمس قيم موزّعة بانتظام بين 0 و1.</li>
+</ul>
+
+<h3>shape: البطاقة التعريفية</h3>
+
+<p><code>arr.shape</code> يعطي زوجاً مثل <code>(100, 3)</code>: 100 صفّ، 3 أعمدة. <code>arr.ndim</code> عدد الأبعاد (1 لمتّجه، 2 لجدول). <code>arr.size</code> إجمالي العناصر (300). أول شيء تفعله بأي مصفوفة جديدة: اطبع <code>shape</code>.</p>
+
+<h3>dtype: النوع يحدّد السلوك</h3>
+
+<p><code>arr.dtype</code> قد يكون <code>int64</code> أو <code>float64</code> أو <code>bool</code>. مهمّ لأن القسمة على مصفوفة أعداد صحيحة قد تفاجئك، ولأن العمود المنطقي (<code>True/False</code>) هو أساس الفلترة لاحقاً. حوّل النوع بـ <code>arr.astype(float)</code>.</p>
+
+<h3>reshape: نفس البيانات، شكل مختلف</h3>
+
+<p><code>np.arange(12).reshape(3, 4)</code> يحوّل 12 رقماً إلى جدول 3×4. الشرط: حاصل ضرب الأبعاد الجديدة = عدد العناصر. <code>reshape(-1, 1)</code> يحوّل متّجهاً إلى عمود واحد — نمط شائع قبل بعض دوال التعلّم الآلي.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>الخلط بين <code>(3,)</code> و<code>(3, 1)</code></strong>: الأول متّجه أحادي، الثاني جدول بعمود واحد. تتصرّف الدوال معهما بشكل مختلف.</li>
+    <li><strong>reshape بأبعاد غير متوافقة</strong>: <code>reshape(3, 5)</code> على 12 عنصراً يرمي خطأ.</li>
+    <li><strong>افتراض float</strong>: <code>np.array([1, 2, 3])</code> نوعه <code>int</code>، و<code>arr / 2</code> قد لا يعطي ما تتوقّع في نُسخ قديمة.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>shape</code> (الصفوف، الأعمدة)، <code>ndim</code>، <code>size</code> — اقرأها أولاً</li>
+    <li><code>dtype</code> يحدّد السلوك؛ حوّل بـ <code>.astype()</code></li>
+    <li><code>zeros</code> / <code>ones</code> / <code>arange</code> / <code>linspace</code> لإنشاء سريع</li>
+    <li><code>reshape</code> يغيّر الشكل بشرط تطابق عدد العناصر</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أنشئ <code>np.arange(1, 25)</code> ثم أعد تشكيلها إلى جدول 4×6. اطبع <code>shape</code> و<code>dtype</code> و<code>ndim</code>. ثم حوّلها إلى <code>float</code> واقسمها على 2.</p>
+`,
+            en: `
+<p>A table in analysis is a two-dimensional array: rows and columns. To work with it confidently you need to read three properties immediately: the <strong>shape</strong> (how many rows and columns), the <strong>type</strong> (integers or floats), and the <strong>number of dimensions</strong>.</p>
+
+<h3>Common creation methods</h3>
+
+<ul>
+    <li><code>np.array([[1, 2], [3, 4]])</code> — from a list of lists (each list a row).</li>
+    <li><code>np.zeros((3, 4))</code> and <code>np.ones((2, 5))</code> — an array filled with zeros or ones of the requested shape.</li>
+    <li><code>np.arange(0, 10, 2)</code> — like <code>range</code>: <code>[0 2 4 6 8]</code>.</li>
+    <li><code>np.linspace(0, 1, 5)</code> — five evenly spaced values between 0 and 1.</li>
+</ul>
+
+<h3>shape: the ID card</h3>
+
+<p><code>arr.shape</code> gives a tuple like <code>(100, 3)</code>: 100 rows, 3 columns. <code>arr.ndim</code> the number of dimensions (1 for a vector, 2 for a table). <code>arr.size</code> the total element count (300). The first thing you do with any new array: print its <code>shape</code>.</p>
+
+<h3>dtype: the type dictates behavior</h3>
+
+<p><code>arr.dtype</code> may be <code>int64</code>, <code>float64</code> or <code>bool</code>. It matters because dividing an integer array can surprise you, and because the boolean column (<code>True/False</code>) is the basis of filtering later. Convert with <code>arr.astype(float)</code>.</p>
+
+<h3>reshape: same data, different shape</h3>
+
+<p><code>np.arange(12).reshape(3, 4)</code> turns 12 numbers into a 3&times;4 table. The condition: the product of the new dimensions = the element count. <code>reshape(-1, 1)</code> turns a vector into a single column — a common pattern before some machine-learning functions.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Confusing <code>(3,)</code> and <code>(3, 1)</code></strong>: the first is a 1-D vector, the second a table with one column. Functions treat them differently.</li>
+    <li><strong>reshape with incompatible dimensions</strong>: <code>reshape(3, 5)</code> on 12 elements raises an error.</li>
+    <li><strong>Assuming float</strong>: <code>np.array([1, 2, 3])</code> is <code>int</code>, and <code>arr / 2</code> may not give what you expect in old versions.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li><code>shape</code> (rows, columns), <code>ndim</code>, <code>size</code> — read these first</li>
+    <li><code>dtype</code> dictates behavior; convert with <code>.astype()</code></li>
+    <li><code>zeros</code> / <code>ones</code> / <code>arange</code> / <code>linspace</code> for quick creation</li>
+    <li><code>reshape</code> changes the shape provided the element count matches</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>Create <code>np.arange(1, 25)</code> then reshape it to a 4&times;6 table. Print its <code>shape</code>, <code>dtype</code> and <code>ndim</code>. Then convert it to <code>float</code> and divide by 2.</p>
+`
+        },
+        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+grid = np.<span class="fn">arange</span>(12).<span class="fn">reshape</span>(3, 4)
+<span class="fn">print</span>(grid)
+<span class="cm"># [[ 0  1  2  3]</span>
+<span class="cm">#  [ 4  5  6  7]</span>
+<span class="cm">#  [ 8  9 10 11]]</span>
+
+<span class="fn">print</span>(grid.shape)   <span class="cm"># (3, 4)</span>
+<span class="fn">print</span>(grid.ndim)    <span class="cm"># 2</span>
+<span class="fn">print</span>(grid.size)    <span class="cm"># 12</span>
+<span class="fn">print</span>(grid.dtype)   <span class="cm"># int64</span>
+
+<span class="cm"># نفس البيانات كعمود واحد (مفيد قبل نماذج sklearn)</span>
+column = np.<span class="fn">arange</span>(5).<span class="fn">reshape</span>(-1, 1)
+<span class="fn">print</span>(column.shape)   <span class="cm"># (5, 1)</span>
+
+<span class="cm"># إنشاء سريع</span>
+<span class="fn">print</span>(np.<span class="fn">zeros</span>((2, 3)))
+<span class="fn">print</span>(np.<span class="fn">linspace</span>(0, 1, 5))   <span class="cm"># [0.   0.25 0.5  0.75 1.  ]</span>`,
+        quiz: {
+            q: {
+                ar: "مصفوفة <code>shape</code> لها <code>(1000, 5)</code>. ماذا تعني؟",
+                en: "An array's <code>shape</code> is <code>(1000, 5)</code>. What does that mean?"
+            },
+            options: {
+                ar: [
+                    "1000 عمود و5 صفوف",
+                    "1000 صفّ و5 أعمدة",
+                    "5000 قيمة في بُعد واحد",
+                    "1000 مصفوفة كلٌّ من 5 أبعاد"
+                ],
+                en: [
+                    "1000 columns and 5 rows",
+                    "1000 rows and 5 columns",
+                    "5000 values in one dimension",
+                    "1000 arrays each of 5 dimensions"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "<code>shape</code> يقرأ (المحور 0، المحور 1) = (الصفوف، الأعمدة). فـ <code>(1000, 5)</code> يعني 1000 سجلّ (صفوف) لكلٍّ منها 5 خصائص (أعمدة) — الشكل النموذجي لجدول بيانات.",
+                en: "<code>shape</code> reads as (axis 0, axis 1) = (rows, columns). So <code>(1000, 5)</code> means 1000 records (rows) each with 5 features (columns) — the standard shape of a data table."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "الفهرسة والتقطيع في بُعدين",
+            en: "Indexing and slicing in two dimensions"
+        },
+        body: {
+            ar: `
+<p>مع جدول ثنائي الأبعاد تحتاج أن تختار: صفّاً، عموداً، خلية واحدة، أو مستطيلاً منها. NumPy يوسّع صياغة القائمة <code>[start:stop]</code> إلى بُعدين مفصولين بفاصلة: <code>arr[الصفوف, الأعمدة]</code>.</p>
+
+<h3>القاعدة: [صفوف, أعمدة]</h3>
+
+<ul>
+    <li><code>arr[0]</code> أو <code>arr[0, :]</code> — الصفّ الأول كاملاً.</li>
+    <li><code>arr[:, 0]</code> — العمود الأول كاملاً (النقطتان تعني «كل الصفوف»).</li>
+    <li><code>arr[2, 3]</code> — الخلية عند الصفّ 2، العمود 3.</li>
+    <li><code>arr[0:3, 1:4]</code> — مستطيل: الصفوف 0–2، الأعمدة 1–3.</li>
+</ul>
+
+<h3>الفهرسة بقائمة مواضع</h3>
+
+<p><code>arr[:, [0, 2]]</code> يختار العمودين 0 و2 فقط ويبني مصفوفة جديدة. مفيد لاختيار مجموعة أعمدة غير متجاورة (تشبه اختيار أعمدة في Pandas بالاسم).</p>
+
+<h3>العرض مقابل النسخة — فخّ مهمّ</h3>
+
+<p>التقطيع في NumPy يُرجع <strong>عرضاً</strong> (view) لا نسخة: <code>sub = arr[0:2, 0:2]; sub[0, 0] = 99</code> <em>يغيّر</em> <code>arr</code> الأصلية أيضاً. إذا أردت نسخة مستقلة استخدم <code>arr[0:2, 0:2].copy()</code>.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>نسيان الفاصلة:</strong> <code>arr[1][2]</code> يعمل لكن <code>arr[1, 2]</code> أسرع وأوضح للجداول.</li>
+    <li><strong>الخلط بين المحاور:</strong> <code>arr[:, 0]</code> عمود، <code>arr[0, :]</code> صفّ — من السهل قلبهما.</li>
+    <li><strong>تعديل عرض دون قصد</strong> فتتغيّر المصفوفة الأصلية بصمت.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>arr[صفوف, أعمدة]</code>؛ <code>:</code> تعني «الكل» على ذلك المحور</li>
+    <li><code>arr[:, i]</code> عمود، <code>arr[i, :]</code> صفّ</li>
+    <li>قائمة مواضع تختار أعمدة/صفوفاً غير متجاورة</li>
+    <li>التقطيع عرض لا نسخة — استخدم <code>.copy()</code> عند الحاجة</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>أنشئ جدول 5×4 بـ <code>np.arange(20).reshape(5, 4)</code>. استخرج: العمود الأخير، الصفّ الثالث، الخلية عند (1, 2)، والمستطيل الذي يضمّ أول ثلاثة صفوف وأول عمودين. ثم انسخ المستطيل وغيّر خلية فيه وتأكّد أن الأصل لم يتغيّر.</p>
+`,
+            en: `
+<p>With a two-dimensional table you need to select: a row, a column, a single cell, or a rectangle of them. NumPy extends the list syntax <code>[start:stop]</code> to two dimensions separated by a comma: <code>arr[rows, columns]</code>.</p>
+
+<h3>The rule: [rows, columns]</h3>
+
+<ul>
+    <li><code>arr[0]</code> or <code>arr[0, :]</code> — the entire first row.</li>
+    <li><code>arr[:, 0]</code> — the entire first column (the colon means "all rows").</li>
+    <li><code>arr[2, 3]</code> — the cell at row 2, column 3.</li>
+    <li><code>arr[0:3, 1:4]</code> — a rectangle: rows 0&ndash;2, columns 1&ndash;3.</li>
+</ul>
+
+<h3>Indexing with a list of positions</h3>
+
+<p><code>arr[:, [0, 2]]</code> selects only columns 0 and 2 and builds a new array. Useful for selecting a set of non-adjacent columns (like selecting columns by name in Pandas).</p>
+
+<h3>View vs. copy — an important trap</h3>
+
+<p>Slicing in NumPy returns a <strong>view</strong>, not a copy: <code>sub = arr[0:2, 0:2]; sub[0, 0] = 99</code> <em>also</em> changes the original <code>arr</code>. If you want an independent copy use <code>arr[0:2, 0:2].copy()</code>.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Forgetting the comma:</strong> <code>arr[1][2]</code> works but <code>arr[1, 2]</code> is faster and clearer for tables.</li>
+    <li><strong>Swapping axes:</strong> <code>arr[:, 0]</code> is a column, <code>arr[0, :]</code> a row — easy to flip.</li>
+    <li><strong>Modifying a view unintentionally</strong> so the original array changes silently.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li><code>arr[rows, columns]</code>; <code>:</code> means "all" on that axis</li>
+    <li><code>arr[:, i]</code> is a column, <code>arr[i, :]</code> a row</li>
+    <li>A list of positions selects non-adjacent columns/rows</li>
+    <li>A slice is a view, not a copy — use <code>.copy()</code> when needed</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>Create a 5&times;4 table with <code>np.arange(20).reshape(5, 4)</code>. Extract: the last column, the third row, the cell at (1, 2), and the rectangle covering the first three rows and first two columns. Then copy the rectangle, change a cell in it, and confirm the original didn't change.</p>
+`
+        },
+        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+arr = np.<span class="fn">arange</span>(20).<span class="fn">reshape</span>(5, 4)
+
+<span class="fn">print</span>(arr[0])         <span class="cm"># [0 1 2 3]      الصفّ الأول</span>
+<span class="fn">print</span>(arr[:, 0])      <span class="cm"># [0 4 8 12 16]  العمود الأول</span>
+<span class="fn">print</span>(arr[2, 3])      <span class="cm"># 11             خلية</span>
+<span class="fn">print</span>(arr[0:3, 1:3])  <span class="cm"># مستطيل: صفوف 0-2، أعمدة 1-2</span>
+
+<span class="cm"># أعمدة غير متجاورة</span>
+<span class="fn">print</span>(arr[:, [0, 3]])  <span class="cm"># العمودان الأول والأخير فقط</span>
+
+<span class="cm"># فخّ العرض: التقطيع لا ينسخ</span>
+sub = arr[0:2, 0:2]
+sub[0, 0] = 99
+<span class="fn">print</span>(arr[0, 0])      <span class="cm"># 99  ← الأصل تغيّر!</span>
+
+<span class="cm"># الحلّ: نسخة مستقلة</span>
+safe = arr[0:2, 0:2].<span class="fn">copy</span>()`,
+        quiz: {
+            q: {
+                ar: "<code>sub = arr[0:3, 0:3]</code> ثم <code>sub[0, 0] = 0</code>. ماذا يحدث للمصفوفة <code>arr</code> الأصلية؟",
+                en: "<code>sub = arr[0:3, 0:3]</code> then <code>sub[0, 0] = 0</code>. What happens to the original <code>arr</code>?"
+            },
+            options: {
+                ar: [
+                    "لا تتأثّر، لأن sub نسخة مستقلة",
+                    "تتغيّر خليتها [0, 0] إلى 0، لأن التقطيع يُرجع عرضاً لا نسخة",
+                    "ترمي خطأً",
+                    "تُحذف كل قيمها"
+                ],
+                en: [
+                    "It's unaffected, because sub is an independent copy",
+                    "Its cell [0, 0] becomes 0, because slicing returns a view, not a copy",
+                    "It raises an error",
+                    "All its values are deleted"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "تقطيع NumPy يُرجع نافذة على البيانات نفسها لتوفير الذاكرة. الكتابة في العرض تكتب في الأصل. لعزل التعديلات استخدم <code>.copy()</code>.",
+                en: "NumPy slicing returns a window onto the same data to save memory. Writing to the view writes to the original. To isolate changes use <code>.copy()</code>."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "القناع المنطقي والفلترة",
+            en: "Boolean masking and filtering"
+        },
+        body: {
+            ar: `
+<p>أكثر سؤال في التحليل: «أرِني الصفوف التي تحقّق شرطاً» — المبيعات فوق 1000، الطلاب الراسبون، أيام المطر. الأداة لذلك في NumPy هي <strong>القناع المنطقي</strong>: مصفوفة من <code>True/False</code> بنفس الطول، تستخدمها للاختيار.</p>
+
+<h3>الخطوة 1: بناء القناع</h3>
+
+<p>المقارنة على مصفوفة عملية متّجهة تُرجع قناعاً: <code>ages &gt;= 18</code> يعطي <code>[True, False, True, ...]</code>. كل عنصر نتيجة مقارنة القيمة المقابلة بالعتبة.</p>
+
+<h3>الخطوة 2: تطبيق القناع</h3>
+
+<p><code>arr[mask]</code> يُرجع القيم التي يقابلها <code>True</code> فقط. <code>ages[ages &gt;= 18]</code> = الأعمار البالغة. والأقوى: تطبيق قناع عمود على جدول كامل — <code>data[data[:, 0] &gt; 1000]</code> يُرجع الصفوف التي عمودها الأول فوق 1000.</p>
+
+<h3>دمج الشروط</h3>
+
+<p>استخدم <code>&amp;</code> (و)، <code>|</code> (أو)، <code>~</code> (نفي) — <strong>لا</strong> الكلمات <code>and/or</code>. وكل شرط بين قوسين: <code>(age &gt; 18) &amp; (city == "Casa")</code>. نسيان الأقواس خطأ شائع بسبب أولوية العوامل.</p>
+
+<h3>العدّ والتجميع على القناع</h3>
+
+<p><code>mask.sum()</code> يعدّ الـ <code>True</code> (لأن <code>True</code> = 1): «كم طالباً نجح؟». <code>mask.mean()</code> يعطي النسبة مباشرة: «ما نسبة النجاح؟». هذه من أكثر الحيل فائدة.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>استخدام <code>and</code> بدل <code>&amp;</code></strong> يرمي «truth value of an array is ambiguous».</li>
+    <li><strong>نسيان الأقواس:</strong> <code>a &gt; 1 &amp; b &lt; 2</code> يُفسَّر خطأً — اكتب <code>(a &gt; 1) &amp; (b &lt; 2)</code>.</li>
+    <li><strong>قناع بطول مختلف</strong> عن المصفوفة يرمي خطأً.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>المقارنة تبني قناعاً منطقياً بنفس الشكل</li>
+    <li><code>arr[mask]</code> يختار حيث <code>True</code>؛ يعمل على صفوف الجدول أيضاً</li>
+    <li>ادمج بـ <code>&amp;</code> <code>|</code> <code>~</code> وكل شرط بين قوسين</li>
+    <li><code>mask.sum()</code> عدد، <code>mask.mean()</code> نسبة</li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>مصفوفة درجات <code>scores = np.array([55, 80, 42, 90, 67, 38, 75])</code>. اطبع: الدرجات ≥ 60، عددها، نسبتها من المجموع، والدرجات بين 50 و80 (شرطان مدموجان).</p>
+`,
+            en: `
+<p>The most common question in analysis: "show me the rows that meet a condition" — sales above 1000, failing students, rainy days. The tool for that in NumPy is the <strong>boolean mask</strong>: an array of <code>True/False</code> of the same length that you use to select.</p>
+
+<h3>Step 1: build the mask</h3>
+
+<p>A comparison on an array is a vectorized operation that returns a mask: <code>ages &gt;= 18</code> gives <code>[True, False, True, ...]</code>. Each element is the result of comparing the corresponding value to the threshold.</p>
+
+<h3>Step 2: apply the mask</h3>
+
+<p><code>arr[mask]</code> returns only the values where the mask is <code>True</code>. <code>ages[ages &gt;= 18]</code> = the adult ages. And more powerful: applying a column's mask to a whole table — <code>data[data[:, 0] &gt; 1000]</code> returns the rows whose first column is above 1000.</p>
+
+<h3>Combining conditions</h3>
+
+<p>Use <code>&amp;</code> (and), <code>|</code> (or), <code>~</code> (not) — <strong>not</strong> the words <code>and/or</code>. And wrap each condition in parentheses: <code>(age &gt; 18) &amp; (city == "Casa")</code>. Forgetting the parentheses is a common mistake because of operator precedence.</p>
+
+<h3>Counting and aggregating on the mask</h3>
+
+<p><code>mask.sum()</code> counts the <code>True</code>s (since <code>True</code> = 1): "how many students passed?". <code>mask.mean()</code> gives the ratio directly: "what is the pass rate?". These are among the most useful tricks.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Using <code>and</code> instead of <code>&amp;</code></strong> raises "truth value of an array is ambiguous".</li>
+    <li><strong>Forgetting parentheses:</strong> <code>a &gt; 1 &amp; b &lt; 2</code> is misparsed — write <code>(a &gt; 1) &amp; (b &lt; 2)</code>.</li>
+    <li><strong>A mask of a different length</strong> from the array raises an error.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li>A comparison builds a boolean mask of the same shape</li>
+    <li><code>arr[mask]</code> selects where <code>True</code>; also works on table rows</li>
+    <li>Combine with <code>&amp;</code> <code>|</code> <code>~</code> and parenthesize each condition</li>
+    <li><code>mask.sum()</code> a count, <code>mask.mean()</code> a ratio</li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>A scores array <code>scores = np.array([55, 80, 42, 90, 67, 38, 75])</code>. Print: the scores &ge; 60, their count, their ratio of the total, and the scores between 50 and 80 (two combined conditions).</p>
+`
+        },
+        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+scores = np.<span class="fn">array</span>([55, 80, 42, 90, 67, 38, 75])
+
+mask = scores &gt;= 60
+<span class="fn">print</span>(mask)              <span class="cm"># [False  True False  True  True False  True]</span>
+<span class="fn">print</span>(scores[mask])      <span class="cm"># [80 90 67 75]   الناجحون</span>
+
+<span class="fn">print</span>(mask.<span class="fn">sum</span>())       <span class="cm"># 4      كم ناجحاً</span>
+<span class="fn">print</span>(mask.<span class="fn">mean</span>())      <span class="cm"># 0.571  نسبة النجاح</span>
+
+<span class="cm"># شرطان مدموجان — أقواس حول كلٍّ، و & لا and</span>
+mid = scores[(scores &gt;= 50) &amp; (scores &lt;= 80)]
+<span class="fn">print</span>(mid)               <span class="cm"># [55 80 67 75]</span>
+
+<span class="cm"># تطبيق قناع عمود على جدول كامل</span>
+data = np.<span class="fn">array</span>([[1200, 3], [800, 5], [1500, 2]])
+<span class="fn">print</span>(data[data[:, 0] &gt; 1000])   <span class="cm"># [[1200 3] [1500 2]]</span>`,
+        quiz: {
+            q: {
+                ar: "قناع <code>passed = grades &gt;= 50</code>. ماذا يعطي <code>passed.mean()</code>؟",
+                en: "A mask <code>passed = grades &gt;= 50</code>. What does <code>passed.mean()</code> give?"
+            },
+            options: {
+                ar: [
+                    "متوسط الدرجات",
+                    "عدد الطلاب الناجحين",
+                    "نسبة الطلاب الناجحين (بين 0 و1)",
+                    "أعلى درجة"
+                ],
+                en: [
+                    "The average grade",
+                    "The number of students who passed",
+                    "The proportion of students who passed (between 0 and 1)",
+                    "The highest grade"
+                ]
+            },
+            correct: 2,
+            explanation: {
+                ar: "<code>True</code> يساوي 1 و<code>False</code> يساوي 0، فمتوسط القناع = (عدد الـ True) ÷ (العدد الكلّي) = النسبة. <code>passed.sum()</code> يعطي العدد، و<code>passed.mean()</code> يعطي النسبة.",
+                en: "<code>True</code> equals 1 and <code>False</code> equals 0, so the mask's mean = (count of True) ÷ (total count) = the proportion. <code>passed.sum()</code> gives the count, <code>passed.mean()</code> gives the ratio."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "العمليات المتّجهة والبثّ (Broadcasting)",
+            en: "Vectorized operations and broadcasting"
+        },
+        body: {
+            ar: `
+<p>رأينا <code>arr * 2</code> يضرب كل عنصر. لكن ماذا لو أردت طرح <em>متوسط كل عمود</em> من عموده، أو ضرب كل صفّ في وزن مختلف؟ هنا يدخل <strong>البثّ</strong> (broadcasting): قواعد تسمح لـ NumPy بدمج مصفوفتين مختلفتي الشكل دون كتابة حلقات.</p>
+
+<h3>الحالة البسيطة: مصفوفة مع رقم</h3>
+
+<p><code>arr + 10</code> — NumPy «يبثّ» الرقم 10 ليقابل كل عنصر. هذا بثّ أيضاً، أبسط أشكاله.</p>
+
+<h3>مصفوفة مع متّجه</h3>
+
+<p>جدول <code>(100, 3)</code> ومتّجه <code>(3,)</code>: <code>data - column_means</code> يطرح كل قيمة في المتّجه من العمود المقابل، لكل الصفوف. هذا بالضبط ما تفعله لتوحيد البيانات (تمركزها حول الصفر) قبل النمذجة.</p>
+
+<h3>قاعدة البثّ</h3>
+
+<p>يقارن NumPy الأشكال من اليمين. البُعدان متوافقان إذا كانا متساويين أو أحدهما <code>1</code>. <code>(100, 3)</code> مع <code>(3,)</code> → توافق (يُعامَل المتّجه كـ <code>(1, 3)</code>). <code>(100, 3)</code> مع <code>(100, 1)</code> → توافق أيضاً: كل صفّ يُضرب في قيمته الخاصة.</p>
+
+<h3>لماذا يهمّ؟</h3>
+
+<p>التوحيد، الترجيح، تطبيع الصفوف كي يكون مجموعها 1، حساب مصفوفة المسافات — كلها بثّ. إتقانه يعني كتابة تحويلات كاملة في سطر بدل حلقات متداخلة.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>خطأ الشكل:</strong> <code>(100, 3)</code> مع <code>(100,)</code> يفشل — تحتاج <code>(100, 1)</code>. استخدم <code>vec.reshape(-1, 1)</code>.</li>
+    <li><strong>بثّ غير مقصود:</strong> شكلان «متوافقان» رياضياً لكن النتيجة ليست ما تريد. اطبع <code>result.shape</code> للتأكّد.</li>
+    <li><strong>الخلط بين المحاور</strong> عند طرح متوسط الصفوف مقابل متوسط الأعمدة.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li>البثّ يدمج أشكالاً مختلفة بلا حلقات</li>
+    <li>القاعدة: من اليمين، البُعدان متوافقان لو تساويا أو كان أحدهما 1</li>
+    <li>طرح متوسط الأعمدة: <code>data - data.mean(axis=0)</code></li>
+    <li>لترجيح الصفوف: حوّل المتّجه إلى عمود بـ <code>reshape(-1, 1)</code></li>
+</ul>
+
+<h3>تمرين تطبيقي</h3>
+
+<p>جدول <code>data</code> شكله <code>(4, 3)</code> يمثّل 4 طلاب و3 اختبارات. اطرح متوسط كل اختبار من عموده (تمركز)، ثم اضرب كل طالب (صفّ) في وزن من <code>[1.0, 1.2, 0.8, 1.1]</code>. اطبع <code>shape</code> بعد كل خطوة.</p>
+`,
+            en: `
+<p>We saw <code>arr * 2</code> multiply every element. But what if you want to subtract <em>each column's mean</em> from that column, or multiply each row by a different weight? This is where <strong>broadcasting</strong> comes in: rules that let NumPy combine two arrays of different shape without writing loops.</p>
+
+<h3>The simple case: an array with a scalar</h3>
+
+<p><code>arr + 10</code> — NumPy "broadcasts" the number 10 to meet every element. This is broadcasting too, in its simplest form.</p>
+
+<h3>An array with a vector</h3>
+
+<p>A <code>(100, 3)</code> table and a <code>(3,)</code> vector: <code>data - column_means</code> subtracts each value in the vector from the corresponding column, for all rows. This is exactly what you do to standardize data (center it around zero) before modeling.</p>
+
+<h3>The broadcasting rule</h3>
+
+<p>NumPy compares shapes from the right. Two dimensions are compatible if they're equal or one of them is <code>1</code>. <code>(100, 3)</code> with <code>(3,)</code> → compatible (the vector is treated as <code>(1, 3)</code>). <code>(100, 3)</code> with <code>(100, 1)</code> → also compatible: each row is multiplied by its own value.</p>
+
+<h3>Why does it matter?</h3>
+
+<p>Standardization, weighting, normalizing rows to sum to 1, computing a distance matrix — all broadcasting. Mastering it means writing entire transformations in one line instead of nested loops.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Shape error:</strong> <code>(100, 3)</code> with <code>(100,)</code> fails — you need <code>(100, 1)</code>. Use <code>vec.reshape(-1, 1)</code>.</li>
+    <li><strong>Unintended broadcast:</strong> two shapes are "compatible" mathematically but the result isn't what you want. Print <code>result.shape</code> to check.</li>
+    <li><strong>Swapping axes</strong> when subtracting the row mean vs. the column mean.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li>Broadcasting combines different shapes with no loops</li>
+    <li>The rule: from the right, two dims are compatible if equal or one is 1</li>
+    <li>Subtract column means: <code>data - data.mean(axis=0)</code></li>
+    <li>To weight rows: turn the vector into a column with <code>reshape(-1, 1)</code></li>
+</ul>
+
+<h3>Exercise</h3>
+
+<p>A <code>data</code> table of shape <code>(4, 3)</code> representing 4 students and 3 tests. Subtract each test's mean from its column (centering), then multiply each student (row) by a weight from <code>[1.0, 1.2, 0.8, 1.1]</code>. Print the <code>shape</code> after each step.</p>
+`
+        },
+        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># 4 طلاب × 3 اختبارات</span>
+data = np.<span class="fn">array</span>([
+    [12, 15, 10],
+    [18, 14, 16],
+    [ 9, 11, 13],
+    [20, 19, 17],
+], dtype=<span class="fn">float</span>)
+
+<span class="cm"># متوسط كل اختبار (عمود) — الشكل (3,)</span>
+col_means = data.<span class="fn">mean</span>(axis=0)
+<span class="fn">print</span>(col_means)          <span class="cm"># [14.75 14.75 14.  ]</span>
+
+<span class="cm"># البثّ: يُطرح المتّجه (3,) من كل صفّ في (4,3)</span>
+centered = data - col_means
+<span class="fn">print</span>(centered.shape)      <span class="cm"># (4, 3)</span>
+
+<span class="cm"># ترجيح كل طالب (صفّ) — نحوّل الأوزان إلى عمود (4,1)</span>
+weights = np.<span class="fn">array</span>([1.0, 1.2, 0.8, 1.1]).<span class="fn">reshape</span>(-1, 1)
+weighted = centered * weights
+<span class="fn">print</span>(weighted.shape)      <span class="cm"># (4, 3)</span>`,
+        quiz: {
+            q: {
+                ar: "جدول شكله <code>(50, 4)</code>. أي متّجه يمكن طرحه منه مباشرة بالبثّ لطرح متوسط كل عمود؟",
+                en: "A table of shape <code>(50, 4)</code>. Which vector can be subtracted from it directly by broadcasting to subtract each column's mean?"
+            },
+            options: {
+                ar: [
+                    "متّجه شكله (50,)",
+                    "متّجه شكله (4,)",
+                    "متّجه شكله (50, 50)",
+                    "رقم واحد فقط"
+                ],
+                en: [
+                    "A vector of shape (50,)",
+                    "A vector of shape (4,)",
+                    "A vector of shape (50, 50)",
+                    "Only a single number"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "متوسط الأعمدة (<code>data.mean(axis=0)</code>) شكله <code>(4,)</code> — قيمة لكل عمود. البثّ يقارن من اليمين: 4 مع 4 متوافق، ويُعامَل المتّجه كـ <code>(1, 4)</code> فيُطرح من كل الصفوف. متّجه <code>(50,)</code> يفشل ويحتاج <code>reshape(-1, 1)</code>.",
+                en: "The column means (<code>data.mean(axis=0)</code>) have shape <code>(4,)</code> — one value per column. Broadcasting compares from the right: 4 with 4 is compatible, and the vector is treated as <code>(1, 4)</code> so it's subtracted from every row. A <code>(50,)</code> vector fails and needs <code>reshape(-1, 1)</code>."
+            }
+        }
+    },
+
+    {
+        title: {
+            ar: "الإحصاء على المحاور (axis) + تمرين مُصغّر",
+            en: "Statistics along axes + mini exercise"
+        },
+        body: {
+            ar: `
+<p>لديك جدول مبيعات: صفوف = أيام، أعمدة = فروع. تسأل: «مجموع كل فرع» و«مجموع كل يوم». نفس الدالة <code>sum</code>، لكن الفرق كلّه في معامل واحد: <strong><code>axis</code></strong>.</p>
+
+<h3>ما معنى axis؟</h3>
+
+<ul>
+    <li><code>axis=0</code>: «انهار عبر الصفوف» → نتيجة لكل <strong>عمود</strong>. مجموع كل فرع.</li>
+    <li><code>axis=1</code>: «انهار عبر الأعمدة» → نتيجة لكل <strong>صفّ</strong>. مجموع كل يوم.</li>
+    <li>بلا <code>axis</code>: رقم واحد لكل الجدول.</li>
+</ul>
+
+<p>حيلة للتذكّر: <code>axis</code> هو المحور الذي <em>يختفي</em>. <code>data.sum(axis=0)</code> على شكل <code>(30, 5)</code> يُرجع شكل <code>(5,)</code> — البُعد 0 اختفى.</p>
+
+<h3>الدوال المتاحة</h3>
+
+<p><code>sum</code>، <code>mean</code>، <code>min</code>، <code>max</code>، <code>std</code> (الانحراف المعياري)، <code>argmax</code> (موضع القيمة العظمى)، <code>cumsum</code> (المجموع التراكمي). كلها تقبل <code>axis</code>.</p>
+
+<h3>مثال كامل</h3>
+
+<p><code>sales.mean(axis=0)</code> متوسط كل فرع. <code>sales.sum(axis=1)</code> إجمالي كل يوم. <code>sales.sum(axis=1).argmax()</code> رقم اليوم الأعلى مبيعاً. ثلاثة أسئلة تحليلية في ثلاثة أسطر بلا حلقة.</p>
+
+<h3>أخطاء شائعة</h3>
+
+<ul>
+    <li><strong>قلب المحور:</strong> تريد «متوسط كل طالب» فتكتب <code>axis=0</code> وتحصل على «متوسط كل اختبار». تذكّر: المحور المختفي.</li>
+    <li><strong>نسيان <code>axis</code></strong> فتحصل على رقم واحد بدل متّجه.</li>
+    <li><strong><code>std</code> السكانية مقابل العيّنية:</strong> NumPy الافتراضي يقسم على n؛ للعيّنة استخدم <code>ddof=1</code>.</li>
+</ul>
+
+<h3>لخّص ما تعلمته</h3>
+
+<ul>
+    <li><code>axis=0</code> → نتيجة لكل عمود؛ <code>axis=1</code> → لكل صفّ</li>
+    <li><code>axis</code> هو المحور الذي يختفي من الشكل</li>
+    <li><code>argmax</code> يعطي الموضع لا القيمة</li>
+    <li>هذا يختم NumPy: أنت الآن تحسب على جداول بلا حلقات</li>
+</ul>
+
+<h3>تمرين مُصغّر (نهاية المستوى)</h3>
+
+<p>جدول <code>weather</code> شكله <code>(7, 3)</code>: 7 أيام، الأعمدة [حرارة، رطوبة، رياح]. احسب: متوسط كل عمود، أحرّ يوم (رقمه)، الأيام التي تجاوزت حرارتها المتوسط (قناع)، وعددها. اكتب كل جواب في سطر واحد.</p>
+`,
+            en: `
+<p>You have a sales table: rows = days, columns = branches. You ask: "the total for each branch" and "the total for each day". Same function <code>sum</code>, but the whole difference is in one parameter: <strong><code>axis</code></strong>.</p>
+
+<h3>What does axis mean?</h3>
+
+<ul>
+    <li><code>axis=0</code>: "collapse down the rows" → a result per <strong>column</strong>. The total for each branch.</li>
+    <li><code>axis=1</code>: "collapse across the columns" → a result per <strong>row</strong>. The total for each day.</li>
+    <li>No <code>axis</code>: a single number for the whole table.</li>
+</ul>
+
+<p>Memory trick: <code>axis</code> is the axis that <em>disappears</em>. <code>data.sum(axis=0)</code> on a <code>(30, 5)</code> shape returns shape <code>(5,)</code> — dimension 0 is gone.</p>
+
+<h3>Available functions</h3>
+
+<p><code>sum</code>, <code>mean</code>, <code>min</code>, <code>max</code>, <code>std</code> (standard deviation), <code>argmax</code> (position of the maximum), <code>cumsum</code> (cumulative sum). All accept <code>axis</code>.</p>
+
+<h3>A full example</h3>
+
+<p><code>sales.mean(axis=0)</code> the mean per branch. <code>sales.sum(axis=1)</code> the total per day. <code>sales.sum(axis=1).argmax()</code> the number of the best-selling day. Three analytical questions in three lines with no loop.</p>
+
+<h3>Common mistakes</h3>
+
+<ul>
+    <li><strong>Flipping the axis:</strong> you want "the mean per student" so you write <code>axis=0</code> and get "the mean per test". Remember: the disappearing axis.</li>
+    <li><strong>Forgetting <code>axis</code></strong> so you get a single number instead of a vector.</li>
+    <li><strong>Population vs. sample <code>std</code>:</strong> NumPy's default divides by n; for a sample use <code>ddof=1</code>.</li>
+</ul>
+
+<h3>Recap</h3>
+
+<ul>
+    <li><code>axis=0</code> → a result per column; <code>axis=1</code> → per row</li>
+    <li><code>axis</code> is the axis that disappears from the shape</li>
+    <li><code>argmax</code> gives the position, not the value</li>
+    <li>This closes NumPy: you now compute on tables with no loops</li>
+</ul>
+
+<h3>Mini exercise (end of module)</h3>
+
+<p>A <code>weather</code> table of shape <code>(7, 3)</code>: 7 days, columns [temp, humidity, wind]. Compute: the mean of each column, the hottest day (its number), the days whose temperature exceeded the mean (a mask), and their count. Write each answer in one line.</p>
+`
+        },
+        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># 7 أيام × 3 فروع</span>
+sales = np.<span class="fn">array</span>([
+    [120, 90, 60], [100, 80, 75], [140, 95, 50], [110, 70, 80],
+    [160, 100, 65], [130, 85, 70], [ 90, 60, 55],
+])
+
+<span class="cm"># axis=0: ينهار الصفوف → نتيجة لكل فرع (عمود)</span>
+<span class="fn">print</span>(sales.<span class="fn">sum</span>(axis=0))    <span class="cm"># [850 580 455]  إجمالي كل فرع</span>
+
+<span class="cm"># axis=1: ينهار الأعمدة → نتيجة لكل يوم (صفّ)</span>
+daily = sales.<span class="fn">sum</span>(axis=1)
+<span class="fn">print</span>(daily)               <span class="cm"># [270 255 285 260 325 285 205]</span>
+
+<span class="cm"># اليوم الأعلى مبيعاً (الموضع لا القيمة)</span>
+<span class="fn">print</span>(daily.<span class="fn">argmax</span>())      <span class="cm"># 4  → اليوم الخامس</span>
+
+<span class="cm"># الأيام فوق المتوسط اليومي</span>
+above = daily &gt; daily.<span class="fn">mean</span>()
+<span class="fn">print</span>(above.<span class="fn">sum</span>())        <span class="cm"># 3  أيام فوق المتوسط</span>`,
+        quiz: {
+            q: {
+                ar: "جدول درجات شكله <code>(30, 4)</code>: 30 طالباً، 4 مواد. كيف تحسب متوسط كل طالب؟",
+                en: "A grades table of shape <code>(30, 4)</code>: 30 students, 4 subjects. How do you compute each student's mean?"
+            },
+            options: {
+                ar: [
+                    "grades.mean(axis=0)",
+                    "grades.mean(axis=1)",
+                    "grades.mean()",
+                    "grades.mean(axis=2)"
+                ],
+                en: [
+                    "grades.mean(axis=0)",
+                    "grades.mean(axis=1)",
+                    "grades.mean()",
+                    "grades.mean(axis=2)"
+                ]
+            },
+            correct: 1,
+            explanation: {
+                ar: "الطالب صفّ، والمتوسط يجب أن يبقى لكل صفّ. <code>axis=1</code> ينهار الأعمدة (المواد الأربع) ويُبقي بُعد الصفوف، فالنتيجة شكلها <code>(30,)</code> — متوسط لكل طالب. <code>axis=0</code> يعطي متوسط كل مادة.",
+                en: "A student is a row, and the mean must stay per row. <code>axis=1</code> collapses the columns (the four subjects) and keeps the row dimension, so the result has shape <code>(30,)</code> — one mean per student. <code>axis=0</code> gives the mean per subject."
+            }
+        }
     }
 
 ];
