@@ -1,21 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://koudna.com/</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/"/>
+  </url>
+  <url>
+    <loc>https://koudna.com/en/</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/"/>
   </url>
   <url>
     <loc>https://koudna.com/privacy.html</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/privacy.html"/>
+  </url>
+  <url>
+    <loc>https://koudna.com/en/privacy.html</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/privacy.html"/>
   </url>
   <url>
     <loc>https://koudna.com/contact.html</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/contact.html"/>
+  </url>
+  <url>
+    <loc>https://koudna.com/en/contact.html</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/contact.html"/>
   </url>
 </urlset>

@@ -4,12 +4,22 @@
 import { translations } from "../data.js";
 import { renderAccountNav } from "./account-modal.js";
 import { refreshAllCourseCards } from "./course-card-sync.js";
-import { showToast } from "./toast.js";
 
 export let currentLang = localStorage.getItem("kodna-lang") || "ar";
 
 export function t(key) {
     return translations[currentLang][key] || key;
+}
+
+/* Given a target language, compute the URL of *this same page* under
+   that language's /en prefix (or without it for Arabic). Keeps language
+   and URL in sync so /en/... stays a real, crawlable, shareable page. */
+function urlForLang(targetLang) {
+    const path = location.pathname;
+    const inEn = /^\/en(\/|$)/.test(path);
+    const rest = path.replace(/^\/en/, "") || "/";
+    if (targetLang === "en") return inEn ? path : "/en" + rest;
+    return rest;
 }
 
 export function setLanguage(lang) {
@@ -40,7 +50,7 @@ export function setLanguage(lang) {
 
 export function initLanguageToggle() {
     document.getElementById("langToggle").addEventListener("click", () => {
-        setLanguage(currentLang === "ar" ? "en" : "ar");
-        showToast(currentLang === "ar" ? "تم التغيير إلى اللغة العربية" : "Switched to English");
+        const target = currentLang === "ar" ? "en" : "ar";
+        location.href = urlForLang(target) + location.hash;
     });
 }

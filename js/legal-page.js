@@ -47,7 +47,7 @@ const dict = {
         privacyH2_7: "7. تحديثات السياسة",
         privacyP7: "قد نقوم بتعديل هذه الصفحة من وقت لآخر. سيظهر أي تغيير مهم هنا مع تاريخ التحديث الجديد.",
         privacyH2_8: "8. تواصل معنا",
-        privacyP8: 'لديك سؤال حول الخصوصية؟ راسلنا على <a href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>، أو قم بزيارة <a href="contact.html">صفحة تواصل معنا</a>.',
+        privacyP8: 'لديك سؤال حول الخصوصية؟ راسلنا على <a href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>، أو قم بزيارة <a href="/contact.html">صفحة تواصل معنا</a>.',
     },
     en: {
         /* shared chrome */
@@ -90,17 +90,29 @@ const dict = {
         privacyH2_7: "7. Policy updates",
         privacyP7: "We may update this page from time to time. Any significant change will appear here with the new update date.",
         privacyH2_8: "8. Contact us",
-        privacyP8: 'Have a question about privacy? Email us at <a href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>, or visit the <a href="contact.html">contact page</a>.',
+        privacyP8: 'Have a question about privacy? Email us at <a href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>, or visit the <a href="/contact.html">contact page</a>.',
     },
 };
 
 function readLang() {
     try {
+        const inEn = /^\/en(\/|$)/.test(location.pathname);
+        if (inEn) return "en";
         const v = localStorage.getItem("kodna-lang");
         return v === "en" || v === "ar" ? v : "ar";
     } catch {
         return "ar";
     }
+}
+
+/* Given a target language, compute the URL of *this same page* under
+   that language's /en prefix (or without it for Arabic). */
+function urlForLang(targetLang) {
+    const path = location.pathname;
+    const inEn = /^\/en(\/|$)/.test(path);
+    const rest = path.replace(/^\/en/, "") || "/";
+    if (targetLang === "en") return inEn ? path : "/en" + rest;
+    return rest;
 }
 
 function applyLang(lang) {
@@ -123,6 +135,10 @@ function applyLang(lang) {
         if (span) span.textContent = lang === "ar" ? "EN" : "AR";
     }
 
+    const homeHref = lang === "en" ? "/en/" : "/";
+    document.getElementById("contactLogoLink")?.setAttribute("href", homeHref);
+    document.getElementById("legalBackLink")?.setAttribute("href", homeHref);
+
     try { localStorage.setItem("kodna-lang", lang); } catch { /* ignore */ }
 }
 
@@ -130,6 +146,5 @@ let current = readLang();
 applyLang(current);
 
 document.getElementById("langToggle")?.addEventListener("click", () => {
-    current = current === "ar" ? "en" : "ar";
-    applyLang(current);
+    location.href = urlForLang(current === "ar" ? "en" : "ar") + location.hash;
 });

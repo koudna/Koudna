@@ -32,9 +32,9 @@ export function setPendingCourse(courseId, lessonIndex) {
 }
 
 const courseBrandIcons = {
-    linux: `<img src="assets/icons/linux.png" alt="Kali Linux">`,
-    javascript: `<img src="assets/icons/javascript.png" alt="JavaScript">`,
-    computer: `<img src="assets/icons/cpp.png" alt="C++">`,
+    linux: `<img src="/assets/icons/linux.png" alt="Kali Linux">`,
+    javascript: `<img src="/assets/icons/javascript.png" alt="JavaScript">`,
+    computer: `<img src="/assets/icons/cpp.png" alt="C++">`,
     python: `<i class="fa-brands fa-python"></i>`,
     web: `<i class="fa-brands fa-html5"></i><i class="fa-brands fa-css3-alt"></i>`,
     data: `<i class="fa-solid fa-chart-column"></i>`
