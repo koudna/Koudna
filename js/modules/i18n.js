@@ -5,7 +5,11 @@ import { translations } from "../data.js";
 import { renderAccountNav } from "./account-modal.js";
 import { refreshAllCourseCards } from "./course-card-sync.js";
 
-export let currentLang = localStorage.getItem("kodna-lang") || "en";
+/* Language is purely a property of the URL now: /ar/... is Arabic,
+   everything else is English (the site's default for every visitor).
+   No localStorage fallback — a stale stored preference from an old
+   visit must never override what the URL says. */
+export let currentLang = /^\/ar(\/|$)/.test(location.pathname) ? "ar" : "en";
 
 export function t(key) {
     return translations[currentLang][key] || key;
@@ -25,7 +29,6 @@ function urlForLang(targetLang) {
 
 export function setLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem("kodna-lang", lang);
     const htmlRoot = document.getElementById("htmlRoot");
     htmlRoot.setAttribute("lang", lang);
     htmlRoot.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");

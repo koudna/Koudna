@@ -20,20 +20,6 @@
 
     <title data-i18n="pageTitle">كودنا | تعلم البرمجة من الصفر حتى الاحتراف</title>
 
-    <!-- Anti-FOUC: resolve language from URL (/ar) first, else stored preference — English is the default -->
-    <script>
-        (function () {
-            try {
-                var inAr = /^\/ar(\/|$)/.test(location.pathname);
-                var stored = localStorage.getItem("kodna-lang");
-                var l = inAr ? "ar" : ((stored === "en" || stored === "ar") ? stored : "en");
-                if (inAr) { try { localStorage.setItem("kodna-lang", "ar"); } catch (e) {} }
-                document.documentElement.lang = l;
-                document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
-            } catch (e) {}
-        })();
-    </script>
-
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://koudna.com/ar/">

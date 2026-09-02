@@ -18,19 +18,6 @@
 
     <title data-i18n="privacyDocTitle">سياسة الخصوصية | كودنا</title>
 
-    <script>
-        (function () {
-            try {
-                var inAr = /^\/ar(\/|$)/.test(location.pathname);
-                var stored = localStorage.getItem("kodna-lang");
-                var l = inAr ? "ar" : ((stored === "en" || stored === "ar") ? stored : "en");
-                if (inAr) { try { localStorage.setItem("kodna-lang", "ar"); } catch (e) {} }
-                document.documentElement.lang = l;
-                document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
-            } catch (e) {}
-        })();
-    </script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">

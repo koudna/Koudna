@@ -1,8 +1,8 @@
 /* =========================================================
    LEGAL / STATIC PAGES i18n  (contact.html, privacy.html)
    Self-contained — does NOT import the large data.js catalog.
-   Shares the localStorage key "kodna-lang" with the main site
-   so the language choice persists across navigation.
+   Language is resolved from the URL (/ar/... vs. everything
+   else), matching js/modules/i18n.js.
 ========================================================== */
 
 const dict = {
@@ -95,14 +95,10 @@ const dict = {
 };
 
 function readLang() {
-    try {
-        const inAr = /^\/ar(\/|$)/.test(location.pathname);
-        if (inAr) return "ar";
-        const v = localStorage.getItem("kodna-lang");
-        return v === "en" || v === "ar" ? v : "en";
-    } catch {
-        return "en";
-    }
+    // Language is purely a property of the URL: /ar/... is Arabic,
+    // everything else is English. No localStorage fallback — a stale
+    // stored preference from an old visit must never override the URL.
+    return /^\/ar(\/|$)/.test(location.pathname) ? "ar" : "en";
 }
 
 /* Given a target language, compute the URL of *this same page* under
@@ -138,8 +134,6 @@ function applyLang(lang) {
     const homeHref = lang === "ar" ? "/ar/" : "/";
     document.getElementById("contactLogoLink")?.setAttribute("href", homeHref);
     document.getElementById("legalBackLink")?.setAttribute("href", homeHref);
-
-    try { localStorage.setItem("kodna-lang", lang); } catch { /* ignore */ }
 }
 
 let current = readLang();
