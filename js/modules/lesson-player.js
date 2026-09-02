@@ -157,8 +157,11 @@ function renderLessonContent() {
     }
 
     const bodyText = lesson.body?.[currentLang] || lesson.body?.ar || '';
-    // Code blocks are stored inside body.code in the catalog data.
-    const codeText = lesson.code || lesson.body?.code || '';
+    // Code blocks: `code` is either a bilingual { ar, en } object or (legacy)
+    // a plain string shared by both languages.
+    const codeText = (typeof lesson.code === 'object' && lesson.code !== null)
+        ? (lesson.code[currentLang] || lesson.code.ar || '')
+        : (lesson.code || lesson.body?.code || '');
     const readMinutes = estimateReadMinutes(bodyText, !!codeText);
     const readTimeLabel = currentLang === 'ar' ? `${readMinutes} دقائق قراءة` : `${readMinutes} min read`;
 

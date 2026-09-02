@@ -366,7 +366,7 @@
 `,
         en: `<p>Programming is giving a computer a precise series of steps to accomplish a task. Python is the most beginner-friendly language: it reads almost like English, handles technical details for you, has libraries for everything, and is in high demand.</p>`
     },
-    code: `<span class="cm"># هذا هو أول برنامج ستكتبه — سطر واحد فقط</span>
+    code: { ar: `<span class="cm"># هذا هو أول برنامج ستكتبه — سطر واحد فقط</span>
 <span class="fn">print</span>(<span class="st">"Hello, World"</span>)
 
 <span class="cm"># قارن: نفس البرنامج بلغة Java يحتاج خمسة أسطر</span>
@@ -374,7 +374,15 @@
 <span class="cm">#     public static void main(String[] args) {</span>
 <span class="cm">#         System.out.println("Hello World");</span>
 <span class="cm">#     }</span>
-<span class="cm"># }</span>`,
+<span class="cm"># }</span>`, en: `<span class="cm"># This is your first program — just one line</span>
+<span class="fn">print</span>(<span class="st">"Hello, World"</span>)
+
+<span class="cm"># Compare: the same program in Java needs five lines</span>
+<span class="cm"># public class Main {</span>
+<span class="cm">#     public static void main(String[] args) {</span>
+<span class="cm">#         System.out.println("Hello World");</span>
+<span class="cm">#     }</span>
+<span class="cm"># }</span>` },
     quiz: {
         q: {
             ar: "ماذا يعني أن بايثون لغة «مُفسَّرة» (Interpreted)؟",
@@ -454,7 +462,7 @@
 `,
         en: `<p>Download Python from python.org. On Windows, make sure to check "Add Python to PATH" during installation. Verify with <code>python --version</code>. Install VS Code as your editor with the official Python extension.</p>`
     },
-    code: `<span class="cm"># 1) تحقق من نسخة بايثون في الطرفية</span>
+    code: { ar: `<span class="cm"># 1) تحقق من نسخة بايثون في الطرفية</span>
 python --version
 <span class="cm"># الناتج المتوقع: Python 3.12.1</span>
 
@@ -474,7 +482,27 @@ python3 --version
 <span class="fn">print</span>(<span class="st">"My first program"</span>)
 
 <span class="cm"># ثم في الطرفية داخل نفس المجلد:</span>
-<span class="cm"># python hello.py</span>`,
+<span class="cm"># python hello.py</span>`, en: `<span class="cm"># 1) Check your Python version in the terminal</span>
+python --version
+<span class="cm"># Expected output: Python 3.12.1</span>
+
+<span class="cm"># On macOS or Linux you might need python3</span>
+python3 --version
+
+
+<span class="cm"># 2) Interactive mode: type python then try</span>
+<span class="cm"># >>> 2 + 3</span>
+<span class="cm"># 5</span>
+<span class="cm"># >>> print("test")</span>
+<span class="cm"># test</span>
+<span class="cm"># >>> exit()</span>
+
+
+<span class="cm"># 3) Run a file: create hello.py and write inside it</span>
+<span class="fn">print</span>(<span class="st">"My first program"</span>)
+
+<span class="cm"># Then in the terminal, inside the same folder:</span>
+<span class="cm"># python hello.py</span>` },
     quiz: {
         q: {
             ar: "على ويندوز، ظهرت لك رسالة 'python is not recognized' بعد التثبيت. ما السبب الأرجح؟",
@@ -575,7 +603,7 @@ python3 --version
 `,
         en: `<p><code>print()</code> displays values on screen. Text goes inside quotes; anything outside is evaluated. Comments start with <code>#</code> and are ignored by Python — use them to explain <em>why</em>, not <em>what</em>.</p>`
     },
-    code: `<span class="cm"># برنامجي الأول — يطبع تحية</span>
+    code: { ar: `<span class="cm"># برنامجي الأول — يطبع تحية</span>
 <span class="fn">print</span>(<span class="st">"Hello, World"</span>)
 
 
@@ -595,7 +623,27 @@ python3 --version
 
 <span class="cm"># سطر فارغ للفصل بين الأقسام</span>
 <span class="fn">print</span>()
-<span class="fn">print</span>(<span class="st">"Program finished"</span>)`,
+<span class="fn">print</span>(<span class="st">"Program finished"</span>)`, en: `<span class="cm"># My first program — prints a greeting</span>
+<span class="fn">print</span>(<span class="st">"Hello, World"</span>)
+
+
+<span class="cm"># The difference between text and a calculation</span>
+<span class="fn">print</span>(<span class="st">"2 + 3"</span>)   <span class="cm"># prints: 2 + 3</span>
+<span class="fn">print</span>(2 + 3)     <span class="cm"># prints: 5</span>
+
+
+<span class="cm"># Printing multiple values — Python adds a space between them automatically</span>
+<span class="fn">print</span>(<span class="st">"My name is"</span>, <span class="st">"Ahmed"</span>, <span class="st">"and I am"</span>, 25)
+<span class="cm"># Output: My name is Ahmed and I am 25</span>
+
+
+<span class="cm"># Using both quote types together</span>
+<span class="fn">print</span>(<span class="st">'The teacher said: "Practice makes perfect"'</span>)
+
+
+<span class="cm"># An empty line to separate sections</span>
+<span class="fn">print</span>()
+<span class="fn">print</span>(<span class="st">"Program finished"</span>)` },
     quiz: {
         q: {
             ar: "ما الفرق بين print(\"5 + 5\") و print(5 + 5)؟",
@@ -692,7 +740,7 @@ python3 --version
 `,
         en: `<p>Variables store values using <code>=</code>, which is assignment, not equality. The four core types are <code>int</code>, <code>float</code>, <code>str</code> and <code>bool</code>. Python infers types automatically; use <code>type()</code> to check. Use f-strings to combine text and numbers.</p>`
     },
-    code: `<span class="cm"># إنشاء متغيرات بأنواع مختلفة</span>
+    code: { ar: `<span class="cm"># إنشاء متغيرات بأنواع مختلفة</span>
 <span class="kw">name</span> = <span class="st">"Sarah"</span>          <span class="cm"># str  — نصّ</span>
 <span class="kw">age</span> = 22                <span class="cm"># int  — عدد صحيح</span>
 <span class="kw">height</span> = 1.68           <span class="cm"># float — عدد عشري</span>
@@ -718,7 +766,33 @@ python3 --version
 <span class="cm"># إعادة الإسناد — القيمة القديمة تُستبدل</span>
 <span class="kw">score</span> = 10
 <span class="kw">score</span> = score + 5       <span class="cm"># منطقي في البرمجة: خذ 10 وأضف 5</span>
-<span class="fn">print</span>(score)             <span class="cm"># 15</span>`,
+<span class="fn">print</span>(score)             <span class="cm"># 15</span>`, en: `<span class="cm"># Creating variables of different types</span>
+<span class="kw">name</span> = <span class="st">"Sarah"</span>          <span class="cm"># str  — text</span>
+<span class="kw">age</span> = 22                <span class="cm"># int  — whole number</span>
+<span class="kw">height</span> = 1.68           <span class="cm"># float — decimal number</span>
+<span class="kw">is_student</span> = <span class="kw">True</span>      <span class="cm"># bool — boolean</span>
+
+
+<span class="cm"># Checking the type</span>
+<span class="fn">print</span>(<span class="fn">type</span>(age))        <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="st">"25"</span>))       <span class="cm"># &lt;class 'str'&gt; — notice the difference!</span>
+
+
+<span class="cm"># Common mistake: combining text with a number directly</span>
+<span class="cm"># print("Age: " + age)   ← TypeError</span>
+
+<span class="cm"># Solution 1: convert with str()</span>
+<span class="fn">print</span>(<span class="st">"Age: "</span> + <span class="fn">str</span>(age))
+
+<span class="cm"># Solution 2 (better): f-string</span>
+<span class="fn">print</span>(<span class="st">f"My name is {name} and I am {age} years old"</span>)
+<span class="fn">print</span>(<span class="st">f"My height is {height}m, student: {is_student}"</span>)
+
+
+<span class="cm"># Reassignment — the old value gets replaced</span>
+<span class="kw">score</span> = 10
+<span class="kw">score</span> = score + 5       <span class="cm"># logical in programming: take 10 and add 5</span>
+<span class="fn">print</span>(score)             <span class="cm"># 15</span>` },
     quiz: {
         q: {
             ar: "ما نوع القيمة المخزّنة في المتغير:  x = \"100\"  ؟",
@@ -811,7 +885,7 @@ python3 --version
 `,
         en: `<p>Strings are indexed from zero, and negative indices count from the end. Slicing <code>[start:end]</code> excludes <code>end</code>. Strings are immutable — methods return a new string instead of modifying the original, so always store the result.</p>`
     },
-    code: `<span class="kw">text</span> = <span class="st">"Python"</span>
+    code: { ar: `<span class="kw">text</span> = <span class="st">"Python"</span>
 
 <span class="cm"># الفهرسة تبدأ من صفر</span>
 <span class="fn">print</span>(text[0])      <span class="cm"># P  — الحرف الأول</span>
@@ -845,7 +919,41 @@ messy.strip()                <span class="cm"># لا يغيّر شيئاً!</spa
 
 <span class="cm"># f-string مع تنسيق رقمي</span>
 <span class="kw">price</span> = 49.6789
-<span class="fn">print</span>(<span class="st">f"Price: \${price:.2f}"</span>)   <span class="cm"># 49.68</span>`,
+<span class="fn">print</span>(<span class="st">f"Price: \${price:.2f}"</span>)   <span class="cm"># 49.68</span>`, en: `<span class="kw">text</span> = <span class="st">"Python"</span>
+
+<span class="cm"># Indexing starts at zero</span>
+<span class="fn">print</span>(text[0])      <span class="cm"># P  — the first character</span>
+<span class="fn">print</span>(text[-1])     <span class="cm"># n  — always the last character</span>
+
+<span class="cm"># Slicing: from 0 up to (not including) 3</span>
+<span class="fn">print</span>(text[0:3])    <span class="cm"># Pyt</span>
+<span class="fn">print</span>(text[3:])     <span class="cm"># hon</span>
+
+
+<span class="cm"># Concatenation and repetition</span>
+<span class="fn">print</span>(<span class="st">"-"</span> * 30)     <span class="cm"># a separator of 30 dashes</span>
+
+
+<span class="kw">messy</span> = <span class="st">"   Hello World   "</span>
+
+<span class="cm"># Common mistake: calling the method without storing the result</span>
+messy.strip()                <span class="cm"># changes nothing!</span>
+<span class="fn">print</span>(<span class="fn">len</span>(messy))          <span class="cm"># 17 — unchanged</span>
+
+<span class="cm"># Correct: store the result</span>
+<span class="kw">clean</span> = messy.strip()
+<span class="fn">print</span>(<span class="fn">len</span>(clean))          <span class="cm"># 11</span>
+<span class="fn">print</span>(clean.upper())       <span class="cm"># HELLO WORLD</span>
+<span class="fn">print</span>(clean.replace(<span class="st">"World"</span>, <span class="st">"Python"</span>))
+
+
+<span class="cm"># Checking and membership</span>
+<span class="fn">print</span>(<span class="st">"Hello"</span> <span class="kw">in</span> clean)   <span class="cm"># True</span>
+
+
+<span class="cm"># f-string with number formatting</span>
+<span class="kw">price</span> = 49.6789
+<span class="fn">print</span>(<span class="st">f"Price: \${price:.2f}"</span>)   <span class="cm"># 49.68</span>` },
     quiz: {
         q: {
             ar: "ما ناتج هذا الكود؟\nname = \"python\"\nname.upper()\nprint(name)",
@@ -943,7 +1051,7 @@ messy.strip()                <span class="cm"># لا يغيّر شيئاً!</spa
 `,
         en: `<p><code>/</code> always returns a float; <code>//</code> returns the integer part; <code>%</code> gives the remainder and is widely used for parity and cyclic distribution. Floating point numbers are imprecise, so avoid comparing them with <code>==</code>.</p>`
     },
-    code: `<span class="cm"># الفرق بين أنواع القسمة</span>
+    code: { ar: `<span class="cm"># الفرق بين أنواع القسمة</span>
 <span class="fn">print</span>(10 / 3)     <span class="cm"># 3.3333... — عشري دائماً</span>
 <span class="fn">print</span>(10 // 3)    <span class="cm"># 3 — الجزء الصحيح فقط</span>
 <span class="fn">print</span>(10 % 3)     <span class="cm"># 1 — الباقي</span>
@@ -974,7 +1082,38 @@ score *= 2      <span class="cm"># 30</span>
 
 <span class="cm"># int تقتطع ولا تقرّب</span>
 <span class="fn">print</span>(<span class="fn">int</span>(9.99))     <span class="cm"># 9</span>
-<span class="fn">print</span>(<span class="fn">round</span>(9.99))   <span class="cm"># 10</span>`,
+<span class="fn">print</span>(<span class="fn">round</span>(9.99))   <span class="cm"># 10</span>`, en: `<span class="cm"># The difference between division types</span>
+<span class="fn">print</span>(10 / 3)     <span class="cm"># 3.3333... — always a float</span>
+<span class="fn">print</span>(10 // 3)    <span class="cm"># 3 — integer part only</span>
+<span class="fn">print</span>(10 % 3)     <span class="cm"># 1 — the remainder</span>
+<span class="fn">print</span>(2 ** 10)    <span class="cm"># 1024 — exponent</span>
+
+<span class="fn">print</span>(10 / 2)     <span class="cm"># 5.0 not 5 — watch out!</span>
+
+
+<span class="cm"># A practical use of % : converting seconds</span>
+<span class="kw">total</span> = 3725
+<span class="kw">hours</span> = total // 3600           <span class="cm"># 1</span>
+<span class="kw">minutes</span> = (total % 3600) // 60  <span class="cm"># 2</span>
+<span class="kw">seconds</span> = total % 60           <span class="cm"># 5</span>
+<span class="fn">print</span>(<span class="st">f"{hours}h {minutes}m {seconds}s"</span>)
+
+
+<span class="cm"># Shorthand operators</span>
+<span class="kw">score</span> = 10
+score += 5      <span class="cm"># same as score = score + 5</span>
+score *= 2      <span class="cm"># 30</span>
+
+
+<span class="cm"># The floating-point trap</span>
+<span class="fn">print</span>(0.1 + 0.2)              <span class="cm"># 0.30000000000000004</span>
+<span class="fn">print</span>(0.1 + 0.2 == 0.3)       <span class="cm"># False !</span>
+<span class="fn">print</span>(<span class="fn">round</span>(0.1 + 0.2, 2) == 0.3)  <span class="cm"># True</span>
+
+
+<span class="cm"># int truncates, it doesn't round</span>
+<span class="fn">print</span>(<span class="fn">int</span>(9.99))     <span class="cm"># 9</span>
+<span class="fn">print</span>(<span class="fn">round</span>(9.99))   <span class="cm"># 10</span>` },
     quiz: {
         q: {
             ar: "ما ناتج  int(7.89)  في بايثون؟",
@@ -1064,7 +1203,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p><code>input()</code> always returns a string, even when the user types digits. Convert with <code>int()</code> or <code>float()</code> before doing arithmetic. Multiplying a string by a number repeats it instead of computing — a dangerous silent bug.</p>`
     },
-    code: `<span class="cm"># استقبال نصّ — لا يحتاج تحويلاً</span>
+    code: { ar: `<span class="cm"># استقبال نصّ — لا يحتاج تحويلاً</span>
 <span class="kw">name</span> = <span class="fn">input</span>(<span class="st">"What is your name? "</span>)
 <span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
 
@@ -1093,7 +1232,36 @@ score *= 2      <span class="cm"># 30</span>
 
 <span class="cm"># فخّ bool مع النصوص</span>
 <span class="fn">print</span>(<span class="fn">bool</span>(<span class="st">""</span>))        <span class="cm"># False — نصّ فارغ</span>
-<span class="fn">print</span>(<span class="fn">bool</span>(<span class="st">"False"</span>))   <span class="cm"># True ! — نصّ غير فارغ</span>`,
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="st">"False"</span>))   <span class="cm"># True ! — نصّ غير فارغ</span>`, en: `<span class="cm"># Reading text — no conversion needed</span>
+<span class="kw">name</span> = <span class="fn">input</span>(<span class="st">"What is your name? "</span>)
+<span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
+
+
+<span class="cm"># The silent bug: multiplying repeats the text!</span>
+<span class="kw">num_text</span> = <span class="fn">input</span>(<span class="st">"Type the number 5: "</span>)
+<span class="fn">print</span>(num_text * 3)      <span class="cm"># 555 not 15 !</span>
+
+
+<span class="cm"># Correct: convert before calculating</span>
+<span class="kw">num</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Type a number: "</span>))
+<span class="fn">print</span>(num * 3)          <span class="cm"># 15 ✓</span>
+
+
+<span class="cm"># Full example: calculating age</span>
+<span class="kw">birth_year</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Your birth year: "</span>))
+<span class="kw">age</span> = 2026 - birth_year
+<span class="fn">print</span>(<span class="st">f"You are about {age} years old"</span>)
+
+
+<span class="cm"># Decimal numbers</span>
+<span class="kw">price</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Price: "</span>))
+<span class="kw">total</span> = price * 1.2       <span class="cm"># with 20% tax</span>
+<span class="fn">print</span>(<span class="st">f"Total: {total:.2f}"</span>)
+
+
+<span class="cm"># The bool-with-text trap</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="st">""</span>))        <span class="cm"># False — empty string</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="st">"False"</span>))   <span class="cm"># True ! — non-empty string</span>` },
     quiz: {
         q: {
             ar: "المستخدم كتب 4، فماذا يطبع هذا الكود؟\nn = input(\"رقم: \")\nprint(n * 2)",
@@ -1172,7 +1340,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p>Time to combine everything from Level 1 into a working calculator: variables, types, input, conversion, f-strings and arithmetic. Build it in three stages, and handle edge cases like division by zero.</p>`
     },
-    code: `<span class="cm"># ============================================</span>
+    code: { ar: `<span class="cm"># ============================================</span>
 <span class="cm"># مشروع: آلة حاسبة بسيطة</span>
 <span class="cm"># ============================================</span>
 
@@ -1212,7 +1380,47 @@ score *= 2      <span class="cm"># 30</span>
     <span class="fn">print</span>(<span class="st">f"Unknown operation: {operation}"</span>)
 
 <span class="fn">print</span>(<span class="st">"-"</span> * 35)
-<span class="fn">print</span>(<span class="st">"Thanks for using Koudna Calculator"</span>)`,
+<span class="fn">print</span>(<span class="st">"Thanks for using Koudna Calculator"</span>)`, en: `<span class="cm"># ============================================</span>
+<span class="cm"># Project: a simple calculator</span>
+<span class="cm"># ============================================</span>
+
+<span class="fn">print</span>(<span class="st">"-"</span> * 35)
+<span class="fn">print</span>(<span class="st">"     Koudna Calculator"</span>)
+<span class="fn">print</span>(<span class="st">"-"</span> * 35)
+
+<span class="cm"># 1) Read the input with conversion</span>
+<span class="kw">num1</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"First number: "</span>))
+<span class="kw">operation</span> = <span class="fn">input</span>(<span class="st">"Operation (+ - * /): "</span>).strip()
+<span class="kw">num2</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Second number: "</span>))
+
+<span class="fn">print</span>(<span class="st">"-"</span> * 35)
+
+<span class="cm"># 2) Perform the requested operation</span>
+<span class="kw">if</span> operation == <span class="st">"+"</span>:
+    <span class="kw">result</span> = num1 + num2
+    <span class="fn">print</span>(<span class="st">f"{num1} + {num2} = {result:.2f}"</span>)
+
+<span class="kw">elif</span> operation == <span class="st">"-"</span>:
+    <span class="kw">result</span> = num1 - num2
+    <span class="fn">print</span>(<span class="st">f"{num1} - {num2} = {result:.2f}"</span>)
+
+<span class="kw">elif</span> operation == <span class="st">"*"</span>:
+    <span class="kw">result</span> = num1 * num2
+    <span class="fn">print</span>(<span class="st">f"{num1} × {num2} = {result:.2f}"</span>)
+
+<span class="kw">elif</span> operation == <span class="st">"/"</span>:
+    <span class="cm"># The special case: division by zero</span>
+    <span class="kw">if</span> num2 == 0:
+        <span class="fn">print</span>(<span class="st">"Error: cannot divide by zero"</span>)
+    <span class="kw">else</span>:
+        <span class="kw">result</span> = num1 / num2
+        <span class="fn">print</span>(<span class="st">f"{num1} ÷ {num2} = {result:.2f}"</span>)
+
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">f"Unknown operation: {operation}"</span>)
+
+<span class="fn">print</span>(<span class="st">"-"</span> * 35)
+<span class="fn">print</span>(<span class="st">"Thanks for using Koudna Calculator"</span>)` },
     quiz: {
         q: {
             ar: "لماذا استخدمنا float() بدل int() لاستقبال الأرقام في الآلة الحاسبة؟",
@@ -1330,7 +1538,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p>Comparison operators return True or False. Logical operators <code>and</code>, <code>or</code>, <code>not</code> combine conditions. Always repeat the variable on both sides: <code>x == 1 or x == 2</code>, never <code>x == 1 or 2</code>.</p>`
     },
-    code: `<span class="cm"># المقارنات تُرجع True أو False</span>
+    code: { ar: `<span class="cm"># المقارنات تُرجع True أو False</span>
 <span class="fn">print</span>(10 > 5)        <span class="cm"># True</span>
 <span class="fn">print</span>(10 == <span class="st">"10"</span>)   <span class="cm"># False — نوعان مختلفان!</span>
 
@@ -1361,7 +1569,38 @@ score *= 2      <span class="cm"># 30</span>
 
 <span class="cm"># سلسلة المقارنات — ميزة أنيقة في بايثون</span>
 <span class="kw">score</span> = 85
-<span class="fn">print</span>(0 <= score <= 100)     <span class="cm"># True</span>`,
+<span class="fn">print</span>(0 <= score <= 100)     <span class="cm"># True</span>`, en: `<span class="cm"># Comparisons return True or False</span>
+<span class="fn">print</span>(10 > 5)        <span class="cm"># True</span>
+<span class="fn">print</span>(10 == <span class="st">"10"</span>)   <span class="cm"># False — two different types!</span>
+
+<span class="cm"># Storing a comparison's result</span>
+<span class="kw">age</span> = 20
+<span class="kw">is_adult</span> = age >= 18
+<span class="fn">print</span>(is_adult)      <span class="cm"># True</span>
+
+
+<span class="cm"># Text comparison is case-sensitive</span>
+<span class="fn">print</span>(<span class="st">"Ali"</span> == <span class="st">"ali"</span>)              <span class="cm"># False</span>
+<span class="fn">print</span>(<span class="st">"Ali"</span>.lower() == <span class="st">"ali"</span>)      <span class="cm"># True ✓</span>
+
+
+<span class="cm"># Logical operators</span>
+<span class="kw">has_ticket</span> = <span class="kw">True</span>
+<span class="fn">print</span>(age >= 18 <span class="kw">and</span> has_ticket)   <span class="cm"># True</span>
+<span class="fn">print</span>(age < 12 <span class="kw">or</span> age > 65)       <span class="cm"># False</span>
+<span class="fn">print</span>(<span class="kw">not</span> has_ticket)              <span class="cm"># False</span>
+
+
+<span class="cm"># The most dangerous common mistake</span>
+<span class="kw">day</span> = <span class="st">"Monday"</span>
+<span class="fn">print</span>(day == <span class="st">"Saturday"</span> <span class="kw">or</span> <span class="st">"Sunday"</span>)      <span class="cm"># True — wrong!</span>
+<span class="fn">print</span>(day == <span class="st">"Saturday"</span> <span class="kw">or</span> day == <span class="st">"Sunday"</span>) <span class="cm"># False ✓</span>
+<span class="fn">print</span>(day <span class="kw">in</span> [<span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>])        <span class="cm"># False ✓ the cleanest way</span>
+
+
+<span class="cm"># Chained comparisons — an elegant Python feature</span>
+<span class="kw">score</span> = 85
+<span class="fn">print</span>(0 <= score <= 100)     <span class="cm"># True</span>` },
     quiz: {
         q: {
             ar: "المتغير day = \"الاثنين\". ما نتيجة:  day == \"السبت\" or \"الأحد\"  ؟",
@@ -1443,7 +1682,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p>Conditionals let your program make decisions. <code>if</code> runs when true, <code>elif</code> checks more cases, <code>else</code> catches the rest. Python stops at the first true condition, so order matters. Indentation is mandatory.</p>`
     },
-    code: `<span class="cm"># أبسط شرط</span>
+    code: { ar: `<span class="cm"># أبسط شرط</span>
 <span class="kw">temperature</span> = 35
 <span class="kw">if</span> temperature > 30:
     <span class="fn">print</span>(<span class="st">"It's hot, drink plenty of water"</span>)
@@ -1492,7 +1731,56 @@ score *= 2      <span class="cm"># 30</span>
 
 <span class="cm"># الصيغة المختصرة</span>
 <span class="kw">status</span> = <span class="st">"adult"</span> <span class="kw">if</span> age >= 18 <span class="kw">else</span> <span class="st">"minor"</span>
-<span class="fn">print</span>(status)`,
+<span class="fn">print</span>(status)`, en: `<span class="cm"># The simplest condition</span>
+<span class="kw">temperature</span> = 35
+<span class="kw">if</span> temperature > 30:
+    <span class="fn">print</span>(<span class="st">"It's hot, drink plenty of water"</span>)
+
+
+<span class="cm"># A condition with else</span>
+<span class="kw">password</span> = <span class="st">"1234"</span>
+<span class="kw">if</span> password == <span class="st">"secret"</span>:
+    <span class="fn">print</span>(<span class="st">"Login successful"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Wrong password"</span>)
+
+
+<span class="cm"># Multiple cases — order from narrowest to widest</span>
+<span class="kw">grade</span> = 87
+<span class="kw">if</span> grade >= 90:
+    <span class="fn">print</span>(<span class="st">"Excellent"</span>)
+<span class="kw">elif</span> grade >= 80:
+    <span class="fn">print</span>(<span class="st">"Very good"</span>)
+<span class="kw">elif</span> grade >= 70:
+    <span class="fn">print</span>(<span class="st">"Good"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Needs review"</span>)
+<span class="cm"># Output: Very good</span>
+
+
+<span class="cm"># Wrong order — an unexpected result</span>
+<span class="kw">score</span> = 95
+<span class="kw">if</span> score >= 50:
+    <span class="fn">print</span>(<span class="st">"Pass"</span>)      <span class="cm"># this gets printed!</span>
+<span class="kw">elif</span> score >= 90:
+    <span class="fn">print</span>(<span class="st">"Excellent"</span>)     <span class="cm"># never reaches here</span>
+
+
+<span class="cm"># Nested conditions</span>
+<span class="kw">age</span> = 20
+<span class="kw">has_ticket</span> = <span class="kw">True</span>
+<span class="kw">if</span> age >= 18:
+    <span class="kw">if</span> has_ticket:
+        <span class="fn">print</span>(<span class="st">"Welcome in"</span>)
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="st">"Buy a ticket first"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Adults only"</span>)
+
+
+<span class="cm"># The shorthand form</span>
+<span class="kw">status</span> = <span class="st">"adult"</span> <span class="kw">if</span> age >= 18 <span class="kw">else</span> <span class="st">"minor"</span>
+<span class="fn">print</span>(status)` },
     quiz: {
         q: {
             ar: "ما الذي يطبعه هذا الكود؟\nscore = 95\nif score >= 60:\n    print(\"ناجح\")\nelif score >= 90:\n    print(\"ممتاز\")",
@@ -1575,7 +1863,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p><code>for</code> iterates over items one by one. <code>range(n)</code> starts at zero and excludes the last number. Define accumulators outside the loop. <code>enumerate</code> gives index and value together.</p>`
     },
-    code: `<span class="cm"># المرور على عناصر قائمة</span>
+    code: { ar: `<span class="cm"># المرور على عناصر قائمة</span>
 <span class="kw">for</span> fruit <span class="kw">in</span> [<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"grape"</span>]:
     <span class="fn">print</span>(<span class="st">f"I like {fruit}"</span>)
 
@@ -1618,7 +1906,50 @@ score *= 2      <span class="cm"># 30</span>
 
 <span class="cm"># تكرار بلا حاجة للعدّاد</span>
 <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(3):
-    <span class="fn">print</span>(<span class="st">"Hello"</span>)`,
+    <span class="fn">print</span>(<span class="st">"Hello"</span>)`, en: `<span class="cm"># Looping over list items</span>
+<span class="kw">for</span> fruit <span class="kw">in</span> [<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"grape"</span>]:
+    <span class="fn">print</span>(<span class="st">f"I like {fruit}"</span>)
+
+
+<span class="cm"># Looping over the characters of a string</span>
+<span class="kw">for</span> ch <span class="kw">in</span> <span class="st">"Python"</span>:
+    <span class="fn">print</span>(ch)
+
+
+<span class="cm"># range — the last number is excluded</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(5):
+    <span class="fn">print</span>(i)          <span class="cm"># 0 1 2 3 4</span>
+
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(1, 11):
+    <span class="fn">print</span>(i)          <span class="cm"># 1 through 10</span>
+
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(10, 0, -1):
+    <span class="fn">print</span>(i)          <span class="cm"># counting down</span>
+
+
+<span class="cm"># The accumulator pattern — defined outside the loop!</span>
+<span class="kw">total</span> = 0
+<span class="kw">for</span> n <span class="kw">in</span> <span class="fn">range</span>(1, 101):
+    total += n
+<span class="fn">print</span>(<span class="st">f"Sum from 1 to 100 = {total}"</span>)   <span class="cm"># 5050</span>
+
+
+<span class="cm"># enumerate: index and item together</span>
+<span class="kw">students</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>]
+<span class="kw">for</span> i, name <span class="kw">in</span> <span class="fn">enumerate</span>(students, 1):
+    <span class="fn">print</span>(<span class="st">f"{i}. {name}"</span>)
+
+
+<span class="cm"># Nested loops: multiplication table</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(1, 4):
+    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(1, 4):
+        <span class="fn">print</span>(<span class="st">f"{i} × {j} = {i*j}"</span>)
+    <span class="fn">print</span>()          <span class="cm"># a blank line between tables</span>
+
+
+<span class="cm"># Repeating without needing a counter</span>
+<span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(3):
+    <span class="fn">print</span>(<span class="st">"Hello"</span>)` },
     quiz: {
         q: {
             ar: "كم رقماً تطبع الحلقة:  for i in range(1, 6):  ؟",
@@ -1700,7 +2031,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p><code>while</code> repeats as long as a condition holds — use it when you do not know the number of iterations in advance. Every while loop needs initialization, a condition, and an update. Forgetting the update creates an infinite loop; stop it with Ctrl + C.</p>`
     },
-    code: `<span class="cm"># البنية الأساسية: تهيئة، شرط، تحديث</span>
+    code: { ar: `<span class="cm"># البنية الأساسية: تهيئة، شرط، تحديث</span>
 <span class="kw">count</span> = 1                <span class="cm"># 1) تهيئة</span>
 <span class="kw">while</span> count <= 5:         <span class="cm"># 2) شرط</span>
     <span class="fn">print</span>(count)
@@ -1743,7 +2074,50 @@ score *= 2      <span class="cm"># 30</span>
     <span class="kw">cmd</span> = <span class="fn">input</span>(<span class="st">"Type a command (exit to quit): "</span>)
     <span class="kw">if</span> cmd == <span class="st">"exit"</span>:
         <span class="kw">break</span>
-    <span class="fn">print</span>(<span class="st">f"Ran: {cmd}"</span>)`,
+    <span class="fn">print</span>(<span class="st">f"Ran: {cmd}"</span>)`, en: `<span class="cm"># The basic structure: init, condition, update</span>
+<span class="kw">count</span> = 1                <span class="cm"># 1) init</span>
+<span class="kw">while</span> count <= 5:         <span class="cm"># 2) condition</span>
+    <span class="fn">print</span>(count)
+    count += 1            <span class="cm"># 3) update — never forget it!</span>
+
+
+<span class="cm"># An infinite loop — the most famous mistake</span>
+<span class="cm"># count = 1</span>
+<span class="cm"># while count <= 5:</span>
+<span class="cm">#     print(count)      ← no update, will run forever</span>
+
+
+<span class="cm"># The input-validation pattern</span>
+<span class="kw">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Your age: "</span>))
+<span class="kw">while</span> age <= 0 <span class="kw">or</span> age > 120:
+    <span class="fn">print</span>(<span class="st">"Not a realistic age, try again"</span>)
+    <span class="kw">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Your age: "</span>))
+<span class="fn">print</span>(<span class="st">f"Thanks, you are {age}"</span>)
+
+
+<span class="cm"># A limited attempt counter</span>
+<span class="kw">attempts</span> = 3
+<span class="kw">logged_in</span> = <span class="kw">False</span>
+
+<span class="kw">while</span> attempts > 0 <span class="kw">and</span> <span class="kw">not</span> logged_in:
+    <span class="kw">pw</span> = <span class="fn">input</span>(<span class="st">"Password: "</span>)
+    <span class="kw">if</span> pw == <span class="st">"1234"</span>:
+        <span class="kw">logged_in</span> = <span class="kw">True</span>
+        <span class="fn">print</span>(<span class="st">"Welcome"</span>)
+    <span class="kw">else</span>:
+        attempts -= 1
+        <span class="fn">print</span>(<span class="st">f"Wrong. {attempts} attempt(s) left"</span>)
+
+<span class="kw">if</span> <span class="kw">not</span> logged_in:
+    <span class="fn">print</span>(<span class="st">"Account locked"</span>)
+
+
+<span class="cm"># while True with break</span>
+<span class="kw">while</span> <span class="kw">True</span>:
+    <span class="kw">cmd</span> = <span class="fn">input</span>(<span class="st">"Type a command (exit to quit): "</span>)
+    <span class="kw">if</span> cmd == <span class="st">"exit"</span>:
+        <span class="kw">break</span>
+    <span class="fn">print</span>(<span class="st">f"Ran: {cmd}"</span>)` },
     quiz: {
         q: {
             ar: "ما المشكلة في هذا الكود؟\nn = 1\nwhile n <= 3:\n    print(n)",
@@ -1832,7 +2206,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p><code>break</code> exits the whole loop immediately; <code>continue</code> skips only the current iteration. In nested loops they affect the innermost loop only. A loop <code>else</code> runs only if the loop finished without a break.</p>`
     },
-    code: `<span class="cm"># break: التوقف عند أول نتيجة</span>
+    code: { ar: `<span class="cm"># break: التوقف عند أول نتيجة</span>
 <span class="kw">names</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>, <span class="st">"Khalid"</span>]
 
 <span class="kw">for</span> name <span class="kw">in</span> names:
@@ -1870,7 +2244,45 @@ score *= 2      <span class="cm"># 30</span>
 
 <span class="cm"># pass: عنصر نائب</span>
 <span class="kw">for</span> item <span class="kw">in</span> <span class="fn">range</span>(3):
-    <span class="kw">pass</span>                 <span class="cm"># سأكتب الكود لاحقاً</span>`,
+    <span class="kw">pass</span>                 <span class="cm"># سأكتب الكود لاحقاً</span>`, en: `<span class="cm"># break: stop at the first match</span>
+<span class="kw">names</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>, <span class="st">"Khalid"</span>]
+
+<span class="kw">for</span> name <span class="kw">in</span> names:
+    <span class="kw">if</span> name == <span class="st">"Layla"</span>:
+        <span class="fn">print</span>(<span class="st">"Found her!"</span>)
+        <span class="kw">break</span>            <span class="cm"># will never check "Khalid"</span>
+    <span class="fn">print</span>(<span class="st">f"Checking {name}..."</span>)
+
+
+<span class="cm"># continue: skip certain cases</span>
+<span class="kw">for</span> n <span class="kw">in</span> <span class="fn">range</span>(1, 11):
+    <span class="kw">if</span> n % 2 != 0:
+        <span class="kw">continue</span>         <span class="cm"># skip odd numbers</span>
+    <span class="fn">print</span>(n)             <span class="cm"># 2 4 6 8 10</span>
+
+
+<span class="cm"># else with a loop: runs only if break never happened</span>
+<span class="kw">numbers</span> = [3, 8, 15, 22]
+
+<span class="kw">for</span> n <span class="kw">in</span> numbers:
+    <span class="kw">if</span> n % 7 == 0:
+        <span class="fn">print</span>(<span class="st">f"First number divisible by 7: {n}"</span>)
+        <span class="kw">break</span>
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"No number divisible by 7"</span>)
+
+
+<span class="cm"># In nested loops: break only exits the inner loop</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(3):
+    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(5):
+        <span class="kw">if</span> j == 2:
+            <span class="kw">break</span>        <span class="cm"># exits only the j loop</span>
+        <span class="fn">print</span>(i, j)
+
+
+<span class="cm"># pass: a placeholder</span>
+<span class="kw">for</span> item <span class="kw">in</span> <span class="fn">range</span>(3):
+    <span class="kw">pass</span>                 <span class="cm"># I'll write the code later</span>` },
     quiz: {
         q: {
             ar: "ما الفرق بين break و continue؟",
@@ -1966,7 +2378,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p>This project combines conditionals, loops, break, input validation and comparisons. The computer picks a secret number and the player guesses it with hints after each attempt.</p>`
     },
-    code: `<span class="cm"># ============================================</span>
+    code: { ar: `<span class="cm"># ============================================</span>
 <span class="cm"># لعبة تخمين الرقم</span>
 <span class="cm"># ============================================</span>
 <span class="kw">import</span> random
@@ -2019,7 +2431,60 @@ score *= 2      <span class="cm"># 30</span>
     <span class="cm"># تعمل فقط إذا لم يحدث break — أي خسر اللاعب</span>
     <span class="fn">print</span>(<span class="st">f"\\n😔 Out of attempts. The number was {secret}"</span>)
 
-<span class="fn">print</span>(<span class="st">"\\nThanks for playing!"</span>)`,
+<span class="fn">print</span>(<span class="st">"\\nThanks for playing!"</span>)`, en: `<span class="cm"># ============================================</span>
+<span class="cm"># Number guessing game</span>
+<span class="cm"># ============================================</span>
+<span class="kw">import</span> random
+
+<span class="kw">secret</span> = random.randint(1, 100)   <span class="cm"># both ends inclusive</span>
+<span class="kw">attempts</span> = 7
+
+<span class="fn">print</span>(<span class="st">"="</span> * 40)
+<span class="fn">print</span>(<span class="st">"   Guess the number between 1 and 100"</span>)
+<span class="fn">print</span>(<span class="st">f"   You have {attempts} attempts"</span>)
+<span class="fn">print</span>(<span class="st">"="</span> * 40)
+
+<span class="kw">while</span> attempts > 0:
+    <span class="kw">raw</span> = <span class="fn">input</span>(<span class="st">f"\nYour guess ({attempts} left): "</span>).strip()
+
+    <span class="cm"># Validating the input</span>
+    <span class="kw">if</span> <span class="kw">not</span> raw.isdigit():
+        <span class="fn">print</span>(<span class="st">"Please enter a valid number"</span>)
+        <span class="kw">continue</span>          <span class="cm"># doesn't count as an attempt</span>
+
+    <span class="kw">guess</span> = <span class="fn">int</span>(raw)
+
+    <span class="kw">if</span> guess < 1 <span class="kw">or</span> guess > 100:
+        <span class="fn">print</span>(<span class="st">"The number must be between 1 and 100"</span>)
+        <span class="kw">continue</span>
+
+    <span class="cm"># Compare and give a hint</span>
+    <span class="kw">if</span> guess == secret:
+        <span class="kw">used</span> = 8 - attempts
+        <span class="fn">print</span>(<span class="st">f"\n🎉 Well done! The number was {secret}"</span>)
+        <span class="fn">print</span>(<span class="st">f"You got it in {used} attempt(s)"</span>)
+        <span class="kw">break</span>
+
+    attempts -= 1
+
+    <span class="kw">if</span> attempts == 0:
+        <span class="kw">break</span>
+
+    <span class="cm"># A smarter hint for close numbers</span>
+    <span class="kw">diff</span> = <span class="fn">abs</span>(guess - secret)
+    <span class="kw">if</span> diff <= 5:
+        <span class="fn">print</span>(<span class="st">"🔥 So close!"</span>)
+
+    <span class="kw">if</span> guess < secret:
+        <span class="fn">print</span>(<span class="st">"⬆️ The secret number is bigger"</span>)
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="st">"⬇️ The secret number is smaller"</span>)
+
+<span class="kw">else</span>:
+    <span class="cm"># runs only if break never happened — i.e. the player lost</span>
+    <span class="fn">print</span>(<span class="st">f"\n😔 Out of attempts. The number was {secret}"</span>)
+
+<span class="fn">print</span>(<span class="st">"\nThanks for playing!"</span>)` },
     quiz: {
         q: {
             ar: "في اللعبة استخدمنا continue عند إدخال غير صالح بدل أن ننقص المحاولات. لماذا؟",
@@ -2090,7 +2555,7 @@ score *= 2      <span class="cm"># 30</span>
 `,
         en: `<p>Lists store multiple ordered values under one name using square brackets: <code>[val1, val2, ...]</code>. Indexing and slicing follow the same rules as strings, but unlike strings, lists are mutable — you can change an element directly by assigning to its index.</p>`
     },
-    code: `<span class="cm"># إنشاء قائمة</span>
+    code: { ar: `<span class="cm"># إنشاء قائمة</span>
 <span class="kw">fruits</span> = [<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"grape"</span>, <span class="st">"mango"</span>, <span class="st">"kiwi"</span>]
 <span class="fn">print</span>(fruits)
 
@@ -2117,7 +2582,34 @@ fruits[0] = <span class="st">"orange"</span>
 
 <span class="cm"># الطول والاحتواء</span>
 <span class="fn">print</span>(<span class="fn">len</span>(fruits))         <span class="cm"># 5</span>
-<span class="fn">print</span>(<span class="st">"mango"</span> <span class="kw">in</span> fruits)  <span class="cm"># True</span>`,
+<span class="fn">print</span>(<span class="st">"mango"</span> <span class="kw">in</span> fruits)  <span class="cm"># True</span>`, en: `<span class="cm"># Creating a list</span>
+<span class="kw">fruits</span> = [<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"grape"</span>, <span class="st">"mango"</span>, <span class="st">"kiwi"</span>]
+<span class="fn">print</span>(fruits)
+
+
+<span class="cm"># Indexing — same logic as strings</span>
+<span class="fn">print</span>(fruits[0])      <span class="cm"># apple — first item</span>
+<span class="fn">print</span>(fruits[-1])     <span class="cm"># kiwi — always the last item</span>
+
+
+<span class="cm"># Slicing</span>
+<span class="fn">print</span>(fruits[1:3])    <span class="cm"># ['banana', 'grape']</span>
+<span class="fn">print</span>(fruits[:2])     <span class="cm"># first two items</span>
+<span class="fn">print</span>(fruits[::-1])   <span class="cm"># the list reversed</span>
+
+
+<span class="cm"># Lists are mutable — unlike strings!</span>
+fruits[0] = <span class="st">"orange"</span>
+<span class="fn">print</span>(fruits)
+
+
+<span class="cm"># Common mistake: an index that doesn't exist</span>
+<span class="cm"># print(fruits[10])   ← IndexError</span>
+
+
+<span class="cm"># Length and membership</span>
+<span class="fn">print</span>(<span class="fn">len</span>(fruits))         <span class="cm"># 5</span>
+<span class="fn">print</span>(<span class="st">"mango"</span> <span class="kw">in</span> fruits)  <span class="cm"># True</span>` },
     quiz: {
         q: {
             ar: "لديك numbers = [10, 20, 30, 40]. ما ناتج numbers[1:3]؟",
@@ -2173,7 +2665,7 @@ fruits[0] = <span class="st">"orange"</span>
 `,
         en: `<p>Lists have built-in methods for modifying them in place: append() and insert() add elements, remove() and pop() delete them, sort() reorders in place (returns None — never assign it back). Use sorted() when you need a new sorted copy without changing the original.</p>`
     },
-    code: `<span class="cm"># الإضافة</span>
+    code: { ar: `<span class="cm"># الإضافة</span>
 <span class="kw">tasks</span> = [<span class="st">"buy milk"</span>, <span class="st">"clean room"</span>]
 tasks.append(<span class="st">"read book"</span>)      <span class="cm"># تضيف في النهاية</span>
 tasks.insert(0, <span class="st">"wake up early"</span>)  <span class="cm"># تضيف في البداية</span>
@@ -2204,7 +2696,38 @@ names.sort(reverse=<span class="kw">True</span>)
 <span class="kw">numbers</span> = [5, 2, 8, 1]
 <span class="kw">sorted_numbers</span> = <span class="fn">sorted</span>(numbers)
 <span class="fn">print</span>(numbers)         <span class="cm"># [5, 2, 8, 1] — لم يتغيّر</span>
-<span class="fn">print</span>(sorted_numbers)  <span class="cm"># [1, 2, 5, 8]</span>`,
+<span class="fn">print</span>(sorted_numbers)  <span class="cm"># [1, 2, 5, 8]</span>`, en: `<span class="cm"># Adding</span>
+<span class="kw">tasks</span> = [<span class="st">"buy milk"</span>, <span class="st">"clean room"</span>]
+tasks.append(<span class="st">"read book"</span>)      <span class="cm"># adds at the end</span>
+tasks.insert(0, <span class="st">"wake up early"</span>)  <span class="cm"># adds at the start</span>
+<span class="fn">print</span>(tasks)
+
+
+<span class="cm"># Removing</span>
+tasks.remove(<span class="st">"clean room"</span>)   <span class="cm"># remove by value</span>
+<span class="kw">last_task</span> = tasks.pop()      <span class="cm"># remove and return the last item</span>
+<span class="fn">print</span>(<span class="st">f"Removed: {last_task}"</span>)
+<span class="fn">print</span>(tasks)
+
+
+<span class="cm"># Common mistake: append doesn't return the list</span>
+<span class="cm"># tasks = tasks.append("x")   ← becomes None! wrong</span>
+
+
+<span class="cm"># Sorting: sort() modifies in place</span>
+<span class="kw">names</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>]
+names.sort()
+<span class="fn">print</span>(names)              <span class="cm"># ['Ahmed', 'Layla', 'Sarah']</span>
+
+names.sort(reverse=<span class="kw">True</span>)
+<span class="fn">print</span>(names)              <span class="cm"># descending order</span>
+
+
+<span class="cm"># sorted(): returns a new copy, leaves the original</span>
+<span class="kw">numbers</span> = [5, 2, 8, 1]
+<span class="kw">sorted_numbers</span> = <span class="fn">sorted</span>(numbers)
+<span class="fn">print</span>(numbers)         <span class="cm"># [5, 2, 8, 1] — unchanged</span>
+<span class="fn">print</span>(sorted_numbers)  <span class="cm"># [1, 2, 5, 8]</span>` },
     quiz: {
         q: {
             ar: "ما مشكلة هذا الكود؟\nfruits = [\"apple\", \"banana\"]\nfruits = fruits.append(\"kiwi\")\nprint(fruits)",
@@ -2272,7 +2795,7 @@ names.sort(reverse=<span class="kw">True</span>)
 `,
         en: `<p>A tuple is an ordered sequence like a list, but immutable — created with parentheses (val1, val2, ...) and cannot be changed after creation. Use tuples for fixed groups of related values (like coordinates), and unpack them directly into variables: x, y = point.</p>`
     },
-    code: `<span class="cm"># إنشاء Tuple</span>
+    code: { ar: `<span class="cm"># إنشاء Tuple</span>
 <span class="kw">point</span> = (3, 7)
 <span class="fn">print</span>(point[0])   <span class="cm"># 3</span>
 <span class="fn">print</span>(point[1])   <span class="cm"># 7</span>
@@ -2297,7 +2820,32 @@ names.sort(reverse=<span class="kw">True</span>)
 <span class="cm"># مثال عملي: تاريخ ميلاد</span>
 <span class="kw">birthday</span> = (15, <span class="st">"March"</span>, 2006)
 <span class="kw">day</span>, <span class="kw">month</span>, <span class="kw">year</span> = birthday
-<span class="fn">print</span>(<span class="st">f"Born on {day} {month}, {year}"</span>)`,
+<span class="fn">print</span>(<span class="st">f"Born on {day} {month}, {year}"</span>)`, en: `<span class="cm"># Creating a tuple</span>
+<span class="kw">point</span> = (3, 7)
+<span class="fn">print</span>(point[0])   <span class="cm"># 3</span>
+<span class="fn">print</span>(point[1])   <span class="cm"># 7</span>
+
+
+<span class="cm"># Unpacking a tuple</span>
+<span class="kw">x</span>, <span class="kw">y</span> = point
+<span class="fn">print</span>(<span class="st">f"x = {x}, y = {y}"</span>)
+
+
+<span class="cm"># Common mistake: trying to modify it</span>
+<span class="cm"># point[0] = 5   ← TypeError</span>
+
+
+<span class="cm"># A single-item tuple needs a comma</span>
+<span class="kw">not_a_tuple</span> = (5)     <span class="cm"># this is just a regular number</span>
+<span class="kw">single</span> = (5,)          <span class="cm"># this is a real tuple</span>
+<span class="fn">print</span>(<span class="fn">type</span>(not_a_tuple))  <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(single))       <span class="cm"># &lt;class 'tuple'&gt;</span>
+
+
+<span class="cm"># A practical example: a birthdate</span>
+<span class="kw">birthday</span> = (15, <span class="st">"March"</span>, 2006)
+<span class="kw">day</span>, <span class="kw">month</span>, <span class="kw">year</span> = birthday
+<span class="fn">print</span>(<span class="st">f"Born on {day} {month}, {year}"</span>)` },
     quiz: {
         q: {
             ar: "ما الفرق الجوهري بين القائمة (list) وTuple؟",
@@ -2365,7 +2913,7 @@ names.sort(reverse=<span class="kw">True</span>)
 `,
         en: `<p>A set stores only unique elements automatically and has no guaranteed order — created with {val1, val2} or set() for an empty one (never {} — that's an empty dict). Sets support fast membership checks and mathematical operations: | union, &amp; intersection, - difference.</p>`
     },
-    code: `<span class="cm"># الإنشاء — التكرار يُتجاهل تلقائياً</span>
+    code: { ar: `<span class="cm"># الإنشاء — التكرار يُتجاهل تلقائياً</span>
 <span class="kw">visitors</span> = {<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Sarah"</span>, <span class="st">"Layla"</span>}
 <span class="fn">print</span>(visitors)          <span class="cm"># {'Sarah', 'Ahmed', 'Layla'} — بلا تكرار</span>
 <span class="fn">print</span>(<span class="fn">len</span>(visitors))    <span class="cm"># 3 وليس 4</span>
@@ -2396,7 +2944,38 @@ names.sort(reverse=<span class="kw">True</span>)
 
 <span class="cm"># Set فارغ — انتبه: ليس {}</span>
 <span class="kw">empty_set</span> = <span class="fn">set</span>()
-<span class="kw">empty_dict</span> = {}   <span class="cm"># هذا قاموس فارغ، ليس Set!</span>`,
+<span class="kw">empty_dict</span> = {}   <span class="cm"># هذا قاموس فارغ، ليس Set!</span>`, en: `<span class="cm"># Creation — duplicates are dropped automatically</span>
+<span class="kw">visitors</span> = {<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Sarah"</span>, <span class="st">"Layla"</span>}
+<span class="fn">print</span>(visitors)          <span class="cm"># {'Sarah', 'Ahmed', 'Layla'} — no duplicates</span>
+<span class="fn">print</span>(<span class="fn">len</span>(visitors))    <span class="cm"># 3 not 4</span>
+
+
+<span class="cm"># Converting a list with duplicates to a set</span>
+<span class="kw">numbers</span> = [1, 2, 2, 3, 3, 3, 4]
+<span class="kw">unique_numbers</span> = <span class="fn">set</span>(numbers)
+<span class="fn">print</span>(unique_numbers)   <span class="cm"># {1, 2, 3, 4}</span>
+
+
+<span class="cm"># Set operations</span>
+<span class="kw">math_students</span> = {<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Khalid"</span>}
+<span class="kw">physics_students</span> = {<span class="st">"Ahmed"</span>, <span class="st">"Layla"</span>}
+
+<span class="fn">print</span>(math_students | physics_students)   <span class="cm"># union: everyone</span>
+<span class="fn">print</span>(math_students & physics_students)   <span class="cm"># intersection: Ahmed only</span>
+<span class="fn">print</span>(math_students - physics_students)   <span class="cm"># difference: in math only</span>
+
+
+<span class="cm"># Quick membership check</span>
+<span class="fn">print</span>(<span class="st">"Sarah"</span> <span class="kw">in</span> math_students)   <span class="cm"># True</span>
+
+
+<span class="cm"># Common mistake: sets don't support indexing</span>
+<span class="cm"># print(math_students[0])   ← TypeError</span>
+
+
+<span class="cm"># An empty set — watch out: it's not {}</span>
+<span class="kw">empty_set</span> = <span class="fn">set</span>()
+<span class="kw">empty_dict</span> = {}   <span class="cm"># this is an empty dict, not a set!</span>` },
     quiz: {
         q: {
             ar: "ما ناتج len({1, 2, 2, 3, 3, 3})؟",
@@ -2453,7 +3032,7 @@ names.sort(reverse=<span class="kw">True</span>)
 `,
         en: `<p>A dictionary stores key-value pairs — {"key": value} — instead of numeric indices, making data self-descriptive. Access with d["key"] (raises KeyError if missing) or the safe d.get("key", default). Use keys(), values(), items() to iterate over its contents.</p>`
     },
-    code: `<span class="cm"># إنشاء قاموس والوصول لقيمة</span>
+    code: { ar: `<span class="cm"># إنشاء قاموس والوصول لقيمة</span>
 <span class="kw">student</span> = {<span class="st">"name"</span>: <span class="st">"Sarah"</span>, <span class="st">"age"</span>: 22, <span class="st">"grade"</span>: 95}
 <span class="fn">print</span>(student[<span class="st">"name"</span>])    <span class="cm"># Sarah</span>
 
@@ -2482,7 +3061,36 @@ student[<span class="st">"age"</span>] = 23                        <span class="
 
 
 <span class="cm"># خطأ شائع: مفتاح غير موجود بدون get()</span>
-<span class="cm"># print(student["phone"])   ← KeyError</span>`,
+<span class="cm"># print(student["phone"])   ← KeyError</span>`, en: `<span class="cm"># Creating a dict and accessing a value</span>
+<span class="kw">student</span> = {<span class="st">"name"</span>: <span class="st">"Sarah"</span>, <span class="st">"age"</span>: 22, <span class="st">"grade"</span>: 95}
+<span class="fn">print</span>(student[<span class="st">"name"</span>])    <span class="cm"># Sarah</span>
+
+
+<span class="cm"># Safe access — never raises an error</span>
+<span class="fn">print</span>(student.get(<span class="st">"email"</span>))              <span class="cm"># None</span>
+<span class="fn">print</span>(student.get(<span class="st">"email"</span>, <span class="st">"N/A"</span>))     <span class="cm"># N/A</span>
+
+
+<span class="cm"># Adding and updating — same line for both</span>
+student[<span class="st">"email"</span>] = <span class="st">"sarah@mail.com"</span>   <span class="cm"># add</span>
+student[<span class="st">"age"</span>] = 23                        <span class="cm"># update</span>
+<span class="fn">print</span>(student)
+
+
+<span class="cm"># Deleting</span>
+<span class="kw">del</span> student[<span class="st">"grade"</span>]
+
+
+<span class="cm"># Iterating over a dict</span>
+<span class="kw">for</span> key <span class="kw">in</span> student.keys():
+    <span class="fn">print</span>(key)
+
+<span class="kw">for</span> key, value <span class="kw">in</span> student.items():
+    <span class="fn">print</span>(<span class="st">f"{key}: {value}"</span>)
+
+
+<span class="cm"># Common mistake: a missing key without get()</span>
+<span class="cm"># print(student["phone"])   ← KeyError</span>` },
     quiz: {
         q: {
             ar: "لديك book = {\"title\": \"Python\"}. ما الفرق بين book[\"author\"] وbook.get(\"author\")؟",
@@ -2552,7 +3160,7 @@ student[<span class="st">"age"</span>] = 23                        <span class="
 `,
         en: `<p>List comprehensions build a new list from an existing iterable in one line: [expr for item in iterable], optionally with a filter: [expr for item in iterable if condition]. The same pattern works for dicts. Nested structures (lists of dicts, etc.) are accessed step by step: data[0]["key"].</p>`
     },
-    code: `<span class="cm"># الطريقة التقليدية</span>
+    code: { ar: `<span class="cm"># الطريقة التقليدية</span>
 <span class="kw">squares</span> = []
 <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(1, 6):
     squares.append(x**2)
@@ -2582,7 +3190,37 @@ student[<span class="st">"age"</span>] = 23                        <span class="
     {<span class="st">"name"</span>: <span class="st">"Ahmed"</span>, <span class="st">"grade"</span>: 88}
 ]
 <span class="fn">print</span>(students[0][<span class="st">"name"</span>])     <span class="cm"># Sarah — أول طالب</span>
-<span class="fn">print</span>(students[1][<span class="st">"grade"</span>])    <span class="cm"># 88 — درجة الثاني</span>`,
+<span class="fn">print</span>(students[1][<span class="st">"grade"</span>])    <span class="cm"># 88 — درجة الثاني</span>`, en: `<span class="cm"># The traditional way</span>
+<span class="kw">squares</span> = []
+<span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(1, 6):
+    squares.append(x**2)
+<span class="fn">print</span>(squares)
+
+
+<span class="cm"># The same thing with a list comprehension</span>
+<span class="kw">squares2</span> = [x**2 <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(1, 6)]
+<span class="fn">print</span>(squares2)          <span class="cm"># exactly the same result</span>
+
+
+<span class="cm"># With a condition: even numbers only</span>
+<span class="kw">numbers</span> = [1, 2, 3, 4, 5, 6, 7, 8]
+<span class="kw">evens</span> = [x <span class="kw">for</span> x <span class="kw">in</span> numbers <span class="kw">if</span> x % 2 == 0]
+<span class="fn">print</span>(evens)             <span class="cm"># [2, 4, 6, 8]</span>
+
+
+<span class="cm"># Dict comprehension</span>
+<span class="kw">names</span> = [<span class="st">"Sarah"</span>, <span class="st">"Ahmed"</span>, <span class="st">"Al"</span>]
+<span class="kw">name_lengths</span> = {name: <span class="fn">len</span>(name) <span class="kw">for</span> name <span class="kw">in</span> names}
+<span class="fn">print</span>(name_lengths)      <span class="cm"># {'Sarah': 5, 'Ahmed': 5, 'Al': 2}</span>
+
+
+<span class="cm"># Nested structures: a list of dicts</span>
+<span class="kw">students</span> = [
+    {<span class="st">"name"</span>: <span class="st">"Sarah"</span>, <span class="st">"grade"</span>: 95},
+    {<span class="st">"name"</span>: <span class="st">"Ahmed"</span>, <span class="st">"grade"</span>: 88}
+]
+<span class="fn">print</span>(students[0][<span class="st">"name"</span>])     <span class="cm"># Sarah — the first student</span>
+<span class="fn">print</span>(students[1][<span class="st">"grade"</span>])    <span class="cm"># 88 — the second student's grade</span>` },
     quiz: {
         q: {
             ar: "أي تعبير يُنشئ قائمة بمكعّبات الأرقام الفردية فقط من numbers؟",
@@ -2656,7 +3294,7 @@ student[<span class="st">"age"</span>] = 23                        <span class="
 `,
         en: `<p>This project combines lists, dicts, and their methods into a working contact book: each contact is a dict inside a master list, with add/search/list/exit options in a main loop — the same list-of-dicts pattern used throughout real-world programs.</p>`
     },
-    code: `<span class="cm"># ============================================</span>
+    code: { ar: `<span class="cm"># ============================================</span>
 <span class="cm"># دفتر جهات الاتصال</span>
 <span class="cm"># ============================================</span>
 <span class="kw">contacts</span> = []
@@ -2693,7 +3331,44 @@ student[<span class="st">"age"</span>] = 23                        <span class="
         <span class="kw">break</span>
 
     <span class="kw">else</span>:
-        <span class="fn">print</span>(<span class="st">"Invalid option, try again"</span>)`,
+        <span class="fn">print</span>(<span class="st">"Invalid option, try again"</span>)`, en: `<span class="cm"># ============================================</span>
+<span class="cm"># Contact book</span>
+<span class="cm"># ============================================</span>
+<span class="kw">contacts</span> = []
+
+<span class="kw">while</span> <span class="kw">True</span>:
+    <span class="fn">print</span>(<span class="st">"\n1) Add contact  2) Search  3) List all  4) Exit"</span>)
+    <span class="kw">choice</span> = <span class="fn">input</span>(<span class="st">"Choose an option: "</span>).strip()
+
+    <span class="kw">if</span> choice == <span class="st">"1"</span>:
+        <span class="kw">name</span> = <span class="fn">input</span>(<span class="st">"Name: "</span>).strip()
+        <span class="kw">phone</span> = <span class="fn">input</span>(<span class="st">"Phone: "</span>).strip()
+        contacts.append({<span class="st">"name"</span>: name, <span class="st">"phone"</span>: phone})
+        <span class="fn">print</span>(<span class="st">f"Added {name}"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"2"</span>:
+        <span class="kw">query</span> = <span class="fn">input</span>(<span class="st">"Search name: "</span>).strip().lower()
+        <span class="kw">found</span> = <span class="kw">False</span>
+        <span class="kw">for</span> contact <span class="kw">in</span> contacts:
+            <span class="kw">if</span> contact[<span class="st">"name"</span>].lower() == query:
+                <span class="fn">print</span>(<span class="st">f"{contact['name']}: {contact['phone']}"</span>)
+                <span class="kw">found</span> = <span class="kw">True</span>
+                <span class="kw">break</span>
+        <span class="kw">if</span> <span class="kw">not</span> found:
+            <span class="fn">print</span>(<span class="st">"Not found"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"3"</span>:
+        <span class="kw">if</span> <span class="kw">not</span> contacts:
+            <span class="fn">print</span>(<span class="st">"No contacts yet"</span>)
+        <span class="kw">for</span> contact <span class="kw">in</span> contacts:
+            <span class="fn">print</span>(<span class="st">f"{contact['name']}: {contact['phone']}"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"4"</span>:
+        <span class="fn">print</span>(<span class="st">"Goodbye!"</span>)
+        <span class="kw">break</span>
+
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="st">"Invalid option, try again"</span>)` },
     quiz: {
         q: {
             ar: "لماذا استخدمنا قائمة من القواميس (list of dicts) بدل قاموس واحد كبير لتخزين جهات الاتصال؟",
@@ -2760,7 +3435,7 @@ student[<span class="st">"age"</span>] = 23                        <span class="
 `,
         en: `<p>A function packages reusable logic under a name using def name():. Defining a function does not run it — you must call it with name(). Functions avoid repetition, organize code into clear pieces, and can be reused anywhere in the program.</p>`
     },
-    code: `<span class="cm"># تعريف دالة بسيطة بلا معاملات</span>
+    code: { ar: `<span class="cm"># تعريف دالة بسيطة بلا معاملات</span>
 <span class="kw">def</span> greet():
     <span class="st">"""Prints a simple welcome message"""</span>
     <span class="fn">print</span>(<span class="st">"Hello!"</span>)
@@ -2784,7 +3459,31 @@ greet()      <span class="cm"># يمكن استدعاؤها عدة مرات</spa
 
 print_separator()
 print_welcome()
-print_separator()`,
+print_separator()`, en: `<span class="cm"># Defining a simple function with no parameters</span>
+<span class="kw">def</span> greet():
+    <span class="st">"""Prints a simple welcome message"""</span>
+    <span class="fn">print</span>(<span class="st">"Hello!"</span>)
+
+<span class="cm"># Defining a function alone does nothing — it must be called</span>
+greet()
+greet()      <span class="cm"># can be called multiple times</span>
+
+
+<span class="cm"># Common mistake: forgetting the parentheses when calling</span>
+<span class="fn">print</span>(greet)     <span class="cm"># &lt;function greet at 0x...&gt; — not executed!</span>
+<span class="fn">print</span>(greet())   <span class="cm"># runs it then prints the result (None here)</span>
+
+
+<span class="cm"># A practical example: two functions working together</span>
+<span class="kw">def</span> print_separator():
+    <span class="fn">print</span>(<span class="st">"-"</span> * 30)
+
+<span class="kw">def</span> print_welcome():
+    <span class="fn">print</span>(<span class="st">"Welcome to Koudna!"</span>)
+
+print_separator()
+print_welcome()
+print_separator()` },
     quiz: {
         q: {
             ar: "ماذا يحدث عند كتابة greet بدون أقواس بعد تعريفها؟",
@@ -2850,7 +3549,7 @@ print_separator()`,
 `,
         en: `<p>Parameters let a function behave differently based on values passed in: def f(param). Default values (def f(x=default)) apply when no argument is given. Positional calls rely on order; keyword calls (f(x=1)) name the parameter explicitly, which is clearer with many parameters.</p>`
     },
-    code: `<span class="cm"># معامل واحد</span>
+    code: { ar: `<span class="cm"># معامل واحد</span>
 <span class="kw">def</span> greet(name):
     <span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
 
@@ -2882,7 +3581,39 @@ describe_pet(animal=<span class="st">"parrot"</span>, name=<span class="st">"Coc
 
 
 <span class="cm"># خطأ شائع: نسيان معامل مطلوب</span>
-<span class="cm"># greet()   ← TypeError: missing 1 required positional argument</span>`,
+<span class="cm"># greet()   ← TypeError: missing 1 required positional argument</span>`, en: `<span class="cm"># A single parameter</span>
+<span class="kw">def</span> greet(name):
+    <span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
+
+greet(<span class="st">"Sarah"</span>)
+greet(<span class="st">"Ahmed"</span>)
+
+
+<span class="cm"># Multiple parameters</span>
+<span class="kw">def</span> add(a, b):
+    <span class="fn">print</span>(<span class="st">f"{a} + {b} = {a + b}"</span>)
+
+add(3, 5)
+
+
+<span class="cm"># A default value</span>
+<span class="kw">def</span> greet_default(name=<span class="st">"friend"</span>):
+    <span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
+
+greet_default()          <span class="cm"># Hello, friend</span>
+greet_default(<span class="st">"Layla"</span>)  <span class="cm"># Hello, Layla — overrides the default</span>
+
+
+<span class="cm"># Positional vs. keyword calls</span>
+<span class="kw">def</span> describe_pet(name, animal=<span class="st">"dog"</span>):
+    <span class="fn">print</span>(<span class="st">f"{name} is a {animal}"</span>)
+
+describe_pet(<span class="st">"Rex"</span>, <span class="st">"cat"</span>)             <span class="cm"># positional</span>
+describe_pet(animal=<span class="st">"parrot"</span>, name=<span class="st">"Coco"</span>)  <span class="cm"># keyword — order doesn't matter</span>
+
+
+<span class="cm"># Common mistake: forgetting a required parameter</span>
+<span class="cm"># greet()   ← TypeError: missing 1 required positional argument</span>` },
     quiz: {
         q: {
             ar: "def greet(name=\"friend\"): print(name)\nما ناتج استدعاء greet(\"Sarah\")؟",
@@ -2935,7 +3666,7 @@ describe_pet(animal=<span class="st">"parrot"</span>, name=<span class="st">"Coc
 `,
         en: `<p>print() only displays text; return actually hands a value back to the caller so it can be stored or reused: result = add(3, 5). return also ends the function immediately. A function with no explicit return always returns None, and multiple values can be returned as a tuple: return a, b.</p>`
     },
-    code: `<span class="cm"># print فقط يعرض، لا يُرجع شيئاً قابلاً للاستخدام</span>
+    code: { ar: `<span class="cm"># print فقط يعرض، لا يُرجع شيئاً قابلاً للاستخدام</span>
 <span class="kw">def</span> add_print(a, b):
     <span class="fn">print</span>(a + b)
 
@@ -2969,7 +3700,41 @@ describe_pet(animal=<span class="st">"parrot"</span>, name=<span class="st">"Coc
     <span class="kw">return</span> area, perimeter
 
 <span class="kw">a</span>, <span class="kw">p</span> = calculate_rectangle(4, 6)
-<span class="fn">print</span>(<span class="st">f"Area: {a}, Perimeter: {p}"</span>)`,
+<span class="fn">print</span>(<span class="st">f"Area: {a}, Perimeter: {p}"</span>)`, en: `<span class="cm"># print only displays, it doesn't return anything usable</span>
+<span class="kw">def</span> add_print(a, b):
+    <span class="fn">print</span>(a + b)
+
+<span class="kw">result1</span> = add_print(3, 5)   <span class="cm"># prints 8</span>
+<span class="fn">print</span>(result1)                <span class="cm"># None — no real value!</span>
+
+
+<span class="cm"># return produces a real, usable value</span>
+<span class="kw">def</span> add_return(a, b):
+    <span class="kw">return</span> a + b
+
+<span class="kw">result2</span> = add_return(3, 5)
+<span class="fn">print</span>(result2)                <span class="cm"># 8 — a real value</span>
+<span class="fn">print</span>(result2 * 2)            <span class="cm"># 16 — can be used in another operation</span>
+
+
+<span class="cm"># return ends the function immediately</span>
+<span class="kw">def</span> check_age(age):
+    <span class="kw">if</span> age < 0:
+        <span class="kw">return</span> <span class="st">"Invalid age"</span>   <span class="cm"># exits right here</span>
+    <span class="kw">return</span> <span class="st">f"Age is {age}"</span>       <span class="cm"># only reached if the age is valid</span>
+
+<span class="fn">print</span>(check_age(-5))
+<span class="fn">print</span>(check_age(25))
+
+
+<span class="cm"># Returning several values at once</span>
+<span class="kw">def</span> calculate_rectangle(width, height):
+    <span class="kw">area</span> = width * height
+    <span class="kw">perimeter</span> = 2 * (width + height)
+    <span class="kw">return</span> area, perimeter
+
+<span class="kw">a</span>, <span class="kw">p</span> = calculate_rectangle(4, 6)
+<span class="fn">print</span>(<span class="st">f"Area: {a}, Perimeter: {p}"</span>)` },
     quiz: {
         q: {
             ar: "def get_value():\n    print(\"hi\")\nx = get_value()\nما قيمة x؟",
@@ -3022,7 +3787,7 @@ describe_pet(animal=<span class="st">"parrot"</span>, name=<span class="st">"Coc
 `,
         en: `<p>Variables defined inside a function are local — they exist only during that call and disappear afterward. Variables defined outside any function are global and readable everywhere, but modifying a global from inside a function needs an explicit global keyword, otherwise Python silently creates a separate local variable instead.</p>`
     },
-    code: `<span class="cm"># متغيّر محلي — يوجد فقط داخل الدالة</span>
+    code: { ar: `<span class="cm"># متغيّر محلي — يوجد فقط داخل الدالة</span>
 <span class="kw">def</span> greet():
     <span class="kw">message</span> = <span class="st">"Hello!"</span>   <span class="cm"># محلي</span>
     <span class="fn">print</span>(message)
@@ -3056,7 +3821,41 @@ add_wrong(10)
     total = total + points
 
 add_correct(10)
-<span class="fn">print</span>(total)   <span class="cm"># 10 — تغيّر فعلاً</span>`,
+<span class="fn">print</span>(total)   <span class="cm"># 10 — تغيّر فعلاً</span>`, en: `<span class="cm"># A local variable — exists only inside the function</span>
+<span class="kw">def</span> greet():
+    <span class="kw">message</span> = <span class="st">"Hello!"</span>   <span class="cm"># local</span>
+    <span class="fn">print</span>(message)
+
+greet()
+<span class="cm"># print(message)   ← NameError: message is unknown here!</span>
+
+
+<span class="cm"># A global variable — can be read from any function</span>
+<span class="kw">site_name</span> = <span class="st">"Koudna"</span>
+
+<span class="kw">def</span> show_name():
+    <span class="fn">print</span>(site_name)   <span class="cm"># reading only — works fine</span>
+
+show_name()
+
+
+<span class="cm"># A common trap: modifying without global doesn't affect the global variable</span>
+<span class="kw">total</span> = 0
+
+<span class="kw">def</span> add_wrong(points):
+    <span class="kw">total</span> = total + points   <span class="cm"># this creates a separate local variable!</span>
+
+add_wrong(10)
+<span class="fn">print</span>(total)   <span class="cm"># still 0 — unchanged</span>
+
+
+<span class="cm"># The correct fix: declare it with global</span>
+<span class="kw">def</span> add_correct(points):
+    <span class="kw">global</span> total
+    total = total + points
+
+add_correct(10)
+<span class="fn">print</span>(total)   <span class="cm"># 10 — actually changed</span>` },
     quiz: {
         q: {
             ar: "score = 0\ndef change():\n    score = 100\nchange()\nprint(score)\nما الناتج؟",
@@ -3109,7 +3908,7 @@ add_correct(10)
 `,
         en: `<p>lambda creates a small unnamed function in one line: lambda params: expression, with the expression's value returned automatically. It's most useful as a temporary function argument, like sorted(data, key=lambda x: x["field"]) — a pattern called a higher-order function.</p>`
     },
-    code: `<span class="cm"># دالة عادية مقابل lambda مكافئة</span>
+    code: { ar: `<span class="cm"># دالة عادية مقابل lambda مكافئة</span>
 <span class="kw">def</span> square_def(x):
     <span class="kw">return</span> x**2
 
@@ -3139,7 +3938,37 @@ add_correct(10)
 <span class="cm"># مثال آخر: فلترة بـ filter و lambda</span>
 <span class="kw">numbers</span> = [1, 2, 3, 4, 5, 6, 7, 8]
 <span class="kw">evens</span> = <span class="fn">list</span>(<span class="fn">filter</span>(<span class="kw">lambda</span> n: n % 2 == 0, numbers))
-<span class="fn">print</span>(evens)   <span class="cm"># [2, 4, 6, 8]</span>`,
+<span class="fn">print</span>(evens)   <span class="cm"># [2, 4, 6, 8]</span>`, en: `<span class="cm"># A regular function vs. an equivalent lambda</span>
+<span class="kw">def</span> square_def(x):
+    <span class="kw">return</span> x**2
+
+<span class="kw">square_lambda</span> = <span class="kw">lambda</span> x: x**2
+
+<span class="fn">print</span>(square_def(5))       <span class="cm"># 25</span>
+<span class="fn">print</span>(square_lambda(5))    <span class="cm"># 25 — same result</span>
+
+
+<span class="cm"># A lambda with multiple parameters</span>
+<span class="kw">add</span> = <span class="kw">lambda</span> a, b: a + b
+<span class="fn">print</span>(add(3, 5))          <span class="cm"># 8</span>
+
+
+<span class="cm"># The most common use: as the key argument in sorted()</span>
+<span class="kw">students</span> = [
+    {<span class="st">"name"</span>: <span class="st">"Sarah"</span>, <span class="st">"grade"</span>: 85},
+    {<span class="st">"name"</span>: <span class="st">"Ahmed"</span>, <span class="st">"grade"</span>: 95},
+    {<span class="st">"name"</span>: <span class="st">"Layla"</span>, <span class="st">"grade"</span>: 78}
+]
+
+<span class="kw">by_grade</span> = <span class="fn">sorted</span>(students, key=<span class="kw">lambda</span> s: s[<span class="st">"grade"</span>], reverse=<span class="kw">True</span>)
+<span class="kw">for</span> student <span class="kw">in</span> by_grade:
+    <span class="fn">print</span>(<span class="st">f"{student['name']}: {student['grade']}"</span>)
+
+
+<span class="cm"># Another example: filtering with filter and lambda</span>
+<span class="kw">numbers</span> = [1, 2, 3, 4, 5, 6, 7, 8]
+<span class="kw">evens</span> = <span class="fn">list</span>(<span class="fn">filter</span>(<span class="kw">lambda</span> n: n % 2 == 0, numbers))
+<span class="fn">print</span>(evens)   <span class="cm"># [2, 4, 6, 8]</span>` },
     quiz: {
         q: {
             ar: "أي كود يرتّب قائمة أسماء products حسب سعرها (مفتاح price) تصاعدياً؟",
@@ -3209,7 +4038,7 @@ add_correct(10)
 `,
         en: `<p>This project builds a text-tools menu where each operation (word count, reverse, case conversion) is its own pure function — takes text, returns a result, with printing kept only in the main loop. It combines def, parameters, return, scope, and lambda from this level into one program.</p>`
     },
-    code: `<span class="cm"># ============================================</span>
+    code: { ar: `<span class="cm"># ============================================</span>
 <span class="cm"># أدوات نصية</span>
 <span class="cm"># ============================================</span>
 
@@ -3250,7 +4079,48 @@ add_correct(10)
     <span class="kw">elif</span> choice == <span class="st">"4"</span>:
         <span class="fn">print</span>(<span class="st">f"Uppercase: {to_upper(text)}"</span>)
     <span class="kw">else</span>:
-        <span class="fn">print</span>(<span class="st">"Invalid option"</span>)`,
+        <span class="fn">print</span>(<span class="st">"Invalid option"</span>)`, en: `<span class="cm"># ============================================</span>
+<span class="cm"># Text tools</span>
+<span class="cm"># ============================================</span>
+
+<span class="kw">def</span> count_words(text):
+    <span class="kw">return</span> <span class="fn">len</span>(text.split())
+
+<span class="kw">def</span> reverse_text(text):
+    <span class="kw">return</span> text[::-1]
+
+<span class="kw">def</span> count_vowels(text):
+    <span class="kw">vowels</span> = <span class="st">"aeiouAEIOU"</span>
+    <span class="kw">count</span> = 0
+    <span class="kw">for</span> ch <span class="kw">in</span> text:
+        <span class="kw">if</span> ch <span class="kw">in</span> vowels:
+            count += 1
+    <span class="kw">return</span> count
+
+<span class="cm"># A simple tool with lambda</span>
+<span class="kw">to_upper</span> = <span class="kw">lambda</span> text: text.upper()
+
+
+<span class="kw">while</span> <span class="kw">True</span>:
+    <span class="fn">print</span>(<span class="st">"\n1) Count words  2) Reverse  3) Count vowels  4) Uppercase  5) Exit"</span>)
+    <span class="kw">choice</span> = <span class="fn">input</span>(<span class="st">"Choose an option: "</span>).strip()
+
+    <span class="kw">if</span> choice == <span class="st">"5"</span>:
+        <span class="fn">print</span>(<span class="st">"Goodbye!"</span>)
+        <span class="kw">break</span>
+
+    <span class="kw">text</span> = <span class="fn">input</span>(<span class="st">"Enter text: "</span>)
+
+    <span class="kw">if</span> choice == <span class="st">"1"</span>:
+        <span class="fn">print</span>(<span class="st">f"Word count: {count_words(text)}"</span>)
+    <span class="kw">elif</span> choice == <span class="st">"2"</span>:
+        <span class="fn">print</span>(<span class="st">f"Reversed: {reverse_text(text)}"</span>)
+    <span class="kw">elif</span> choice == <span class="st">"3"</span>:
+        <span class="fn">print</span>(<span class="st">f"Vowels: {count_vowels(text)}"</span>)
+    <span class="kw">elif</span> choice == <span class="st">"4"</span>:
+        <span class="fn">print</span>(<span class="st">f"Uppercase: {to_upper(text)}"</span>)
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="st">"Invalid option"</span>)` },
     quiz: {
         q: {
             ar: "لماذا صُمِّمت دوال count_words وreverse_text لتُرجع النتيجة بدل طباعتها مباشرة؟",
@@ -3321,7 +4191,7 @@ add_correct(10)
 `,
         en: `<p>Use open(filename, mode) to work with files: "r" reads, "w" writes (erasing existing content), "a" appends. Always use with open(...) as file: so the file closes automatically and safely, even if an error occurs. write() does not add a newline automatically.</p>`
     },
-    code: `<span class="cm"># الكتابة إلى ملف — with يغلقه تلقائياً</span>
+    code: { ar: `<span class="cm"># الكتابة إلى ملف — with يغلقه تلقائياً</span>
 <span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"w"</span>) <span class="kw">as</span> file:
     file.write(<span class="st">"First note\\n"</span>)
     file.write(<span class="st">"Second note\\n"</span>)
@@ -3346,7 +4216,32 @@ add_correct(10)
 
 
 <span class="cm"># خطأ شائع: ملف غير موجود</span>
-<span class="cm"># with open("missing.txt", "r") as f:   ← FileNotFoundError</span>`,
+<span class="cm"># with open("missing.txt", "r") as f:   ← FileNotFoundError</span>`, en: `<span class="cm"># Writing to a file — with closes it automatically</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"w"</span>) <span class="kw">as</span> file:
+    file.write(<span class="st">"First note\n"</span>)
+    file.write(<span class="st">"Second note\n"</span>)
+    file.write(<span class="st">"Third note\n"</span>)
+
+
+<span class="cm"># Reading the whole thing as one string</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">content</span> = file.read()
+    <span class="fn">print</span>(content)
+
+
+<span class="cm"># Better for large files: read line by line</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">for</span> line <span class="kw">in</span> file:
+        <span class="fn">print</span>(line.strip())   <span class="cm"># strip removes the trailing \n</span>
+
+
+<span class="cm"># Appending without erasing the previous content</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes.txt"</span>, <span class="st">"a"</span>) <span class="kw">as</span> file:
+    file.write(<span class="st">"Fourth note (appended)\n"</span>)
+
+
+<span class="cm"># Common mistake: a file that doesn't exist</span>
+<span class="cm"># with open("missing.txt", "r") as f:   ← FileNotFoundError</span>` },
     quiz: {
         q: {
             ar: "ما الفائدة الأساسية من استخدام with open(...) as file بدل open() مباشرة؟",
@@ -3412,7 +4307,7 @@ add_correct(10)
 `,
         en: `<p>The csv module reads/writes tabular data with csv.reader() and csv.writer(). The json module converts Python dicts/lists to and from JSON files directly: json.dump(data, file) writes, json.load(file) reads and reconstructs the original structure automatically.</p>`
     },
-    code: `<span class="cm"># CSV: الكتابة</span>
+    code: { ar: `<span class="cm"># CSV: الكتابة</span>
 <span class="kw">import</span> csv
 
 <span class="kw">with</span> <span class="fn">open</span>(<span class="st">"students.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>) <span class="kw">as</span> file:
@@ -3443,7 +4338,38 @@ add_correct(10)
     <span class="kw">loaded_book</span> = json.load(file)
 
 <span class="fn">print</span>(loaded_book[<span class="st">"title"</span>])   <span class="cm"># Python Basics</span>
-<span class="fn">print</span>(<span class="fn">type</span>(loaded_book))       <span class="cm"># &lt;class 'dict'&gt;</span>`,
+<span class="fn">print</span>(<span class="fn">type</span>(loaded_book))       <span class="cm"># &lt;class 'dict'&gt;</span>`, en: `<span class="cm"># CSV: writing</span>
+<span class="kw">import</span> csv
+
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"students.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>) <span class="kw">as</span> file:
+    <span class="kw">writer</span> = csv.writer(file)
+    writer.writerow([<span class="st">"name"</span>, <span class="st">"grade"</span>])
+    writer.writerow([<span class="st">"Sarah"</span>, 95])
+    writer.writerow([<span class="st">"Ahmed"</span>, 88])
+
+
+<span class="cm"># CSV: reading — every row comes back as a list</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"students.csv"</span>, <span class="st">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">reader</span> = csv.reader(file)
+    <span class="kw">for</span> row <span class="kw">in</span> reader:
+        <span class="fn">print</span>(row)
+
+
+<span class="cm"># JSON: writing straight from a Python dict</span>
+<span class="kw">import</span> json
+
+<span class="kw">book</span> = {<span class="st">"title"</span>: <span class="st">"Python Basics"</span>, <span class="st">"year"</span>: 2026, <span class="st">"tags"</span>: [<span class="st">"beginner"</span>, <span class="st">"programming"</span>]}
+
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"book.json"</span>, <span class="st">"w"</span>) <span class="kw">as</span> file:
+    json.dump(book, file)
+
+
+<span class="cm"># JSON: reading — comes back as a ready-to-use Python dict</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"book.json"</span>, <span class="st">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">loaded_book</span> = json.load(file)
+
+<span class="fn">print</span>(loaded_book[<span class="st">"title"</span>])   <span class="cm"># Python Basics</span>
+<span class="fn">print</span>(<span class="fn">type</span>(loaded_book))       <span class="cm"># &lt;class 'dict'&gt;</span>` },
     quiz: {
         q: {
             ar: "ما الفرق بين json.dump() وjson.dumps()؟",
@@ -3513,7 +4439,7 @@ add_correct(10)
 `,
         en: `<p>try/except prevents a program from crashing on expected errors: put risky code in try:, and handle specific failures in except ErrorType: blocks. Prefer specific exception types over a bare except: so real bugs aren't silently hidden. finally: always runs, whether an error occurred or not.</p>`
     },
-    code: `<span class="cm"># بدون try/except — يتوقف البرنامج فوراً</span>
+    code: { ar: `<span class="cm"># بدون try/except — يتوقف البرنامج فوراً</span>
 <span class="cm"># age = int(input("Age: "))   ← لو كتب المستخدم نصاً، ValueError يوقف كل شيء</span>
 
 
@@ -3543,7 +4469,37 @@ add_correct(10)
 <span class="kw">except</span> <span class="fn">ValueError</span>:
     <span class="fn">print</span>(<span class="st">"Conversion failed"</span>)
 <span class="kw">finally</span>:
-    <span class="fn">print</span>(<span class="st">"This always runs"</span>)`,
+    <span class="fn">print</span>(<span class="st">"This always runs"</span>)`, en: `<span class="cm"># Without try/except — the program stops immediately</span>
+<span class="cm"># age = int(input("Age: "))   ← if the user types text, ValueError stops everything</span>
+
+
+<span class="cm"># With try/except — it recovers gracefully</span>
+<span class="kw">try</span>:
+    <span class="kw">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Age: "</span>))
+    <span class="fn">print</span>(<span class="st">f"You are {age} years old"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"That's not a valid number"</span>)
+
+
+<span class="cm"># Several except blocks for different errors</span>
+<span class="kw">try</span>:
+    <span class="kw">num1</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"First number: "</span>))
+    <span class="kw">num2</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Second number: "</span>))
+    <span class="kw">result</span> = num1 / num2
+    <span class="fn">print</span>(<span class="st">f"Result: {result}"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"Please enter valid numbers"</span>)
+<span class="kw">except</span> <span class="fn">ZeroDivisionError</span>:
+    <span class="fn">print</span>(<span class="st">"Cannot divide by zero"</span>)
+
+
+<span class="cm"># finally: always runs</span>
+<span class="kw">try</span>:
+    <span class="kw">value</span> = <span class="fn">int</span>(<span class="st">"not a number"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"Conversion failed"</span>)
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="st">"This always runs"</span>)` },
     quiz: {
         q: {
             ar: "لماذا يُفضَّل except ValueError: على except: عامة بلا تحديد؟",
@@ -3613,7 +4569,7 @@ add_correct(10)
 `,
         en: `<p>Use raise ErrorType("message") to manually stop execution when input is technically valid in Python but doesn't make sense for your program's rules — like a negative age. It's caught with the same try/except, using except ErrorType as e: to access the message via print(e).</p>`
     },
-    code: `<span class="cm"># رمي خطأ يدوياً عند إدخال غير منطقي</span>
+    code: { ar: `<span class="cm"># رمي خطأ يدوياً عند إدخال غير منطقي</span>
 <span class="kw">def</span> set_age(age):
     <span class="kw">if</span> age < 0 <span class="kw">or</span> age > 120:
         <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Age must be between 0 and 120"</span>)
@@ -3643,7 +4599,37 @@ add_correct(10)
 <span class="kw">try</span>:
     set_age(25)
 <span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
-    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)`,
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)`, en: `<span class="cm"># Manually raising an error on an unreasonable input</span>
+<span class="kw">def</span> set_age(age):
+    <span class="kw">if</span> age < 0 <span class="kw">or</span> age > 120:
+        <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Age must be between 0 and 120"</span>)
+    <span class="fn">print</span>(<span class="st">f"Age set to {age}"</span>)
+
+
+<span class="cm"># Catching a manually-raised error — same usual try/except</span>
+<span class="kw">try</span>:
+    set_age(-5)
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)   <span class="cm"># prints your own message</span>
+
+
+<span class="cm"># Another example: validating before a meaningful division</span>
+<span class="kw">def</span> calculate_average(scores):
+    <span class="kw">if</span> <span class="fn">len</span>(scores) == 0:
+        <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Cannot calculate average of an empty list"</span>)
+    <span class="kw">return</span> <span class="fn">sum</span>(scores) / <span class="fn">len</span>(scores)
+
+<span class="kw">try</span>:
+    <span class="fn">print</span>(calculate_average([]))
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)
+
+
+<span class="cm"># A successful case — no error is raised at all</span>
+<span class="kw">try</span>:
+    set_age(25)
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)` },
     quiz: {
         q: {
             ar: "متى تستخدم raise بدل انتظار خطأ بايثون التلقائي؟",
@@ -3713,7 +4699,7 @@ add_correct(10)
 `,
         en: `<p>This project combines file I/O, JSON, and try/except into a persistent task manager: tasks load from tasks.json on start (missing file on first run is caught gracefully, not treated as a crash) and save back after every change — the first project in this path with real persistent data.</p>`
     },
-    code: `<span class="cm"># ============================================</span>
+    code: { ar: `<span class="cm"># ============================================</span>
 <span class="cm"># مدير مهام مع حفظ دائم</span>
 <span class="cm"># ============================================</span>
 <span class="kw">import</span> json
@@ -3763,7 +4749,57 @@ add_correct(10)
 
     <span class="kw">elif</span> choice == <span class="st">"4"</span>:
         <span class="fn">print</span>(<span class="st">"Goodbye!"</span>)
-        <span class="kw">break</span>`,
+        <span class="kw">break</span>`, en: `<span class="cm"># ============================================</span>
+<span class="cm"># Task manager with persistent storage</span>
+<span class="cm"># ============================================</span>
+<span class="kw">import</span> json
+
+<span class="kw">FILENAME</span> = <span class="st">"tasks.json"</span>
+
+
+<span class="kw">def</span> load_tasks():
+    <span class="kw">try</span>:
+        <span class="kw">with</span> <span class="fn">open</span>(FILENAME, <span class="st">"r"</span>) <span class="kw">as</span> file:
+            <span class="kw">return</span> json.load(file)
+    <span class="kw">except</span> <span class="fn">FileNotFoundError</span>:
+        <span class="kw">return</span> []   <span class="cm"># first run — no file yet, and that's normal</span>
+
+
+<span class="kw">def</span> save_tasks(tasks):
+    <span class="kw">with</span> <span class="fn">open</span>(FILENAME, <span class="st">"w"</span>) <span class="kw">as</span> file:
+        json.dump(tasks, file)
+
+
+<span class="kw">tasks</span> = load_tasks()
+<span class="fn">print</span>(<span class="st">f"Loaded {len(tasks)} task(s)"</span>)
+
+<span class="kw">while</span> <span class="kw">True</span>:
+    <span class="fn">print</span>(<span class="st">"\n1) Add  2) Complete  3) List  4) Exit"</span>)
+    <span class="kw">choice</span> = <span class="fn">input</span>(<span class="st">"Choose an option: "</span>).strip()
+
+    <span class="kw">if</span> choice == <span class="st">"1"</span>:
+        <span class="kw">title</span> = <span class="fn">input</span>(<span class="st">"Task title: "</span>)
+        tasks.append({<span class="st">"title"</span>: title, <span class="st">"done"</span>: <span class="kw">False</span>})
+        save_tasks(tasks)
+
+    <span class="kw">elif</span> choice == <span class="st">"2"</span>:
+        <span class="kw">for</span> i, task <span class="kw">in</span> <span class="fn">enumerate</span>(tasks):
+            <span class="fn">print</span>(<span class="st">f"{i}. {task['title']}"</span>)
+        <span class="kw">try</span>:
+            <span class="kw">index</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Task number: "</span>))
+            tasks[index][<span class="st">"done"</span>] = <span class="kw">True</span>
+            save_tasks(tasks)
+        <span class="kw">except</span> (<span class="fn">ValueError</span>, <span class="fn">IndexError</span>):
+            <span class="fn">print</span>(<span class="st">"Invalid task number"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"3"</span>:
+        <span class="kw">for</span> task <span class="kw">in</span> tasks:
+            <span class="kw">status</span> = <span class="st">"[x]"</span> <span class="kw">if</span> task[<span class="st">"done"</span>] <span class="kw">else</span> <span class="st">"[ ]"</span>
+            <span class="fn">print</span>(<span class="st">f"{status} {task['title']}"</span>)
+
+    <span class="kw">elif</span> choice == <span class="st">"4"</span>:
+        <span class="fn">print</span>(<span class="st">"Goodbye!"</span>)
+        <span class="kw">break</span>` },
     quiz: {
         q: {
             ar: "لماذا لا يُعتبر FileNotFoundError عند تحميل tasks.json خطأً حقيقياً في هذا المشروع؟",
@@ -3834,7 +4870,7 @@ add_correct(10)
 `,
         en: `<p>A class is a template bundling data (attributes) and behavior (methods) together; an object is an actual instance created from it. __init__ runs automatically when a new object is created, and self refers to that specific object, letting you store per-object data with self.attribute = value.</p>`
     },
-    code: `<span class="cm"># تعريف صنف بسيط</span>
+    code: { ar: `<span class="cm"># تعريف صنف بسيط</span>
 <span class="kw">class</span> Contact:
     <span class="kw">def</span> __init__(self, name, phone):
         self.name = name     <span class="cm"># خاصية خاصة بكل كائن</span>
@@ -3857,7 +4893,30 @@ add_correct(10)
 
 
 <span class="cm"># خطأ شائع: نسيان self</span>
-<span class="cm"># def __init__(name, phone):   ← سيُعامَل name كـ self بالخطأ!</span>`,
+<span class="cm"># def __init__(name, phone):   ← سيُعامَل name كـ self بالخطأ!</span>`, en: `<span class="cm"># Defining a simple class</span>
+<span class="kw">class</span> Contact:
+    <span class="kw">def</span> __init__(self, name, phone):
+        self.name = name     <span class="cm"># an attribute owned by each object</span>
+        self.phone = phone
+
+
+<span class="cm"># Creating two different objects from the same class</span>
+<span class="kw">contact1</span> = Contact(<span class="st">"Sarah"</span>, <span class="st">"0612345678"</span>)
+<span class="kw">contact2</span> = Contact(<span class="st">"Ahmed"</span>, <span class="st">"0698765432"</span>)
+
+
+<span class="cm"># Accessing attributes — each object keeps its own data</span>
+<span class="fn">print</span>(contact1.name)    <span class="cm"># Sarah</span>
+<span class="fn">print</span>(contact2.name)    <span class="cm"># Ahmed — completely separate</span>
+<span class="fn">print</span>(<span class="st">f"{contact1.name}: {contact1.phone}"</span>)
+
+
+<span class="cm"># The type of the object</span>
+<span class="fn">print</span>(<span class="fn">type</span>(contact1))   <span class="cm"># &lt;class '__main__.Contact'&gt;</span>
+
+
+<span class="cm"># Common mistake: forgetting self</span>
+<span class="cm"># def __init__(name, phone):   ← name would wrongly be treated as self!</span>` },
     quiz: {
         q: {
             ar: "ما وظيفة self داخل دوال الصنف؟",
@@ -3927,7 +4986,7 @@ add_correct(10)
 `,
         en: `<p>Methods are functions defined inside a class, always taking self as the first parameter, and called on a specific object with object.method() — you never pass self manually. Inside a method, self.attribute reads or modifies that specific object's data.</p>`
     },
-    code: `<span class="kw">class</span> Contact:
+    code: { ar: `<span class="kw">class</span> Contact:
     <span class="kw">def</span> __init__(self, name, phone):
         self.name = name
         self.phone = phone
@@ -3956,7 +5015,36 @@ contact1.update_phone(<span class="st">"0699999999"</span>)
 
 <span class="cm"># خطأ شائع: نسيان self داخل الدالة</span>
 <span class="cm"># def introduce(self):</span>
-<span class="cm">#     return f"I'm {name}"   ← NameError: name غير معروف!</span>`,
+<span class="cm">#     return f"I'm {name}"   ← NameError: name غير معروف!</span>`, en: `<span class="kw">class</span> Contact:
+    <span class="kw">def</span> __init__(self, name, phone):
+        self.name = name
+        self.phone = phone
+
+    <span class="cm"># a method that reads the object's data</span>
+    <span class="kw">def</span> introduce(self):
+        <span class="kw">return</span> <span class="st">f"I'm {self.name}, call me at {self.phone}"</span>
+
+    <span class="cm"># a method that modifies the object's data</span>
+    <span class="kw">def</span> update_phone(self, new_phone):
+        self.phone = new_phone
+        <span class="fn">print</span>(<span class="st">f"Phone updated for {self.name}"</span>)
+
+    <span class="cm"># a method that calls another method through self</span>
+    <span class="kw">def</span> full_details(self):
+        <span class="kw">return</span> <span class="st">f"Contact card: {self.introduce()}"</span>
+
+
+<span class="kw">contact1</span> = Contact(<span class="st">"Sarah"</span>, <span class="st">"0612345678"</span>)
+
+<span class="fn">print</span>(contact1.introduce())
+contact1.update_phone(<span class="st">"0699999999"</span>)
+<span class="fn">print</span>(contact1.phone)          <span class="cm"># actually changed</span>
+<span class="fn">print</span>(contact1.full_details())
+
+
+<span class="cm"># Common mistake: forgetting self inside the method</span>
+<span class="cm"># def introduce(self):</span>
+<span class="cm">#     return f"I'm {name}"   ← NameError: name is unknown!</span>` },
     quiz: {
         q: {
             ar: "لماذا نستدعي contact1.introduce() بلا تمرير self صراحة رغم أن introduce تأخذ self كمعامل؟",
@@ -4026,7 +5114,7 @@ contact1.update_phone(<span class="st">"0699999999"</span>)
 `,
         en: `<p>Inheritance lets a child class (class Child(Parent):) automatically gain everything from a parent class. Call super().__init__(...) inside the child to run the parent's constructor first, then add child-specific attributes. Overriding lets the child redefine a method with different behavior.</p>`
     },
-    code: `<span class="cm"># الصنف الأب</span>
+    code: { ar: `<span class="cm"># الصنف الأب</span>
 <span class="kw">class</span> Book:
     <span class="kw">def</span> __init__(self, title, author):
         self.title = title
@@ -4057,7 +5145,38 @@ contact1.update_phone(<span class="st">"0699999999"</span>)
 
 <span class="cm"># الابن يملك خصائص الأب أيضاً تلقائياً</span>
 <span class="fn">print</span>(audio.title)    <span class="cm"># Python Basics — موروث من Book</span>
-<span class="fn">print</span>(<span class="fn">isinstance</span>(audio, Book))   <span class="cm"># True — AudioBook هو Book أيضاً</span>`,
+<span class="fn">print</span>(<span class="fn">isinstance</span>(audio, Book))   <span class="cm"># True — AudioBook هو Book أيضاً</span>`, en: `<span class="cm"># The parent class</span>
+<span class="kw">class</span> Book:
+    <span class="kw">def</span> __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    <span class="kw">def</span> summary(self):
+        <span class="kw">return</span> <span class="st">f"{self.title} by {self.author}"</span>
+
+
+<span class="cm"># A child class — inherits from Book</span>
+<span class="kw">class</span> AudioBook(Book):
+    <span class="kw">def</span> __init__(self, title, author, duration_minutes):
+        <span class="fn">super</span>().__init__(title, author)   <span class="cm"># initializes the parent's attributes first</span>
+        self.duration_minutes = duration_minutes    <span class="cm"># an attribute unique to the child</span>
+
+    <span class="cm"># Override: redefine summary with different behavior</span>
+    <span class="kw">def</span> summary(self):
+        <span class="kw">base</span> = <span class="fn">super</span>().summary()
+        <span class="kw">return</span> <span class="st">f"{base} ({self.duration_minutes} min audio)"</span>
+
+
+<span class="kw">book</span> = Book(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>)
+<span class="kw">audio</span> = AudioBook(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>, 240)
+
+<span class="fn">print</span>(book.summary())    <span class="cm"># Python Basics by Sarah Ahmed</span>
+<span class="fn">print</span>(audio.summary())   <span class="cm"># same text + duration — the overridden version</span>
+
+
+<span class="cm"># The child automatically gets the parent's attributes too</span>
+<span class="fn">print</span>(audio.title)    <span class="cm"># Python Basics — inherited from Book</span>
+<span class="fn">print</span>(<span class="fn">isinstance</span>(audio, Book))   <span class="cm"># True — an AudioBook is also a Book</span>` },
     quiz: {
         q: {
             ar: "لماذا نستدعي super().__init__(...) داخل مُنشئ الصنف الابن؟",
@@ -4123,7 +5242,7 @@ contact1.update_phone(<span class="st">"0699999999"</span>)
 `,
         en: `<p>Encapsulation protects an object's internal data from uncontrolled direct edits. A single underscore _name is a "internal use" convention, not real protection. @property and @x.setter give real control: the setter can validate a value with raise before accepting it, rejecting invalid states like a negative balance.</p>`
     },
-    code: `<span class="kw">class</span> BankAccount:
+    code: { ar: `<span class="kw">class</span> BankAccount:
     <span class="kw">def</span> __init__(self, owner, balance):
         self.owner = owner
         self._balance = balance   <span class="cm"># شرطة واحدة: اصطلاح "داخلي"</span>
@@ -4153,7 +5272,37 @@ account.balance = 1500          <span class="cm"># تعديل صالح — يم�
 <span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
     <span class="fn">print</span>(<span class="st">f"Rejected: {e}"</span>)
 
-<span class="fn">print</span>(account.balance)     <span class="cm"># لا يزال 1500 — لم يتغيّر</span>`,
+<span class="fn">print</span>(account.balance)     <span class="cm"># لا يزال 1500 — لم يتغيّر</span>`, en: `<span class="kw">class</span> BankAccount:
+    <span class="kw">def</span> __init__(self, owner, balance):
+        self.owner = owner
+        self._balance = balance   <span class="cm"># a single underscore: an "internal" convention</span>
+
+    <span class="cm"># property: read like a regular attribute, no parentheses</span>
+    <span class="fn">@property</span>
+    <span class="kw">def</span> balance(self):
+        <span class="kw">return</span> self._balance
+
+    <span class="cm"># setter: validates before accepting any change</span>
+    <span class="fn">@balance.setter</span>
+    <span class="kw">def</span> balance(self, new_value):
+        <span class="kw">if</span> new_value < 0:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Balance cannot be negative"</span>)
+        self._balance = new_value
+
+
+<span class="kw">account</span> = BankAccount(<span class="st">"Sarah"</span>, 1000)
+
+<span class="fn">print</span>(account.balance)     <span class="cm"># 1000 — read like a regular attribute</span>
+
+account.balance = 1500          <span class="cm"># a valid change — passes safely through the setter</span>
+<span class="fn">print</span>(account.balance)     <span class="cm"># 1500</span>
+
+<span class="kw">try</span>:
+    account.balance = -500      <span class="cm"># an unreasonable attempt</span>
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Rejected: {e}"</span>)
+
+<span class="fn">print</span>(account.balance)     <span class="cm"># still 1500 — unchanged</span>` },
     quiz: {
         q: {
             ar: "لماذا لا تُعتبر self._balance (شرطة واحدة) حماية حقيقية لبيانات الكائن؟",
@@ -4223,7 +5372,7 @@ account.balance = 1500          <span class="cm"># تعديل صالح — يم�
 `,
         en: `<p>Magic methods (starting/ending with double underscores) let your class integrate with Python's built-in functions. __str__ customizes print(object), __len__ customizes len(object), and __eq__ customizes what == means between two objects of your class — comparing content instead of memory identity.</p>`
     },
-    code: `<span class="kw">class</span> Book:
+    code: { ar: `<span class="kw">class</span> Book:
     <span class="kw">def</span> __init__(self, title, author):
         self.title = title
         self.author = author
@@ -4258,7 +5407,42 @@ account.balance = 1500          <span class="cm"># تعديل صالح — يم�
 <span class="kw">library</span> = Library()
 library.add(book1)
 library.add(book2)
-<span class="fn">print</span>(<span class="fn">len</span>(library))     <span class="cm"># 2 — بفضل __len__</span>`,
+<span class="fn">print</span>(<span class="fn">len</span>(library))     <span class="cm"># 2 — بفضل __len__</span>`, en: `<span class="kw">class</span> Book:
+    <span class="kw">def</span> __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    <span class="cm"># __str__: how the object gets printed</span>
+    <span class="kw">def</span> __str__(self):
+        <span class="kw">return</span> <span class="st">f"{self.title} by {self.author}"</span>
+
+    <span class="cm"># __eq__: how two objects get compared with ==</span>
+    <span class="kw">def</span> __eq__(self, other):
+        <span class="kw">return</span> self.title == other.title <span class="kw">and</span> self.author == other.author
+
+
+<span class="kw">class</span> Library:
+    <span class="kw">def</span> __init__(self):
+        self.books = []
+
+    <span class="kw">def</span> add(self, book):
+        self.books.append(book)
+
+    <span class="cm"># __len__: how len() works on the object</span>
+    <span class="kw">def</span> __len__(self):
+        <span class="kw">return</span> <span class="fn">len</span>(self.books)
+
+
+<span class="kw">book1</span> = Book(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>)
+<span class="kw">book2</span> = Book(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>)
+
+<span class="fn">print</span>(book1)              <span class="cm"># Python Basics by Sarah Ahmed — thanks to __str__</span>
+<span class="fn">print</span>(book1 == book2)    <span class="cm"># True — same content, thanks to __eq__</span>
+
+<span class="kw">library</span> = Library()
+library.add(book1)
+library.add(book2)
+<span class="fn">print</span>(<span class="fn">len</span>(library))     <span class="cm"># 2 — thanks to __len__</span>` },
     quiz: {
         q: {
             ar: "بدون تعريف __str__، ماذا يحدث عند طباعة كائن بـ print(book)؟",
@@ -4329,7 +5513,7 @@ library.add(book2)
 `,
         en: `<p>This capstone combines classes, methods, inheritance, encapsulation, and magic methods into a library system: Book and Library classes collaborate, EBook inherits from Book, borrow()/return_book() enforce valid state transitions, and __str__/__len__ integrate cleanly with Python's built-ins.</p>`
     },
-    code: `<span class="cm"># ============================================</span>
+    code: { ar: `<span class="cm"># ============================================</span>
 <span class="cm"># نظام مكتبة</span>
 <span class="cm"># ============================================</span>
 
@@ -4387,7 +5571,65 @@ library.books[0].borrow()
 <span class="kw">try</span>:
     library.books[0].borrow()   <span class="cm"># محاولة استعارة كتاب مُستعار بالفعل</span>
 <span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
-    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)`,
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)`, en: `<span class="cm"># ============================================</span>
+<span class="cm"># Library system</span>
+<span class="cm"># ============================================</span>
+
+<span class="kw">class</span> Book:
+    <span class="kw">def</span> __init__(self, title, author):
+        self.title = title
+        self.author = author
+        self._is_borrowed = <span class="kw">False</span>
+
+    <span class="kw">def</span> borrow(self):
+        <span class="kw">if</span> self._is_borrowed:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">f"{self.title} is already borrowed"</span>)
+        self._is_borrowed = <span class="kw">True</span>
+
+    <span class="kw">def</span> return_book(self):
+        <span class="kw">if</span> <span class="kw">not</span> self._is_borrowed:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">f"{self.title} was not borrowed"</span>)
+        self._is_borrowed = <span class="kw">False</span>
+
+    <span class="kw">def</span> __str__(self):
+        <span class="kw">status</span> = <span class="st">"borrowed"</span> <span class="kw">if</span> self._is_borrowed <span class="kw">else</span> <span class="st">"available"</span>
+        <span class="kw">return</span> <span class="st">f"{self.title} by {self.author} ({status})"</span>
+
+
+<span class="cm"># EBook inherits from Book and adds its own attribute</span>
+<span class="kw">class</span> EBook(Book):
+    <span class="kw">def</span> __init__(self, title, author, file_size_mb):
+        <span class="fn">super</span>().__init__(title, author)
+        self.file_size_mb = file_size_mb
+
+
+<span class="kw">class</span> Library:
+    <span class="kw">def</span> __init__(self):
+        self.books = []
+
+    <span class="kw">def</span> add(self, book):
+        self.books.append(book)
+
+    <span class="kw">def</span> __len__(self):
+        <span class="kw">return</span> <span class="fn">len</span>(self.books)
+
+
+<span class="kw">library</span> = Library()
+library.add(Book(<span class="st">"Python Basics"</span>, <span class="st">"Sarah Ahmed"</span>))
+library.add(EBook(<span class="st">"Data Science"</span>, <span class="st">"Ahmed Ali"</span>, 12))
+
+<span class="fn">print</span>(<span class="st">f"Library has {len(library)} books"</span>)
+
+<span class="kw">for</span> book <span class="kw">in</span> library.books:
+    <span class="fn">print</span>(book)
+
+library.books[0].borrow()
+<span class="fn">print</span>(library.books[0])
+
+<span class="kw">try</span>:
+    library.books[0].borrow()   <span class="cm"># trying to borrow a book that's already borrowed</span>
+<span class="kw">except</span> <span class="fn">ValueError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)` },
     quiz: {
         q: {
             ar: "لماذا ترمي borrow() خطأً بدل السماح باستعارة كتاب مُستعار بالفعل؟",
@@ -4458,7 +5700,7 @@ library.books[0].borrow()
 `,
         en: `<p>A module is just a .py file containing functions/classes that other files can import: import module_name imports the whole module; from module import name imports something specific. if __name__ == "__main__": runs only when the file is executed directly, not when imported elsewhere.</p>`
     },
-    code: `<span class="cm"># وحدات مدمجة استخدمتها من قبل</span>
+    code: { ar: `<span class="cm"># وحدات مدمجة استخدمتها من قبل</span>
 <span class="kw">import</span> random
 <span class="kw">import</span> json
 
@@ -4484,7 +5726,33 @@ library.books[0].borrow()
 
 <span class="cm"># مثال فعلي بوحدة مدمجة</span>
 <span class="kw">secret_number</span> = random.randint(1, 100)
-<span class="fn">print</span>(<span class="st">f"Random number: {secret_number}"</span>)`,
+<span class="fn">print</span>(<span class="st">f"Random number: {secret_number}"</span>)`, en: `<span class="cm"># Built-in modules you've already used</span>
+<span class="kw">import</span> random
+<span class="kw">import</span> json
+
+
+<span class="cm"># --- in a separate file named string_utils.py ---</span>
+<span class="cm"># def reverse_words(sentence):</span>
+<span class="cm">#     words = sentence.split()</span>
+<span class="cm">#     return " ".join(reversed(words))</span>
+<span class="cm">#</span>
+<span class="cm"># if __name__ == "__main__":</span>
+<span class="cm">#     # this only runs when the file is executed directly, not when imported</span>
+<span class="cm">#     print(reverse_words("Hello World"))</span>
+
+
+<span class="cm"># --- in another file that imports the module above ---</span>
+<span class="cm"># import string_utils</span>
+<span class="cm"># print(string_utils.reverse_words("Python is fun"))</span>
+
+<span class="cm"># or import a specific name directly</span>
+<span class="cm"># from string_utils import reverse_words</span>
+<span class="cm"># print(reverse_words("Python is fun"))   ← no module prefix</span>
+
+
+<span class="cm"># A real example with a built-in module</span>
+<span class="kw">secret_number</span> = random.randint(1, 100)
+<span class="fn">print</span>(<span class="st">f"Random number: {secret_number}"</span>)` },
     quiz: {
         q: {
             ar: "متى يكون شرط if __name__ == \"__main__\": صحيحاً؟",
@@ -4554,7 +5822,7 @@ library.books[0].borrow()
 `,
         en: `<p>pip install package_name (run in the terminal, not inside Python code) installs external libraries beyond Python's built-ins. requirements.txt lists a project's dependencies so pip install -r requirements.txt can install them all at once. Virtual environments isolate each project's packages from others on the same machine.</p>`
     },
-    code: `<span class="cm"># هذه الأوامر تُكتب في الطرفية، وليست كود بايثون!</span>
+    code: { ar: `<span class="cm"># هذه الأوامر تُكتب في الطرفية، وليست كود بايثون!</span>
 
 <span class="cm"># 1) تثبيت مكتبة خارجية</span>
 pip install requests
@@ -4582,7 +5850,35 @@ pip install -r requirements.txt
 <span class="cm"># محتوى requirements.txt نموذجي:</span>
 <span class="cm"># requests</span>
 <span class="cm"># pandas</span>
-<span class="cm"># flask</span>`,
+<span class="cm"># flask</span>`, en: `<span class="cm"># These commands are typed in the terminal, not Python code!</span>
+
+<span class="cm"># 1) Install an external library</span>
+pip install requests
+
+<span class="cm"># 2) Create an isolated virtual environment (optional but recommended)</span>
+python -m venv myenv
+
+<span class="cm"># 3) Activate the virtual environment</span>
+<span class="cm"># On Windows:</span>
+myenv\Scripts\activate
+<span class="cm"># On macOS/Linux:</span>
+<span class="cm"># source myenv/bin/activate</span>
+
+<span class="cm"># 4) Install every project library from a single file</span>
+pip install -r requirements.txt
+
+
+<span class="cm"># ============================================</span>
+<span class="cm"># The code below is real Python, after installing</span>
+<span class="cm"># ============================================</span>
+<span class="kw">import</span> requests
+
+<span class="fn">print</span>(<span class="st">f"requests version: {requests.__version__}"</span>)
+
+<span class="cm"># A typical requirements.txt content:</span>
+<span class="cm"># requests</span>
+<span class="cm"># pandas</span>
+<span class="cm"># flask</span>` },
     quiz: {
         q: {
             ar: "ما وظيفة ملف requirements.txt في مشروع بايثون؟",
@@ -4652,7 +5948,7 @@ pip install -r requirements.txt
 `,
         en: `<p>*args collects any number of positional arguments into a tuple; **kwargs collects any number of keyword arguments into a dict. Combine them as def f(a, b, *args, **kwargs) — regular parameters first, then *args, then **kwargs. This is essential for writing generic decorators next.</p>`
     },
-    code: `<span class="cm"># *args: عدد غير محدّد من الوسائط الموضعية</span>
+    code: { ar: `<span class="cm"># *args: عدد غير محدّد من الوسائط الموضعية</span>
 <span class="kw">def</span> total(*numbers):
     <span class="fn">print</span>(<span class="fn">type</span>(numbers))   <span class="cm"># &lt;class 'tuple'&gt;</span>
     <span class="kw">return</span> <span class="fn">sum</span>(numbers)
@@ -4677,7 +5973,32 @@ print_profile(name=<span class="st">"Ahmed"</span>, age=25, city=<span class="st
     <span class="fn">print</span>(<span class="st">f"Items: {items}"</span>)
     <span class="fn">print</span>(<span class="st">f"Details: {details}"</span>)
 
-describe_order(<span class="st">"Sarah"</span>, <span class="st">"book"</span>, <span class="st">"pen"</span>, priority=<span class="st">"high"</span>, gift_wrap=<span class="kw">True</span>)`,
+describe_order(<span class="st">"Sarah"</span>, <span class="st">"book"</span>, <span class="st">"pen"</span>, priority=<span class="st">"high"</span>, gift_wrap=<span class="kw">True</span>)`, en: `<span class="cm"># *args: an unlimited number of positional arguments</span>
+<span class="kw">def</span> total(*numbers):
+    <span class="fn">print</span>(<span class="fn">type</span>(numbers))   <span class="cm"># &lt;class 'tuple'&gt;</span>
+    <span class="kw">return</span> <span class="fn">sum</span>(numbers)
+
+<span class="fn">print</span>(total(1, 2))            <span class="cm"># 3</span>
+<span class="fn">print</span>(total(1, 2, 3, 4, 5))   <span class="cm"># 15 — same function, different count</span>
+
+
+<span class="cm"># **kwargs: an unlimited number of keyword arguments</span>
+<span class="kw">def</span> print_profile(**info):
+    <span class="fn">print</span>(<span class="fn">type</span>(info))     <span class="cm"># &lt;class 'dict'&gt;</span>
+    <span class="kw">for</span> key, value <span class="kw">in</span> info.items():
+        <span class="fn">print</span>(<span class="st">f"{key}: {value}"</span>)
+
+print_profile(name=<span class="st">"Sarah"</span>, age=22)
+print_profile(name=<span class="st">"Ahmed"</span>, age=25, city=<span class="st">"Casablanca"</span>)   <span class="cm"># fully flexible</span>
+
+
+<span class="cm"># Combining regular parameters, *args, and **kwargs</span>
+<span class="kw">def</span> describe_order(customer, *items, **details):
+    <span class="fn">print</span>(<span class="st">f"Customer: {customer}"</span>)
+    <span class="fn">print</span>(<span class="st">f"Items: {items}"</span>)
+    <span class="fn">print</span>(<span class="st">f"Details: {details}"</span>)
+
+describe_order(<span class="st">"Sarah"</span>, <span class="st">"book"</span>, <span class="st">"pen"</span>, priority=<span class="st">"high"</span>, gift_wrap=<span class="kw">True</span>)` },
     quiz: {
         q: {
             ar: "def f(a, **kwargs, b):\nما مشكلة تعريف هذه الدالة؟",
@@ -4747,7 +6068,7 @@ describe_order(<span class="st">"Sarah"</span>, <span class="st">"book"</span>, 
 `,
         en: `<p>A decorator is a function that wraps another function to add behavior around it, without changing its original code. def decorator(func): defines an inner wrapper(*args, **kwargs) that calls func and adds extra behavior, then returns wrapper. Apply it with @decorator_name above a function definition.</p>`
     },
-    code: `<span class="cm"># decorator بسيط: يطبع رسالة قبل وبعد تنفيذ الدالة</span>
+    code: { ar: `<span class="cm"># decorator بسيط: يطبع رسالة قبل وبعد تنفيذ الدالة</span>
 <span class="kw">def</span> log_call(func):
     <span class="kw">def</span> wrapper(*args, **kwargs):
         <span class="fn">print</span>(<span class="st">f"Calling {func.__name__}..."</span>)
@@ -4783,7 +6104,43 @@ describe_order(<span class="st">"Sarah"</span>, <span class="st">"book"</span>, 
 <span class="kw">def</span> slow_sum(n):
     <span class="kw">return</span> <span class="fn">sum</span>(<span class="fn">range</span>(n))
 
-slow_sum(1000000)`,
+slow_sum(1000000)`, en: `<span class="cm"># A simple decorator: prints a message before and after the function runs</span>
+<span class="kw">def</span> log_call(func):
+    <span class="kw">def</span> wrapper(*args, **kwargs):
+        <span class="fn">print</span>(<span class="st">f"Calling {func.__name__}..."</span>)
+        <span class="kw">result</span> = func(*args, **kwargs)   <span class="cm"># actually calls the original function</span>
+        <span class="fn">print</span>(<span class="st">f"{func.__name__} finished"</span>)
+        <span class="kw">return</span> result
+    <span class="kw">return</span> wrapper
+
+
+<span class="cm"># Applying the decorator with @ syntax</span>
+<span class="fn">@log_call</span>
+<span class="kw">def</span> greet(name):
+    <span class="fn">print</span>(<span class="st">f"Hello, {name}"</span>)
+    <span class="kw">return</span> <span class="st">f"Greeted {name}"</span>
+
+<span class="kw">result</span> = greet(<span class="st">"Sarah"</span>)
+<span class="fn">print</span>(<span class="st">f"Returned: {result}"</span>)
+
+
+<span class="cm"># A practical decorator: measuring execution time</span>
+<span class="kw">import</span> time
+
+<span class="kw">def</span> measure_time(func):
+    <span class="kw">def</span> wrapper(*args, **kwargs):
+        <span class="kw">start</span> = time.time()
+        <span class="kw">result</span> = func(*args, **kwargs)
+        <span class="kw">elapsed</span> = time.time() - start
+        <span class="fn">print</span>(<span class="st">f"{func.__name__} took {elapsed:.4f}s"</span>)
+        <span class="kw">return</span> result
+    <span class="kw">return</span> wrapper
+
+<span class="fn">@measure_time</span>
+<span class="kw">def</span> slow_sum(n):
+    <span class="kw">return</span> <span class="fn">sum</span>(<span class="fn">range</span>(n))
+
+slow_sum(1000000)` },
     quiz: {
         q: {
             ar: "لماذا تستقبل الدالة wrapper داخل الـ decorator المعاملات *args, **kwargs بدل معاملات محدّدة؟",
@@ -4853,7 +6210,7 @@ slow_sum(1000000)`,
 `,
         en: `<p>A generator produces values one at a time, on demand, instead of computing everything upfront in memory. yield freezes the function at that point and returns a value, resuming from there on the next request. Consume it with a for loop or next(); once fully consumed, it's exhausted.</p>`
     },
-    code: `<span class="cm"># دالة عادية: تحسب كل القيم دفعة واحدة</span>
+    code: { ar: `<span class="cm"># دالة عادية: تحسب كل القيم دفعة واحدة</span>
 <span class="kw">def</span> square_list(n):
     <span class="kw">result</span> = []
     <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
@@ -4885,7 +6242,39 @@ slow_sum(1000000)`,
 
 <span class="cm"># Generator Expression — نسخة مختصرة من list comprehension</span>
 <span class="kw">squares_gen</span> = (x**2 <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(5))
-<span class="fn">print</span>(<span class="fn">list</span>(squares_gen))   <span class="cm"># [0, 1, 4, 9, 16]</span>`,
+<span class="fn">print</span>(<span class="fn">list</span>(squares_gen))   <span class="cm"># [0, 1, 4, 9, 16]</span>`, en: `<span class="cm"># A regular function: computes all values at once</span>
+<span class="kw">def</span> square_list(n):
+    <span class="kw">result</span> = []
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        result.append(i**2)
+    <span class="kw">return</span> result   <span class="cm"># all values stored in memory at once</span>
+
+
+<span class="cm"># A generator function: produces one value at a time</span>
+<span class="kw">def</span> square_generator(n):
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        <span class="kw">yield</span> i**2   <span class="cm"># pauses here, waiting for the next request</span>
+
+
+<span class="cm"># Calling it alone does nothing — it only creates a generator object</span>
+<span class="kw">gen</span> = square_generator(5)
+<span class="fn">print</span>(<span class="fn">type</span>(gen))   <span class="cm"># &lt;class 'generator'&gt;</span>
+
+<span class="cm"># Consuming it with a for loop</span>
+<span class="kw">for</span> value <span class="kw">in</span> gen:
+    <span class="fn">print</span>(value)
+
+
+<span class="cm"># Consuming it manually with next()</span>
+<span class="kw">gen2</span> = square_generator(3)
+<span class="fn">print</span>(<span class="fn">next</span>(gen2))   <span class="cm"># 0</span>
+<span class="fn">print</span>(<span class="fn">next</span>(gen2))   <span class="cm"># 1</span>
+<span class="fn">print</span>(<span class="fn">next</span>(gen2))   <span class="cm"># 4</span>
+
+
+<span class="cm"># Generator expression — a shorthand version of a list comprehension</span>
+<span class="kw">squares_gen</span> = (x**2 <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(5))
+<span class="fn">print</span>(<span class="fn">list</span>(squares_gen))   <span class="cm"># [0, 1, 4, 9, 16]</span>` },
     quiz: {
         q: {
             ar: "ما الفائدة الأساسية من استخدام generator بدل قائمة عادية لبيانات ضخمة جداً؟",
@@ -4955,7 +6344,7 @@ slow_sum(1000000)`,
 `,
         en: `<p>PEP 8 is Python's official style guide: snake_case for variables/functions, PascalCase for classes, a space after commas and around operators, four-space indentation, and blank lines separating functions/classes visually — the shared standard that makes any professional Python code feel familiar to any other Python programmer.</p>`
     },
-    code: `<span class="cm"># قبل PEP 8 — يعمل، لكنه صعب القراءة</span>
+    code: { ar: `<span class="cm"># قبل PEP 8 — يعمل، لكنه صعب القراءة</span>
 <span class="cm"># def calc(a,b):</span>
 <span class="cm">#   x=a+b</span>
 <span class="cm">#   return x</span>
@@ -4992,7 +6381,44 @@ slow_sum(1000000)`,
 
 
 <span class="kw">def</span> second_function():
-    <span class="fn">print</span>(<span class="st">"Second"</span>)`,
+    <span class="fn">print</span>(<span class="st">"Second"</span>)`, en: `<span class="cm"># Before PEP 8 — works, but hard to read</span>
+<span class="cm"># def calc(a,b):</span>
+<span class="cm">#   x=a+b</span>
+<span class="cm">#   return x</span>
+
+
+<span class="cm"># After PEP 8 — same logic, far clearer</span>
+<span class="kw">def</span> calculate_total(first_number, second_number):
+    <span class="kw">total</span> = first_number + second_number
+    <span class="kw">return</span> total
+
+
+<span class="cm"># snake_case for variables and functions</span>
+<span class="kw">user_name</span> = <span class="st">"Sarah"</span>
+<span class="kw">total_score</span> = 95
+
+<span class="kw">def</span> get_full_name(first_name, last_name):
+    <span class="kw">return</span> <span class="st">f"{first_name} {last_name}"</span>
+
+
+<span class="cm"># PascalCase for class names</span>
+<span class="kw">class</span> BankAccount:
+    <span class="kw">def</span> __init__(self, owner):
+        self.owner = owner
+
+
+<span class="cm"># Correct spacing around operators and commas</span>
+<span class="kw">numbers</span> = [1, 2, 3, 4, 5]
+<span class="kw">average</span> = <span class="fn">sum</span>(numbers) / <span class="fn">len</span>(numbers)
+
+
+<span class="cm"># Two blank lines separate independent definitions — as in this very file</span>
+<span class="kw">def</span> first_function():
+    <span class="fn">print</span>(<span class="st">"First"</span>)
+
+
+<span class="kw">def</span> second_function():
+    <span class="fn">print</span>(<span class="st">"Second"</span>)` },
     quiz: {
         q: {
             ar: "أي اسم متغيّر يتبع اصطلاح snake_case الموصى به في PEP 8؟",
@@ -5061,7 +6487,7 @@ slow_sum(1000000)`,
 `,
         en: `<p>The capstone project combines everything from this path: Expense and ExpenseTracker classes, JSON persistence, a @log_action decorator, a generator for lazy filtering by category, raise for validation, and try/except for graceful first-run handling — a complete, professionally-structured program built entirely from what you learned.</p>`
     },
-    code: `<span class="cm"># ============================================</span>
+    code: { ar: `<span class="cm"># ============================================</span>
 <span class="cm"># متتبّع المصاريف الشخصية</span>
 <span class="cm"># ============================================</span>
 <span class="kw">import</span> json
@@ -5128,7 +6554,74 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
 
 <span class="fn">print</span>(<span class="st">f"Total expenses: {len(tracker)}"</span>)
 <span class="kw">for</span> expense <span class="kw">in</span> tracker.expenses_by_category(<span class="st">"food"</span>):
-    <span class="fn">print</span>(expense)`,
+    <span class="fn">print</span>(expense)`, en: `<span class="cm"># ============================================</span>
+<span class="cm"># Personal expense tracker</span>
+<span class="cm"># ============================================</span>
+<span class="kw">import</span> json
+
+
+<span class="kw">def</span> log_action(func):
+    <span class="kw">def</span> wrapper(*args, **kwargs):
+        <span class="kw">result</span> = func(*args, **kwargs)
+        <span class="fn">print</span>(<span class="st">f"[LOG] {func.__name__} executed"</span>)
+        <span class="kw">return</span> result
+    <span class="kw">return</span> wrapper
+
+
+<span class="kw">class</span> Expense:
+    <span class="kw">def</span> __init__(self, amount, category, description):
+        <span class="kw">if</span> amount <= 0:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Amount must be positive"</span>)
+        self.amount = amount
+        self.category = category
+        self.description = description
+
+    <span class="kw">def</span> __str__(self):
+        <span class="kw">return</span> <span class="st">f"{self.category}: \${self.amount:.2f} — {self.description}"</span>
+
+    <span class="kw">def</span> to_dict(self):
+        <span class="kw">return</span> {<span class="st">"amount"</span>: self.amount, <span class="st">"category"</span>: self.category, <span class="st">"description"</span>: self.description}
+
+
+<span class="kw">class</span> ExpenseTracker:
+    <span class="kw">def</span> __init__(self, filename=<span class="st">"expenses.json"</span>):
+        self.filename = filename
+        self.expenses = self._load()
+
+    <span class="kw">def</span> _load(self):
+        <span class="kw">try</span>:
+            <span class="kw">with</span> <span class="fn">open</span>(self.filename, <span class="st">"r"</span>) <span class="kw">as</span> file:
+                <span class="kw">data</span> = json.load(file)
+                <span class="kw">return</span> [Expense(**item) <span class="kw">for</span> item <span class="kw">in</span> data]
+        <span class="kw">except</span> <span class="fn">FileNotFoundError</span>:
+            <span class="kw">return</span> []   <span class="cm"># first run — perfectly normal</span>
+
+    <span class="kw">def</span> _save(self):
+        <span class="kw">with</span> <span class="fn">open</span>(self.filename, <span class="st">"w"</span>) <span class="kw">as</span> file:
+            json.dump([e.to_dict() <span class="kw">for</span> e <span class="kw">in</span> self.expenses], file)
+
+    <span class="fn">@log_action</span>
+    <span class="kw">def</span> add(self, amount, category, description):
+        self.expenses.append(Expense(amount, category, description))
+        self._save()
+
+    <span class="cm"># generator: lazy filtering by category</span>
+    <span class="kw">def</span> expenses_by_category(self, category):
+        <span class="kw">for</span> expense <span class="kw">in</span> self.expenses:
+            <span class="kw">if</span> expense.category == category:
+                <span class="kw">yield</span> expense
+
+    <span class="kw">def</span> __len__(self):
+        <span class="kw">return</span> <span class="fn">len</span>(self.expenses)
+
+
+<span class="kw">tracker</span> = ExpenseTracker()
+tracker.add(50, <span class="st">"food"</span>, <span class="st">"Groceries"</span>)
+tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticket"</span>)
+
+<span class="fn">print</span>(<span class="st">f"Total expenses: {len(tracker)}"</span>)
+<span class="kw">for</span> expense <span class="kw">in</span> tracker.expenses_by_category(<span class="st">"food"</span>):
+    <span class="fn">print</span>(expense)` },
     quiz: {
         q: {
             ar: "لماذا استُخدمت raise ValueError داخل __init__ في صنف Expense؟",
@@ -5173,9 +6666,11 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
                     title: { ar: "مقدمة إلى HTML", en: "Intro to HTML" },
                     body: {
                         ar: `<p>HTML هي لغة توصيف تُستخدم لبناء هيكل صفحات الويب. كل عنصر في الصفحة (عنوان، فقرة، صورة) يُكتب باستخدام "وسوم" (tags).</p>`,
-                        code: `<span class="cm">&lt;!-- أول صفحة HTML --&gt;</span>
+                        code: { ar: `<span class="cm">&lt;!-- أول صفحة HTML --&gt;</span>
 <span class="kw">&lt;h1&gt;</span>Hello, World<span class="kw">&lt;/h1&gt;</span>
-<span class="kw">&lt;p&gt;</span>This is my first web page.<span class="kw">&lt;/p&gt;</span>`
+<span class="kw">&lt;p&gt;</span>This is my first web page.<span class="kw">&lt;/p&gt;</span>`, en: `<span class="cm">&lt;!-- Your first HTML page --&gt;</span>
+<span class="kw">&lt;h1&gt;</span>Hello, World<span class="kw">&lt;/h1&gt;</span>
+<span class="kw">&lt;p&gt;</span>This is my first web page.<span class="kw">&lt;/p&gt;</span>` }
                     },
                     quiz: {
                         q: { ar: "ما وظيفة HTML؟", en: "What is HTML used for?" },
@@ -5187,10 +6682,13 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
                     title: { ar: "أساسيات CSS", en: "CSS basics" },
                     body: {
                         ar: `<p>CSS هي اللغة المسؤولة عن تنسيق مظهر صفحة الويب: الألوان، الخطوط، المسافات، والتخطيط العام.</p>`,
-                        code: `<span class="kw">h1</span> {
+                        code: { ar: `<span class="kw">h1</span> {
   <span class="fn">color</span>: <span class="st">#06b6d4</span>;
   <span class="fn">font-size</span>: <span class="st">32px</span>;
-}`
+}`, en: `<span class="kw">h1</span> {
+  <span class="fn">color</span>: <span class="st">#06b6d4</span>;
+  <span class="fn">font-size</span>: <span class="st">32px</span>;
+}` }
                     },
                     quiz: {
                         q: { ar: "بماذا تختص CSS؟", en: "What does CSS handle?" },
@@ -5211,8 +6709,9 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
                     title: { ar: "مقدمة إلى JavaScript", en: "Intro to JavaScript" },
                     body: {
                         ar: `<p>JavaScript هي لغة برمجة تضيف التفاعل إلى صفحات الويب، مثل الاستجابة لنقرات الأزرار وتحديث المحتوى دون إعادة تحميل الصفحة.</p>`,
-                        code: `<span class="kw">let</span> name = <span class="st">"Layla"</span>;
-<span class="fn">console.log</span>(<span class="st">\`Hello, \${name}\`</span>);`
+                        code: { ar: `<span class="kw">let</span> name = <span class="st">"Layla"</span>;
+<span class="fn">console.log</span>(<span class="st">\`Hello, \${name}\`</span>);`, en: `<span class="kw">let</span> name = <span class="st">"Layla"</span>;
+<span class="fn">console.log</span>(<span class="st">\`Hello, \${name}\`</span>);` }
                     },
                     quiz: {
                         q: { ar: "أين تُستخدم JavaScript غالباً؟", en: "Where is JavaScript mostly used?" },
@@ -5233,11 +6732,15 @@ tracker.add(20, <span class="st">"transport"</span>, <span class="st">"Bus ticke
                     title: { ar: "مقدمة إلى الطرفية (Terminal)", en: "Intro to the Terminal" },
                     body: {
                         ar: `<p>الطرفية هي واجهة نصية للتحكم بالنظام عبر كتابة أوامر بدلاً من النقر بالفأرة. تعلّم أوامرها الأساسية يمنحك تحكماً أكبر وأسرع بكثير.</p>`,
-                        code: `<span class="cm"># عرض محتويات المجلد الحالي</span>
+                        code: { ar: `<span class="cm"># عرض محتويات المجلد الحالي</span>
 <span class="fn">ls</span> -la
 
 <span class="cm"># الانتقال إلى مجلد آخر</span>
-<span class="fn">cd</span> Documents`
+<span class="fn">cd</span> Documents`, en: `<span class="cm"># Show the contents of the current folder</span>
+<span class="fn">ls</span> -la
+
+<span class="cm"># Move to another folder</span>
+<span class="fn">cd</span> Documents` }
                     },
                     quiz: {
                         q: { ar: "ما الأمر المستخدم للانتقال بين المجلدات؟", en: "Which command changes directories?" },

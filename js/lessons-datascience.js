@@ -100,7 +100,7 @@ export const dataLessons = [
 <p>Pick a decision you faced recently (buying a phone, choosing a major). In three lines write: what is the precise question? what data would you have needed? and what single number would have settled it?</p>
 `
         },
-        code: `<span class="cm"># تحليل مصغّر بلا أي مكتبة: لماذا انخفض المتوسط؟</span>
+        code: { ar: `<span class="cm"># تحليل مصغّر بلا أي مكتبة: لماذا انخفض المتوسط؟</span>
 sales_this_month = [240, 180, 0, 0, 0, 320, 210]   <span class="cm"># ثلاثة أيام بصفر مبيعات</span>
 sales_last_month = [240, 180, 300, 260, 280, 320, 210]
 
@@ -112,7 +112,19 @@ sales_last_month = [240, 180, 300, 260, 280, 320, 210]
 
 <span class="cm"># السؤال الحقيقي ليس "كم انخفض؟" بل "أين ومتى؟"</span>
 zero_days = [i <span class="kw">for</span> i, v <span class="kw">in</span> <span class="fn">enumerate</span>(sales_this_month) <span class="kw">if</span> v == 0]
-<span class="fn">print</span>(<span class="st">"أيام بلا مبيعات:"</span>, zero_days)   <span class="cm"># [2, 3, 4]</span>`,
+<span class="fn">print</span>(<span class="st">"أيام بلا مبيعات:"</span>, zero_days)   <span class="cm"># [2, 3, 4]</span>`, en: `<span class="cm"># A tiny analysis with no library: why did the average drop?</span>
+sales_this_month = [240, 180, 0, 0, 0, 320, 210]   <span class="cm"># three days with zero sales</span>
+sales_last_month = [240, 180, 300, 260, 280, 320, 210]
+
+<span class="kw">def</span> <span class="fn">average</span>(values):
+    <span class="kw">return</span> <span class="fn">sum</span>(values) / <span class="fn">len</span>(values)
+
+<span class="fn">print</span>(<span class="st">"This month's average:"</span>, <span class="fn">average</span>(sales_this_month))   <span class="cm"># 178.5</span>
+<span class="fn">print</span>(<span class="st">"Last month's average:"</span>, <span class="fn">average</span>(sales_last_month))  <span class="cm"># 255.7</span>
+
+<span class="cm"># The real question isn't "how much did it drop?" but "where and when?"</span>
+zero_days = [i <span class="kw">for</span> i, v <span class="kw">in</span> <span class="fn">enumerate</span>(sales_this_month) <span class="kw">if</span> v == 0]
+<span class="fn">print</span>(<span class="st">"Days with no sales:"</span>, zero_days)   <span class="cm"># [2, 3, 4]</span>` },
         quiz: {
             q: {
                 ar: "في أي خطوة يقضي المحلّل عادةً أكثر من نصف وقته؟",
@@ -209,7 +221,7 @@ zero_days = [i <span class="kw">for</span> i, v <span class="kw">in</span> <span
 <p>Open Colab, create a new notebook. In the first cell define a list of numbers. In the second compute its average. In the third print the largest value. Now change the list in the first cell and re-run only the last two cells, and watch how the results change.</p>
 `
         },
-        code: `<span class="cm"># خلية 1 — تُشغَّل مرة واحدة</span>
+        code: { ar: `<span class="cm"># خلية 1 — تُشغَّل مرة واحدة</span>
 temperatures = [22, 25, 19, 30, 28, 24, 21]
 
 <span class="cm"># خلية 2 — جرّب أفكاراً بلا إعادة تعريف القائمة</span>
@@ -222,7 +234,20 @@ coldest = <span class="fn">min</span>(temperatures)
 <span class="fn">print</span>(<span class="st">f"المدى: من {coldest} إلى {hottest}"</span>)
 
 <span class="cm"># لو غيّرت temperatures في خلية 1 وأعدت تشغيل 2 و3 فقط،</span>
-<span class="cm"># ستتحدّث النتائج — هذه قوة الدفتر</span>`,
+<span class="cm"># ستتحدّث النتائج — هذه قوة الدفتر</span>`, en: `<span class="cm"># Cell 1 — runs once</span>
+temperatures = [22, 25, 19, 30, 28, 24, 21]
+
+<span class="cm"># Cell 2 — try ideas without redefining the list</span>
+average = <span class="fn">sum</span>(temperatures) / <span class="fn">len</span>(temperatures)
+<span class="fn">print</span>(<span class="st">f"Average: {average:.1f}"</span>)
+
+<span class="cm"># Cell 3 — depends on what came before</span>
+hottest = <span class="fn">max</span>(temperatures)
+coldest = <span class="fn">min</span>(temperatures)
+<span class="fn">print</span>(<span class="st">f"Range: from {coldest} to {hottest}"</span>)
+
+<span class="cm"># If you changed temperatures in cell 1 and only reran 2 and 3,</span>
+<span class="cm"># the results would update — that's the power of the notebook</span>` },
         quiz: {
             q: {
                 ar: "لماذا يُنصح بتشغيل «Restart and run all» بين الحين والآخر؟",
@@ -329,7 +354,7 @@ coldest = <span class="fn">min</span>(temperatures)
 <p>Represent three of your friends as a list of dictionaries, each with <code>name</code>, <code>city</code> and <code>age</code>. Write a loop that prints each friend's name with their city, then compute the average age.</p>
 `
         },
-        code: `<span class="cm"># قائمة: صفّ من القيم، الوصول بالموضع</span>
+        code: { ar: `<span class="cm"># قائمة: صفّ من القيم، الوصول بالموضع</span>
 prices = [240, 180, 300, 260]
 <span class="fn">print</span>(prices[0], prices[-1])   <span class="cm"># 240  260</span>
 <span class="fn">print</span>(prices[1:3])           <span class="cm"># [180, 300]</span>
@@ -346,7 +371,24 @@ orders = [
     {<span class="st">"city"</span>: <span class="st">"Casablanca"</span>, <span class="st">"total"</span>: 300},
 ]
 total_revenue = <span class="fn">sum</span>(o[<span class="st">"total"</span>] <span class="kw">for</span> o <span class="kw">in</span> orders)
-<span class="fn">print</span>(total_revenue)          <span class="cm"># 720</span>`,
+<span class="fn">print</span>(total_revenue)          <span class="cm"># 720</span>`, en: `<span class="cm"># List: a row of values, accessed by position</span>
+prices = [240, 180, 300, 260]
+<span class="fn">print</span>(prices[0], prices[-1])   <span class="cm"># 240  260</span>
+<span class="fn">print</span>(prices[1:3])           <span class="cm"># [180, 300]</span>
+
+<span class="cm"># Dict: a single meaningful row</span>
+order = {<span class="st">"id"</span>: 1042, <span class="st">"city"</span>: <span class="st">"Casablanca"</span>, <span class="st">"total"</span>: 240}
+<span class="fn">print</span>(order[<span class="st">"city"</span>])            <span class="cm"># Casablanca</span>
+<span class="fn">print</span>(order.<span class="fn">get</span>(<span class="st">"discount"</span>, 0))  <span class="cm"># 0  (missing key — no error)</span>
+
+<span class="cm"># A full table = a list of dicts</span>
+orders = [
+    {<span class="st">"city"</span>: <span class="st">"Casablanca"</span>, <span class="st">"total"</span>: 240},
+    {<span class="st">"city"</span>: <span class="st">"Rabat"</span>,      <span class="st">"total"</span>: 180},
+    {<span class="st">"city"</span>: <span class="st">"Casablanca"</span>, <span class="st">"total"</span>: 300},
+]
+total_revenue = <span class="fn">sum</span>(o[<span class="st">"total"</span>] <span class="kw">for</span> o <span class="kw">in</span> orders)
+<span class="fn">print</span>(total_revenue)          <span class="cm"># 720</span>` },
         quiz: {
             q: {
                 ar: "كيف تُمثَّل مجموعة سجلّات متشابهة (جدول بيانات) بأدوات بايثون الأساسية؟",
@@ -451,7 +493,7 @@ total_revenue = <span class="fn">sum</span>(o[<span class="st">"total"</span>] <
 <p>You have a list of sales dictionaries, each with <code>city</code> and <code>amount</code>. Write a function <code>revenue_by_city(sales)</code> that returns a dictionary: city &rarr; total sales. Then print each line as <code>f"{city}: {total:,.0f} MAD"</code>.</p>
 `
         },
-        code: `sales = [
+        code: { ar: `sales = [
     {<span class="st">"city"</span>: <span class="st">"Casablanca"</span>, <span class="st">"amount"</span>: 2400},
     {<span class="st">"city"</span>: <span class="st">"Rabat"</span>,      <span class="st">"amount"</span>: 1800},
     {<span class="st">"city"</span>: <span class="st">"Casablanca"</span>, <span class="st">"amount"</span>: 3100},
@@ -470,7 +512,26 @@ result = <span class="fn">revenue_by_city</span>(sales)
 <span class="kw">for</span> city, total <span class="kw">in</span> result.<span class="fn">items</span>():
     <span class="fn">print</span>(<span class="st">f"{city}: {total:,.0f} درهم"</span>)
 <span class="cm"># Casablanca: 5,500 درهم</span>
-<span class="cm"># Rabat: 1,800 درهم</span>`,
+<span class="cm"># Rabat: 1,800 درهم</span>`, en: `sales = [
+    {<span class="st">"city"</span>: <span class="st">"Casablanca"</span>, <span class="st">"amount"</span>: 2400},
+    {<span class="st">"city"</span>: <span class="st">"Rabat"</span>,      <span class="st">"amount"</span>: 1800},
+    {<span class="st">"city"</span>: <span class="st">"Casablanca"</span>, <span class="st">"amount"</span>: 3100},
+]
+
+<span class="kw">def</span> <span class="fn">revenue_by_city</span>(records):
+    <span class="cm"># the accumulator pattern inside a dict</span>
+    totals = {}
+    <span class="kw">for</span> r <span class="kw">in</span> records:
+        city = r[<span class="st">"city"</span>]
+        totals[city] = totals.<span class="fn">get</span>(city, 0) + r[<span class="st">"amount"</span>]
+    <span class="kw">return</span> totals
+
+result = <span class="fn">revenue_by_city</span>(sales)
+
+<span class="kw">for</span> city, total <span class="kw">in</span> result.<span class="fn">items</span>():
+    <span class="fn">print</span>(<span class="st">f"{city}: {total:,.0f} MAD"</span>)
+<span class="cm"># Casablanca: 5,500 MAD</span>
+<span class="cm"># Rabat: 1,800 MAD</span>` },
         quiz: {
             q: {
                 ar: "ماذا تطبع الجملة <code>print(\"القيمة {x}\")</code> إذا كانت x = 5؟",
@@ -575,7 +636,7 @@ result = <span class="fn">revenue_by_city</span>(sales)
 <p>For a store table with columns: <code>order_id</code>, <code>city</code>, <code>total</code>, <code>rating</code> (poor/good/excellent), <code>order_date</code>, <code>payment_code</code> (1/2/3). Classify each column into one of the four types, and name one statistic appropriate for each.</p>
 `
         },
-        code: `<span class="cm"># نفس القيمة، تفسير مختلف حسب النوع</span>
+        code: { ar: `<span class="cm"># نفس القيمة، تفسير مختلف حسب النوع</span>
 
 <span class="cm"># كمّي — المتوسط له معنى</span>
 totals = [240, 180, 300, 260, 280]
@@ -592,7 +653,24 @@ counts = {}
 order = {<span class="st">"ضعيف"</span>: 0, <span class="st">"جيد"</span>: 1, <span class="st">"ممتاز"</span>: 2}
 ratings = [<span class="st">"جيد"</span>, <span class="st">"ممتاز"</span>, <span class="st">"ضعيف"</span>, <span class="st">"جيد"</span>]
 ratings.<span class="fn">sort</span>(key=<span class="kw">lambda</span> r: order[r])
-<span class="fn">print</span>(ratings)   <span class="cm"># ['ضعيف', 'جيد', 'جيد', 'ممتاز']  ✓</span>`,
+<span class="fn">print</span>(ratings)   <span class="cm"># ['ضعيف', 'جيد', 'جيد', 'ممتاز']  ✓</span>`, en: `<span class="cm"># Same value, different interpretation depending on the type</span>
+
+<span class="cm"># Quantitative — the average is meaningful</span>
+totals = [240, 180, 300, 260, 280]
+<span class="fn">print</span>(<span class="fn">sum</span>(totals) / <span class="fn">len</span>(totals))     <span class="cm"># 252.0  ✓ useful</span>
+
+<span class="cm"># Categorical — we count frequency, not average</span>
+cities = [<span class="st">"Casa"</span>, <span class="st">"Rabat"</span>, <span class="st">"Casa"</span>, <span class="st">"Casa"</span>, <span class="st">"Fes"</span>]
+counts = {}
+<span class="kw">for</span> c <span class="kw">in</span> cities:
+    counts[c] = counts.<span class="fn">get</span>(c, 0) + 1
+<span class="fn">print</span>(counts)     <span class="cm"># {'Casa': 3, 'Rabat': 1, 'Fes': 1}  ✓</span>
+
+<span class="cm"># Ordinal — we sort by a known scale, not alphabetically</span>
+order = {<span class="st">"poor"</span>: 0, <span class="st">"good"</span>: 1, <span class="st">"excellent"</span>: 2}
+ratings = [<span class="st">"good"</span>, <span class="st">"excellent"</span>, <span class="st">"poor"</span>, <span class="st">"good"</span>]
+ratings.<span class="fn">sort</span>(key=<span class="kw">lambda</span> r: order[r])
+<span class="fn">print</span>(ratings)   <span class="cm"># ['poor', 'good', 'good', 'excellent']  ✓</span>` },
         quiz: {
             q: {
                 ar: "عمود «وسيلة الدفع» مخزّن كأرقام: 1 = بطاقة، 2 = نقداً، 3 = تحويل. ما نوعه؟",
@@ -709,7 +787,7 @@ ratings.<span class="fn">sort</span>(key=<span class="kw">lambda</span> r: order
 <p>Extend <code>report</code> to add: the category you spent most on, and a text warning if "food" exceeds 40% of the total. In the next lesson we'll rebuild this whole analysis with NumPy in a few lines.</p>
 `
         },
-        code: `expenses = [
+        code: { ar: `expenses = [
     {<span class="st">"date"</span>: <span class="st">"2026-03-01"</span>, <span class="st">"category"</span>: <span class="st">"طعام"</span>,  <span class="st">"amount"</span>: 85},
     {<span class="st">"date"</span>: <span class="st">"2026-03-01"</span>, <span class="st">"category"</span>: <span class="st">"نقل"</span>,   <span class="st">"amount"</span>: 20},
     {<span class="st">"date"</span>: <span class="st">"2026-03-02"</span>, <span class="st">"category"</span>: <span class="st">"فواتير"</span>, <span class="st">"amount"</span>: 300},
@@ -735,7 +813,33 @@ ratings.<span class="fn">sort</span>(key=<span class="kw">lambda</span> r: order
     <span class="kw">for</span> cat, amt <span class="kw">in</span> <span class="fn">sorted</span>(<span class="fn">by_category</span>(items).<span class="fn">items</span>(), key=<span class="kw">lambda</span> x: -x[1]):
         <span class="fn">print</span>(<span class="st">f"  {cat}: {amt:,.0f} ({amt / grand:.1%})"</span>)
 
-<span class="fn">report</span>(expenses)`,
+<span class="fn">report</span>(expenses)`, en: `expenses = [
+    {<span class="st">"date"</span>: <span class="st">"2026-03-01"</span>, <span class="st">"category"</span>: <span class="st">"food"</span>,      <span class="st">"amount"</span>: 85},
+    {<span class="st">"date"</span>: <span class="st">"2026-03-01"</span>, <span class="st">"category"</span>: <span class="st">"transport"</span>, <span class="st">"amount"</span>: 20},
+    {<span class="st">"date"</span>: <span class="st">"2026-03-02"</span>, <span class="st">"category"</span>: <span class="st">"bills"</span>,     <span class="st">"amount"</span>: 300},
+    {<span class="st">"date"</span>: <span class="st">"2026-03-03"</span>, <span class="st">"category"</span>: <span class="st">"food"</span>,      <span class="st">"amount"</span>: 60},
+]
+
+<span class="kw">def</span> <span class="fn">total</span>(items):
+    <span class="kw">return</span> <span class="fn">sum</span>(e[<span class="st">"amount"</span>] <span class="kw">for</span> e <span class="kw">in</span> items)
+
+<span class="kw">def</span> <span class="fn">by_category</span>(items):
+    out = {}
+    <span class="kw">for</span> e <span class="kw">in</span> items:
+        out[e[<span class="st">"category"</span>]] = out.<span class="fn">get</span>(e[<span class="st">"category"</span>], 0) + e[<span class="st">"amount"</span>]
+    <span class="kw">return</span> out
+
+<span class="kw">def</span> <span class="fn">report</span>(items):
+    <span class="kw">if</span> <span class="kw">not</span> items:
+        <span class="fn">print</span>(<span class="st">"No data"</span>); <span class="kw">return</span>
+    grand = <span class="fn">total</span>(items)
+    days = <span class="fn">len</span>({e[<span class="st">"date"</span>] <span class="kw">for</span> e <span class="kw">in</span> items})   <span class="cm"># distinct days</span>
+    <span class="fn">print</span>(<span class="st">f"Total: {grand:,.0f} MAD over {days} days"</span>)
+    <span class="fn">print</span>(<span class="st">f"Daily average: {grand / days:,.0f} MAD"</span>)
+    <span class="kw">for</span> cat, amt <span class="kw">in</span> <span class="fn">sorted</span>(<span class="fn">by_category</span>(items).<span class="fn">items</span>(), key=<span class="kw">lambda</span> x: -x[1]):
+        <span class="fn">print</span>(<span class="st">f"  {cat}: {amt:,.0f} ({amt / grand:.1%})"</span>)
+
+<span class="fn">report</span>(expenses)` },
         quiz: {
             q: {
                 ar: "لماذا نستخدم <code>len({e[\"date\"] for e in expenses})</code> بدل <code>len(expenses)</code> لحساب عدد الأيام؟",
@@ -852,7 +956,7 @@ ratings.<span class="fn">sort</span>(key=<span class="kw">lambda</span> r: order
 <p>You have a list of temperatures in Fahrenheit. Convert it to a NumPy array, then to Celsius with <code>(f - 32) * 5 / 9</code> in one line with no loop. Compare the line count with the <code>for</code>-loop solution.</p>
 `
         },
-        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+        code: { ar: `<span class="kw">import</span> numpy <span class="kw">as</span> np
 
 <span class="cm"># قائمة عادية مقابل مصفوفة</span>
 prices_usd = np.<span class="fn">array</span>([12.0, 8.5, 30.0, 26.0])
@@ -871,7 +975,26 @@ b = np.<span class="fn">array</span>([10, 20, 30])
 <span class="fn">print</span>(a + b)              <span class="cm"># [11 22 33]</span>
 
 <span class="cm"># خلط الأنواع يحوّل كل شيء إلى نصّ — انتبه</span>
-<span class="fn">print</span>(np.<span class="fn">array</span>([1, 2, <span class="st">"3"</span>]).dtype)   <span class="cm"># <U21  (نصّ!)</span>`,
+<span class="fn">print</span>(np.<span class="fn">array</span>([1, 2, <span class="st">"3"</span>]).dtype)   <span class="cm"># <U21  (نصّ!)</span>`, en: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># A regular list vs. an array</span>
+prices_usd = np.<span class="fn">array</span>([12.0, 8.5, 30.0, 26.0])
+
+<span class="cm"># A vectorized operation — no loop, all elements at once</span>
+prices_mad = prices_usd * 10.2
+<span class="fn">print</span>(prices_mad)          <span class="cm"># [122.4  86.7 306.  265.2]</span>
+
+<span class="cm"># Computing over the whole array</span>
+<span class="fn">print</span>(prices_mad.<span class="fn">sum</span>())    <span class="cm"># 780.3</span>
+<span class="fn">print</span>(prices_mad.<span class="fn">mean</span>())   <span class="cm"># 195.075</span>
+
+<span class="cm"># + adds element-by-element, it doesn't concatenate</span>
+a = np.<span class="fn">array</span>([1, 2, 3])
+b = np.<span class="fn">array</span>([10, 20, 30])
+<span class="fn">print</span>(a + b)              <span class="cm"># [11 22 33]</span>
+
+<span class="cm"># Mixing types converts everything to text — watch out</span>
+<span class="fn">print</span>(np.<span class="fn">array</span>([1, 2, <span class="st">"3"</span>]).dtype)   <span class="cm"># <U21  (text!)</span>` },
         quiz: {
             q: {
                 ar: "ما ناتج <code>np.array([1, 2, 3]) + np.array([10, 20, 30])</code>؟",
@@ -996,7 +1119,7 @@ b = np.<span class="fn">array</span>([10, 20, 30])
 <p>Create <code>np.arange(1, 25)</code> then reshape it to a 4&times;6 table. Print its <code>shape</code>, <code>dtype</code> and <code>ndim</code>. Then convert it to <code>float</code> and divide by 2.</p>
 `
         },
-        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+        code: { ar: `<span class="kw">import</span> numpy <span class="kw">as</span> np
 
 grid = np.<span class="fn">arange</span>(12).<span class="fn">reshape</span>(3, 4)
 <span class="fn">print</span>(grid)
@@ -1015,7 +1138,26 @@ column = np.<span class="fn">arange</span>(5).<span class="fn">reshape</span>(-1
 
 <span class="cm"># إنشاء سريع</span>
 <span class="fn">print</span>(np.<span class="fn">zeros</span>((2, 3)))
-<span class="fn">print</span>(np.<span class="fn">linspace</span>(0, 1, 5))   <span class="cm"># [0.   0.25 0.5  0.75 1.  ]</span>`,
+<span class="fn">print</span>(np.<span class="fn">linspace</span>(0, 1, 5))   <span class="cm"># [0.   0.25 0.5  0.75 1.  ]</span>`, en: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+grid = np.<span class="fn">arange</span>(12).<span class="fn">reshape</span>(3, 4)
+<span class="fn">print</span>(grid)
+<span class="cm"># [[ 0  1  2  3]</span>
+<span class="cm">#  [ 4  5  6  7]</span>
+<span class="cm">#  [ 8  9 10 11]]</span>
+
+<span class="fn">print</span>(grid.shape)   <span class="cm"># (3, 4)</span>
+<span class="fn">print</span>(grid.ndim)    <span class="cm"># 2</span>
+<span class="fn">print</span>(grid.size)    <span class="cm"># 12</span>
+<span class="fn">print</span>(grid.dtype)   <span class="cm"># int64</span>
+
+<span class="cm"># The same data as a single column (useful before sklearn models)</span>
+column = np.<span class="fn">arange</span>(5).<span class="fn">reshape</span>(-1, 1)
+<span class="fn">print</span>(column.shape)   <span class="cm"># (5, 1)</span>
+
+<span class="cm"># Quick creation</span>
+<span class="fn">print</span>(np.<span class="fn">zeros</span>((2, 3)))
+<span class="fn">print</span>(np.<span class="fn">linspace</span>(0, 1, 5))   <span class="cm"># [0.   0.25 0.5  0.75 1.  ]</span>` },
         quiz: {
             q: {
                 ar: "مصفوفة <code>shape</code> لها <code>(1000, 5)</code>. ماذا تعني؟",
@@ -1132,7 +1274,7 @@ column = np.<span class="fn">arange</span>(5).<span class="fn">reshape</span>(-1
 <p>Create a 5&times;4 table with <code>np.arange(20).reshape(5, 4)</code>. Extract: the last column, the third row, the cell at (1, 2), and the rectangle covering the first three rows and first two columns. Then copy the rectangle, change a cell in it, and confirm the original didn't change.</p>
 `
         },
-        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+        code: { ar: `<span class="kw">import</span> numpy <span class="kw">as</span> np
 arr = np.<span class="fn">arange</span>(20).<span class="fn">reshape</span>(5, 4)
 
 <span class="fn">print</span>(arr[0])         <span class="cm"># [0 1 2 3]      الصفّ الأول</span>
@@ -1149,7 +1291,24 @@ sub[0, 0] = 99
 <span class="fn">print</span>(arr[0, 0])      <span class="cm"># 99  ← الأصل تغيّر!</span>
 
 <span class="cm"># الحلّ: نسخة مستقلة</span>
-safe = arr[0:2, 0:2].<span class="fn">copy</span>()`,
+safe = arr[0:2, 0:2].<span class="fn">copy</span>()`, en: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+arr = np.<span class="fn">arange</span>(20).<span class="fn">reshape</span>(5, 4)
+
+<span class="fn">print</span>(arr[0])         <span class="cm"># [0 1 2 3]      the first row</span>
+<span class="fn">print</span>(arr[:, 0])      <span class="cm"># [0 4 8 12 16]  the first column</span>
+<span class="fn">print</span>(arr[2, 3])      <span class="cm"># 11             a single cell</span>
+<span class="fn">print</span>(arr[0:3, 1:3])  <span class="cm"># a rectangle: rows 0-2, columns 1-2</span>
+
+<span class="cm"># Non-adjacent columns</span>
+<span class="fn">print</span>(arr[:, [0, 3]])  <span class="cm"># only the first and last columns</span>
+
+<span class="cm"># The view trap: slicing doesn't copy</span>
+sub = arr[0:2, 0:2]
+sub[0, 0] = 99
+<span class="fn">print</span>(arr[0, 0])      <span class="cm"># 99  ← the original changed!</span>
+
+<span class="cm"># The fix: an independent copy</span>
+safe = arr[0:2, 0:2].<span class="fn">copy</span>()` },
         quiz: {
             q: {
                 ar: "<code>sub = arr[0:3, 0:3]</code> ثم <code>sub[0, 0] = 0</code>. ماذا يحدث للمصفوفة <code>arr</code> الأصلية؟",
@@ -1264,7 +1423,7 @@ safe = arr[0:2, 0:2].<span class="fn">copy</span>()`,
 <p>A scores array <code>scores = np.array([55, 80, 42, 90, 67, 38, 75])</code>. Print: the scores &ge; 60, their count, their ratio of the total, and the scores between 50 and 80 (two combined conditions).</p>
 `
         },
-        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+        code: { ar: `<span class="kw">import</span> numpy <span class="kw">as</span> np
 scores = np.<span class="fn">array</span>([55, 80, 42, 90, 67, 38, 75])
 
 mask = scores &gt;= 60
@@ -1280,7 +1439,23 @@ mid = scores[(scores &gt;= 50) &amp; (scores &lt;= 80)]
 
 <span class="cm"># تطبيق قناع عمود على جدول كامل</span>
 data = np.<span class="fn">array</span>([[1200, 3], [800, 5], [1500, 2]])
-<span class="fn">print</span>(data[data[:, 0] &gt; 1000])   <span class="cm"># [[1200 3] [1500 2]]</span>`,
+<span class="fn">print</span>(data[data[:, 0] &gt; 1000])   <span class="cm"># [[1200 3] [1500 2]]</span>`, en: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+scores = np.<span class="fn">array</span>([55, 80, 42, 90, 67, 38, 75])
+
+mask = scores &gt;= 60
+<span class="fn">print</span>(mask)              <span class="cm"># [False  True False  True  True False  True]</span>
+<span class="fn">print</span>(scores[mask])      <span class="cm"># [80 90 67 75]   the passing scores</span>
+
+<span class="fn">print</span>(mask.<span class="fn">sum</span>())       <span class="cm"># 4      how many passed</span>
+<span class="fn">print</span>(mask.<span class="fn">mean</span>())      <span class="cm"># 0.571  pass rate</span>
+
+<span class="cm"># Two combined conditions — parentheses around each, and & not and</span>
+mid = scores[(scores &gt;= 50) &amp; (scores &lt;= 80)]
+<span class="fn">print</span>(mid)               <span class="cm"># [55 80 67 75]</span>
+
+<span class="cm"># Applying a column mask to a whole table</span>
+data = np.<span class="fn">array</span>([[1200, 3], [800, 5], [1500, 2]])
+<span class="fn">print</span>(data[data[:, 0] &gt; 1000])   <span class="cm"># [[1200 3] [1500 2]]</span>` },
         quiz: {
             q: {
                 ar: "قناع <code>passed = grades &gt;= 50</code>. ماذا يعطي <code>passed.mean()</code>؟",
@@ -1395,7 +1570,7 @@ data = np.<span class="fn">array</span>([[1200, 3], [800, 5], [1500, 2]])
 <p>A <code>data</code> table of shape <code>(4, 3)</code> representing 4 students and 3 tests. Subtract each test's mean from its column (centering), then multiply each student (row) by a weight from <code>[1.0, 1.2, 0.8, 1.1]</code>. Print the <code>shape</code> after each step.</p>
 `
         },
-        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+        code: { ar: `<span class="kw">import</span> numpy <span class="kw">as</span> np
 
 <span class="cm"># 4 طلاب × 3 اختبارات</span>
 data = np.<span class="fn">array</span>([
@@ -1416,7 +1591,28 @@ centered = data - col_means
 <span class="cm"># ترجيح كل طالب (صفّ) — نحوّل الأوزان إلى عمود (4,1)</span>
 weights = np.<span class="fn">array</span>([1.0, 1.2, 0.8, 1.1]).<span class="fn">reshape</span>(-1, 1)
 weighted = centered * weights
-<span class="fn">print</span>(weighted.shape)      <span class="cm"># (4, 3)</span>`,
+<span class="fn">print</span>(weighted.shape)      <span class="cm"># (4, 3)</span>`, en: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># 4 students × 3 exams</span>
+data = np.<span class="fn">array</span>([
+    [12, 15, 10],
+    [18, 14, 16],
+    [ 9, 11, 13],
+    [20, 19, 17],
+], dtype=<span class="fn">float</span>)
+
+<span class="cm"># The average of each exam (column) — shape (3,)</span>
+col_means = data.<span class="fn">mean</span>(axis=0)
+<span class="fn">print</span>(col_means)          <span class="cm"># [14.75 14.75 14.  ]</span>
+
+<span class="cm"># Broadcasting: the (3,) vector is subtracted from every row in (4,3)</span>
+centered = data - col_means
+<span class="fn">print</span>(centered.shape)      <span class="cm"># (4, 3)</span>
+
+<span class="cm"># Weighting each student (row) — turn the weights into a (4,1) column</span>
+weights = np.<span class="fn">array</span>([1.0, 1.2, 0.8, 1.1]).<span class="fn">reshape</span>(-1, 1)
+weighted = centered * weights
+<span class="fn">print</span>(weighted.shape)      <span class="cm"># (4, 3)</span>` },
         quiz: {
             q: {
                 ar: "جدول شكله <code>(50, 4)</code>. أي متّجه يمكن طرحه منه مباشرة بالبثّ لطرح متوسط كل عمود؟",
@@ -1535,7 +1731,7 @@ weighted = centered * weights
 <p>A <code>weather</code> table of shape <code>(7, 3)</code>: 7 days, columns [temp, humidity, wind]. Compute: the mean of each column, the hottest day (its number), the days whose temperature exceeded the mean (a mask), and their count. Write each answer in one line.</p>
 `
         },
-        code: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+        code: { ar: `<span class="kw">import</span> numpy <span class="kw">as</span> np
 
 <span class="cm"># 7 أيام × 3 فروع</span>
 sales = np.<span class="fn">array</span>([
@@ -1555,7 +1751,27 @@ daily = sales.<span class="fn">sum</span>(axis=1)
 
 <span class="cm"># الأيام فوق المتوسط اليومي</span>
 above = daily &gt; daily.<span class="fn">mean</span>()
-<span class="fn">print</span>(above.<span class="fn">sum</span>())        <span class="cm"># 3  أيام فوق المتوسط</span>`,
+<span class="fn">print</span>(above.<span class="fn">sum</span>())        <span class="cm"># 3  أيام فوق المتوسط</span>`, en: `<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># 7 days × 3 branches</span>
+sales = np.<span class="fn">array</span>([
+    [120, 90, 60], [100, 80, 75], [140, 95, 50], [110, 70, 80],
+    [160, 100, 65], [130, 85, 70], [ 90, 60, 55],
+])
+
+<span class="cm"># axis=0: the rows collapse → one result per branch (column)</span>
+<span class="fn">print</span>(sales.<span class="fn">sum</span>(axis=0))    <span class="cm"># [850 580 455]  total for each branch</span>
+
+<span class="cm"># axis=1: the columns collapse → one result per day (row)</span>
+daily = sales.<span class="fn">sum</span>(axis=1)
+<span class="fn">print</span>(daily)               <span class="cm"># [270 255 285 260 325 285 205]</span>
+
+<span class="cm"># The best-selling day (the position, not the value)</span>
+<span class="fn">print</span>(daily.<span class="fn">argmax</span>())      <span class="cm"># 4  → the fifth day</span>
+
+<span class="cm"># Days above the daily average</span>
+above = daily &gt; daily.<span class="fn">mean</span>()
+<span class="fn">print</span>(above.<span class="fn">sum</span>())        <span class="cm"># 3  days above average</span>` },
         quiz: {
             q: {
                 ar: "جدول درجات شكله <code>(30, 4)</code>: 30 طالباً، 4 مواد. كيف تحسب متوسط كل طالب؟",
@@ -1672,7 +1888,7 @@ above = daily &gt; daily.<span class="fn">mean</span>()
 <p>Build a DataFrame for four cities with columns <code>city</code>, <code>orders</code> and <code>revenue</code>. Make <code>city</code> the index. Print <code>.dtypes</code>, then the <code>revenue</code> column alone, then one city's row via <code>.loc</code>.</p>
 `
         },
-        code: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+        code: { ar: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
 
 <span class="cm"># Series: عمود واحد بفهرس مسمّى</span>
 revenue = pd.<span class="fn">Series</span>([2400, 1800, 900], index=[<span class="st">"Casa"</span>, <span class="st">"Rabat"</span>, <span class="st">"Fes"</span>])
@@ -1690,7 +1906,25 @@ df = pd.<span class="fn">DataFrame</span>({
 
 <span class="cm"># الفهرس = هوية الصفّ لا مجرّد ترقيم</span>
 df = df.<span class="fn">set_index</span>(<span class="st">"city"</span>)
-<span class="fn">print</span>(df.<span class="fn">loc</span>[<span class="st">"Casa"</span>, <span class="st">"revenue"</span>])   <span class="cm"># 2400</span>`,
+<span class="fn">print</span>(df.<span class="fn">loc</span>[<span class="st">"Casa"</span>, <span class="st">"revenue"</span>])   <span class="cm"># 2400</span>`, en: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># Series: a single column with a named index</span>
+revenue = pd.<span class="fn">Series</span>([2400, 1800, 900], index=[<span class="st">"Casa"</span>, <span class="st">"Rabat"</span>, <span class="st">"Fes"</span>])
+<span class="fn">print</span>(revenue[<span class="st">"Rabat"</span>])     <span class="cm"># 1800  (by label)</span>
+<span class="fn">print</span>(revenue.<span class="fn">iloc</span>[0])       <span class="cm"># 2400  (by position)</span>
+
+<span class="cm"># DataFrame: several columns sharing an index</span>
+df = pd.<span class="fn">DataFrame</span>({
+    <span class="st">"city"</span>:    [<span class="st">"Casa"</span>, <span class="st">"Rabat"</span>, <span class="st">"Fes"</span>],
+    <span class="st">"orders"</span>:  [12, 9, 5],
+    <span class="st">"revenue"</span>: [2400, 1800, 900],
+})
+<span class="fn">print</span>(df.shape)             <span class="cm"># (3, 3)</span>
+<span class="fn">print</span>(df[<span class="st">"revenue"</span>].<span class="fn">sum</span>())   <span class="cm"># 5100</span>
+
+<span class="cm"># The index = a row's identity, not just numbering</span>
+df = df.<span class="fn">set_index</span>(<span class="st">"city"</span>)
+<span class="fn">print</span>(df.<span class="fn">loc</span>[<span class="st">"Casa"</span>, <span class="st">"revenue"</span>])   <span class="cm"># 2400</span>` },
         quiz: {
             q: {
                 ar: "ما الفرق بين <code>df[\"revenue\"]</code> و<code>df[[\"revenue\"]]</code>؟",
@@ -1813,7 +2047,7 @@ df = df.<span class="fn">set_index</span>(<span class="st">"city"</span>)
 <p>Load a sales file with <code>parse_dates</code>. Print <code>shape</code>, then <code>info()</code>, then <code>describe()</code>. From <code>value_counts()</code> on <code>category</code>: which category is most frequent? And is there a column whose non-null count is below the row count?</p>
 `
         },
-        code: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+        code: { ar: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
 
 df = pd.<span class="fn">read_csv</span>(
     <span class="st">"sales.csv"</span>,
@@ -1833,7 +2067,27 @@ df.<span class="fn">info</span>()
 <span class="fn">print</span>(df.<span class="fn">describe</span>())                       <span class="cm"># ملخّص الأعمدة الرقمية</span>
 <span class="fn">print</span>(df[<span class="st">"city"</span>].<span class="fn">value_counts</span>(normalize=<span class="kw">True</span>))
 <span class="cm"># Casablanca    0.41</span>
-<span class="cm"># Rabat         0.23</span>`,
+<span class="cm"># Rabat         0.23</span>`, en: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+df = pd.<span class="fn">read_csv</span>(
+    <span class="st">"sales.csv"</span>,
+    parse_dates=[<span class="st">"order_date"</span>],   <span class="cm"># text ← a real date type</span>
+    encoding=<span class="st">"utf-8"</span>,
+)
+
+<span class="fn">print</span>(df.shape)          <span class="cm"># (5000, 6)</span>
+<span class="fn">print</span>(df.<span class="fn">head</span>(3))
+
+df.<span class="fn">info</span>()
+<span class="cm"># order_date    5000 non-null   datetime64[ns]</span>
+<span class="cm"># city          5000 non-null   object</span>
+<span class="cm"># category      4980 non-null   object      ← 20 missing values</span>
+<span class="cm"># unit_price    5000 non-null   float64</span>
+
+<span class="fn">print</span>(df.<span class="fn">describe</span>())                       <span class="cm"># a summary of the numeric columns</span>
+<span class="fn">print</span>(df[<span class="st">"city"</span>].<span class="fn">value_counts</span>(normalize=<span class="kw">True</span>))
+<span class="cm"># Casablanca    0.41</span>
+<span class="cm"># Rabat         0.23</span>` },
         quiz: {
             q: {
                 ar: "في مخرجات <code>df.info()</code> ظهر عمود <code>unit_price</code> بنوع <code>object</code> بدل <code>float64</code>. ماذا يعني ذلك غالباً؟",
@@ -1956,7 +2210,7 @@ df.<span class="fn">info</span>()
 <p>From the sales table: (1) the first 10 rows with only <code>city</code> and <code>unit_price</code>, (2) orders where <code>quantity &gt;= 5</code> <strong>and</strong> <code>city</code> is in {Casa, Rabat}, (3) the same result via <code>query</code>.</p>
 `
         },
-        code: `<span class="cm"># بالموضع مقابل التسمية</span>
+        code: { ar: `<span class="cm"># بالموضع مقابل التسمية</span>
 <span class="fn">print</span>(df.<span class="fn">iloc</span>[0:3])        <span class="cm"># أول 3 صفوف (نهاية غير شاملة)</span>
 <span class="fn">print</span>(df.<span class="fn">loc</span>[0:3])         <span class="cm"># الفهارس 0..3 = 4 صفوف (شامل)</span>
 <span class="fn">print</span>(df.<span class="fn">iloc</span>[:5, [1, 2]])  <span class="cm"># أول 5 صفوف، العمودان 1 و2</span>
@@ -1973,7 +2227,24 @@ threshold = 5
 big2 = df.<span class="fn">query</span>(<span class="st">"quantity &gt;= @threshold and city in ['Casablanca', 'Rabat']"</span>)
 
 <span class="cm"># تعيين مشروط: صياغة loc واحدة (لا تسلسل)</span>
-df.<span class="fn">loc</span>[df[<span class="st">"quantity"</span>] == 0, <span class="st">"unit_price"</span>] = 0.0`,
+df.<span class="fn">loc</span>[df[<span class="st">"quantity"</span>] == 0, <span class="st">"unit_price"</span>] = 0.0`, en: `<span class="cm"># By position vs. by label</span>
+<span class="fn">print</span>(df.<span class="fn">iloc</span>[0:3])        <span class="cm"># the first 3 rows (end excluded)</span>
+<span class="fn">print</span>(df.<span class="fn">loc</span>[0:3])         <span class="cm"># indices 0..3 = 4 rows (inclusive)</span>
+<span class="fn">print</span>(df.<span class="fn">iloc</span>[:5, [1, 2]])  <span class="cm"># the first 5 rows, columns 1 and 2</span>
+
+<span class="cm"># Boolean filtering + selecting columns together</span>
+big = df.<span class="fn">loc</span>[
+    (df[<span class="st">"quantity"</span>] &gt;= 5) &amp; (df[<span class="st">"city"</span>].<span class="fn">isin</span>([<span class="st">"Casablanca"</span>, <span class="st">"Rabat"</span>])),
+    [<span class="st">"order_id"</span>, <span class="st">"city"</span>, <span class="st">"quantity"</span>],
+]
+<span class="fn">print</span>(big.<span class="fn">head</span>())
+
+<span class="cm"># The same thing with query — shorter</span>
+threshold = 5
+big2 = df.<span class="fn">query</span>(<span class="st">"quantity &gt;= @threshold and city in ['Casablanca', 'Rabat']"</span>)
+
+<span class="cm"># Conditional assignment: a single loc statement (no chaining)</span>
+df.<span class="fn">loc</span>[df[<span class="st">"quantity"</span>] == 0, <span class="st">"unit_price"</span>] = 0.0` },
         quiz: {
             q: {
                 ar: "<code>df.loc[2:5]</code> و<code>df.iloc[2:5]</code> على جدول بفهرس افتراضي (0، 1، 2…). كم صفّاً يُرجع كلٌّ منهما؟",
@@ -2096,7 +2367,7 @@ df.<span class="fn">loc</span>[df[<span class="st">"quantity"</span>] == 0, <spa
 <p>Add: (1) <code>revenue = quantity * unit_price</code> vectorized, (2) <code>month</code> from <code>order_date.dt.month</code>, (3) <code>size</code> via <code>pd.cut</code> on <code>revenue</code> at 100 and 500, (4) a <code>review</code> column true when <code>quantity &gt; 20</code> and <code>revenue &gt; 1000</code>. Measure which one actually needed <code>apply</code>.</p>
 `
         },
-        code: `<span class="cm"># 1) عملية متّجهة — الأسرع والأوضح</span>
+        code: { ar: `<span class="cm"># 1) عملية متّجهة — الأسرع والأوضح</span>
 df[<span class="st">"revenue"</span>] = df[<span class="st">"quantity"</span>] * df[<span class="st">"unit_price"</span>]
 
 <span class="cm"># 2) map: قاموس تبديل على عمود</span>
@@ -2118,7 +2389,29 @@ df[<span class="st">"size"</span>] = pd.<span class="fn">cut</span>(
 df[<span class="st">"review"</span>] = df.<span class="fn">apply</span>(needs_review, axis=1)
 
 <span class="cm"># نفس المنطق متّجهاً — أسرع بكثير، فضّله</span>
-df[<span class="st">"review"</span>] = (df[<span class="st">"quantity"</span>] &gt; 20) &amp; (df[<span class="st">"revenue"</span>] &gt; 1000)`,
+df[<span class="st">"review"</span>] = (df[<span class="st">"quantity"</span>] &gt; 20) &amp; (df[<span class="st">"revenue"</span>] &gt; 1000)`, en: `<span class="cm"># 1) A vectorized operation — the fastest and clearest</span>
+df[<span class="st">"revenue"</span>] = df[<span class="st">"quantity"</span>] * df[<span class="st">"unit_price"</span>]
+
+<span class="cm"># 2) map: a lookup dict applied to a column</span>
+df[<span class="st">"region"</span>] = df[<span class="st">"city"</span>].<span class="fn">map</span>({
+    <span class="st">"Casablanca"</span>: <span class="st">"Center"</span>, <span class="st">"Rabat"</span>: <span class="st">"North"</span>, <span class="st">"Fes"</span>: <span class="st">"Center"</span>,
+})
+
+<span class="cm"># 3) pd.cut: a number ← ordered categories</span>
+df[<span class="st">"size"</span>] = pd.<span class="fn">cut</span>(
+    df[<span class="st">"revenue"</span>],
+    bins=[0, 100, 500, <span class="fn">float</span>(<span class="st">"inf"</span>)],
+    labels=[<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>],
+)
+
+<span class="cm"># 4) apply(axis=1): only when you need several columns in one piece of logic</span>
+<span class="kw">def</span> <span class="fn">needs_review</span>(row):
+    <span class="kw">return</span> row[<span class="st">"quantity"</span>] &gt; 20 <span class="kw">and</span> row[<span class="st">"revenue"</span>] &gt; 1000
+
+df[<span class="st">"review"</span>] = df.<span class="fn">apply</span>(needs_review, axis=1)
+
+<span class="cm"># The same logic, vectorized — much faster, prefer it</span>
+df[<span class="st">"review"</span>] = (df[<span class="st">"quantity"</span>] &gt; 20) &amp; (df[<span class="st">"revenue"</span>] &gt; 1000)` },
         quiz: {
             q: {
                 ar: "تريد عمود <code>total = price * quantity</code> لمليون صفّ. أي طريقة أسرع بفارق كبير؟",
@@ -2241,7 +2534,7 @@ df[<span class="st">"review"</span>] = (df[<span class="st">"quantity"</span>] &
 <p>From the sales table: (1) the 5 most expensive orders via <code>nlargest</code>, (2) sort by city ascending then revenue descending, (3) the whole highest-revenue order row via <code>idxmax</code>, (4) add a <code>revenue_rank</code> column with <code>rank</code> descending, method <code>dense</code>.</p>
 `
         },
-        code: `<span class="cm"># ترتيب بمفتاحين: مدينة تصاعدياً، ثم إيراد تنازلياً داخلها</span>
+        code: { ar: `<span class="cm"># ترتيب بمفتاحين: مدينة تصاعدياً، ثم إيراد تنازلياً داخلها</span>
 ranked = df.<span class="fn">sort_values</span>(
     [<span class="st">"city"</span>, <span class="st">"revenue"</span>],
     ascending=[<span class="kw">True</span>, <span class="kw">False</span>],
@@ -2256,7 +2549,22 @@ best = df.<span class="fn">loc</span>[df[<span class="st">"revenue"</span>].<spa
 
 <span class="cm"># الرتبة دون تحريك الصفوف</span>
 df[<span class="st">"revenue_rank"</span>] = df[<span class="st">"revenue"</span>].<span class="fn">rank</span>(ascending=<span class="kw">False</span>, method=<span class="st">"dense"</span>)
-<span class="fn">print</span>(df[[<span class="st">"order_id"</span>, <span class="st">"revenue"</span>, <span class="st">"revenue_rank"</span>]].<span class="fn">head</span>())`,
+<span class="fn">print</span>(df[[<span class="st">"order_id"</span>, <span class="st">"revenue"</span>, <span class="st">"revenue_rank"</span>]].<span class="fn">head</span>())`, en: `<span class="cm"># Sorting by two keys: city ascending, then revenue descending within it</span>
+ranked = df.<span class="fn">sort_values</span>(
+    [<span class="st">"city"</span>, <span class="st">"revenue"</span>],
+    ascending=[<span class="kw">True</span>, <span class="kw">False</span>],
+).<span class="fn">reset_index</span>(drop=<span class="kw">True</span>)
+
+<span class="cm"># The top 5 orders — without sorting the whole table</span>
+top5 = df.<span class="fn">nlargest</span>(5, <span class="st">"revenue"</span>)
+
+<span class="cm"># The row with the highest revenue (idxmax gives the index, not the value)</span>
+best = df.<span class="fn">loc</span>[df[<span class="st">"revenue"</span>].<span class="fn">idxmax</span>()]
+<span class="fn">print</span>(best[<span class="st">"city"</span>], best[<span class="st">"revenue"</span>])
+
+<span class="cm"># Ranking without moving the rows</span>
+df[<span class="st">"revenue_rank"</span>] = df[<span class="st">"revenue"</span>].<span class="fn">rank</span>(ascending=<span class="kw">False</span>, method=<span class="st">"dense"</span>)
+<span class="fn">print</span>(df[[<span class="st">"order_id"</span>, <span class="st">"revenue"</span>, <span class="st">"revenue_rank"</span>]].<span class="fn">head</span>())` },
         quiz: {
             q: {
                 ar: "تريد «أغلى 20 طلباً» من جدول فيه مليونا صفّ. أي خيار الأنسب؟",
@@ -2387,7 +2695,7 @@ df[<span class="st">"revenue_rank"</span>] = df[<span class="st">"revenue"</span
 <p>From the sales table: (1) total <code>revenue</code> per <code>city</code> sorted descending, (2) an <code>agg</code> table per <code>category</code>: order count, mean revenue and max revenue, (3) a <code>city_share</code> column = each order's share of its city's total via <code>transform</code>.</p>
 `
         },
-        code: `<span class="cm"># split-apply-combine الأساسي</span>
+        code: { ar: `<span class="cm"># split-apply-combine الأساسي</span>
 by_city = df.<span class="fn">groupby</span>(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="fn">sum</span>().<span class="fn">sort_values</span>(ascending=<span class="kw">False</span>)
 <span class="fn">print</span>(by_city.<span class="fn">head</span>())
 
@@ -2404,7 +2712,24 @@ pivot = df.<span class="fn">groupby</span>([<span class="st">"city"</span>, <spa
 
 <span class="cm"># transform: إجمالي المدينة بجانب كل صفّ ← حصّة الطلب</span>
 df[<span class="st">"city_total"</span>] = df.<span class="fn">groupby</span>(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="fn">transform</span>(<span class="st">"sum"</span>)
-df[<span class="st">"city_share"</span>] = df[<span class="st">"revenue"</span>] / df[<span class="st">"city_total"</span>]`,
+df[<span class="st">"city_share"</span>] = df[<span class="st">"revenue"</span>] / df[<span class="st">"city_total"</span>]`, en: `<span class="cm"># The basic split-apply-combine</span>
+by_city = df.<span class="fn">groupby</span>(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="fn">sum</span>().<span class="fn">sort_values</span>(ascending=<span class="kw">False</span>)
+<span class="fn">print</span>(by_city.<span class="fn">head</span>())
+
+<span class="cm"># Several stats in one report-ready table</span>
+summary = df.<span class="fn">groupby</span>(<span class="st">"category"</span>, as_index=<span class="kw">False</span>).<span class="fn">agg</span>(
+    orders=(<span class="st">"order_id"</span>, <span class="st">"count"</span>),
+    total_revenue=(<span class="st">"revenue"</span>, <span class="st">"sum"</span>),
+    avg_revenue=(<span class="st">"revenue"</span>, <span class="st">"mean"</span>),
+)
+<span class="fn">print</span>(summary)
+
+<span class="cm"># Grouping by two keys + turning it into a pivot table</span>
+pivot = df.<span class="fn">groupby</span>([<span class="st">"city"</span>, <span class="st">"category"</span>])[<span class="st">"revenue"</span>].<span class="fn">sum</span>().<span class="fn">unstack</span>(fill_value=0)
+
+<span class="cm"># transform: the city's total next to every row ← the order's share</span>
+df[<span class="st">"city_total"</span>] = df.<span class="fn">groupby</span>(<span class="st">"city"</span>)[<span class="st">"revenue"</span>].<span class="fn">transform</span>(<span class="st">"sum"</span>)
+df[<span class="st">"city_share"</span>] = df[<span class="st">"revenue"</span>] / df[<span class="st">"city_total"</span>]` },
         quiz: {
             q: {
                 ar: "<code>df.groupby(\"city\")[\"order_id\"].count()</code> مقابل <code>df.groupby(\"city\").size()</code> — متى يختلف الرقمان؟",
@@ -2531,7 +2856,7 @@ df[<span class="st">"city_share"</span>] = df[<span class="st">"revenue"</span>]
 <p>You have <code>orders</code> (with <code>product_id</code>) and <code>products</code> (with <code>product_id</code> and <code>cost</code>). (1) join with <code>left</code> and validate <code>many_to_one</code>, (2) add a profit column = <code>revenue - cost * quantity</code>, (3) stack two months' order files with <code>concat</code> and confirm the row count equals the sum of the two.</p>
 `
         },
-        code: `orders = pd.<span class="fn">DataFrame</span>({
+        code: { ar: `orders = pd.<span class="fn">DataFrame</span>({
     <span class="st">"order_id"</span>:    [1, 2, 3, 4],
     <span class="st">"customer_id"</span>: [10, 11, 10, 99],
     <span class="st">"revenue"</span>:     [240, 180, 300, 90],
@@ -2553,7 +2878,29 @@ merged = orders.<span class="fn">merge</span>(
 <span class="cm"># 3         4         NaN  left_only</span>
 
 <span class="cm"># تكديس ملفّين شهريين فوق بعضهما</span>
-all_q1 = pd.<span class="fn">concat</span>([jan_df, feb_df, mar_df], ignore_index=<span class="kw">True</span>)`,
+all_q1 = pd.<span class="fn">concat</span>([jan_df, feb_df, mar_df], ignore_index=<span class="kw">True</span>)`, en: `orders = pd.<span class="fn">DataFrame</span>({
+    <span class="st">"order_id"</span>:    [1, 2, 3, 4],
+    <span class="st">"customer_id"</span>: [10, 11, 10, 99],
+    <span class="st">"revenue"</span>:     [240, 180, 300, 90],
+})
+customers = pd.<span class="fn">DataFrame</span>({
+    <span class="st">"customer_id"</span>: [10, 11, 12],
+    <span class="st">"city"</span>:        [<span class="st">"Casablanca"</span>, <span class="st">"Rabat"</span>, <span class="st">"Fes"</span>],
+})
+
+<span class="cm"># left: keep every order; order 4 (customer 99) has no city ← NaN</span>
+merged = orders.<span class="fn">merge</span>(
+    customers, on=<span class="st">"customer_id"</span>, how=<span class="st">"left"</span>,
+    validate=<span class="st">"many_to_one"</span>,   <span class="cm"># errors if customer_id repeats in customers</span>
+    indicator=<span class="kw">True</span>,
+)
+<span class="fn">print</span>(merged[[<span class="st">"order_id"</span>, <span class="st">"city"</span>, <span class="st">"_merge"</span>]])
+<span class="cm">#    order_id        city     _merge</span>
+<span class="cm"># 0         1  Casablanca       both</span>
+<span class="cm"># 3         4         NaN  left_only</span>
+
+<span class="cm"># Stacking monthly files on top of each other</span>
+all_q1 = pd.<span class="fn">concat</span>([jan_df, feb_df, mar_df], ignore_index=<span class="kw">True</span>)` },
         quiz: {
             q: {
                 ar: "جدول <code>orders</code> فيه 100 صفّ. بعد <code>orders.merge(customers, on=\"customer_id\", how=\"inner\")</code> صار 87 صفاً. ما التفسير الأرجح؟",
@@ -2684,7 +3031,7 @@ all_q1 = pd.<span class="fn">concat</span>([jan_df, feb_df, mar_df], ignore_inde
 <p>Extend the report: (1) add "best category per city" via <code>groupby(["city", "category"])</code> then <code>idxmax</code> on the level, (2) compute the share of orders with <code>quantity == 1</code> per city, (3) export the summary table to <code>report.csv</code> with <code>to_csv</code>.</p>
 `
         },
-        code: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+        code: { ar: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
 
 <span class="cm"># 1) تحميل + فحص</span>
 df = pd.<span class="fn">read_csv</span>(<span class="st">"sales.csv"</span>, parse_dates=[<span class="st">"order_date"</span>])
@@ -2721,7 +3068,44 @@ report = df.<span class="fn">groupby</span>(<span class="st">"city"</span>).<spa
     revenue=(<span class="st">"revenue"</span>, <span class="st">"sum"</span>),
     aov=(<span class="st">"revenue"</span>, <span class="st">"mean"</span>),
 ).<span class="fn">round</span>(2)
-<span class="fn">print</span>(report)`,
+<span class="fn">print</span>(report)`, en: `<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># 1) Load + inspect</span>
+df = pd.<span class="fn">read_csv</span>(<span class="st">"sales.csv"</span>, parse_dates=[<span class="st">"order_date"</span>])
+df = df[df[<span class="st">"quantity"</span>] &gt; 0].<span class="fn">copy</span>()          <span class="cm"># knowingly excluding corrupted rows</span>
+
+<span class="cm"># 2) Derived columns</span>
+df[<span class="st">"revenue"</span>] = df[<span class="st">"quantity"</span>] * df[<span class="st">"unit_price"</span>]
+df[<span class="st">"month"</span>] = df[<span class="st">"order_date"</span>].dt.<span class="fn">to_period</span>(<span class="st">"M"</span>)
+
+<span class="cm"># 3) Monthly trend</span>
+monthly = df.<span class="fn">groupby</span>(<span class="st">"month"</span>)[<span class="st">"revenue"</span>].<span class="fn">sum</span>()
+<span class="fn">print</span>(monthly.<span class="fn">pct_change</span>().<span class="fn">round</span>(3))          <span class="cm"># month-over-month percent change</span>
+
+<span class="cm"># 4) Top 5 cities</span>
+top_cities = (
+    df.<span class="fn">groupby</span>(<span class="st">"city"</span>, as_index=<span class="kw">False</span>)[<span class="st">"revenue"</span>].<span class="fn">sum</span>()
+      .<span class="fn">nlargest</span>(5, <span class="st">"revenue"</span>)
+)
+
+<span class="cm"># 5) Merge with category margins ← profit</span>
+categories = pd.<span class="fn">DataFrame</span>({
+    <span class="st">"category"</span>:   [<span class="st">"food"</span>, <span class="st">"electronics"</span>, <span class="st">"clothing"</span>],
+    <span class="st">"margin_pct"</span>: [0.15, 0.30, 0.45],
+})
+df = df.<span class="fn">merge</span>(categories, on=<span class="st">"category"</span>, how=<span class="st">"left"</span>, validate=<span class="st">"many_to_one"</span>)
+df[<span class="st">"profit"</span>] = df[<span class="st">"revenue"</span>] * df[<span class="st">"margin_pct"</span>]
+
+by_profit = df.<span class="fn">groupby</span>(<span class="st">"category"</span>)[<span class="st">"profit"</span>].<span class="fn">sum</span>().<span class="fn">sort_values</span>(ascending=<span class="kw">False</span>)
+<span class="fn">print</span>(by_profit)          <span class="cm"># its order may differ from the revenue order</span>
+
+<span class="cm"># 6) Average order value per city</span>
+report = df.<span class="fn">groupby</span>(<span class="st">"city"</span>).<span class="fn">agg</span>(
+    orders=(<span class="st">"order_id"</span>, <span class="st">"count"</span>),
+    revenue=(<span class="st">"revenue"</span>, <span class="st">"sum"</span>),
+    aov=(<span class="st">"revenue"</span>, <span class="st">"mean"</span>),
+).<span class="fn">round</span>(2)
+<span class="fn">print</span>(report)` },
         quiz: {
             q: {
                 ar: "في المشروع، رتّبت المدن حسب <code>revenue</code> ثم حسب <code>profit</code> (بعد الدمج مع الهوامش) فاختلف الترتيب. ما التفسير؟",
