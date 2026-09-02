@@ -6,17 +6,17 @@
     <lastmod>2026-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/ar/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/"/>
   </url>
   <url>
-    <loc>https://koudna.com/en/</loc>
+    <loc>https://koudna.com/ar/</loc>
     <lastmod>2026-09-02</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/"/>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/ar/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/"/>
   </url>
   <url>
@@ -24,17 +24,17 @@
     <lastmod>2026-09-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/ar/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/privacy.html"/>
   </url>
   <url>
-    <loc>https://koudna.com/en/privacy.html</loc>
+    <loc>https://koudna.com/ar/privacy.html</loc>
     <lastmod>2026-09-02</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/privacy.html"/>
+    <priority>0.25</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/ar/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/privacy.html"/>
   </url>
   <url>
@@ -42,17 +42,17 @@
     <lastmod>2026-09-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/ar/contact.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/contact.html"/>
   </url>
   <url>
-    <loc>https://koudna.com/en/contact.html</loc>
+    <loc>https://koudna.com/ar/contact.html</loc>
     <lastmod>2026-09-02</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/en/contact.html"/>
+    <priority>0.35</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koudna.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://koudna.com/ar/contact.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://koudna.com/contact.html"/>
   </url>
 </urlset>

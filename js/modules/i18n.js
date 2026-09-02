@@ -5,20 +5,21 @@ import { translations } from "../data.js";
 import { renderAccountNav } from "./account-modal.js";
 import { refreshAllCourseCards } from "./course-card-sync.js";
 
-export let currentLang = localStorage.getItem("kodna-lang") || "ar";
+export let currentLang = localStorage.getItem("kodna-lang") || "en";
 
 export function t(key) {
     return translations[currentLang][key] || key;
 }
 
 /* Given a target language, compute the URL of *this same page* under
-   that language's /en prefix (or without it for Arabic). Keeps language
-   and URL in sync so /en/... stays a real, crawlable, shareable page. */
+   that language's /ar prefix (or without it for English, the default).
+   Keeps language and URL in sync so /ar/... stays a real, crawlable,
+   shareable page. */
 function urlForLang(targetLang) {
     const path = location.pathname;
-    const inEn = /^\/en(\/|$)/.test(path);
-    const rest = path.replace(/^\/en/, "") || "/";
-    if (targetLang === "en") return inEn ? path : "/en" + rest;
+    const inAr = /^\/ar(\/|$)/.test(path);
+    const rest = path.replace(/^\/ar/, "") || "/";
+    if (targetLang === "ar") return inAr ? path : "/ar" + rest;
     return rest;
 }
 

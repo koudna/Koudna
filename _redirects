@@ -1,0 +1,7 @@
+# /en/ was live for a short window before English became the site default at "/".
+# Forward any stray traffic/links to the equivalent page (now unprefixed).
+/en/           /              301
+/en/index.html /              301
+/en/contact.html /contact.html 301
+/en/privacy.html  /privacy.html 301
+/en/*          /              301

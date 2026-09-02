@@ -62,7 +62,7 @@ export const dataLessons = [
 
 <h3>Data vs. information</h3>
 
-<p><strong>Data</strong> is recorded values as-is: "Order 1042, Casablanca, 240 MAD." <strong>Information</strong> is a pattern extracted from it: "60% of orders come from just three cities." Your job is the bridge between the two.</p>
+<p><strong>Data</strong> is recorded values as-is: "Order 1042, Casablanca, $240." <strong>Information</strong> is a pattern extracted from it: "60% of orders come from just three cities." Your job is the bridge between the two.</p>
 
 <h3>The steps of any analysis</h3>
 
@@ -470,7 +470,7 @@ total_revenue = <span class="fn">sum</span>(o[<span class="st">"total"</span>] <
 
 <h3>f-string: text with values in it</h3>
 
-<p>Start the string with <code>f</code> and put variables in curly braces: <code>f"City {city}: {revenue} MAD"</code>. To control decimals: <code>f"{ratio:.1%}"</code> shows a percentage with one decimal, and <code>f"{price:,.0f}"</code> adds a thousands separator.</p>
+<p>Start the string with <code>f</code> and put variables in curly braces: <code>f"City {city}: \${revenue}"</code>. To control decimals: <code>f"{ratio:.1%}"</code> shows a percentage with one decimal, and <code>f"{price:,.0f}"</code> adds a thousands separator.</p>
 
 <h3>Common mistakes</h3>
 
@@ -490,7 +490,7 @@ total_revenue = <span class="fn">sum</span>(o[<span class="st">"total"</span>] <
 
 <h3>Exercise</h3>
 
-<p>You have a list of sales dictionaries, each with <code>city</code> and <code>amount</code>. Write a function <code>revenue_by_city(sales)</code> that returns a dictionary: city &rarr; total sales. Then print each line as <code>f"{city}: {total:,.0f} MAD"</code>.</p>
+<p>You have a list of sales dictionaries, each with <code>city</code> and <code>amount</code>. Write a function <code>revenue_by_city(sales)</code> that returns a dictionary: city &rarr; total sales. Then print each line as <code>f"{city}: \${total:,.0f}"</code>.</p>
 `
         },
         code: { ar: `sales = [
@@ -529,9 +529,9 @@ result = <span class="fn">revenue_by_city</span>(sales)
 result = <span class="fn">revenue_by_city</span>(sales)
 
 <span class="kw">for</span> city, total <span class="kw">in</span> result.<span class="fn">items</span>():
-    <span class="fn">print</span>(<span class="st">f"{city}: {total:,.0f} MAD"</span>)
-<span class="cm"># Casablanca: 5,500 MAD</span>
-<span class="cm"># Rabat: 1,800 MAD</span>` },
+    <span class="fn">print</span>(<span class="st">f"{city}: \${total:,.0f}"</span>)
+<span class="cm"># Casablanca: $5,500</span>
+<span class="cm"># Rabat: $1,800</span>` },
         quiz: {
             q: {
                 ar: "ماذا تطبع الجملة <code>print(\"القيمة {x}\")</code> إذا كانت x = 5؟",
@@ -834,8 +834,8 @@ ratings.<span class="fn">sort</span>(key=<span class="kw">lambda</span> r: order
         <span class="fn">print</span>(<span class="st">"No data"</span>); <span class="kw">return</span>
     grand = <span class="fn">total</span>(items)
     days = <span class="fn">len</span>({e[<span class="st">"date"</span>] <span class="kw">for</span> e <span class="kw">in</span> items})   <span class="cm"># distinct days</span>
-    <span class="fn">print</span>(<span class="st">f"Total: {grand:,.0f} MAD over {days} days"</span>)
-    <span class="fn">print</span>(<span class="st">f"Daily average: {grand / days:,.0f} MAD"</span>)
+    <span class="fn">print</span>(<span class="st">f"Total: \${grand:,.0f} over {days} days"</span>)
+    <span class="fn">print</span>(<span class="st">f"Daily average: \${grand / days:,.0f}"</span>)
     <span class="kw">for</span> cat, amt <span class="kw">in</span> <span class="fn">sorted</span>(<span class="fn">by_category</span>(items).<span class="fn">items</span>(), key=<span class="kw">lambda</span> x: -x[1]):
         <span class="fn">print</span>(<span class="st">f"  {cat}: {amt:,.0f} ({amt / grand:.1%})"</span>)
 
@@ -2110,7 +2110,7 @@ df.<span class="fn">info</span>()
             correct: 1,
             explanation: {
                 ar: "حين يعجز Pandas عن تحويل كل قيم العمود إلى رقم، يُبقيه نصّاً (<code>object</code>). السبب المعتاد قيمة مثل \"1,200\" أو \"MAD 50\" أو \"-\". العلاج: تنظيف تلك القيم بـ <code>.str.replace</code> ثم <code>pd.to_numeric</code>.",
-                en: "When Pandas can't convert every value in a column to a number, it keeps it as text (<code>object</code>). The usual cause is a value like \"1,200\" or \"MAD 50\" or \"-\". The fix: clean those with <code>.str.replace</code> then <code>pd.to_numeric</code>."
+                en: "When Pandas can't convert every value in a column to a number, it keeps it as text (<code>object</code>). The usual cause is a value like \"1,200\" or \"$50\" or \"-\". The fix: clean those with <code>.str.replace</code> then <code>pd.to_numeric</code>."
             }
         }
     },

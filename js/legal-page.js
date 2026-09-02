@@ -47,7 +47,7 @@ const dict = {
         privacyH2_7: "7. تحديثات السياسة",
         privacyP7: "قد نقوم بتعديل هذه الصفحة من وقت لآخر. سيظهر أي تغيير مهم هنا مع تاريخ التحديث الجديد.",
         privacyH2_8: "8. تواصل معنا",
-        privacyP8: 'لديك سؤال حول الخصوصية؟ راسلنا على <a href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>، أو قم بزيارة <a href="/contact.html">صفحة تواصل معنا</a>.',
+        privacyP8: 'لديك سؤال حول الخصوصية؟ راسلنا على <a href="mailto:abdelilahbougtib@icloud.com">abdelilahbougtib@icloud.com</a>، أو قم بزيارة <a href="/ar/contact.html">صفحة تواصل معنا</a>.',
     },
     en: {
         /* shared chrome */
@@ -96,22 +96,22 @@ const dict = {
 
 function readLang() {
     try {
-        const inEn = /^\/en(\/|$)/.test(location.pathname);
-        if (inEn) return "en";
+        const inAr = /^\/ar(\/|$)/.test(location.pathname);
+        if (inAr) return "ar";
         const v = localStorage.getItem("kodna-lang");
-        return v === "en" || v === "ar" ? v : "ar";
+        return v === "en" || v === "ar" ? v : "en";
     } catch {
-        return "ar";
+        return "en";
     }
 }
 
 /* Given a target language, compute the URL of *this same page* under
-   that language's /en prefix (or without it for Arabic). */
+   that language's /ar prefix (or without it for English, the default). */
 function urlForLang(targetLang) {
     const path = location.pathname;
-    const inEn = /^\/en(\/|$)/.test(path);
-    const rest = path.replace(/^\/en/, "") || "/";
-    if (targetLang === "en") return inEn ? path : "/en" + rest;
+    const inAr = /^\/ar(\/|$)/.test(path);
+    const rest = path.replace(/^\/ar/, "") || "/";
+    if (targetLang === "ar") return inAr ? path : "/ar" + rest;
     return rest;
 }
 
@@ -135,7 +135,7 @@ function applyLang(lang) {
         if (span) span.textContent = lang === "ar" ? "EN" : "AR";
     }
 
-    const homeHref = lang === "en" ? "/en/" : "/";
+    const homeHref = lang === "ar" ? "/ar/" : "/";
     document.getElementById("contactLogoLink")?.setAttribute("href", homeHref);
     document.getElementById("legalBackLink")?.setAttribute("href", homeHref);
 
